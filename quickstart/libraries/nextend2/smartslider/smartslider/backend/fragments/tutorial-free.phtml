@@ -1,0 +1,20 @@
+<?php
+if (!N2Base::getApplication('smartslider')->storage->get('tutorial', 'free')):
+    ?>
+    <div id="n2-ss32-content-mode-tutorial">
+    <div class="n2-ss-tutorial-container">
+        <div class="n2-ss-tutorial-left">
+            <a href="https://smartslider3.com/videos/freetutorial" target="_blank">
+                <img src="<?php echo N2ImageHelper::fixed('$ss$/admin/images/free/gettingstarted.png'); ?>" style="width:400px;height:220px;max-width:none;"/>
+            </a>
+        </div>
+        <div class="n2-ss-tutorial-right">
+            <div class="n2-h1">Learn Smart Slider 3</div>
+            <p>We've created a simple tutorial video to guide you through the basic steps of making your first slider. Good luck with the sliders!</p>
+
+            <a href="https://smartslider3.com/videos/freetutorial" class="n2-button n2-button-normal n2-button-green n2-button-l n2-h4 n2-b n2-uc n2-radius-s" target="_blank">Watch now</a><a onclick="N2Classes.AjaxHelper.ajax({url: N2Classes.AjaxHelper.makeAjaxUrl('<?php echo $appType->router->createAjaxUrl(array('settings/hideTutorialFree')); ?>')});N2Classes.$('#n2-ss32-content-mode-tutorial').remove(); return false;" href="#" class="n2-button n2-button-normal n2-button-grey n2-button-l n2-h4 n2-b n2-uc n2-radius-s" target="_blank">Close</a>
+        </div>
+    </div>
+</div>
+    <?php
+endif;

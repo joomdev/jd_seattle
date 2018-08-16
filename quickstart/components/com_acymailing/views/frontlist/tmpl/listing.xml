@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<layout title="Front-end list management">
+		<message>Access the front-end list management</message>
+	</layout>
+	<state>
+		<name>Front-end list management</name>
+	</state>
+</metadata>

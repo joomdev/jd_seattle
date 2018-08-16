@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<extension type="plugin" version="2.5" method="upgrade" group="acymailing">
+	<name>AcyMailing Tag : content insertion</name>
+	<creationDate>September 2009</creationDate>
+	<version>3.7.0</version>
+	<author>Acyba</author>
+	<authorEmail>dev@acyba.com</authorEmail>
+	<authorUrl>http://www.acyba.com</authorUrl>
+	<copyright>Copyright (C) 2009-2018 ACYBA SAS - All rights reserved..</copyright>
+	<license>GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html</license>
+	<description>This AcyMailing plugin enables you to include Joomla Articles in any e-mail sent by AcyMailing</description>
+	<files>
+		<filename plugin="tagcontent">tagcontent.php</filename>
+		<filename>tagcontent.xml</filename>
+	</files>
+	<params addpath="/components/com_acymailing/params">
+		<param name="help" type="help" label="Help" description="Click on the help button to get some help" default="plugin-tagcontent"/>
+		<param name="customtemplate" type="customtemplate" label="Custom template" description="Click on the Custom template button to create a custom layout that will override the default view" default="tagcontent"/>
+		<param name="displayart" type="radio" default="all" label="Display articles" description="Select if you want to display all articles in the popup for article selection or only published articles">
+			<option value="all">All articles</option>
+			<option value="onlypub">Only published articles</option>
+		</param>
+		<param name="contentaccess" type="radio" default="registered" label="Content Access" description="If you use the automatic article insertion (via the categories tab), AcyMailing will only include articles having the selected access in your Newsletter">
+			<option value="public">Public only</option>
+			<option value="registered">Public and Registered</option>
+			<option value="all">All</option>
+		</param>
+		<param name="frontendaccess" type="list" default="all" label="Front-end Access" description="Using AcyMailing Enterprise, you can restrict the access to this tag system">
+			<option value="all">Display all articles</option>
+			<option value="author">Display only author's articles</option>
+			<option value="none">Don't display this tag system on the front-end</option>
+		</param>
+		<param name="metaselect" type="radio" default="0" label="Select articles by meta tags" description="Do you want to display an interface on the content category insertion to filter articles by meta tags? Meta tags must be separated by a comma.">
+			<option value="0">JOOMEXT_NO</option>
+			<option value="1">JOOMEXT_YES</option>
+		</param>
+		<param name="integration" type="radio" default="0" label="Act for another component" description="Some Joomla components use the content table to store their articles. This option enables you to make sure Acy will act for this third part component and not for the default Joomla content system" >
+			<option value="0">Joomla content</option>
+			<option value="jreviews">jReviews</option>
+			<option value="flexicontent">FlexiContent</option>
+			<option value="jaggyblog">JaggyBlog</option>
+		</param>
+		<param name="@spacer" type="spacer" default="" label="" description="" />
+		<param name="default_type" type="radio" default="intro" label="DISPLAY" description="FIELD_DEFAULT">
+			<option value="title">TITLE_ONLY</option>
+			<option value="intro">INTRO_ONLY</option>
+			<option value="text">FIELD_TEXT</option>
+			<option value="full">FULL_TEXT</option>
+		</param>
+		<param name="wordwrap" type="text" size="10" default="0" label="Intro Word Wrapping" description="If you insert only the introduction and you didn't insert the read more link, AcyMailing will only load the first XX characters of your content. If you specify 0, AcyMailing won't wrap your content" />
+		<param name="default_titlelink" type="radio" default="link" label="CLICKABLE_TITLE" description="FIELD_DEFAULT">
+			<option value="link">JOOMEXT_YES</option>
+			<option value="0">JOOMEXT_NO</option>
+		</param>
+		<param name="default_author" type="radio" default="0" label="AUTHOR_NAME" description="FIELD_DEFAULT">
+			<option value="author">JOOMEXT_YES</option>
+			<option value="0">JOOMEXT_NO</option>
+		</param>
+		<param name="default_pict" type="radio" default="1" label="DISPLAY_PICTURES" description="FIELD_DEFAULT">
+			<option value="1">JOOMEXT_YES</option>
+			<option value="resized">RESIZED</option>
+			<option value="0">JOOMEXT_NO</option>
+		</param>
+		<param name="maxwidth" type="text" size="10" default="150" label="Max picture width" description="FIELD_DEFAULT" />
+		<param name="maxheight" type="text" size="10" default="150" label="Max picture height" description="FIELD_DEFAULT" />
+
+	</params>
+	<config>
+		<fields name="params" addfieldpath="/components/com_acymailing/params">
+			<fieldset name="basic">
+				<field name="help" type="help" label="Help" description="Click on the help button to get some help" default="plugin-tagcontent"/>
+				<field name="customtemplate" type="customtemplate" label="Custom template" description="Click on the Custom template button to create a custom layout that will override the default view" default="tagcontent"/>
+				<field name="displayart" type="radio" default="all" label="Display articles" description="Select if you want to display all articles in the popup for article selection or only published articles">
+					<option value="all">All articles</option>
+					<option value="onlypub">Only published articles</option>
+				</field>
+				<field name="frontendaccess" type="list" default="all" label="Front-end Access" description="Using AcyMailing Enterprise, you can restrict the access to this tag system">
+					<option value="all">Display all articles</option>
+					<option value="author">Display only author's articles</option>
+					<option value="none">Don't display this tag system on the front-end</option>
+				</field>
+				<field name="metaselect" type="radio" default="0" label="Select articles by meta tags" description="Do you want to display an interface on the content category insertion to filter articles by meta tags? Meta tags must be separated by a comma.">
+					<option value="0">No</option>
+					<option value="1">Yes</option>
+				</field>
+				<field name="integration" type="radio" default="0" label="Act for another component" description="Some Joomla components use the content table to store their articles. This option enables you to make sure Acy will act for this third part component and not for the default Joomla content system" >
+					<option value="0">Joomla content</option>
+					<option value="jreviews">jReviews</option>
+					<option value="flexicontent">FlexiContent</option>
+					<option value="jaggyblog">JaggyBlog</option>
+				</field>
+				<field name="@spacer" type="spacer" default="" label="" description="" />
+				<field name="default_type" type="radio" default="intro" label="DISPLAY" description="FIELD_DEFAULT">
+					<option value="title">TITLE_ONLY</option>
+					<option value="intro">INTRO_ONLY</option>
+					<option value="text">FIELD_TEXT</option>
+					<option value="full">FULL_TEXT</option>
+				</field>
+				<field name="wordwrap" type="text" size="10" default="0" label="Intro Word Wrapping" description="If you insert only the introduction and you didn't insert the read more link, AcyMailing will only load the first XX characters of your content. If you specify 0, AcyMailing won't wrap your content" />
+				<field name="default_titlelink" type="radio" default="link" label="CLICKABLE_TITLE" description="FIELD_DEFAULT">
+					<option value="link">JOOMEXT_YES</option>
+					<option value="0">JOOMEXT_NO</option>
+				</field>
+				<field name="default_author" type="radio" default="" label="AUTHOR_NAME" description="FIELD_DEFAULT">
+					<option value="author">JOOMEXT_YES</option>
+					<option value="">JOOMEXT_NO</option>
+				</field>
+				<field name="default_pict" type="radio" default="1" label="DISPLAY_PICTURES" description="FIELD_DEFAULT">
+					<option value="1">JOOMEXT_YES</option>
+					<option value="resized">RESIZED</option>
+					<option value="0">JOOMEXT_NO</option>
+				</field>
+				<field name="maxwidth" type="text" size="10" default="150" label="Max picture width" description="FIELD_DEFAULT" />
+				<field name="maxheight" type="text" size="10" default="150" label="Max picture height" description="FIELD_DEFAULT" />
+			</fieldset>
+		</fields>
+	</config>
+</extension>
+

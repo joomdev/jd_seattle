@@ -1,0 +1,42 @@
+/**
+ * @package    AcyMailing for Joomla!
+ * @version    5.10.3
+ * @author     acyba.com
+ * @copyright  (C) 2009-2018 ACYBA S.A.R.L. All rights reserved.
+ * @license    GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
+ */
+
+@import url("module_default_shadow_black.css");
+
+
+
+
+
+.acysubbuttons input.button, .acysubbuttons .button, .acysubbuttons button.validate, .acymailing_mootoolsbutton a:link, .acymailing_mootoolsbutton a:visited  {
+color:#fff !important;
+background-color:#3A5B6C !important;
+background-image: linear-gradient(bottom, #3A5B6C 21%, #5A99AB 58%) !important;
+background-image: -o-linear-gradient(bottom, #3A5B6C 21%, #5A99AB 58%) !important;
+background-image: -moz-linear-gradient(bottom, #3A5B6C 21%, #5A99AB 58%) !important;
+background-image: -webkit-linear-gradient(bottom, #3A5B6C 21%, #5A99AB 58%) !important;
+background-image: -ms-linear-gradient(bottom, #3A5B6C 21%, #5A99AB 58%) !important;
+
+  background: -ms-linear-gradient(top, ellipse cover, #3A5B6C 0%, #5A99AB 100%);   background: radial-gradient(top, ellipse cover,#3A5B6C 0%, #5A99AB 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5a99ab', endColorstr='#3A5B6C',GradientType=0 ) !important; }
+
+.acysubbuttons input.button:hover, .acysubbuttons .button:hover, .acysubbuttons button.validate:hover, .acymailing_mootoolsbutton a:hover, .acymailing_mootoolsbutton a:active{
+color:#fff !important;
+background-color:#5A99AB !important;
+background-image: linear-gradient(bottom, #5A99AB 21%, #b3cfd7 58%) !important;
+background-image: -o-linear-gradient(bottom, #5A99AB 21%, #b3cfd7 58%) !important;
+background-image: -moz-linear-gradient(bottom, #5A99AB 21%, #b3cfd7 58%) !important;
+background-image: -webkit-linear-gradient(bottom, #5A99AB 21%, #b3cfd7 58%) !important;
+background-image: -ms-linear-gradient(bottom, #5A99AB 21%, #b3cfd7 58%) !important;
+
+  background: -ms-linear-gradient(top, ellipse cover, #5A99AB 0%, #b3cfd7100%);   background: radial-gradient(top, ellipse cover,#5A99AB 0%, #b3cfd7 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b3cfd7', endColorstr='#5A99AB',GradientType=0 ) !important; }
+
+.acymailing_module form a:hover, .acymailing_module form a:active, .acymailing_module form a:focus{
+	color:#5a99ab!important;
+	text-decoration:underline !important;
+	background-color:transparent !important;}

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="3.1" client="site" method="upgrade">
+   <name>Jd Team Showcase</name>
+   <author>JoomDev Team</author>
+   <creationDate>July 2018</creationDate>
+   <copyright>Copyright (C) 2005 - 2017 Open Source Matters. All rights reserved.</copyright>
+   <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+   <authorEmail>info@joomdev.com</authorEmail>
+   <authorUrl>www.joomdev.com</authorUrl>
+   <version>3.0.0</version>
+   <description>MOD_JD_TEAM_SHOW_CASE_XML_DESCRIPTION</description>
+   <files>
+      <filename module="mod_jd_team_show_case">mod_jd_team_show_case.php</filename>
+      <folder>tmpl</folder>
+      <folder>forms</folder>
+      <folder>assets</folder>
+      <filename>helper.php</filename>
+   </files>
+   <languages folder="language">
+      <language tag="en-GB">en-GB/en-GB.mod_jd_team_show_case.ini</language>
+      <language tag="en-GB">en-GB/en-GB.mod_jd_team_show_case.sys.ini</language>
+   </languages>
+   <config>
+      <fields name="params">
+         <fieldset name="basic" addfieldpath="/modules/mod_jd_team_show_case/fields">
+            <fieldset name="basic" addfieldpath="/modules/mod_jd_team_show_case/fields">
+               <field name="teams"
+                      type="subform"
+                      formsource="/modules/mod_jd_team_show_case/forms/mod_jd_team_show_case.xml"
+                      multiple="true"
+                      label="MOD_JD_TEAM_SHOW_CASE_CREATE_LABEL"
+               />
+            </fieldset>
+         </fieldset>
+         <fieldset name="design">
+            <field
+                name="columns" 
+                type="list"
+                default="1"
+                label="MOD_JD_TEAM_SHOW_CASE_COLUMNS_LABEL"
+                description="MOD_JD_TEAM_SHOW_CASE_COLUMNS_DESC"
+                class="btn-group btn-group-yesno"
+            >
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+            </field>
+            <field
+                name="enableArrow" 
+                type="radio"
+                default="1"
+                label="MOD_JD_TEAM_SHOW_CASE_ENABLE_ARROW_LABEL"
+                description="MOD_JD_TEAM_SHOW_CASEENABLE_ARROW_DESC"
+                class="btn-group btn-group-yesno"
+            >
+                <option value="1">JYES</option>
+                <option value="0">JNO</option>
+            </field>
+            <field
+                name="arrowNormalColor" 
+                type="color"
+                showon="enableArrow:1"
+                label="MOD_JD_TEAM_SHOW_CASE_ARROW_NORMAL_COLOR_LABEL"
+                description="MOD_JD_TEAM_SHOW_CASE_ARROW_NORMAL_COLOR_DESC" />
+            <field
+                name="arrowHoverColor" 
+                type="color"
+                showon="enableArrow:1"
+                label="MOD_JD_TEAM_SHOW_CASE_ARROW_HOVER_COLOR_LABEL"
+                description="MOD_JD_TEAM_SHOW_CASE_ARROW_HOVER_COLOR_DESC" />
+            <field
+                name="enableBullets"
+                type="radio"
+                default="1"
+                label="MOD_JD_TEAM_SHOW_CASE_ENABLE_BULLETS_LABEL"
+                description="MOD_JD_TEAM_SHOW_CASE_ENABLE_BULLETS_DESC"
+                class="btn-group btn-group-yesno"
+            >
+                <option value="1">JYES</option>
+                <option value="0">JNO</option>
+            </field>
+            <field
+                name="bulletsNormalColor" 
+                type="color"
+                showon="enableBullets:1"
+                label="MOD_JD_TEAM_SHOW_CASE_BULLETS_NORMAL_COLOR_LABEL"
+                description="MOD_JD_TEAM_SHOW_CASE_BULLETS_NORMAL_COLOR_DESC" />
+            <field
+                name="bulletsHoverColor" 
+                type="color"
+                showon="enableBullets:1"
+                label="MOD_JD_TEAM_SHOW_CASE_ARROW_HOVERL_COLOR_LABEL"
+                description="MOD_JD_TEAM_SHOW_CASE_ARROW_HOVER_COLOR_DESC" />
+         </fieldset>
+      </fields>
+   </config>
+</extension>

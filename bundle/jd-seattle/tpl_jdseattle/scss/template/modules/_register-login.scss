@@ -1,0 +1,12 @@
+.jd-register-login-wrapper {
+  .jd-register-login-container {
+    max-width: 600px !important;
+    .jd-register-login-tab {
+      li {
+        span.active {
+          background: $primary !important;
+        }
+      }
+    }
+  }
+}

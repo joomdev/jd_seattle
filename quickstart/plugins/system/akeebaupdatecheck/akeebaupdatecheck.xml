@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="2.5.0" type="plugin" group="system" method="upgrade">
+	<name>PLG_SYSTEM_AKEEBAUPDATECHECK_TITLE</name>
+	<author>Nicholas K. Dionysopoulos</author>
+	<authorEmail>nicholas@dionysopoulos.me</authorEmail>
+	<authorUrl>http://www.akeebabackup.com</authorUrl>
+	<copyright>Copyright (c)2006-2017 Nicholas K. Dionysopoulos</copyright>
+	<license>GNU General Public License version 3, or later</license>
+	<creationDate>2011-05-26</creationDate>
+	<version>1.1</version>
+	<description>PLG_AKEEBAUPDATECHECK_DESCRIPTION2</description>
+	<files>
+		<filename plugin="akeebaupdatecheck">akeebaupdatecheck.php</filename>
+	</files>
+	<languages folder="language">
+		<language tag="en-GB">en-GB/en-GB.plg_system_akeebaupdatecheck.ini</language>
+		<language tag="en-GB">en-GB/en-GB.plg_system_akeebaupdatecheck.sys.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="email" type="text" default="" size="40" label="PLG_SYSTEM_AKEEBAUPDATECHECK_EMAIL_LBL" description="PLG_SYSTEM_AKEEBAUPDATECHECK_EMAIL_DESC" />
+			</fieldset>
+		</fields>
+	</config>
+
+	<scriptfile>script.php</scriptfile>
+</extension>

@@ -1,0 +1,120 @@
+/**
+ * @package    AcyMailing for Joomla!
+ * @version    5.10.3
+ * @author     acyba.com
+ * @copyright  (C) 2009-2018 ACYBA S.A.R.L. All rights reserved.
+ * @license    GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
+ */
+
+@import url("component_default_radial_black.css");
+
+
+
+
+#acyarchivelisting .inputbox:hover, #acyuserinfo .inputbox:hover{
+	border:1px solid #ccc !important;
+	border-bottom:1px solid #999 !important;
+	box-shadow: inset 0 0 3px 3px #eee !important;
+	-moz-box-shadow: inset 0 0 3px 3px #eee !important;
+	-webkit-box-shadow: inset 0 0 3px 3px #eee !important;
+}
+
+#acyarchivelisting .inputbox:focus, #acyuserinfo .inputbox:focus{
+	border:1px solid  #59001f !important;}
+
+
+
+
+
+#acyarchivelisting .button, #acymodifyform .button, #unsubbutton_div .button{
+	color:#fff !important;
+	border:1px solid #59001f !important;
+	-moz-border-radius:5px !important;
+	text-shadow:1px 1px 1px #666 !important;
+
+background-image: radial-gradient(top, #b90041  21%, #59001f 58%) !important;
+background-image: -o-radial-gradient(top, #b90041 21%, #59001f 58%) !important;
+background-image: -moz-radial-gradient(top, #b90041 21%, #59001f 58%) !important;
+background-image: -webkit-radial-gradient(top, #b90041 21%, #59001f 58%) !important;
+background-image: -ms-radial-gradient(top, #b90041 21%, #59001f 58%) !important;
+
+  background: -ms-radial-gradient(top, ellipse cover, #b90041 0%,#59001f 100%);   background: radial-gradient(top, ellipse cover, #b90041 0%,#59001f 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b90041', endColorstr='#59001f',GradientType=1 ) !important; }
+
+#acyarchivelisting .button:hover, #acymodifyform .button:hover, #unsubbutton_div .button:hover{
+	color:#fff !important;
+	border:1px solid #b90041 !important;
+	-moz-border-radius:5px !important;
+	text-shadow:1px 1px 1px #666 !important;
+
+background-image: radial-gradient(top, #de5384  21%, #b90041 58%) !important;
+background-image: -o-radial-gradient(top, #de5384 21%, #b90041 58%) !important;
+background-image: -moz-radial-gradient(top, #de5384 21%, #b90041 58%) !important;
+background-image: -webkit-radial-gradient(top, #de5384 21%, #b90041 58%) !important;
+background-image: -ms-radial-gradient(top, #de5384 21%, #b90041 58%) !important;
+
+  background: -ms-radial-gradient(top, ellipse cover, #de5384 0%,#b90041 100%);   background: radial-gradient(top, ellipse cover, #de5384 0%,#b90041 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#de5384', endColorstr='#b90041',GradientType=1 ) !important; /* IE6-9 vertical */}
+
+
+
+#acyarchivelisting .contentheading{
+	color:#59001f;
+	border-bottom:1px dotted #59001f;
+}
+
+#acyarchivelisting .contentpane .contentdescription{
+	color:#b90041;
+}
+
+#acyarchivelisting .sectiontableheader a:hover{
+	color:#b90041;
+}
+
+#acyarchivelisting .contentpane tbody .sectiontableentry1 a:hover{
+	color:#b90041;
+}
+#acyarchivelisting .contentpane tbody .sectiontableentry2 a:hover{
+	color:#b90041;
+}
+
+
+
+#acyarchiveview .contentheading{
+	color:#b90041;
+}
+
+
+#acylistslisting .componentheading{
+	color:#59001f;
+	border-bottom:1px dotted #59001f;
+}
+
+#acylistslisting .list_name a{
+    color:#b90041;
+}
+
+#acylistslisting .list_name a:hover, #acylistslisting .list_name a:focus {
+	color:#b90041;
+}
+
+
+#acymodifyform legend{
+	color:#59001f;
+	border-bottom:1px dotted #59001f;
+}
+
+#acyusersubscription .list_name{
+    color: #b90041;
+}
+
+
+#unsubpage .unsubintro{
+	color:#b90041;
+	border-bottom: 1px dotted #b90041;
+}
+
+#unsubpage .unsubsurveytext{
+    border-bottom: 1px dotted #b90041;
+    color: #b90041;
+}

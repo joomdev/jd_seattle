@@ -1,0 +1,534 @@
+/**
+ * @package    AcyMailing for Joomla!
+ * @version    5.10.3
+ * @author     acyba.com
+ * @copyright  (C) 2009-2018 ACYBA S.A.R.L. All rights reserved.
+ * @license    GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
+ */
+
+
+#acymenu_leftside{
+	z-index: 50;
+	overflow:hidden;
+}
+
+.iconsonly #acymenu_leftside{
+	overflow:visible;
+}
+
+#acymenu_leftside ul{
+	padding: 0px;
+	margin: 0px
+}
+
+#acymenu_leftside li{
+	list-style-type: none;
+	line-height: 8px;
+}
+
+#acymenu_leftside li:hover a{
+	text-decoration: none
+}
+
+#acymenu_leftside a{
+	color: #fff;
+	padding: 10px 0px;
+	text-shadow: 1px 1px 2px #5c759f;
+	font-size: 12px;
+}
+
+#acymenu_leftside .acymenu_mainmenus{
+	background-color: #728fbd
+}
+
+#acymenu_leftside .mainelement{
+	text-transform: uppercase;
+	cursor: pointer;
+	font-weight: bold;
+	background-color: #728fbd;
+	transition: background 0.3s ease;
+}
+
+#acymenu_leftside .mainelement:hover, #acymenu_leftside .mainelement.opened{
+	background-color: #91acd7
+}
+
+.iconsonly #acymenu_leftside .mainelement.opened{
+	background-color: #728fbd
+}
+
+#acymenu_leftside .mainelement .acysubmenu{
+	display: none
+}
+
+#acymenu_leftside .mainelement.opened .acysubmenu{
+	display: block
+}
+
+#acymenu_leftside .mainelement a{
+	display: inline-block;
+	width: 220px;
+	min-height: 20px;
+}
+
+#acymenu_leftside .mainelement a span{
+	display: inline-block;
+	float: left;
+	line-height: 15px;
+	margin-top: 3px;
+	max-width: 160px;
+}
+
+#acymenu_leftside .mainelement .acysubmenulink span{
+	width:150px;
+}
+
+.iconsonly #acymenu_leftside .mainelement a span{
+	max-width: 200px
+}
+
+.iconsonly #acymenu_leftside .mainelement a{
+	width: 100%;
+}
+
+#acymenu_leftside .mainelement.sel{
+	background-color: #a3bbe2
+}
+
+.iconsonly #acymenu_leftside .sel a{
+	width: 26px
+}
+
+#acymenu_leftside .sel a i{
+	padding: 0 10px 0 2px
+}
+
+#acymenu_leftside .sel .acysubmenulink i{
+	padding: 0px 14px
+}
+
+.iconsonly #acymenu_leftside .sel .acysubmenu a{
+	width: 100%;
+	max-width: 190px;
+}
+
+#acymenu_leftside .sel a{
+	border-left: 4px solid #fff;
+	background-color: #b1c7ea;
+	height: 20px;
+	padding: 10px;
+	width: 206px;
+}
+
+#acymenu_leftside .sel .acysubmenu a{
+	background-color: #5d7bab
+}
+
+#acyallcontent.iconsonly .sel ul{
+	display: none
+}
+
+#acymenu_leftside .acysubmenu{
+	text-transform: none;
+	height: 32px
+}
+
+#acymenu_leftside .acysubmenu:hover a{
+	color: #fff
+}
+
+#acymenu_leftside .acysubmenu a{
+	color: #d6e3f9;
+	font-size: 15px;
+	font-weight: normal;
+	display: block;
+	clear: both;
+	padding: 10px;
+	max-width: 200px;
+}
+
+#acymenu_leftside .sel .acysubmenu a{
+	border: none
+}
+
+#acymenu_leftside .acymenu_slide span{
+	background-color: #3c5174;
+	display: block;
+	color: #fff;
+	height: 40px;
+	position: relative;
+}
+
+#acyallcontent.iconsonly #acymenu_leftside{
+	width: 50px;
+}
+
+
+#acymenu_leftside .opened ul{
+	border-bottom: 2px dotted #466597;
+	z-index: 1000;
+	padding: 6px 0px;
+	background-color: #5d7bab;
+	-moz-box-shadow: 0 5px 6px #516890 inset;
+	-webkit-box-shadow: 0 5px 6px #516890 inset;
+	box-shadow: 0 5px 6px #516890 inset
+}
+
+.iconsonly #acymenu_leftside .mainelement ul{
+	-moz-box-shadow: 0 5px 6px #516890 inset;
+	-webkit-box-shadow: 0 5px 6px #516890 inset;
+	box-shadow: 0 5px 6px #516890 inset
+}
+
+.iconsonly #acymenu_leftside .opened ul{
+	display: none
+}
+
+#acyallcontent.iconsonly .mainelement:hover li{
+	padding-left: 0px;
+}
+
+#acyallcontent.iconsonly .mainelement:hover li i{
+	padding: 0px 10px;
+	font-size:15px;
+}
+
+#acyallcontent.iconsonly .subtitle, #acyallcontent.iconsonly i.acyicon-down{
+	display: none
+}
+
+#acyallcontent.iconsonly li.mainelement{
+	height: 40px;
+	position: relative;
+}
+
+#acyallcontent.iconsonly .mainelement:hover .acysubmenu{
+	display: block
+}
+
+#acymenu_leftside .acymenu_slide i.acyicon-open-close{
+	padding: 12px 18px;
+	font-size: 16px;
+	cursor: pointer;
+	position: absolute;
+	right: 0px;
+}
+
+#acymenu_leftside .mainelement i{
+	padding-right: 14px;
+	padding-left: 14px;
+	line-height: 8px;
+	font-size: 16px;
+	float: left;
+	margin-top: 5px;
+}
+
+#acymenu_leftside .acysubmenulink{
+	text-shadow: 1px 1px 2px #3c5174
+}
+
+#acymenu_leftside .mainelement i.acyicon-down{
+	float: right;
+	padding-right: 0px
+}
+
+#acymenu_leftside .mainelement.opened i.acyicon-down::before{
+	float: right;
+	padding-right: 0px;
+	content: "\e603" !important;
+}
+
+@keyframes deploy{
+	from{
+		max-height: 0px;
+	}
+	to{
+		max-height: 800px;
+	}
+}
+
+@-webkit-keyframes deploy{
+	from{
+		max-height: 0px;
+	}
+	to{
+		max-height: 800px;
+	}
+}
+
+@-ms-keyframes deploy{
+	from{
+		max-height: 0px;
+	}
+	to{
+		max-height: 800px;
+	}
+}
+
+@-o-keyframes deploy{
+	from{
+		max-height: 0px;
+	}
+	to{
+		max-height: 800px;
+	}
+}
+
+@-moz-keyframes deploy{
+	from{
+		max-height: 0px;
+	}
+	to{
+		max-height: 800px;
+	}
+}
+
+#acymenu_leftside .opened ul{
+	-moz-animation-duration: 2s;
+	-moz-animation-name: deploy;
+	-webkit-animation-duration: 2s;
+	-webkit-animation-name: deploy;
+	-ms-animation-duration: 2s;
+	-ms-animation-name: deploy;
+	-o-animation-duration: 2s;
+	-o-animation-name: deploy;
+	animation-duration: 2s;
+	animation-name: deploy;
+	overflow: hidden;
+}
+
+@keyframes deploy_horizontal{
+	from{
+		max-width: 0px;
+	}
+	to{
+		max-width: 800px;
+	}
+}
+
+@-moz-keyframes deploy_horizontal{
+	from{
+		max-width: 0px;
+	}
+	to{
+		max-width: 800px;
+	}
+}
+
+@-o-keyframes deploy_horizontal{
+	from{
+		max-width: 0px;
+	}
+	to{
+		max-width: 800px;
+	}
+}
+
+@-webkit-keyframes deploy_horizontal{
+	from{
+		max-width: 0px;
+	}
+	to{
+		max-width: 800px;
+	}
+}
+
+@-ms-keyframes deploy_horizontal{
+	from{
+		max-width: 0px;
+	}
+	to{
+		max-width: 800px;
+	}
+}
+
+#acyallcontent.iconsonly .mainelement:hover ul{
+	animation-duration: 0.4s;
+	animation-name: deploy_horizontal;
+
+	-moz-animation-duration: 0.4s;
+	-moz-animation-name: deploy_horizontal;
+
+	-webkit-animation-duration: 0.4s;
+	-webkit-animation-name: deploy_horizontal;
+
+	-o-animation-duration: 0.4s;
+	-o-animation-name: deploy_horizontal;
+
+	-ms-animation-duration: 0.4s;
+	-ms-animation-name: deploy_horizontal;
+
+	overflow: hidden;
+	background-color: #5d7bab;
+	border-bottom: none;
+	display: inline-block;
+	left: 50px;
+	padding: 10px 0;
+	position: relative;
+	width: 210px;
+	top: -50px;
+}
+
+
+.myacymailingarea{
+	color: #c2d5f3;
+	font-size: 13px;
+	padding: 15px;
+	text-transform: none;
+	font-weight: normal
+}
+
+.iconsonly #mainelementmyacymailing{
+	display: none
+}
+
+#acymenu_leftside .mainelement#mainelementmyacymailing:hover{
+	background-color: #728fbd
+}
+
+#mainelementmyacymailing{
+	margin-top: 5px;
+	padding-top: 5px;
+}
+
+#acymenu_leftside .mainelement#mainelementmyacymailing{
+	cursor: auto;
+}
+
+.myacymailingarea button{
+	background-color: #5d7aa8;
+	background-image: none;
+	border: medium none;
+	border-radius: 4px;
+	box-shadow: 0 2px 3px #3c5174;
+	color: #ffffff;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 5px 10px;
+	text-shadow: none;
+	transition: background 0.3s ease 0s;
+}
+
+.myacymailingarea button:hover{
+	background-color: #91acd7;
+	color: #fff;
+	text-decoration: none;
+	transition: background 0.3s ease;
+}
+
+#myacymailing_version a.acy_updateversion:hover{
+	background-color: #f1ce72;
+}
+
+#acyallcontent.iconsonly .mainelement:hover .subtitle{
+	display: block;
+	position: relative;
+	left: 50px;
+	top: -26px;
+	height: 18px;
+	background-color: #91acd7;
+	line-height: 18px;
+	padding: 11px;
+	width: 188px;
+}
+
+#acyallcontent.iconsonly .sel:hover .subtitle{
+	display: block;
+	width: 192px;
+	position: relative;
+	left: 32px;
+	background-color: #b1c7ea;
+	line-height: 18px;
+}
+
+#acyallcontent.iconsonly .mainelement:hover ul{
+	top: 40px;
+	position: absolute;
+}
+
+#acyallcontent.iconsonly .sel.mainelement:hover ul{
+	position: absolute;
+	width: 210px;
+	top: 40px;
+}
+
+#acymenu_leftside .acyversion_needtoupdate a, #acymenu_leftside .acylicence_expired a, #acymenu_leftside .acyversion_uptodate{
+	color: #fff;
+	padding: 10px 10px 0;
+	border-radius: 4px;
+	width: auto;
+	font-weight: bold;
+	box-shadow: 0 2px 3px #3c5174;
+	min-height: 16px;
+	font-size: 12px;
+}
+
+.acyversion_needtoupdate .acy_updateversion{
+	background-color: #deb957;
+}
+
+.acylicence_expired .acy_subscriptionexpired, .acylicence_expired .acy_attachlicence{
+	background-color: #e66a6a;
+}
+
+.acylicence_expired .acy_subscriptionexpired:hover, .acylicence_expired .acy_attachlicence:hover{
+	background-color: #ff9090;
+}
+
+#acymenu_leftside .acyversion_uptodate{
+	background-color: #a7ac51;
+	display: inline-block;
+	padding: 10px 10px 2px;
+}
+
+#acymenu_leftside .myacymailingarea i{
+	font-size: 14px;
+	padding-right: 10px;
+	padding-left: 0px;
+}
+
+#acymenu_leftside .myacymailingarea .acyicon-import{
+	margin-bottom: 10px;
+	margin-top: 0px;
+}
+
+#acymenu_leftside .myacymailingarea .acyicon-renew{
+	margin: 0px;
+	font-size: 15px;
+}
+
+#acymenu_leftside .myacymailingbuttons{
+	margin-top: 10px;
+}
+
+#myacymailing_expiration{
+	margin-top: 15px;
+}
+
+#acymenu_leftside .acy_attachlicence .acyicon-attach{
+	margin-top: 0px;
+}
+
+#acymenu_leftside .sendother{
+	border-left: 2px solid #728fbd;
+	display: inline;
+	color: white;
+	font-weight: bold;
+	float: left;
+	left: 5px;
+	background-color: #2a3f61;
+	padding: 7px 18px 6px 18px;
+	top: 5px;
+	font-size: 12px;
+	text-decoration: none;
+	transition: background 0.3s ease 0s;
+	position: absolute;
+}
+
+.acyallcontent.iconsonly #acymenu_leftside .sendother{
+	display:none;
+}
+
+#acymenu_leftside .sendother:hover {
+	background-color: #455d86;
+}

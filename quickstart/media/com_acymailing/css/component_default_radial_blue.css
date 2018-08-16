@@ -1,0 +1,149 @@
+/**
+ * @package    AcyMailing for Joomla!
+ * @version    5.10.3
+ * @author     acyba.com
+ * @copyright  (C) 2009-2018 ACYBA S.A.R.L. All rights reserved.
+ * @license    GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
+ */
+
+@import url("component_default_radial_black.css");
+
+
+
+
+#acyarchivelisting .inputbox:hover, #acyuserinfo .inputbox:hover{
+	border:1px solid #bfd8e1 !important;
+	border-bottom:1px solid #9dbcc7 !important;
+	-moz-box-shadow: inset 0 0 3px 3px #e2eef2 !important;
+-webkit-box-shadow: inset 0 0 3px 3px#e2eef2 !important;
+}
+
+#acyarchivelisting .inputbox:focus, #acyuserinfo .inputbox:focus{
+	border:1px solid  #6A9195 !important;}
+
+
+
+
+
+#acyarchivelisting .button, #acymodifyform .button, #unsubbutton_div .button{
+	color:#fff !important;
+	border:1px solid #6A9195 !important;
+	-moz-border-radius:5px !important;
+	text-shadow:1px 1px 1px #666 !important;
+
+background-image: radial-gradient(top, #dae9ee  21%, #6A9195 58%) !important;
+background-image: -o-radial-gradient(top, #dae9ee 21%, #6A9195 58%) !important;
+background-image: -moz-radial-gradient(top, #dae9ee 21%, #6A9195 58%) !important;
+background-image: -webkit-radial-gradient(top, #dae9ee 21%, #6A9195 58%) !important;
+background-image: -ms-radial-gradient(top, #dae9ee 21%, #6A9195 58%) !important;
+
+  background: -ms-radial-gradient(top, ellipse cover, #dae9ee 0%,#6A9195 100%);   background: radial-gradient(top, ellipse cover, #dae9ee 0%,#6A9195 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#dae9ee', endColorstr='#6A9195',GradientType=1 ); }
+
+#acyarchivelisting .button:hover, #acymodifyform .button:hover, #unsubbutton_div .button:hover{
+	color:#fff !important;
+	border:1px solid #68a2b2 !important;
+	-moz-border-radius:5px !important;
+	text-shadow:1px 1px 1px #666 !important;
+
+background-image: radial-gradient(top, #dae9ee  21%, #68a2b2 58%) !important;
+background-image: -o-radial-gradient(top, #dae9ee 21%, #68a2b2 58%) !important;
+background-image: -moz-radial-gradient(top, #dae9ee 21%, #68a2b2 58%) !important;
+background-image: -webkit-radial-gradient(top, #dae9ee 21%, #68a2b2 58%) !important;
+background-image: -ms-radial-gradient(top, #dae9ee 21%, #68a2b2 58%) !important;
+
+  background: -ms-radial-gradient(top, ellipse cover, #dae9ee 0%,#68a2b2 100%);   background: radial-gradient(top, ellipse cover, #dae9ee 0%,#68a2b2 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#dae9ee', endColorstr='#68a2b2',GradientType=1 ); /* IE6-9 vertical */}
+
+
+
+#acyarchivelisting .contentheading{
+	color:#6a9195;
+	border-bottom:1px dotted #6a9195;
+}
+
+#acyarchivelisting .contentpane .contentdescription{
+	color:#79adb2;
+}
+
+#acyarchivelisting .sectiontableheader a:hover{
+	color:#79adb2;
+}
+
+#acyarchivelisting .contentpane tbody .sectiontableentry1 a:hover{
+	color:#79adb2;
+}
+#acyarchivelisting .contentpane tbody .sectiontableentry2 a:hover{
+	color:#79adb2;
+}
+
+#acyarchivelisting .contentpane tbody .sectiontableentry1{
+	text-align:center;
+	height:30px;
+	background-color:#e8f0f1;
+	border-bottom:1px solid #fff !important;
+}
+
+#acyarchivelisting .contentpane tbody .sectiontableentry1:hover{
+	text-align:center;
+	height:30px;
+	background-color:#e0eaeb;
+}
+
+
+#acyarchivelisting .contentpane tbody .sectiontableentry2{
+	text-align:center;
+	height:30px;
+	background-color:#f0f5f6;
+	border-bottom:1px solid #fff !important;
+}
+
+#acyarchivelisting .contentpane tbody .sectiontableentry2:hover{
+	text-align:center;
+	height:30px;
+	background-color:#e0eaeb;
+}
+
+
+#acyarchiveview .contentheading{
+	color:#79adb2;
+}
+
+
+#acylistslisting .componentheading{
+	color:#6a9195;
+	border-bottom:1px dotted #6a9195;
+}
+
+#acylistslisting .list_name a{
+    color:#79adb2;
+}
+
+#acylistslisting .list_name a:hover, #acylistslisting .list_name a:focus {
+	color:#79adb2;
+}
+
+div.acymailing_list:hover{
+	background-color :#F0F5F6;
+}
+
+
+#acymodifyform legend{
+	color:#6a9195;
+	border-bottom:1px dotted #6a9195;
+}
+
+#acyusersubscription .list_name{
+    color: #79adb2;
+}
+
+
+#unsubpage .unsubintro{
+	color:#79adb2;
+	border-bottom: 1px dotted #79adb2;
+}
+
+#unsubpage .unsubsurveytext{
+    border-bottom: 1px dotted #79adb2;
+    color: #79adb2;
+}

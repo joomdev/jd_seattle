@@ -1,0 +1,382 @@
+/**
+ * @package    AcyMailing for Joomla!
+ * @version    5.10.3
+ * @author     acyba.com
+ * @copyright  (C) 2009-2018 ACYBA S.A.R.L. All rights reserved.
+ * @license    GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
+ */
+
+@import url("component_default.css");
+
+
+
+#acyarchivelisting .inputbox, #acyuserinfo .inputbox, #acyuserinfo .inputbox{
+	border:1px solid #dde5e8;
+	padding:3px;}
+	
+#acyarchivelisting .inputbox:hover, #acyuserinfo .inputbox:hover, #acyuserinfo .inputbox:hover{
+	border:1px solid #c6d5da;
+	border-bottom:1px solid #a5b9c0;
+	border-right:1px solid #a5b9c0;}
+
+#acyarchivelisting .inputbox:focus, #acyuserinfo .inputbox:focus, #acyuserinfo .inputbox:focus{
+	border:1px solid #8ca3ab;
+	background-color:#eff3f4;}
+
+
+
+#acyarchivelisting .button, #acymodifyform .button, #unsubbutton_div .button{
+	border:none;
+	background-color:#558da4;
+	border-bottom:2px solid #477487;
+	background-image:none;
+	color:#FFF;
+	padding:3px 5px 1px 5px;
+}
+
+#acyarchivelisting .button:hover, #acymodifyform .button:hover, #unsubbutton_div .button:hover{
+	background-color:#95bac9;
+	border-bottom:2px solid #7ea5b5;
+	background-image:none;
+}
+
+
+#acyarchivelisting{
+	background-color:#f8f8f8;
+	border:1px solid #CCC;
+	padding:20px;
+	margin-right:20px;
+	margin-bottom:20px;
+}
+
+#acyarchivelisting table{
+	border:0px !important;}
+
+#acyarchivelisting .contentheading{
+	color:#fff;
+	background-color:#74a8bd;
+	font-size:16px;
+	border-bottom:6px solid #558da4;
+	padding:4px 0 4px 20px;
+}
+
+#acyarchivelisting .contentpane form{
+	background-color:#fff;
+	border:1px solid #ccc;
+	padding:20px;
+}
+
+
+#acyarchivelisting .acynewbutton a:hover, #acyarchivelisting .acynewbutton a:focus{
+	background-color:transparent;
+	color:#558da4;
+}
+
+#acyarchivelisting .contentpane .contentdescription{
+	color:#153c4c;
+	font-weight:bold;
+	padding:4px 0 3px 20px;
+	background-color:#dde5e8;
+	border-bottom:2px solid #c0d8e1;
+}
+
+
+#acyarchivelisting #acymailingsearch{
+	margin-bottom:20px;}
+
+
+#acyarchivelisting .sectiontableheader{
+	color:#153C4C;
+}
+
+#acyarchivelisting thead{
+	border-bottom:1px solid #ccc;
+	height:30px;
+}
+
+#acyarchivelisting .contentpane tbody{
+	color:#153C4C;
+}
+
+#acyarchivelisting .sectiontableheader a{
+	color:#153C4C;
+	text-decoration:none;
+	background-color:transparent;
+	font-weight:bold;
+	font-size:12px;
+}
+
+#acyarchivelisting .sectiontableheader a:hover, #acyarchivelisting .sectiontableheader a:focus{
+	background-color:transparent;
+	color:#558da4;
+}
+
+#acyarchivelisting .sectiontableentry1, #acyarchivelisting .sectiontableentry2{
+	text-align:center;
+	height:30px;
+	border-bottom:1px solid #eee;
+}
+
+#acyarchivelisting .sectiontableentry1:hover, #acyarchivelisting .sectiontableentry2:hover{
+	background-color:#eff3f4;
+}
+
+#acyarchivelisting .sectiontableentry1 a, #acyarchivelisting .sectiontableentry2 a{
+	text-decoration:none;
+	color:#558da4;
+	background-color:transparent;
+}
+
+#acyarchivelisting .sectiontableentry1 a:hover, #acyarchivelisting .sectiontableentry2 a:hover{
+	color:#153c4c;
+	background-color:transparent;
+	text-decoration:underline;
+}
+
+#acyarchiveview{
+	border:1px solid #ccc;
+	padding:10px;
+	background-color:#F8F8F8;}
+
+#acyarchiveview .contentheading{
+	color:#558DA4;
+	font-size:16px;
+	font-weight:bold;
+	margin-bottom:10px;}
+
+
+#acylistslisting{
+	background-color:#f8f8f8;
+	border:1px solid #ccc;
+	padding:20px;
+	margin-right:20px;
+	margin-bottom:20px;
+}
+
+#acylistslisting .componentheading{
+	color:#fff;
+	background-color:#74a8bd;
+	font-size:16px;
+	border-bottom:6px solid #558da4;
+	padding:4px 0 4px 20px;
+}
+
+
+.acymailing_list{
+	background-color:#fff;
+}
+
+.acymailing_list .list_name{
+	color:#153c4c;
+	font-weight:bold;
+	padding:2px 0 2px 20px;
+	background-color:#dde5e8;
+	border-bottom:2px solid #c0d8e1;
+}
+
+#acylistslisting .list_name a{
+	color:#153C4C;
+	cursor:pointer;
+	text-decoration:none;
+	background-color:transparent;
+	font-size:14px;
+	font-weight:bold;
+}
+
+#acylistslisting .list_name a:hover, #acylistslisting .list_name a:focus {
+	background-color:transparent;
+	color:#558DA4;
+}
+
+
+#acylistslisting .list_description{
+	color:#333;
+	padding-left:20px;
+}
+
+div.acymailing_list:hover{
+	background-color :#eff3f4;
+}
+
+#acylistslisting .contentpane thead td{
+	padding-top:20px;
+}
+
+#acylistslisting div.acymailing_list{
+	border : 1px solid #cccccc;
+	margin : 0px;
+	padding : 0px;
+}
+
+
+#acyusersubscription th{
+	padding:4px 0 3px 20px;
+	color:#153c4c;
+	text-align:left;
+}
+
+#acyusersubscription .acystatus{
+	padding-top:20px;
+}
+
+#acymodifyform{
+	background-color:#f8f8f8;
+	border:1px solid #CCC;
+	padding:20px;
+	margin-right:20px;
+	margin-bottom:20px;
+}
+
+#acymodifyform .adminform{
+	color:#666;
+	text-align:left;
+}
+
+#acymodifyform fieldset{
+	padding:0px;
+}
+
+#acyuserinfo{
+	background-color:#fff;
+	border:1px solid #CCC;
+}
+
+
+#acyuserinfo select{
+	border:1px solid #ccc;}
+
+#acyuserinfo .key{
+	color:#558da4;
+	font-weight:bold;
+	font-size:11px;
+	padding-left:20px;
+}
+
+#acyusersubscription thead{
+	background-color:#dde5e8;
+	border-bottom:3px solid #c0d8e1;
+	padding-bottom:20px;
+}
+
+#acyusersubscription{
+	border:1px solid #CCC;
+	}
+
+#acyusersubscription tbody{
+	background-color:#FFF;
+}
+
+#acymodifyform legend{
+	color:#fff;
+	background-color:#74a8bd;
+	font-size:16px;
+	border-bottom:6px solid #558da4;
+	width:100%;
+	padding: 4px 0px;
+}
+
+#acymodifyform legend span{
+	padding: 0px 20px ;
+}
+
+#acyuserinfo input{
+	margin:0 5px;
+}
+
+
+#acyusersubscription .list_name{
+	text-align:left;
+	font-size:12px;
+	font-weight:bold;
+	margin:0 40px 0 50px;
+	color:#558da4;
+	border-bottom:2px solid #dde5e8;
+	padding-top:20px;
+}
+
+#acyusersubscription .list_description{
+	text-align:left;
+	font-size:12px;
+	margin-left:40px;
+	color:#333;
+}
+
+#acymodifyform .acymodifybutton{
+	text-align:center;
+}
+
+
+
+#unsubpage{
+	background-color:#F5F5F5;
+	border:1px solid #ccc;
+	color:#666;
+	padding:20px;
+	margin-right:20px;
+	margin-bottom:20px;
+}
+
+#unsubpage .unsubintro{
+	color:#153c4c;
+	font-weight:bold;
+	padding:2px 0 2px 20px;
+	background-color:#dde5e8;
+	display:block;
+	border-bottom:2px solid #c0d8e1;
+	border-top:1px solid #ccc;
+	border-right:1px solid #ccc;
+	border-left:1px solid #ccc;
+}
+
+#unsubpage .unsuboptions{
+	background-color:#FFF;
+	border:1px solid #CCC;
+	padding:5px 20px 20px 20px;
+	font-size:11px;
+}
+
+
+#unsubpage .unsubsurvey{
+	margin:10px 0 20px 0;
+	background-color:#fff;
+	padding:0px;
+	padding-bottom:20px;
+	border:1px solid #ccc;
+}
+
+#unsubpage .unsubsurvey .unsubsurveytext{
+	color:#153c4c;
+	font-weight:bold;
+	padding:2px 0 2px 20px;
+	background-color:#dde5e8;
+	border-bottom:2px solid #c0d8e1;
+	display:block;
+}
+
+#unsubpage .unsubsurvey div{
+	margin-top:5px;
+	font-size:11px;
+	padding-left:20px;
+}
+
+#unsubpage .unsubsurvey textarea{
+	margin-top:15px;
+	border:1px solid #dde5e8;
+}
+
+#unsubpage .unsubsurvey textarea:hover{
+	border:1px solid #c6d5da;
+	border-bottom:1px solid #a5b9c0;
+	border-right:1px solid #a5b9c0;
+}
+
+#unsubpage .input{
+	padding-right:10px;
+}
+
+#unsubbutton_div{
+	text-align:center;
+}
+
+
+

@@ -1,0 +1,336 @@
+/**
+ * @package    AcyMailing for Joomla!
+ * @version    5.10.3
+ * @author     acyba.com
+ * @copyright  (C) 2009-2018 ACYBA S.A.R.L. All rights reserved.
+ * @license    GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
+ */
+
+@font-face{
+	font-family: 'acyicon';
+	src: url('fonts/icomoon.eot?p7bld6');
+	src: url('fonts/icomoon.eot?#iefixp7bld6') format('embedded-opentype'),
+	url('fonts/icomoon.ttf?p7bld6') format('truetype'),
+	url('fonts/icomoon.woff?p7bld6') format('woff'),
+	url('fonts/icomoon.svg?p7bld6#icomoon') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+[class^="acyicon-"], [class*=" acyicon-"]{
+	font-family: 'acyicon';
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.acyicon-message:before{
+	content: "\e0ca";
+}
+
+.acyicon-distribution:before{
+	content: "\e903";
+}
+
+.acyicon-image_view:before{
+	content: "\e905";
+}
+
+.acyicon-connection:before{
+	content: "\e902";
+}
+
+.acyicon-folder:before{
+	content: "\e900";
+}
+
+.acyicon-folderopen:before{
+	content: "\e901";
+}
+
+.acyicon-list_view:before{
+	content: "\e906";
+}
+
+.acyicon-tree:before{
+	content: "\e904";
+}
+
+.acyicon-location:before{
+	content: "\e800";
+}
+
+.acyicon-renew:before{
+	content: "\e62a";
+}
+
+.acyicon-test:before{
+	content: "\e808";
+}
+
+.acyicon-users:before{
+	content: "\e812";
+}
+
+.acyicon-options:before{
+	content: "\e633";
+}
+
+.acyicon-attach:before{
+	content: "\e635";
+}
+
+.acyicon-share:before{
+	content: "\e634";
+}
+
+.acyicon-action:before{
+	content: "\e632";
+}
+
+.acyicon-tag:before{
+	content: "\e627";
+}
+
+.acyicon-schedule:before{
+	content: "\e62b";
+}
+
+.acyicon-print:before{
+	content: "\e626";
+}
+
+.acyicon-queue:before{
+	content: "\e629";
+}
+
+.acyicon-generate:before{
+	content: "\e60c";
+}
+
+.acyicon-process:before{
+	content: "\e628";
+}
+
+.acyicon-spamtest:before{
+	content: "\e620";
+}
+
+.acyicon-spam:before{
+	content: "\e62d";
+}
+
+.acyicon-refresh:before{
+	content: "\e62e";
+}
+
+.acyicon-dashboard:before{
+	content: "\e61e";
+}
+
+.acyicon-myacymailing:before{
+	content: "\e625";
+}
+
+.acyicon-replacetag:before{
+	content: "\e631";
+}
+
+.acyicon-sendtest:before{
+	content: "\e630";
+}
+
+.acyicon-ABtesting:before{
+	content: "\e62f";
+}
+
+.acyicon-autonewsletter:before{
+	content: "\e600";
+}
+
+.acyicon-joomla:before{
+	content: "\e601";
+}
+
+.acyicon-down:before{
+	content: "\e602";
+}
+
+.acyicon-up:before{
+	content: "\e603";
+}
+
+.acyicon-import:before{
+	content: "\e604";
+}
+
+.acyicon-copy:before{
+	content: "\e61f";
+}
+
+.acyicon-delete:before{
+	content: "\e624";
+}
+
+.acyicon-export:before{
+	content: "\e605";
+}
+
+.acyicon-chart:before{
+	content: "\e606";
+}
+
+.acyicon-save:before{
+	content: "\e620";
+}
+
+.acyicon-interface:before{
+	content: "\e607";
+}
+
+.acyicon-template:before, .acyicon-saveastmpl:before{
+	content: "\e608";
+}
+
+.acyicon-apply:before{
+	content: "\e620";
+}
+
+.acyicon-language:before{
+	content: "\e60b";
+}
+
+.acyicon-cancel:before{
+	content: "\e621";
+}
+
+.acyicon-click:before{
+	content: "\e609";
+}
+
+.acyicon-edit:before{
+	content: "\e60a";
+}
+
+.acyicon-filter:before{
+	content: "\e60d";
+}
+
+.acyicon-acl:before{
+	content: "\e60e";
+}
+
+.acyicon-help:before{
+	content: "\e622";
+}
+
+.acyicon-detailed-stat:before{
+	content: "\e60f";
+}
+
+.acyicon-list:before{
+	content: "\e610";
+}
+
+.acyicon-security:before{
+	content: "\e611";
+}
+
+.acyicon-search:before{
+	content: "\e612";
+}
+
+.acyicon-mail:before{
+	content: "\e613";
+}
+
+.acyicon-campaign:before{
+	content: "\e614";
+}
+
+.acyicon-newsletter:before{
+	content: "\e615";
+}
+
+.acyicon-send:before{
+	content: "\e616";
+}
+
+.acyicon-new:before{
+	content: "\e623";
+}
+
+.acyicon-addcompare:before{
+	content: "\e623";
+}
+
+.acyicon-resetcompare:before{
+	content: "\e621";
+}
+
+.acyicon-plugin:before{
+	content: "\e617";
+}
+
+.acyicon-bounce:before{
+	content: "\e618";
+}
+
+.acyicon-open-close:before{
+	content: "\e619";
+}
+
+.acyicon-statistic:before{
+	content: "\e61a";
+}
+
+.acyicon-configuration:before{
+	content: "\e61b";
+}
+
+.acyicon-custom-field:before{
+	content: "\e61c";
+}
+
+.acyicon-user:before{
+	content: "\e61d";
+}
+
+.acyinactive-handler{
+	opacity: 0.5;
+}
+
+.acyicon-draghandle:not(.acyinactive-handler){
+	cursor: move;
+	cursor: -webkit-grabbing;
+}
+
+.acysortable-ghost{
+	opacity: 0;
+}
+
+.acyicon-first:before{
+	content: "\ea21";
+}
+
+.acyicon-last:before{
+	content: "\ea22";
+}
+
+.acyicon-backward:before{
+	content: "\ea1f";
+}
+
+.acyicon-forward:before{
+	content: "\ea20";
+}
+
+#acy_content td a img{
+	vertical-align: middle;
+}

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<layout title="Form view" option="Display Form">
+		<help key = "Display Form" />
+		<message>
+			Display Form
+		</message>
+	</layout>
+
+	<!-- Add fields to the parameters object for the layout. -->
+	<fields name="params">
+		<!-- Basic options. -->
+		<fieldset name="basic" label="COM_MENUS_BASIC_FIELDSET_LABEL">
+			<field name="form_name" type="text" description="Enter your Form's alias" label="Form's Alias"></field>
+		</fieldset>
+		<fieldset name="basic" label="COM_MENUS_BASIC_FIELDSET_LABEL">
+			<field name="form_params" type="text" description="Extra params to pass to the form as data" label="Extra parameters"></field>
+		</fieldset>
+	</fields>
+</metadata>

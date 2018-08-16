@@ -1,0 +1,172 @@
+<?php
+/**
+ * @var $_class N2SmartsliderBackendSliderView
+ */
+
+N2Loader::import('libraries.browse.browse');
+// Background animations are required for simple type. We need to load the lightbox, because it is not working over AJAX slider type change.
+N2Loader::import('libraries.backgroundanimation.manager', 'smartslider');
+N2Loader::import('libraries.postbackgroundanimation.manager', 'smartslider');
+
+N2JS::addInline("new N2Classes.QuickSlides('" . $this->appType->router->createUrl(array(
+        'slides/quickedit',
+        array('sliderid' => $slider['id'])
+    )) . "');");
+
+N2Html::topBar(array(
+    'back'    => N2Html::tag('a', array(
+            'class' => 'n2-ss-back-dashboard n2-h4 n2-uc',
+            'href'  => $this->appType->router->createUrl(array(
+                "sliders/index"
+            ))
+        ), n2_('Dashboard')) . N2Html::tag('a', array(
+            'id'    => 'n2-ss-preview',
+            'href'  => $this->appType->router->createUrl(array(
+                "preview/index",
+                array('sliderid' => $slider['id']) + N2Form::tokenizeUrl()
+            )),
+            'class' => 'n2-h4 n2-uc'
+        ), n2_('Preview')),
+    "actions" => array(
+        N2Html::tag('a', array(
+            'href'    => $this->appType->router->createUrl(array(
+                "sliders/index"
+            )),
+            'onclick' => 'return nextend.cancel(this.href);',
+            'class'   => 'n2-button n2-button-normal n2-button-l n2-radius-s n2-button-red n2-h4 n2-b n2-uc',
+        ), n2_('Cancel')),
+        N2Html::tag('a', array(
+            'href'    => '#',
+            'class'   => 'n2-button n2-button-normal n2-button-l n2-radius-s n2-button-green n2-h4 n2-b n2-uc',
+            'onclick' => 'return N2Classes.Form.submit("#n2-ss-edit-slider-form");'
+        ), n2_('Save'))
+    )
+));
+N2HTML::heading(array(
+    'title'     => $slider['title'] . ' <span>ID: ' . $slider['id'] . '</span>',
+    'snapClass' => 'n2-slider-name',
+    'actions'   => $_class->getDashboardButtons($slider)
+));
+?>
+
+<?php
+N2SSBackendFragments::tutorialFree();
+
+?>
+
+    <div class="n2-ss-slides-outer-container">
+        <?php
+
+        N2SSBackendFragments::slideManagerByRow($slider);
+        ?>
+    </div>
+    <div class="n2-clear"></div>
+
+    <script type="text/javascript">
+    N2R('documentReady', function ($) {
+        $('.n2-slider-name .n2-h1').on('click', function () {
+            $('[data-tab="general"]').trigger('click');
+            $('#slidertitle').trigger('focus');
+            $(window).scrollTop($('#slidertitle').offset().top - 200);
+        });
+
+        var form = $('#n2-ss-edit-slider-form'),
+            formAction = form.attr('action'),
+            headings = $('.n2-top-bar-menu .n2-tab-heading'),
+            newWindow = <?php echo intval(N2SmartSliderSettings::get('preview-new-window', 0)); ?>;
+
+        if (!newWindow) {
+            var modal = new N2Classes.NextendSimpleModal('<iframe name="n2-tab-preview" src="about:blank" style="width: 100%;height:100%;"></iframe>', {
+                "class": 'n2-ss-preview-modal'
+            });
+            modal.modal.on('ModalHide', function () {
+                modal.modal.find('iframe').attr('src', 'about:blank');
+                $(window).trigger('SSPreviewHide');
+            });
+        }
+
+        var isPreview = false;
+
+        form.on('submit', function (e) {
+            if (form.attr('target') == undefined) {
+                e.preventDefault();
+                nextend.askToSave = false;
+                N2Classes.AjaxHelper.ajax({
+                    type: 'POST',
+                    url: N2Classes.AjaxHelper.makeAjaxUrl(window.location.href),
+                    data: $('#n2-ss-edit-slider-form').serialize(),
+                    dataType: 'json'
+                }).done(function (response) {
+                    var $heading = $('.n2-heading-bar .n2-heading');
+                    $heading.html($('#slidertitle').val() + '<span>' + $heading.find('span').html() + '</span>');
+                    nextend.askToSave = true;
+                    $('#n2-ss-edit-slider-form').trigger('saved');
+
+                    if (response && response.data && response.data.changedFields) {
+                        for (var k in response.data.changedFields) {
+                            if (response.data.changedFields.hasOwnProperty(k)) {
+                                $('#' + k).val(response.data.changedFields[k]);
+                            }
+                        }
+                        if (typeof response.data.changedFields['slideralias'] !== 'undefined') {
+                            var newAlias = response.data.changedFields[k],
+                                $aliasCode = $('.n2-ss-slider-shortcode-alias');
+                            if (!$aliasCode.length) {
+                                $aliasCode = $('<div class="n2-has-copy n2-code n2-ss-slider-shortcode-alias" onclick="return selectText(this);"></div>').appendTo($('.n2-ss-slider-shortcode-id').parent());
+                            }
+
+                            if (newAlias) {
+                                $aliasCode.html('[smartslider3 alias="' + newAlias + '"]');
+                            } else {
+                                $aliasCode.remove();
+                            }
+                        }
+                    }
+                });
+            }
+        });
+
+        $('#n2-ss-preview').on('click', function (e) {
+            isPreview = true;
+            e.preventDefault();
+            if (!newWindow) {
+                modal.show();
+            } else {
+                N2Classes.NextendModal.newFullWindow('', 'n2-tab-preview');
+            }
+            form.attr({
+                action: '<?php echo $this->appType->router->createUrl(array(
+                    "preview/index",
+                    N2Form::tokenizeUrl() + array('sliderid' => $slider['id'])
+                ))?>',
+                target: 'n2-tab-preview'
+            }).submit().attr({
+                action: formAction,
+                target: null
+            });
+            isPreview = false;
+        });
+
+
+        new N2Classes.NextendHeadingScrollToPane(headings, [
+            $('#n2-tab-slider, #n2-tab-slider-size, #n2-tab-slider-size-tablet, #n2-tab-slider-size-mobile, #n2-tab-slider-responsive, #nextend-responsive-mode-panel, #n2-tab-slides, #n2-tab-slider-layer, #n2-tab-autoplay, #n2-tab-slider-advanced'),
+            $('#n2-tab-widgets'),
+            $('#n2-tab-slider-responsive')
+        ], 'ss-slider-edit');
+
+
+        $('#n2-form-matrix-slider-settings .n2-form-matrix-views').fixTo('#n2-form-matrix-slider-settings', {
+            top: $('#wpadminbar, .navbar-fixed-top').height() + $('.n2-main-top-bar').height()
+        });
+
+        $('#n2-form-matrix-sliderwidgets .n2-form-matrix-views').fixTo('#n2-form-matrix-sliderwidgets', {
+            top: $('#wpadminbar, .navbar-fixed-top').height() + $('.n2-main-top-bar').height()
+        });
+    });
+</script>
+    <form id="n2-ss-edit-slider-form" action="#" method="post">
+    <?php
+    $_class->renderForm($slider);
+    ?><input name="save" value="1" type="hidden"/>
+</form>
+<?php N2SS3::showBeacon('Slider settings'); ?>

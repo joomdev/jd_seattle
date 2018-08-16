@@ -1,0 +1,428 @@
+/**
+ * @package    AcyMailing for Joomla!
+ * @version    5.10.3
+ * @author     acyba.com
+ * @copyright  (C) 2009-2018 ACYBA S.A.R.L. All rights reserved.
+ * @license    GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
+ */
+
+@import url("component_default.css");
+
+
+
+
+#acyarchivelisting .inputbox, #acyuserinfo .inputbox{
+	color:#666 !important;
+	border:1px solid #ddd !important;
+	border-radius:5px !important;
+	-moz-border-radius:5px !important;
+	margin-right: 10px!important;
+	padding: 3px !important;
+	background-image: linear-gradient(bottom, rgb(235,235,235) 21%, rgb(255,255,255) 58%) !important;
+	background-image: -o-linear-gradient(bottom, rgb(235,235,235) 21%, rgb(255,255,255) 58%) !important;
+	background-image: -moz-linear-gradient(bottom, rgb(235,235,235) 21%, rgb(255,255,255) 58%) !important;
+	background-image: -webkit-linear-gradient(bottom, rgb(235,235,235) 21%, rgb(255,255,255) 58%) !important;
+	background-image: -ms-linear-gradient(bottom, rgb(235,235,235) 21%, rgb(255,255,255) 58%) !important;
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ebebeb',GradientType=0 ) !important; }
+
+
+#acyarchivelisting .inputbox:hover, #acyuserinfo .inputbox:hover{
+	border:1px solid #ccc !important;
+	border-bottom:1px solid #999 !important;
+	-moz-box-shadow: inset 0 0 3px 3px #ddd !important;
+	-webkit-box-shadow: inset 0 0 3px 3px #ddd !important;
+}
+
+#acyarchivelisting .inputbox:focus, #acyuserinfo .inputbox:focus{
+	border:1px solid  #999 !important;}
+
+
+
+
+#acyarchivelisting .button, #acymodifyform .button, #unsubbutton_div .button{
+color:#fff !important;
+	border:1px solid #666 !important;
+	-moz-border-radius:5px !important;
+	padding: 3px !important;
+	text-shadow:1px 1px 1px #666 !important;
+	margin-right:5px !important;
+	background-color:#CCC !important;
+
+	background-image: radial-gradient(top, #e7e7e7  21%, #666 58%) !important;
+	background-image: -o-radial-gradient(top, #e7e7e7 21%, #666 58%) !important;
+	background-image: -moz-radial-gradient(top, #e7e7e7 21%, #666 58%) !important;
+	background-image: -webkit-radial-gradient(top, #e7e7e7 21%, #666 58%) !important;
+	background-image: -ms-radial-gradient(top, #e7e7e7 21%, #666 58%) !important;
+
+	background: -ms-radial-gradient(top, ellipse cover, #e7e7e7 0%,#666 100%); 	background: radial-gradient(top, ellipse cover, #e7e7e7 0%,#666 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e7e7e7', endColorstr='#666',GradientType=1 ) !important; }
+
+#acyarchivelisting .button:hover, #acymodifyform .button:hover, #unsubbutton_div .button:hover{
+	color:#fff !important;
+	border:1px solid #999999 !important;
+	-moz-border-radius:5px !important;
+	padding: 3px !important;
+	text-shadow:1px 1px 1px #666 !important;
+	margin-right:5px !important;
+	background-color:#CCC !important;
+
+	background-image: radial-gradient(top, #f5f5f5  21%, #999999 58%) !important;
+	background-image: -o-radial-gradient(top, #f5f5f5 21%, #999999 58%) !important;
+	background-image: -moz-radial-gradient(top, #f5f5f5 21%, #999999 58%) !important;
+	background-image: -webkit-radial-gradient(top, #f5f5f5 21%, #999999 58%) !important;
+	background-image: -ms-radial-gradient(top, #f5f5f5 21%, #999999 58%) !important;
+
+	background: -ms-radial-gradient(top, ellipse cover, #f5f5f5 0%,#999999 100%); 	background: radial-gradient(top, ellipse cover, #f5f5f5 0%,#999999 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f5f5f5', endColorstr='#999999',GradientType=1 ) !important; }
+
+
+
+
+#acyarchivelisting table, #acyarchivelisting tr, #acyarchivelisting td {
+	border:0px !important;}
+
+#acyarchivelisting .contentheading{
+	color:#000;
+	font-size:16px;
+	font-weight:bold;
+	border-bottom:1px dotted #000;
+	padding-bottom:4px;
+}
+
+#acyarchivelisting .contentpane form{
+	background-color: #FFFFFF;
+		border-style: solid;
+	border-color:#ccc;
+		border-width: 1px;
+		padding: 10px;
+}
+
+
+#acyarchivelisting .contentpane .contentdescription{
+	color:#666;
+	font-weight:bold;
+	padding-top:10px;
+	padding-bottom:10px;
+}
+
+#acyarchivelisting .acynewbutton a:hover, #acyarchivelisting .acynewbutton a:focus{
+	background-color:transparent;
+	color:#cf5402;
+}
+
+#acyarchivelisting .sectiontableheader{
+	color:#333;
+	padding-top:25px;}
+
+#acyarchivelisting .contentpane thead{
+	border-bottom:1px solid #ccc;
+	height:30px;
+}
+
+#acyarchivelisting .contentpane tbody{
+	color:#333;
+}
+
+#acyarchivelisting .sectiontableheader a{
+	color:#333;
+	text-decoration:none;
+	background-color:transparent;
+	font-weight:bold;
+	font-size:12px;
+}
+
+#acyarchivelisting .sectiontableheader a:hover{
+	background-color:transparent;
+	color:#666;
+}
+
+#acyarchivelisting .contentpane tbody .sectiontableentry1{
+	text-align:center;
+	height:30px;
+	background-color:#eeeded;
+	border-bottom:1px solid #fff !important;
+}
+
+#acyarchivelisting .contentpane tbody .sectiontableentry1:hover{
+	text-align:center;
+	height:30px;
+	background-color:#e6e6e6;
+}
+
+#acyarchivelisting .contentpane tbody .sectiontableentry1 a{
+	text-decoration:none;
+	color:#666;
+	background-color:transparent;
+}
+
+#acyarchivelisting .contentpane tbody .sectiontableentry1 a:hover{
+	color:#000;
+	background-color:transparent;
+	text-decoration:underline;
+}
+
+#acyarchivelisting .contentpane tbody .sectiontableentry2{
+	text-align:center;
+	height:30px;
+	background-color:#f5f5f5;
+	border-bottom:1px solid #fff !important;
+}
+
+#acyarchivelisting .contentpane tbody .sectiontableentry2:hover{
+	text-align:center;
+	height:30px;
+	background-color:#e6e6e6;
+}
+
+#acyarchivelisting .contentpane tbody .sectiontableentry2 a{
+	text-decoration:none;
+	color:#666;
+	background-color:transparent;
+}
+
+#acyarchivelisting .contentpane tbody .sectiontableentry2 a:hover{
+	color:#000;
+	background-color:transparent;
+	text-decoration:underline;
+}
+
+
+#acylistslisting .componentheading{
+	color:#000;
+	font-weight:bold;
+	border-bottom:1px dotted #000;
+	margin-bottom:10px;
+	font-weight:bold;
+	font-size:16px;
+	padding-bottom:4px;
+}
+
+#acylistslisting .list_name a{
+	background-color: transparent;
+		color:#666;
+		cursor: pointer;
+		font-size: 12px;
+		font-weight: bold;
+		text-decoration: none;
+	padding-left:10px;
+}
+
+#acylistslisting .list_name a:hover, #acylistslisting .list_name a:focus {
+	text-decoration:underline;
+	background-color:transparent;
+	color:#666;
+}
+
+
+#acylistslisting .list_description{
+	color:#333;
+	padding:0px;
+	padding-left:10px;
+}
+
+#acylistslisting p{
+	line-height: 15px;
+		margin: 3px 0;}
+
+
+div.acymailing_list:hover{
+	background-color :#F5f5f5;
+}
+
+#acylistslisting .contentpane thead td{
+	padding-top:20px;
+}
+
+#acylistslisting div.acymailing_list{
+		border:none;
+	border-bottom:1px solid #ccc;
+		margin: 0px;
+		padding-top: 10px;
+}
+
+
+#acyusersubscription th{
+	color:#666;
+	padding: 4px 5px;
+background-image: linear-gradient(bottom, rgb(235,235,235) 21%, rgb(255,255,255) 58%);
+background-image: -o-linear-gradient(bottom, rgb(235,235,235) 21%, rgb(255,255,255) 58%);
+background-image: -moz-linear-gradient(bottom, rgb(235,235,235) 21%, rgb(255,255,255) 58%);
+background-image: -webkit-linear-gradient(bottom, rgb(235,235,235) 21%, rgb(255,255,255) 58%);
+background-image: -ms-linear-gradient(bottom, rgb(235,235,235) 21%, rgb(255,255,255) 58%);
+border:1px solid #ccc;}
+
+
+#acyusersubscription tr{
+	border-bottom:1px solid #ccc !important;}
+
+#acyusersubscription .acystatus{
+	padding-top:20px;
+	padding-bottom: 25px;
+}
+
+
+#acymodifyform .adminform{
+	color:#666;
+	text-align:left;
+	margin-bottom:20px;
+}
+
+#acymodifyform fieldset{
+	padding:0px;
+}
+
+
+#acyuserinfo{
+	background-color:#fff;
+	border:1px solid #ccc;
+}
+
+#acyuserinfo tr, #acyuserinfo td{
+	border:none;}
+
+#acyuserinfo td{
+	padding-bottom:4px !important;
+	padding-top:4px !important;}
+
+
+#acyuserinfo select{
+	border:1px solid #dcc2b2;}
+
+#acyuserinfo .key{
+	color:#666;
+	font-weight:bold;
+	font-size:11px;
+	padding-left:20px;
+}
+
+#acyusersubscription{
+	background-color:#FFF;
+	border:1px solid #ccc;
+}
+
+#acyusersubscription td{
+	border:none;}
+
+#acymodifyform legend{
+	color:#000;
+	font-size:16px;
+	font-weight:bold;
+	padding:0px;
+	border-bottom:1px dotted #000;
+	margin-bottom:20px;
+	padding-bottom:4px;
+}
+
+#acyuserinfo input{
+	margin:0 5px;
+}
+
+#acyusersubscription .list_name{
+	border-bottom: 1px solid #dddddd;
+		color: #666;
+		font-size: 12px;
+		font-weight: bold;
+		margin: 0px;
+		padding-top: 20px;
+		text-align: left;
+}
+
+#acyusersubscription .list_description{
+	text-align:left;
+	font-size:12px;
+	color:#333;
+	padding:0px;
+	padding-top:5px;
+}
+
+#acymodifyform .acymodifybutton{
+	text-align:center;
+}
+
+
+#unsubpage{
+padding: 20px 20px 40px;
+font-size:11px;
+border:1px solid #ccc;}
+
+#unsubpage .unsubsurvey, #unsubpage .unsubintro{
+	padding:0px;}
+
+#unsubpage input{
+	margin-right:5px;}
+
+#unsubpage .unsubintro{
+	font-weight:bold;
+	color:#000;
+	font-size:12px;
+	padding:0px;
+	border-bottom: 1px dotted #000;
+	padding-bottom:4px;
+	margin-bottom:10px;}
+
+#unsubpage .unsuboptions{
+	padding:0px;}
+
+
+
+#unsubpage .unsubsurveytext{
+		border-bottom: 1px dotted #000;
+		color: #000;
+		display: block;
+		font-size: 12px;
+		font-weight: bold;
+		margin-bottom: 10px;
+		margin-top: 30px;
+		padding-bottom: 4px;
+}
+
+#unsubpage .unsuboptions div{
+	font-size: 11px;
+		margin-top: 6px;
+	font-weight:normal;
+}
+
+#unsubpage .unsubsurvey div{
+	font-size: 11px;
+		margin-top: 6px;
+	font-weight:normal;
+}
+
+
+#unsubpage .unsubsurvey textarea{
+	margin-top:15px;
+	border:1px solid #ccc;
+	width:100%;
+	margin-bottom: 10px;
+	background-color:#fff;
+}
+
+#unsubpage .unsubsurvey textarea:hover{
+	border:1px solid #aaa;
+	border-right:1px solid #999;
+	border-bottom:1px solid #999;
+}
+
+
+#unsubpage .input{
+	padding-right:10px;
+}
+
+#unsubbutton_div{
+	text-align:center;
+}
+
+#acyarchiveview{
+	border:1px solid #ccc;
+	padding:10px;}
+
+#acyarchiveview .contentheading{
+	font-weight:bold;
+	color:#000;
+	font-size:16px;}
+
+
+#acyuserinfo .invalid{
+border:1px solid #999 !important;}
+
+

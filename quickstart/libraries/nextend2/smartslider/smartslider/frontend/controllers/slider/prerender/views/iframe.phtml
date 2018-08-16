@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="robots" content="noindex">
+    <title>Slider</title>
+    <style>
+        html, body {
+            overflow: hidden;
+        }
+
+        body * {
+            background-attachment: scroll !important;
+        }
+    </style>
+
+    <?php
+    if (defined('N2LIBRARY')) {
+        if (class_exists('N2AssetsManager')) {
+            echo N2AssetsManager::getCSS();
+            echo N2AssetsManager::getJs();
+        }
+    }
+    ?>
+</head>
+<body>
+    <?php
+    echo $slider;
+    ?>
+    <script>
+        var tmpChange,
+            notifyParentAboutChange = function (e, responsive) {
+                tmpChange = [e, responsive];
+            };
+
+        function broadCastReady() {
+            parent.postMessage({key: 'ready'}, "*");
+        }
+
+        N2R('windowLoad', function ($) {
+            var $slider = $('.n2-ss-slider').on('SliderResize', function (e, ratios, responsive) {
+                notifyParentAboutChange(e, responsive);
+            });
+
+            var slider = $slider.data('ss');
+            // If the slider is already ready, then SliderResize might not happen to adjust the iframe size in the parent
+            if (slider && slider.responsive.ready.state() == 'resolved') {
+                notifyParentAboutChange(null, slider.responsive);
+            }
+
+            var interval = setInterval(broadCastReady, 500);
+
+            var eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";
+            window[eventMethod](eventMethod == "attachEvent" ? "onmessage" : "message", function (e) {
+                var data = e[e.message ? "message" : "data"];
+                switch (data["key"]) {
+                    case "ackReady":
+                        window.n2ClientHeight = data.clientHeight;
+                        clearInterval(interval);
+                        notifyParentAboutChange = function (e, responsive) {
+                            setTimeout(function () {
+                                parent.postMessage({
+                                    key: 'resize',
+                                    width: $('body').width(),
+                                    height: $('body').height(),
+                                    forceFull: responsive.parameters.forceFull,
+                                    fullPage: responsive.parameters.type == 'fullpage'
+                                }, "*");
+                            }, 100);
+                        };
+                        if (typeof tmpChange !== 'undefined') {
+                            notifyParentAboutChange.apply(this, tmpChange);
+                        }
+                        break;
+                    case 'update':
+                        window.n2ClientHeight = data.clientHeight;
+                        break;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
+

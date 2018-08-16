@@ -1,0 +1,30 @@
+.delement{
+	border:1px dashed white;
+	padding:3px;
+	position:relative;
+	min-height:30px;
+}
+.delement.active{
+	border:1px dashed grey;
+}
+.delement_config{
+	display:none;
+	position:fixed;
+	right:0;
+	top:0;
+	height:100%;
+	width:400px;
+	z-index:99999;
+	background-color:white;
+	border:2px solid #ddd;
+	padding:5px;
+}
+.tools_menu{
+	position:absolute;
+	right:0;
+	top:0;
+	display:none !important;
+}
+.delement.active .tools_menu{
+	display:inline-block !important;
+}

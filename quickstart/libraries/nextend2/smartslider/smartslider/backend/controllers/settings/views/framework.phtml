@@ -1,0 +1,21 @@
+<?php
+/** @var N2SmartsliderBackendSettingsView $_class */
+N2Html::topBar(array(
+    "actions" => array(
+        N2Html::tag('a', array(
+            'href'    => '#',
+            'class'   => 'n2-button n2-button-normal n2-button-l n2-radius-s n2-button-green n2-h4 n2-b n2-uc',
+            'onclick' => 'return N2Classes.Form.submit("#nextend-config");'
+        ), n2_('Save'))
+    )
+));
+?>
+<div class="n2-heading-bar">
+        <div class="n2-h1 n2-heading"><?php n2_e('Framework settings'); ?></div>
+    </div>
+<form id="nextend-config" method="post" action="<?php echo N2Request::getRequestUri() ?>">
+<?php
+$_class->renderFrameworkConfigurationForm();
+?>
+
+</form>

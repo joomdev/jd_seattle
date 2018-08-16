@@ -1,0 +1,50 @@
+<?php
+/**
+ * @var $_class N2SystemBackendSettingsView
+ * @see Actions
+ */
+N2Html::topBar(array(
+    "actions" => array(
+        N2Html::tag('a', array(
+            'href'    => '#',
+            'class'   => 'n2-button n2-button-normal n2-button-l n2-radius-s n2-button-green n2-h4 n2-b n2-uc',
+            'onclick' => 'return N2Classes.Form.submit("#nextend-config");'
+        ), n2_('Save'))
+    )
+));
+
+?>
+<div class="n2-heading-bar">
+        <div class="n2-h1 n2-heading"><?php n2_e('Adobe Creative SDK - Aviary image editor'); ?></div>
+    </div>
+
+    <div class="n2-form-tab ">
+        <div class="n2-h2 n2-content-box-title-bg"><?php n2_e('Get Adobe Creative SDK API access'); ?></div>
+
+        <div class="n2-description">
+            <p><?php n2_e('To be able to use Aviary image editing tool in this application, you have to create an own API key to gain access.'); ?></p>
+            <ol>
+                <li><?php n2_e('Register, then login to <a href="https://www.adobe.io/" target="_blank">Adobe</a>.'); ?>
+                </li>
+                <li><?php n2_e('After you have logged in press New Integration in <a href="https://www.adobe.io/console/integrations" target="_blank">here</a>.'); ?>
+                </li>
+				<li><?php n2_e('Leave the Access an API to be selected and press Continue.'); ?></li>
+				<li><?php n2_e('Choose Creative SDK and Continue.'); ?></li>
+				<li><?php n2_e('Leave it on New Integration and Continue.'); ?></li>
+				<li><?php n2_e('The Name and Description can be anything.'); ?></li>
+				<li><?php n2_e('The Platform should stay on Web.'); ?></li>
+                <li><?php n2_e('The Default redirect URI should be a https address to your website. Don\'t worry if your website is not on https, it still will be good. Example: https://example.com'); ?></li>
+                <li><?php n2_e('The Redirect URI pattern can be the same address, just you could give a pattern. It has to be a https link (again, doesn\'t have to be a real https site), and put \\ signs before every . sign. For example: https://example\\.com'); ?></li>
+                <li><?php n2_e('Check in the Captcha, that you are not a robot.'); ?></li>
+                <li><?php n2_e('Press Create Integration.'); ?></li>
+                <li><?php n2_e('Press Continue to Integration details.'); ?></li>
+                <li><?php n2_e('Copy and paste your API Key (Client ID) and Client secret into our backend and Save on it.'); ?></li>
+            </ol>
+        </div>
+    </div>
+
+<form id="nextend-config" method="post" action="<?php echo N2Request::getRequestUri() ?>">
+<?php
+$_class->renderAviaryConfigurationForm();
+?>
+</form>

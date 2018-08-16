@@ -1,0 +1,17 @@
+<extension version="2.5" type="plugin" group="system" method="upgrade">
+    <name>Nextend2 Library</name>
+    <author>Nextendweb</author>
+    <creationDate>2017.08.03.</creationDate>
+    <copyright>Copyright (C) 2015 Nextendweb.com. All rights reserved.</copyright>
+    <license>http://www.gnu.org/licenses/gpl-3.0.txt GNU General Public License</license>
+    <authorEmail>roland@nextendweb.com</authorEmail>
+    <authorUrl>http://nextendweb.com</authorUrl>
+    <version>3.3.1</version>
+    <description/>
+    <files>
+        <filename plugin="nextend2">nextend2.php</filename>
+        <filename>index.html</filename>
+    </files>
+    <config>
+    </config>
+</extension>

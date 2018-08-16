@@ -1,0 +1,73 @@
+<?php
+$model = new N2DBConnector('#__modules');
+?>
+<div class="n2-table n2-table-fixed n2-ss-slider-publish">
+    <div class="n2-tr">
+        <div class="n2-td n2-first">
+            <div class="n2-h2"><?php n2_e('Module'); ?></div>
+
+            <div class="n2-h4"><?php n2_e('Create a module to display the slider in template module position:'); ?></div>
+            <br/>
+            <br/>
+            <?php
+
+            $ss3Module = $model->queryRow("SELECT extension_id FROM `#__extensions` WHERE `element` LIKE  'mod_smartslider3'");
+
+            if (count($ss3Module)) {
+                echo N2Html::link(n2_('Create module'), 'index.php?option=com_modules&task=module.add&eid=' . $ss3Module['extension_id'] . '&params[slider]=' . $sliderid, array(
+                    'class'  => 'n2-button n2-button-normal n2-button-l n2-button-green n2-h3 n2-uc',
+                    'target' => '_blank'
+                ));
+            } else {
+                echo N2Html::link(n2_('Create module'), 'index.php?option=com_modules&view=select', array(
+                    'class'  => 'n2-button n2-button-normal n2-button-l n2-button-green n2-h3 n2-uc',
+                    'target' => '_blank'
+                ));
+            }
+            ?>
+        </div>
+
+
+        <?php
+        $modules = $model->queryAll("SELECT * FROM `#__modules` WHERE `module` LIKE 'mod_smartslider3' AND `params` LIKE '%\"slider\":\"" . $sliderid . "\"%'");
+        if (count($modules)) {
+            ?>
+            <div class="n2-td">
+            <div class="n2-h2"><?php n2_e('Edit related modules'); ?></div>
+                <ul style="display:inline-block;">
+                <?php
+                $IDs = array();
+                foreach ($modules AS $module) {
+                    $IDs[] = intval($module['id']);
+                    ?>
+                    <li style="font-size: 14px; line-height:1.8;"><a href="index.php?option=com_modules&view=module&layout=edit&id=<?php echo $module['id'] ?>" target="_blank"><?php echo $module['title'] ?></a></li>
+                    <?php
+                }
+
+                $context = 'com_modules.edit.module';
+                $app     = JFactory::getApplication();
+                $app->setUserState($context . '.id', $IDs);
+                ?>
+                </ul>
+            </div>
+            <?php
+        }
+        ?>
+
+        <div class="n2-td">
+            <div class="n2-h2"><?php n2_e('Articles'); ?></div>
+
+            <div class="n2-h4"><?php n2_e('Paste the code into article:'); ?></div>
+            <div class="n2-has-copy n2-code" onclick="return selectText(this);">smartslider3[<?php echo $sliderid; ?>]</div>
+        </div>
+        <div class="n2-td n2-last">
+            <div class="n2-h2"><?php n2_e('PHP code'); ?></div>
+
+            <div class="n2-h4"><?php n2_e('Paste the PHP code into source code:'); ?></div>
+            <div class="n2-code" onclick="return selectText(this);">
+                &lt;?php <br/>
+                echo nextend_smartslider3(<?php echo $sliderid; ?>);<br/>
+                ?&gt;</div>
+        </div>
+    </div>
+</div>

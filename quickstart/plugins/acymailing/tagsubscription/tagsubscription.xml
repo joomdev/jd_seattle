@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<extension type="plugin" version="2.5" method="upgrade" group="acymailing">
+	<name>AcyMailing Tag : Manage the Subscription</name>
+	<creationDate>July 2018</creationDate>
+	<version>5.10.3</version>
+	<author>Acyba</author>
+	<authorEmail>dev@acyba.com</authorEmail>
+	<authorUrl>http://www.acyba.com</authorUrl>
+	<copyright>Copyright (C) 2009-2018 ACYBA SAS - All rights reserved..</copyright>
+	<license>GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html</license>
+	<description>This plugin enables you to add link to manage the subscription of the user</description>
+	<files>
+		<filename plugin="tagsubscription">tagsubscription.php</filename>
+	</files>
+	<params addpath="/components/com_acymailing/params">
+		<param name="help" type="help" label="Help" description="Click on the help button to get some help" default="plugin-tagsubscription"/>
+		<param name="unsubscribetemplate" type="radio" default="0" label="Display the unsubscribe page" description="Select if you want to display the unsubscribe page (when the user clicks on the unsubscribe link) without any Joomla module (no template) or inside your default Joomla Template">
+			<option value="0">Standard template</option>
+			<option value="1">No template</option>
+		</param>
+		<param name="listunsubscribe" type="radio" default="0" label="Add list-unsubscribe header" description="If you insert an unsubscribe link, should Acy also insert the link in the list-unsubscribe field? See www.list-unsubscribe.com">
+			<option value="0">JOOMEXT_NO</option>
+			<option value="1">JOOMEXT_YES</option>
+		</param>
+		<param name="listunsubscribeemail" type="text" size="20" default="" label="List-unsubscribe e-mail" description="The GMail feedback loops works with a list-unsubscribe e-mail address. By default Acy will add the reply-to e-mail address but you can specify another e-mail address there" />
+		<param name="modifytemplate" type="radio" default="0" label="Display the modify your subscription" description="Select if you want to display the modify your subscription page (when the user clicks on the modify you subscription link) without any Joomla module (no template) or inside your default Joomla Template">
+			<option value="0">Standard template</option>
+			<option value="1">No template</option>
+		</param>
+		<param name="confirmtemplate" type="radio" default="0" label="Display the confirmation page" description="Select if you want to display the confirmation page (when the user clicks on the confirmation link) without any Joomla module (no template) or inside your default Joomla Template">
+			<option value="0">Standard template</option>
+			<option value="1">No template</option>
+		</param>
+		<param name="displayfilter_mail" type="radio" default="1" label="Display filter" description="Display the subscription filter on the Newsletter creation interface">
+			<option value="0">JOOMEXT_NO</option>
+			<option value="1">JOOMEXT_YES</option>
+		</param>
+		<param name="frontendaccess" type="list" default="all" label="Front-end Access" description="You can restrict the access to this tag system with this option">
+			<option value="all">Always display this tag system</option>
+			<option value="none">Don't display this tag system on the front-end</option>
+		</param>
+	</params>
+	<config>
+		<fields name="params" addfieldpath="/components/com_acymailing/params">
+			<fieldset name="basic">
+				<field name="help" type="help" label="Help" description="Click on the help button to get some help" default="plugin-tagsubscription"/>
+				<field name="unsubscribetemplate" type="radio" default="0" label="Display the unsubscribe page" description="Select if you want to display the unsubscribe page (when the user clicks on the unsubscribe link) without any Joomla module (no template) or inside your default Joomla Template">
+					<option value="0">Standard template</option>
+					<option value="1">No template</option>
+				</field>
+				<field name="listunsubscribe" type="radio" default="0" label="Add list-unsubscribe header" description="If you insert an unsubscribe link, should Acy also insert the link in the list-unsubscribe field? See www.list-unsubscribe.com">
+					<option value="0">JOOMEXT_NO</option>
+					<option value="1">JOOMEXT_YES</option>
+				</field>
+				<field name="listunsubscribeemail" type="text" size="20" default="" label="List-unsubscribe e-mail" description="The GMail feedback loops works with a list-unsubscribe e-mail address. By default Acy will add the reply-to e-mail address but you can specify another e-mail address there" />
+				<field name="modifytemplate" type="radio" default="0" label="Display the modify your subscription" description="Select if you want to display the modify your subscription page (when the user clicks on the modify you subscription link) without any Joomla module (no template) or inside your default Joomla Template">
+					<option value="0">Standard template</option>
+					<option value="1">No template</option>
+				</field>
+				<field name="confirmtemplate" type="radio" default="0" label="Display the confirmation page" description="Select if you want to display the confirmation page (when the user clicks on the confirmation link) without any Joomla module (no template) or inside your default Joomla Template">
+					<option value="0">Standard template</option>
+					<option value="1">No template</option>
+				</field>
+				<field name="displayfilter_mail" type="radio" default="1" label="Display filter" description="Display the subscription filter on the Newsletter creation interface">
+					<option value="0">JOOMEXT_NO</option>
+					<option value="1">JOOMEXT_YES</option>
+				</field>
+				<field name="frontendaccess" type="list" default="all" label="Front-end Access" description="You can restrict the access to this tag system with this option">
+					<option value="all">Always display this tag system</option>
+					<option value="none">Don't display this tag system on the front-end</option>
+				</field>
+			</fieldset>
+		</fields>
+	</config>
+</extension>

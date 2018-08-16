@@ -1,0 +1,288 @@
+.acyeditor_text, .acyeditor_picture{
+	cursor: pointer;
+}
+
+tr.acyeditor_delete td.acyeditor_text:hover, tr.acyeditor_delete td.acyeditor_picture:hover{
+	outline: 2px dotted #cbcf46;
+}
+
+.acyeditor_zoneeditionsuppression:hover{
+	outline: 3px double #5290db;
+}
+
+.acyeditor_zoneeditionsuppression{
+	display: none;
+	top: 0px;
+	left: 0px;
+}
+
+.acyeditor_zoneeditdelete{
+	cursor: pointer;
+	width: 100px;
+	height: 26px;
+	right: 0px;
+}
+
+.acyeditor_editdelete{
+	cursor: pointer;
+	background-image: url(../images/editor_zone_delete.png);
+	width: 24px;
+	height: 24px;
+	float: right;
+}
+
+.acyeditor_edittext{
+	cursor: pointer;
+	background-image: url(../images/editor_zone_text.png);
+	width: 24px;
+	height: 24px;
+}
+
+.acyeditor_editpicture{
+	cursor: pointer;
+	background-image: url(../images/editor_zone_picture.png);
+	width: 24px;
+	height: 24px;
+}
+
+.acyeditor_btnplus{
+	cursor: pointer;
+	background-image: url(../images/editor_zone_plus.png);
+	width: 24px;
+	height: 24px;
+	right: 24px;
+	float: right;
+}
+
+.acyeditor_btnmore{
+	cursor: pointer;
+	background-image: url(../images/param.png);
+	width: 24px;
+	height: 24px;
+	right: 24px;
+	float: right;
+}
+
+.acyeditor_btnmove{
+	cursor: move;
+	background-image: url(../images/editor_zone_drag.png);
+	width: 24px;
+	height: 24px;
+	right: 48px;
+	float: right;
+}
+
+#legendBground{
+	width: 70px;
+	margin: 5px;
+	float: left;
+	font-size: 11px;
+	color: black;
+	line-height: normal;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
+#colorSelector{
+	cursor: pointer;
+	width: 15px;
+	height: 15px;
+	float: right;
+	margin: 5px;
+}
+
+#colorSelectorInput{
+	width: 70px;
+	height: 100%;
+	border: none;
+	padding: 5px;
+}
+
+#colorSelectorContainer{
+	margin: 4px;
+	display: inline-block;
+	background-color: #cacaca;
+	height: 25px;
+	border: solid 1px #B0B0B0;
+	border-radius: 2px;
+}
+
+tr.acyeditor_delete:hover td.acyeditor_enedition .acyeditor_zoneeditionsuppression{
+	display: none;
+}
+
+.acyeditor_delete:not(.acyeditor_enedition):hover .acyeditor_zoneeditionsuppression, .acyeditor_text:not(.acyeditor_enedition):hover .acyeditor_zoneeditionsuppression, .acyeditor_picture:not(.acyeditor_enedition):hover .acyeditor_zoneeditionsuppression{
+	display: block;
+}
+
+.acyeditor_zoneeditionsuppressionhover{
+	display: block;
+}
+
+.acyeditor_copyButton{
+	cursor: pointer;
+	width: 100px;
+	height: 60px;
+	z-index: 998;
+}
+
+.acyeditor_copyButtonAfter{
+	background-image: url(../images/duplicate_after.png);
+	background-size: 100px 60px;
+	background-repeat: no-repeat;
+	float: right;
+	z-index: 999;
+}
+
+.acyeditor_action{
+	z-index: 998;
+	cursor: pointer;
+	height: 35px;
+	display: inline-block;
+	background-color: white;
+	border: 1px solid #CCCCCC;
+	width: auto;
+}
+
+.acyeditor_closebutton{
+	cursor: pointer;
+	width: 16px;
+	height: 16px;
+	background-image: url(../images/close_icon.png);
+	background-size: 16px 16px;
+	position: relative;
+	float: right;
+	z-index: 999;
+}
+
+.acyeditor_mask{
+	z-index: 997;
+	top: 0px;
+	left: 0px;
+}
+
+.placeholder{
+	outline: 2px dashed #444;
+	height: 60px;
+	width: auto;
+	-moz-box-shadow: 0px 0px 4px 2px #ffffff;
+	-webkit-box-shadow: 0px 0px 4px 2px #ffffff;
+	-o-box-shadow: 0px 0px 4px 2px #ffffff;
+	box-shadow: 0px 0px 4px 2px #ffffff;
+	filter: progid:DXImageTransform.Microsoft.Shadow(color=#ffffff, Direction=NaN, Strength=4);
+}
+
+tr.ui-sortable-helper .acyeditor_zoneeditionsuppression{
+	display: none !important;
+}
+
+tr.ui-sortable-helper{
+	opacity: 0.8;
+	outline: 1px solid #5290db;
+	box-shadow: 1px 1px 6px #999;
+}
+
+.placeholder:after{
+	content: url(../images/arrow2.png);
+	position: relative;
+	left: 10px;
+	top: 20px;
+	display: block;
+	width: 0px;
+}
+
+.placeholder:before{
+	content: url(../images/arrow1.png);
+	position: relative;
+	right: 40px;
+	top: 20px;
+	display: block;
+	width: 0px;
+}
+
+.cke_source{
+	white-space: pre-wrap !important;
+}
+
+.confirmCancel{
+	color: #6190b9;
+	padding: 10px 15px 10px 25px;
+	font-weight: bold;
+	font-size: 13px;
+	text-transform: uppercase;
+	border: 1px solid #93b7d6;
+	border-bottom: 2px solid #93b7d6;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	margin: 15px 5px 0px 50px;
+	cursor: pointer;
+	background: #fff url(../images/popup_cancel.png) no-repeat 10% 50%;
+	width: 100px;
+	float: left;
+}
+
+.confirmCancel:hover{
+	border: 1px solid #8baac7;
+	border-bottom: 2px solid #678fb6;
+	background: #adc7e0 url(../images/popup_cancel_hover.png) no-repeat 10% 50%;
+	color: #fff;
+	text-shadow: 1px 1px 2px #5a89b7;
+	-moz-text-shadow: 1px 1px 2px #5a89b7;
+	-webkit-text-shadow: 1px 1px 2px #5a89b7;
+}
+
+.confirmOk{
+	color: #dc5d55;
+	padding: 10px 25px 10px 15px;
+	font-weight: bold;
+	font-size: 13px;
+	text-transform: uppercase;
+	border: 1px solid #eeb6b3;
+	border-bottom: 2px solid #eeb6b3;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	margin: 15px 50px 0px 5px;
+	cursor: pointer;
+	background: #fff url(../images/popup_delete.png) no-repeat 90% 45%;
+	width: 100px;
+	float: right;
+}
+
+.confirmOk:hover{
+	border: 1px solid #d4615b;
+	border-bottom: 2px solid #b13e38;
+	background: #eb837d url(../images/popup_delete_hover.png) no-repeat 90% 45%;
+	color: #fff;
+	text-shadow: 1px 1px 2px #c54e48;
+	-moz-text-shadow: 1px 1px 2px #c54e48;
+	-webkit-text-shadow: 1px 1px 2px #c54e48;
+}
+
+#confirmBox{
+	width: 370px;
+	height: 100px;
+	background: rgba(255, 255, 255, 0.8);
+	border: 1px solid #d6d6d6;
+	padding: 5px;
+	border-radius: 5px;
+	box-shadow: 1px 1px 5px #dddddd;
+	-moz-box-shadow: 1px 1px 5px #dddddd;
+	-webkit-box-shadow: 1px 1px 5px #dddddd;
+	position: absolute;
+	z-index: 999;
+}
+
+#acy_popup_content{
+	background-color: #fff;
+	padding: 20px;
+	text-align: center;
+	color: #706f6f;
+	height: 60px;
+}
+
+div[name="emojipopup"] .cke_dialog_ui_vbox_child div.cke_dialog_ui_html{
+	height: 250px;
+	overflow-y: auto;
+	overflow-x: hidden;
+}

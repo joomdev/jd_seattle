@@ -1,0 +1,19 @@
+.ui.text.big{
+	font-size: 2em !important;
+}
+.ui.text.large{
+	font-size: 1.5em !important;
+}
+.ui.text.small{
+	font-size: 0.75em !important;
+}
+.ui.text.tiny{
+	font-size: 0.5em !important;
+}
+
+.ui.text.black{
+	color: #000!important;
+}
+.ui.text.grey{
+	color: #767676!important;
+}

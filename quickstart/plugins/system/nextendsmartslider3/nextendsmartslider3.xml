@@ -1,0 +1,15 @@
+<extension version="2.5" type="plugin" group="system" method="upgrade">
+    <name>Nextend Smart Slider 3</name>
+    <author>Nextendweb</author>
+    <creationDate>2017.08.03</creationDate>
+    <copyright>Copyright (C) 2017 Nextendweb.com. All rights reserved.</copyright>
+    <license>http://www.gnu.org/licenses/gpl-3.0.txt GNU General Public License</license>
+    <authorEmail>support@nextendweb.com</authorEmail>
+    <authorUrl>http://smartslider3.com</authorUrl>
+    <version>3.3.1</version>
+    <description/>
+    <files>
+        <filename plugin="nextendsmartslider3">nextendsmartslider3.php</filename>
+        <filename>index.html</filename>
+    </files>
+</extension>

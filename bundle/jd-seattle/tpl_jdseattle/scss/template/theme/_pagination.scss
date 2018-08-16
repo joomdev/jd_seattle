@@ -1,0 +1,71 @@
+/* Blog Pagination
+=========================== */
+
+.pagination {
+    @extend .flex-wrap;
+    @extend .justify-content-center;
+    li {
+        display: -ms-flexbox;
+        display: flex;
+        a {
+            position: relative;
+            padding: $pagination-padding-y $pagination-padding-x;
+            margin-left: -$pagination-border-width;
+            line-height: $pagination-line-height;
+            color: $pagination-color;
+            background-color: $pagination-bg;
+            border: $pagination-border-width solid $pagination-border-color;
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-align: center;
+            align-items: center;
+            @include media-breakpoint-down(xs) {
+                font-size: 12px;
+                padding: .5rem 0.75rem;
+            }
+            &:hover {
+                z-index: 2;
+                color: $pagination-hover-color;
+                text-decoration: none;
+                background-color: $pagination-hover-bg;
+                border-color: $pagination-hover-border-color;
+            }
+            &:focus {
+                z-index: 2;
+                outline: $pagination-focus-outline;
+                box-shadow: $pagination-focus-box-shadow;
+            } // Opinionated: add "hand" cursor to non-disabled .page-link elements
+            &:not(:disabled):not(.disabled) {
+                cursor: pointer;
+            }
+        }
+        &:first-child {
+            a {
+                margin-left: 0;
+                @include border-left-radius($border-radius);
+            }
+        }
+        &:last-child {
+            a {
+                @include border-right-radius($border-radius);
+            }
+        }
+        &.active a {
+            z-index: 1;
+            color: $pagination-active-color;
+            background-color: $pagination-active-bg;
+            border-color: $pagination-active-border-color;
+        }
+        &.disabled a {
+            color: $pagination-disabled-color;
+            pointer-events: none; // Opinionated: remove the "hand" cursor set previously for .page-link
+            cursor: auto;
+            background-color: $pagination-disabled-bg;
+            border-color: $pagination-disabled-border-color;
+        }
+    }
+    .counter {
+        width: 100%;
+        text-align: center;
+    }
+}

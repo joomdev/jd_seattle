@@ -1,0 +1,28 @@
+Changes to .inline files:
+Main CSS files, all "rem" changed to "14px".
+
+function css(){
+	$path = \G2\Globals::get('FRONT_PATH').'assets'.DS.'semantic-ui'.DS.'components'.DS;
+	$files = \G2\L\Folder::getFiles($path);
+	foreach($files as $file){
+		if(substr($file, -8) == '.min.css'){
+			$name_parts = explode('.', basename($file));
+			$name = array_shift($name_parts);
+			array_unshift($name_parts, 'inline');
+			array_unshift($name_parts, $name);
+			$name = implode('.', $name_parts);
+			$path = str_replace(basename($file), $name, $file);
+			
+			$data = file_get_contents($file);
+			
+			preg_match_all('/([0-9]*\.?[0-9]+)(rem)/', $data, $rems);
+			foreach($rems[0] as $k => $rem){
+				//$data = str_replace($rem, ((float)$rems[1][$k] * 14).'px', $data);
+				$data = preg_replace('/'.preg_quote($rem).'/', ((float)$rems[1][$k] * 14).'px', $data, 1);
+				$rems[3][$k] = ((float)$rems[1][$k] * 14).'px';
+			}
+			file_put_contents($path, $data);
+		}
+	}
+	die();
+}

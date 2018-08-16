@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<fields name="params">
+		<fieldset name="basic" label="COM_SPSIMPLEPORTFOLIO_FIELDSET_PORTFOLIO">
+			<field name="show_filter" type="radio" class="btn-group" default="1" label="COM_SPSIMPLEPORTFOLIO_SHOW_FILTER_BUTTONS" description="COM_SPSIMPLEPORTFOLIO_SHOW_FILTER_BUTTONS_DESC">
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+			</field>
+			<field name="catid" type="category" extension="com_spsimpleportfolio" default="" label="COM_SPSIMPLEPORTFOLIO_CATEGORY" description="COM_SPSIMPLEPORTFOLIO_CATEGORY_DESC" >
+				<option value="">COM_SPSIMPLEPORTFOLIO_CATEGORY_ALL</option>
+			</field>
+			<field name="layout_type" type="list" default="default" label="COM_SPSIMPLEPORTFOLIO_FIELD_LAYOUT_TYPES" description="COM_SPSIMPLEPORTFOLIO_FIELD_LAYOUT_TYPES_DESC">
+				<option value="default">COM_SPSIMPLEPORTFOLIO_FIELD_LAYOUT_DEFAULT</option>
+				<option value="gallery_space">COM_SPSIMPLEPORTFOLIO_FIELD_LAYOUT_GALLERY_SPACE</option>
+				<option value="gallery_nospace">COM_SPSIMPLEPORTFOLIO_FIELD_LAYOUT_GALLERY_NOSPACE</option>
+			</field>
+			<field name="columns" type="list" default="3" label="COM_SPSIMPLEPORTFOLIO_FIELD_COLUMNS" description="COM_SPSIMPLEPORTFOLIO_FIELD_COLUMNS_DESC">
+				<option value="2">COM_SPSIMPLEPORTFOLIO_FIELD_LAYOUT_COLUMNS_2</option>
+				<option value="3">COM_SPSIMPLEPORTFOLIO_FIELD_LAYOUT_COLUMNS_3</option>
+				<option value="4">COM_SPSIMPLEPORTFOLIO_FIELD_LAYOUT_COLUMNS_4</option>
+			</field>
+			<field name="thumbnail_type" type="list" default="masonry" label="COM_SPSIMPLEPORTFOLIO_THUMBNAIL_SIZE">
+				<option value="masonry">COM_SPSIMPLEPORTFOLIO_THUMBNAIL_MASONRY</option>
+				<option value="square">COM_SPSIMPLEPORTFOLIO_THUMBNAIL_SQUARE</option>
+				<option value="rectangular">COM_SPSIMPLEPORTFOLIO_THUMBNAIL_RECTANGULAR</option>
+			</field>
+			<field name="popup_image" type="list" default="default" label="COM_SPSIMPLEPORTFOLIO_FIELD_POPUP_IMAGE" description="COM_SPSIMPLEPORTFOLIO_FIELD_POPUP_IMAGE_DESC">
+				<option value="default">COM_SPSIMPLEPORTFOLIO_FIELD_POPUP_IMAGE_DEFAULT</option>
+				<option value="quare">COM_SPSIMPLEPORTFOLIO_FIELD_POPUP_IMAGE_SQAURE</option>
+				<option value="rectangle">COM_SPSIMPLEPORTFOLIO_FIELD_POPUP_IMAGE_RECTANGLE</option>
+				<option value="tower">COM_SPSIMPLEPORTFOLIO_FIELD_POPUP_IMAGE_TOWER</option>
+			</field>
+			<field name="limit" type="number" default="12" label="COM_SPSIMPLEPORTFOLIO_FIELD_LIMIT" description="COM_SPSIMPLEPORTFOLIO_FIELD_LIMIT_DESC" />
+		</fieldset>
+	</fields>
+</metadata>

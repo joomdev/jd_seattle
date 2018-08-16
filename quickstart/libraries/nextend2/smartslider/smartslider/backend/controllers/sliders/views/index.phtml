@@ -1,0 +1,26 @@
+<?php
+/**
+ * @var $this   N2View
+ * @var $_class N2SmartsliderBackendSlidersView
+ */
+
+N2Html::topBar();
+
+N2HTML::heading(array(
+    'title'   => n2_('Dashboard') . N2Html::tag('span', array(), n2_('Version') . ': ' . N2SS3::$version . '-' . N2SS3::$plan . '-r' . N2SS3::$revision . ' - <a target="_blank" href="https://smartslider3.helpscoutdocs.com/article/432-changelog">' . n2_('Changelog') . '</a>'),
+    'actions' => $_class->getDashboardButtons()
+));
+?>
+
+<?php
+N2SSBackendFragments::tutorialFree();
+
+?>
+
+    <div class="n2-ss-sliders-outer-container">
+        <?php
+        N2SSBackendFragments::sliderManager();
+        ?>
+    </div>
+
+<?php N2SS3::showBeacon('Main page, Import, Update'); ?>

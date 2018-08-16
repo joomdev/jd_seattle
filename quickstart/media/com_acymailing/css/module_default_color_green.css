@@ -1,0 +1,31 @@
+/**
+ * @package    AcyMailing for Joomla!
+ * @version    5.10.3
+ * @author     acyba.com
+ * @copyright  (C) 2009-2018 ACYBA S.A.R.L. All rights reserved.
+ * @license    GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
+ */
+
+@import url("module_default_color_black.css");
+
+
+
+
+.acymailing_module .inputbox:hover{
+	border:1px solid #9e9c07!important;
+	border-bottom: 1px solid #727127!important;
+	border-right: 1px solid #727127!important;
+	}
+
+
+.acymailing_mootoolsbutton a:link, .acymailing_mootoolsbutton a:visited, .acysubbuttons input.button, .acysubbuttons .button, .acysubbuttons button.validate {	color:#fff !important;
+	background-color:#727127 !important;}
+
+.acymailing_mootoolsbutton a:hover, .acymailing_mootoolsbutton a:active, .acysubbuttons input.button:hover, .acysubbuttons .button:hover, .acysubbuttons button.validate:hover {
+    color:#fff!important;
+	background-color:#9e9c07 !important;}
+
+
+
+.acymailing_module form a:hover, .acymailing_module form a:active, .acymailing_module form a:focus{
+	color:#9e9c07!important;}

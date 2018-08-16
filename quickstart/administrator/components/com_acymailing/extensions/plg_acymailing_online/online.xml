@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE install SYSTEM "http://dev.joomla.org/xml/1.5/plugin-install.dtd">
+<install type="plugin" version="1.5" method="upgrade" group="acymailing">
+	<name>AcyMailing Tag : Website links</name>
+	<creationDate>September 2009</creationDate>
+	<version>3.7.0</version>
+	<author>Acyba</author>
+	<authorEmail>dev@acyba.com</authorEmail>
+	<authorUrl>http://www.acyba.com</authorUrl>
+	<copyright>Copyright (C) 2009-2018 ACYBA SAS - All rights reserved..</copyright>
+	<license>GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html</license>
+	<description>This plugin enables you to add links in your Newsletter such as "read in your browser" or "forward to a friend"</description>
+	<files>
+		<filename plugin="online">online.php</filename>
+	</files>
+	<params addpath="/components/com_acymailing/params">
+		<param name="help" type="help" label="Help" description="Click on the help button to get some help" default="plugin-online"/>
+		<param name="addkey" type="radio" default="yes" label="Add Newsletter key" description="Add the Newsletter key in the link so the online version will be always accessible from the link inserted in the Newsletter">
+			<option value="yes">Yes</option>
+			<option value="no">No</option>
+		</param>
+		<param name="adduserkey" type="radio" default="yes" label="Add User key" description="Add the user key in the link so the online version will contain the personal information as well">
+			<option value="yes">Yes</option>
+			<option value="no">No</option>
+		</param>
+		<param name="viewtemplate" type="radio" default="notemplate" label="Display the online version - DEPRECATED" description="This option is not useful any more, please use the option when inserting the tag instead">
+			<option value="standard">Standard template</option>
+			<option value="notemplate">No template</option>
+		</param>
+		<param name="forwardtemplate" type="radio" default="notemplate" label="Display the forward version - DEPRECATED" description="This option is not useful any more, please use the option when inserting the tag instead">
+			<option value="standard">Standard template</option>
+			<option value="notemplate">No template</option>
+		</param>
+		<param name="frontendaccess" type="list" default="all" label="Front-end Access" description="You can restrict the access to this tag system with this option">
+			<option value="all">Always display this tag system</option>
+			<option value="none">Don't display this tag system on the front-end</option>
+		</param>
+	</params>
+	<config>
+		<fields name="params" addfieldpath="/components/com_acymailing/params">
+			<fieldset name="basic">
+				<field name="help" type="help" label="Help" description="Click on the help button to get some help" default="plugin-online"/>
+				<field name="addkey" type="radio" default="yes" label="Add Newsletter key" description="Add the Newsletter key in the link so the online version will be always accessible from the link inserted in the Newsletter">
+					<option value="yes">Yes</option>
+					<option value="no">No</option>
+				</field>
+				<field name="adduserkey" type="radio" default="yes" label="Add User key" description="Add the user key in the link so the online version will contain the personal information as well">
+					<option value="yes">Yes</option>
+					<option value="no">No</option>
+				</field>
+				<field name="viewtemplate" type="radio" default="notemplate" label="Display the online version - DEPRECATED" description="This option is not useful any more, please use the option when inserting the tag instead">
+					<option value="standard">Standard template</option>
+					<option value="notemplate">No template</option>
+				</field>
+				<field name="forwardtemplate" type="radio" default="notemplate" label="Display the forward version - DEPRECATED" description="This option is not useful any more, please use the option when inserting the tag instead">
+					<option value="standard">Standard template</option>
+					<option value="notemplate">No template</option>
+				</field>
+				<field name="frontendaccess" type="list" default="all" label="Front-end Access" description="You can restrict the access to this tag system with this option">
+					<option value="all">Always display this tag system</option>
+					<option value="none">Don't display this tag system on the front-end</option>
+				</field>
+			</fieldset>
+		</fields>
+	</config>
+</install>

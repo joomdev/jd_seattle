@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="2.5.0" type="plugin" group="system" method="upgrade">
+	<name>PLG_SYSTEM_BACKUPONUPDATE_TITLE</name>
+	<author>Nicholas K. Dionysopoulos</author>
+	<authorEmail>nicholas@dionysopoulos.me</authorEmail>
+	<authorUrl>http://www.akeebabackup.com</authorUrl>
+	<copyright>Copyright (c)2006-2017 Nicholas K. Dionysopoulos</copyright>
+	<license>GNU General Public License version 3, or later</license>
+	<creationDate>2013-08-13</creationDate>
+	<version>3.7</version>
+	<description>PLG_SYSTEM_BACKUPONUPDATE_DESCRIPTION</description>
+	<files>
+		<filename plugin="backuponupdate">backuponupdate.php</filename>
+		<folder>tmpl</folder>
+	</files>
+	<languages folder="language">
+		<language tag="en-GB">en-GB/en-GB.plg_system_backuponupdate.ini</language>
+		<language tag="en-GB">en-GB/en-GB.plg_system_backuponupdate.sys.ini</language>
+	</languages>
+    <config addfieldpath="/administrator/components/com_akeeba/fields">
+        <fields name="params">
+            <fieldset name="basic">
+                <field name="profileid" type="backupprofiles" default="1"
+                       label="PLG_SYSTEM_BACKUPONUPDATE_PROFILE_LABEL"
+                       description="PLG_SYSTEM_BACKUPONUPDATE_PROFILE_DESC"
+                />
+            </fieldset>
+        </fields>
+    </config>
+
+	<scriptfile>script.php</scriptfile>
+</extension>

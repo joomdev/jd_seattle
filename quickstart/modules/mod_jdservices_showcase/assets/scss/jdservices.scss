@@ -1,0 +1,49 @@
+@import "bootstrap/bootstrap";
+.jd-services-showcase{
+   .jd-services-showcase-link{
+      min-height: 150px;
+      @include media-breakpoint-between(xs, md) {
+         height: inherit !important;
+      }
+   }
+   .jdss-item{
+      overflow: hidden;
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+      .jdss-item-opacity{
+         position: absolute;
+         top: 0;
+         left: 0;
+         height: 100%;
+         width: 100%;
+         background: rgba(0,0,0,0.2);
+         z-index: 0;
+         box-shadow: inset 0px 0px 200px #000;
+         opacity: 0.5;
+      }
+      .jdss-item-content{
+         position: relative;
+         z-index: 1;
+      }
+      .jdss-item-overlay{
+         display: none;
+         position: absolute;
+         top: 0;
+         left: 0;
+         height: 100%;
+         width: 100%;
+         z-index: 2;
+      }
+      @include media-breakpoint-between(lg, xl) {
+         &:hover{
+            .jdss-item-overlay{
+               display: flex;
+            }
+         }
+      }
+   }
+   @include media-breakpoint-between(xs, md) {
+      height: inherit !important;
+   }
+}

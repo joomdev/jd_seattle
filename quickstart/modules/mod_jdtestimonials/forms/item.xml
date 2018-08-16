@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form>
+   <fieldset name="items_modal" label="Testimonials Items">
+      <field name="author_name"
+             label="MOD_JDTESTIMONIALS_PERSON_NAME"
+             type="text">
+      </field>
+	  <field name="author_thumbnail"
+             type="media"
+             label="MOD_JDTESTIMONIALS_PERSON_IMAGE">
+      </field>
+	  <field name="author_companyName"
+             label="MOD_JDTESTIMONIALS_PERSON_COMPANY_NAME"
+             type="text">
+      </field>
+	  <field name="author_companyLink"
+             label="MOD_JDTESTIMONIALS_PERSON_COMPANY_LINK"
+             type="text">
+      </field>
+	 <field
+		   name="rating"
+		   type="list"
+		   label="MOD_JDTESTIMONIALS_PERSON_RATING"
+		   description="MOD_JDTESTIMONIALS_PERSON_DESCRIPTION_RATING"
+		   default="MOD_JDTESTIMONIALS_NONE"
+		>
+           <option value="none">MOD_JDTESTIMONIALS_NONE</option>
+		   <option value="MOD_JDTESTIMONIALS_ONE">MOD_JDTESTIMONIALS_ONE</option>
+		   <option value="MOD_JDTESTIMONIALS_TWO">MOD_JDTESTIMONIALS_TWO</option>	   
+		   <option value="MOD_JDTESTIMONIALS_THREE">MOD_JDTESTIMONIALS_THREE</option>
+		   <option value="MOD_JDTESTIMONIALS_FOUR">MOD_JDTESTIMONIALS_FOUR</option>	   
+		   <option value="MOD_JDTESTIMONIALS_FIVE">MOD_JDTESTIMONIALS_FIVE</option>
+       </field>
+      <field
+         name="author_companyReview"
+         type="textarea"
+         label="MOD_JDTESTIMONIALS_PERSON_REVIEW">
+      </field>
+   </fieldset>
+</form>

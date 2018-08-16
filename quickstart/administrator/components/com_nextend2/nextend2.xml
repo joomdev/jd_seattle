@@ -1,0 +1,30 @@
+<extension type="component" version="2.5.0" method="upgrade">
+    <name>Nextend2</name>
+    <author>NEXTENDWEB</author>
+    <copyright>Copyright (C) Nextendweb.com</copyright>
+    <authorEmail>support@nextendweb.com</authorEmail>
+    <authorUrl>http://nextendweb.com</authorUrl>
+    <creationDate>2015-11-01</creationDate>
+    <license>http://www.gnu.org/licenses/gpl-3.0.txt GNU/GPL</license>
+    <releaseDate>2015.11.01.</releaseDate>
+    <version>2.0.23</version>
+    <description>Nextend core services.</description>
+    <files folder="site">
+        <filename>index.html</filename>
+    </files>
+    <administration>
+        <files>
+            <filename>nextend2.php</filename>
+            <filename>icon16.png</filename>
+            <filename>config.xml</filename>
+            <filename>access.xml</filename>
+            <folder>language</folder>
+            <filename>index.html</filename>
+        </files>
+        <languages folder="language">
+            <language tag="en-GB">en-GB/en-GB.com_nextend2.ini</language>
+            <language tag="en-GB">en-GB/en-GB.com_nextend2.sys.ini</language>
+            <language tag="en-GB">en-GB/en-GB.com_nextend2.menu.ini</language>
+        </languages>
+    </administration>
+</extension>

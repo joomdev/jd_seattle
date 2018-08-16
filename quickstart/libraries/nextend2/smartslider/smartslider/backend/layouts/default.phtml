@@ -1,0 +1,45 @@
+<?php
+/* @var $this N2Layout */
+if (intval(N2SmartSliderSettings::get('force-rtl-backend', 0))) {
+    echo '<script>
+    jQuery(document).ready(function(){
+        jQuery( "html" ).attr("dir", "rtl");
+    });
+    </script>';
+}
+
+?>
+
+    <div id="n2-admin" class="n2">
+
+        <?php
+        include(dirname(__FILE__) . DIRECTORY_SEPARATOR . '_mainmenu.php');
+        ?>
+
+        <div class="n2-table n2-table-fixed n2-content">
+            <div class="n2-tr">
+                <div class="n2-td n2-sidebar n2-sidebar-base-bg n2-border-radius-bl">
+                    <?php
+                    $this->renderFragmentBlock('nextend_sidebar', '_sliders');
+                    ?>
+                </div>
+
+                <div class="n2-td n2-content-base-bg n2-content-area n2-border-radius-br">
+                    <!-- Begin Content -->
+                    <?php
+                    $this->renderFragmentBlock('nextend_content');
+                    ?>
+                    <!-- End Content -->
+                </div>
+            </div>
+        </div>
+        <?php
+        N2Pluggable::doAction('afterApplicationContent');
+        ?>
+    </div>
+<?php
+
+N2Message::show();
+$isPro = 0;
+
+N2JS::addInline("N2Classes.ExpertMode(" . $isPro . ");");

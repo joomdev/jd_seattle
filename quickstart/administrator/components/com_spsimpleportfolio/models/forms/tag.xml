@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form>
+	<fieldset name="basic">
+		<field name="id" type="hidden" />
+		<field name="title" type="text" label="JGLOBAL_TITLE" description="JFIELD_TITLE_DESC" class="input-large-text" size="40" required="true" />
+		<field id="alias" name="alias" type="text" label="JFIELD_ALIAS_LABEL" description="JFIELD_ALIAS_DESC" hint="JFIELD_ALIAS_PLACEHOLDER" size="40" />
+	</fieldset>
+</form>

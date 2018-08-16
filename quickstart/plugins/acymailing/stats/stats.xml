@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<extension type="plugin" version="2.5" method="upgrade" group="acymailing">
+	<name>AcyMailing : Statistics Plugin</name>
+	<creationDate>September 2009</creationDate>
+	<version>3.7.0</version>
+	<author>Acyba</author>
+	<authorEmail>dev@acyba.com</authorEmail>
+	<authorUrl>http://www.acyba.com</authorUrl>
+	<copyright>Copyright (C) 2009-2018 ACYBA SAS - All rights reserved..</copyright>
+	<license>GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html</license>
+	<description>This plugin is used to handle statistics on any AcyMailing e-mail</description>
+	<files>
+		<filename plugin="stats">stats.php</filename>
+	</files>
+	<params addpath="/components/com_acymailing/params">
+		<param name="help" type="help" label="Help" description="Click on the help button to get some help" default="plugin-stats"/>
+		<param name="picture" type="text" size="60" label="Stat picture" default="media/com_acymailing/images/statpicture.png" description="Path of the statistic picture"/>
+		<param name="alttext" type="text" size="60" default="" label="Alt Text" description="Alternatif text which will be displayed if the user does not accept to load your images" />
+		<param name="width" type="text" size="2" default="50" label="Stat picture width" description="An image will be added in your HTML e-mails to be able to handle statistics. You can modify the width of the stat picture." />
+		<param name="height" type="text" size="2" default="1" label="Stat picture height" description="An image will be added in your HTML e-mails to be able to handle statistics. You can modify the height of the stat picture." />
+		<param name="displayfilter_mail" type="radio" default="0" label="Display filter" description="Display the statistics filter on the Newsletter creation interface">
+			<option value="0">JOOMEXT_NO</option>
+			<option value="1">JOOMEXT_YES</option>
+		</param>
+	</params>
+	<config>
+		<fields name="params" addfieldpath="/components/com_acymailing/params">
+			<fieldset name="basic">
+				<field name="help" type="help" label="Help" description="Click on the help button to get some help" default="plugin-stats"/>
+				<field name="picture" type="text" size="60" label="Stat picture" default="media/com_acymailing/images/statpicture.png" description="Path of the statistic picture"/>
+				<field name="alttext" type="text" size="60" default="" label="Alt Text" description="Alternatif text which will be displayed if the user does not accept to load your images" />
+				<field name="width" type="text" size="2" default="50" label="Stat picture width" description="An image will be added in your HTML e-mails to be able to handle statistics. You can modify the width of the stat picture." />
+				<field name="height" type="text" size="2" default="1" label="Stat picture height" description="An image will be added in your HTML e-mails to be able to handle statistics. You can modify the height of the stat picture." />
+				<field name="displayfilter_mail" type="radio" default="0" label="Display filter" description="Display the statistics filter on the Newsletter creation interface">
+					<option value="0">JOOMEXT_NO</option>
+					<option value="1">JOOMEXT_YES</option>
+				</field>
+			</fieldset>
+		</fields>
+	</config>
+</extension>

@@ -1,0 +1,149 @@
+/**
+ * @package    AcyMailing for Joomla!
+ * @version    5.10.3
+ * @author     acyba.com
+ * @copyright  (C) 2009-2018 ACYBA S.A.R.L. All rights reserved.
+ * @license    GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
+ */
+
+
+.acymailing_module_form .inputbox{
+	padding-right:35px;
+	color:#666;
+	height:21px;
+	border:none;
+	background-color:transparent;
+	padding-left:15px;
+	background: url(../images/blue/more.png) no-repeat right top;
+	margin-bottom:5px;
+	}
+	
+.acymailing_module_form .inputbox:hover{
+	background: url(../images/blue/more.png) no-repeat right bottom;
+	}
+	
+.acymailing_module_form .inputbox:focus{
+	border:none;
+	}
+
+.acymailing_module_form .acyfield_email .inputbox{
+	background: url(../images/blue/mail.png) no-repeat right top;
+	}
+	
+.acymailing_module_form .acyfield_email .inputbox:hover{
+	background: url(../images/blue/mail.png) no-repeat right bottom;
+	}
+
+.acymailing_module_form .acyfield_name .inputbox{
+	background: url(../images/blue/name.png) no-repeat right top;
+	}
+
+.acymailing_module_form .acyfield_name .inputbox:hover{
+	background: url(../images/blue/name.png) no-repeat right bottom;
+	}
+	
+
+
+.acysubbuttons input.subbutton{
+	background: url(../images/blue/subscription.png) no-repeat right top;
+	margin-bottom:5px;
+	margin-top:5px
+	}
+	
+.acysubbuttons input.subbutton:hover{
+	background: url(../images/blue/subscription.png) no-repeat right bottom;
+	margin-bottom:5px;
+	margin-top:5px
+	}
+
+.acysubbuttons input.unsubbutton{
+	background: url(../images/blue/unsubscription.png) no-repeat right top;
+	margin-bottom:5px;
+	margin-top:5px
+	}
+	
+.acysubbuttons input.unsubbutton:hover{
+	background: url(../images/blue/unsubscription.png) no-repeat right bottom;
+	margin-bottom:5px;
+	margin-top:5px
+	}
+	
+.acysubbuttons input.button{
+	border:none;
+	color:#666;
+	padding-right:60px;
+	padding-left:15px;
+	height:21px;
+	cursor:pointer;
+}
+
+.acysubbuttons input.button:hover{
+	color:#0099CC;}
+	
+	
+div.acymailing_module, .acymailing_module div{
+	padding: 0 !important;
+	margin: 0 !important;
+}
+
+
+a.acymailing_togglemodule{
+	display : block;
+	font-size:16px;
+}
+
+.acymailing_mootoolsbutton p{
+	text-align:center;
+}
+
+img.captchaimagemodule{
+	border:1px solid #dddddd;
+	float: left;
+}
+
+.captchakeymodule .captchafield{
+	margin-top:3px;
+	margin-left:2px;
+}
+
+.acymailing_fulldiv tr, .acymailing_fulldiv td{
+	border:0px;
+}
+
+
+
+.acymailing_module_form td {
+	padding:3px;
+	}
+
+.acymailing_module_form a:link, .acymailing_module_form a:visited{
+	color:#666;
+	background-color:transparent;}
+
+.acymailing_module_form a:hover, .acymailing_module_form a:active{
+	background-color:transparent !important;
+	color:#0099CC !important;
+	text-decoration:underline !important;}
+
+.acymailing_form p{
+	margin: 0px;
+	padding: 2px;
+	}
+
+.acyfield_html label{
+	padding-left:5px;
+	padding-right:5px;
+	}
+
+.acymailing_mootoolsbutton a.acymailing_togglemodule{
+	color:#09C;
+	text-decoration: none;
+	background: url(../images/blue/arrow.png) no-repeat left;
+	height:25px;
+	border-bottom:1px solid #09C;
+	}
+
+.acymailing_mootoolsbutton a.acyactive{
+	background: url(../images/blue/arrow2.png) no-repeat left;
+	}
+

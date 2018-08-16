@@ -1,0 +1,33 @@
+.pricing-card .card .list-styled {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-align: left;
+}
+
+.pricing-card .card .list-styled li {
+  display: -ms-flexbox;
+  display: flex !important;
+}
+
+.pricing-card .card .list-styled li:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+.pricing-card .card .list-styled li::before {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 700;
+  content: "\f111";
+  display: inline-block;
+  font-size: 55%;
+  margin-right: 10px;
+  padding-top: 10px;
+  padding-left: 0.39rem;
+  line-height: 1;
+}
+
+.pricing-card .card .card-footer {
+  background: transparent;
+}
+
+/*# sourceMappingURL=style.css.map */

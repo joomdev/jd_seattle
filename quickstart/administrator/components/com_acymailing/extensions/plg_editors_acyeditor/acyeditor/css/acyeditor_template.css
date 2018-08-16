@@ -1,0 +1,30 @@
+.acyeditor_delete {
+	outline: 1px dashed #ab2e39;
+}
+
+.acyeditor_text{
+	background:url(../images/edit_text.png) no-repeat top right;
+	outline: 2px dotted #cbcf46;
+}
+
+.acyeditor_picture{
+	background:url(../images/edit_picture.png) no-repeat top right;
+	outline: 2px dotted #cbcf46;
+}
+
+.acyeditor_delete.acyeditor_text, .acyeditor_delete.acyeditor_picture {
+	border: 1px dashed #ab2e39;
+}
+
+.acyeditor_picture img{
+	opacity:0.5;
+	-moz-opacity: 0.5;
+	-khtml-opacity: 0.5;
+	opacity: 0.5;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+	filter: alpha(opacity=50);
+}
+
+.acyeditor_sortable{
+	outline: 3px double #5290db;
+}

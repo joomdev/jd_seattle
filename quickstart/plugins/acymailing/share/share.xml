@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<extension type="plugin" version="2.5" method="upgrade" group="acymailing">
+	<name>AcyMailing : share on social networks</name>
+	<creationDate>August 2010</creationDate>
+	<version>1.0.0</version>
+	<author>Acyba</author>
+	<authorEmail>dev@acyba.com</authorEmail>
+	<authorUrl>http://www.acyba.com</authorUrl>
+	<copyright>Copyright (C) 2009-2018 ACYBA SAS - All rights reserved..</copyright>
+	<license>GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html</license>
+	<description>This plugin enables you to add a share icon for social networks</description>
+	<files>
+		<filename plugin="share">share.php</filename>
+	</files>
+	<params addpath="/components/com_acymailing/params">
+		<param name="help" type="help" label="Help" description="Click on the help button to get some help" default="plugin-share"/>
+		<param name="template" type="radio" default="component" label="Display the online version" description="Select if you want to display the online version (when the user will share your link on the social network) without any Joomla module (no template) or inside your default Joomla Template">
+			<option value="standard">Standard template</option>
+			<option value="component">No template</option>
+		</param>
+
+		<param name="picturefb" type="text" label="Facebook picture - DEPRECATED" default="media/com_acymailing/images/facebookshare.png" />
+		<param name="picturetwitter" type="text" label="Twitter picture - DEPRECATED" default="media/com_acymailing/images/twittershare.png" />
+		<param name="picturelinkedin" type="text" label="LinkedIn picture - DEPRECATED" default="media/com_acymailing/images/linkedin.png" />
+		<param name="picturegoogleplus" type="text" label="Google+ picture - DEPRECATED" default="media/com_acymailing/images/google_plusshare.png" />
+		<param name="frontendaccess" type="list" default="all" label="Front-end Access" description="You can restrict the access to this tag system with this option">
+			<option value="all">Always display this tag system</option>
+			<option value="none">Don't display this tag system on the front-end</option>
+		</param>
+
+	</params>
+	<config>
+		<fields name="params" addfieldpath="/components/com_acymailing/params">
+			<fieldset name="basic">
+				<field name="help" type="help" label="Help" description="Click on the help button to get some help" default="plugin-share"/>
+				<field name="template" type="radio" default="component" label="Display the online version" description="Select if you want to display the online version (when the user will share your link on the social network) without any Joomla module (no template) or inside your default Joomla Template">
+					<option value="standard">Standard template</option>
+					<option value="component">No template</option>
+				</field>
+
+				<field name="picturefb" type="text" label="Facebook picture - DEPRECATED" default="media/com_acymailing/images/facebookshare.png" />
+				<field name="picturetwitter" type="text" label="Twitter picture - DEPRECATED" default="media/com_acymailing/images/twittershare.png" />
+				<field name="picturelinkedin" type="text" label="LinkedIn picture - DEPRECATED" default="media/com_acymailing/images/linkedin.png" />
+				<field name="picturegoogleplus" type="text" label="Google+ picture - DEPRECATED" default="media/com_acymailing/images/google_plusshare.png" />
+				<field name="frontendaccess" type="list" default="all" label="Front-end Access" description="You can restrict the access to this tag system with this option">
+					<option value="all">Always display this tag system</option>
+					<option value="none">Don't display this tag system on the front-end</option>
+				</field>
+
+			</fieldset>
+		</fields>
+	</config>
+</extension>

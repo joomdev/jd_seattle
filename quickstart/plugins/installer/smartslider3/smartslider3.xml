@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.2" type="plugin" group="installer" method="upgrade">
+    <name>plg_installer_smartslider3</name>
+    <version>3.3.1</version>
+    <creationDate>2017.08.03.</creationDate>
+    <author>Nextendweb</author>
+    <authorEmail>support@nextendweb.com</authorEmail>
+    <authorUrl>http://smartslider3.com</authorUrl>
+    <copyright>Copyright (C) 2017 Nextendweb. All rights reserved</copyright>
+    <license>GNU/GPL Version 2 or later - http://www.gnu.org/licenses/gpl-2.0.html</license>
+    <description>Smart Slider 3 updater plugin</description>
+    <files folder="plugins/installer/smartslider3">
+        <filename plugin="smartslider3">smartslider3.php</filename>
+    </files>
+</extension>

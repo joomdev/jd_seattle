@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE install SYSTEM "http://dev.joomla.org/xml/1.5/plugin-install.dtd">
+<install type="plugin" version="1.5" method="upgrade" group="acymailing">
+	<name>AcyMailing : trigger Joomla Content plugins</name>
+	<creationDate>November 2009</creationDate>
+	<version>3.7.0</version>
+	<author>Acyba</author>
+	<authorEmail>dev@acyba.com</authorEmail>
+	<authorUrl>http://www.acyba.com</authorUrl>
+	<copyright>Copyright (C) 2009-2018 ACYBA SAS - All rights reserved..</copyright>
+	<license>GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html</license>
+	<description>This plugin enables you to trigger the content plugin system on AcyMailing. The Joomla Content plugin system has not been developed to be triggered from the backend and so you may have some non compatible plugins, that's why this plugin is not enabled by default</description>
+	<files>
+		<filename plugin="contentplugin">contentplugin.php</filename>
+	</files>
+	<params addpath="/components/com_acymailing/params">
+		<param name="help" type="help" label="Help" description="Click on the help button to get some help" default="plugin-contentplugin"/>
+	</params>
+	<config>
+		<fields name="params" addfieldpath="/components/com_acymailing/params">
+			<fieldset name="basic">
+				<field name="help" type="help" label="Help" description="Click on the help button to get some help" default="plugin-contentplugin"/>
+			</fieldset>
+		</fields>
+	</config>
+</install>

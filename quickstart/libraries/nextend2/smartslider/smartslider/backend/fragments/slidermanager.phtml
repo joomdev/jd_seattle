@@ -1,0 +1,168 @@
+<?php
+$slidersModel = new N2SmartsliderSlidersModel();
+
+if ($groupID > 0) {
+    $orderBy          = 'ordering';
+    $orderByDirection = 'ASC';
+} else {
+    $orderBy          = N2SmartSliderSettings::get('slidersOrder2', 'ordering');
+    $orderByDirection = N2SmartSliderSettings::get('slidersOrder2Direction', 'ASC');
+}
+
+$sliders = $slidersModel->getAll($groupID, $orderBy, $orderByDirection);
+
+$router = N2Base::getApplication('smartslider')
+                ->getApplicationType('backend')->router;
+?>
+<div id="n2-ss-slider-container" data-groupid="<?php echo $groupID; ?>" data-orderby="<?php echo $orderBy; ?>" data-orderbydirection="<?php echo $orderByDirection; ?>">
+    <div class="n2-ss-sliders">
+        <div class="n2-ss-sliders-header">
+            <?php
+            if ($groupID == 0) {
+                ob_start();
+                N2Html::buttonMenu(array(
+                    "content" => N2Html::tag('div', array(
+                        'class' => 'n2-button-menu'
+                    ), N2Html::tag('div', array(
+                        'class' => 'n2-button-menu-inner n2-border-radius'
+                    ), N2Html::link(n2_('Manual order'), $appType->router->createUrl(array(
+                            'sliders/orderby',
+                            array(
+                                'ordering' => 'ASC'
+                            ) + N2Form::tokenizeUrl()
+                        )), array(
+                            'class' => 'n2-h4' . ($orderBy == 'ordering' && $orderByDirection == 'ASC' ? ' n2-color-blue' : '')
+                        )) . N2Html::link(n2_('A-Z'), $appType->router->createUrl(array(
+                            'sliders/orderby',
+                            array(
+                                'title' => 'ASC'
+                            ) + N2Form::tokenizeUrl()
+                        )), array(
+                            'class' => 'n2-h4' . ($orderBy == 'title' && $orderByDirection == 'ASC' ? ' n2-color-blue' : '')
+                        )) . N2Html::link(n2_('Z-A'), $appType->router->createUrl(array(
+                            'sliders/orderby',
+                            array(
+                                'title' => 'DESC'
+                            ) + N2Form::tokenizeUrl()
+                        )), array(
+                            'class' => 'n2-h4' . ($orderBy == 'title' && $orderByDirection == 'DESC' ? ' n2-color-blue' : '')
+                        )) . N2Html::link(n2_('Newest First'), $appType->router->createUrl(array(
+                            'sliders/orderby',
+                            array(
+                                'time' => 'DESC'
+                            ) + N2Form::tokenizeUrl()
+                        )), array(
+                            'class' => 'n2-h4' . ($orderBy == 'time' && $orderByDirection == 'DESC' ? ' n2-color-blue' : '')
+                        )) . N2Html::link(n2_('Oldest First'), $appType->router->createUrl(array(
+                            'sliders/orderby',
+                            array(
+                                'time' => 'ASC'
+                            ) + N2Form::tokenizeUrl()
+                        )), array(
+                            'class' => 'n2-h4' . ($orderBy == 'time' && $orderByDirection == 'ASC' ? ' n2-color-blue' : '')
+                        ))))
+                ));
+                $orderByButtonMenu = ob_get_clean();
+
+                echo N2Html::tag('div', array('class' => 'n2-button n2-button-plain n2-button-with-actions n2-radius-s'), N2Html::tag('span', array(
+                        'class' => 'n2-button-inner n2-h4'
+                    ), n2_('Order by')) . $orderByButtonMenu);
+
+            }
+            ?>
+
+            <?php
+            ob_start();
+            N2Html::buttonMenu(array(
+                "content" => N2Html::tag('div', array(
+                    'class' => 'n2-button-menu'
+                ), N2Html::tag('div', array(
+                    'class' => 'n2-button-menu-inner n2-border-radius'
+                ), N2Html::link(n2_('Select all'), '#', array(
+                        'class' => 'n2-h4'
+                    )) . N2Html::link(n2_('Select none'), '#', array(
+                        'class' => 'n2-h4'
+                    ))))
+            ));
+            $selectButtonMenu = ob_get_clean();
+
+            echo N2Html::tag('div', array('class' => 'n2-button n2-button-plain n2-button-with-actions n2-bulk-select n2-radius-s'), N2Html::tag('span', array(
+                    'class' => 'n2-button-inner n2-h4'
+                ), n2_('Select')) . $selectButtonMenu);
+
+            $bulkActions = N2Html::link(n2_('Duplicate'), '#', array(
+                    'data-action' => 'duplicate',
+                    'class'       => 'n2-button n2-button-normal n2-button-m n2-radius-s n2-button-plain n2-h4'
+                )) . N2Html::link(n2_('Delete'), '#', array(
+                    'data-action' => 'delete',
+                    'class'       => 'n2-button n2-button-normal n2-button-m n2-radius-s n2-button-plain n2-color-red n2-h4'
+                ));
+            $bulkActions .= N2Html::link(n2_('Export'), '#', array(
+                'data-action' => 'export',
+                'class'       => 'n2-button n2-button-normal n2-button-m n2-radius-s n2-button-plain n2-h4'
+            ));
+        
+
+            echo N2HTML::tag('div', array(
+                'class' => 'n2-bulk-actions n2-ss-bulk-controls'
+            ), $bulkActions);
+            ?>
+        </div>
+
+
+    <div class="n2-ss-sliders-container">
+        <?php
+
+        echo N2Html::tag('div', array('class' => 'n2-box n2-box-full n2-box-new-slider n2-h3 n2-uc'), N2Html::link(n2_('New slider'), '#', array(
+            'class' => 'n2-ss-create-slider n2-button n2-button-l n2-button-green n2-radius-s n2-uc n2-h3'
+        )));
+
+        echo N2Html::tag('div', array('class' => 'n2-box n2-box-full n2-box-template-library n2-h3 n2-uc'), N2Html::link(n2_('Template library'), '#', array(
+            'class' => 'n2-ss-add-sample-slider n2-button n2-button-l n2-button-blue n2-radius-s n2-uc n2-h3'
+        )));
+        if ( count( $sliders ) > 2 && ! N2Base::getApplication( 'smartslider' )->storage->get( 'free', 'review' ) ) {
+	        include dirname( __FILE__ ) . '/review.phtml';
+        }
+    
+    
+
+        $parameters = array();
+        if (N2Platform::$isWordpress) {
+            $parameters['nonce']     = wp_create_nonce('internal-linking');
+            $parameters['wpAjaxUrl'] = admin_url('admin-ajax.php');
+        }
+
+        N2Localization::addJS(array(
+            'Select'
+        ));
+
+
+        foreach ($sliders AS $sliderObj) {
+            echo N2SmartsliderSlidersModel::box($sliderObj, $appType);
+        }
+        if (!N2Base::getApplication('smartslider')->storage->get('free', 'promoUpgrade')) {
+            echo N2Html::tag('div', array(
+                'class' => 'n2-box n2-box-promo n2-box-promo-dark'
+            ), '<img src="' . N2ImageHelper::fixed('$ss$/admin/images/free/why-upgrade.png') . '" /><a href="' . $appType->router->createUrl(array(
+                    'sliders/hidePromoUpgrade',
+                    N2Form::tokenizeUrl()
+                )) . '" class="n2-close"></a><a class="n2-box-promo-overlay" href="' . N2SS3::getWhyProUrl(array('utm_source' => 'dashboard-why-upgrade')) . '" target="_blank"><div style="margin-top: 24px;margin-bottom: 70px;font-size: 16px;">' . n2_('Why upgrade to PRO?') . '</div><div class="n2-button n2-button-normal n2-button-s n2-radius-s n2-uc n2-h5" style="color: #0c92df;background: #fff;line-height: 32px;height: 32px;font-weight: bold;">' . n2_('See all features') . '</div></a></div>');
+        }
+    
+        ?>
+
+    </div>
+</div>
+
+    <div id="n2-ss-slider-menu" class="n2-box-menu">
+        <a href="#" class="n2-button n2-button-icon n2-button-s n2-button-grey n2-radius-s"><?php echo N2Html::tag('i', array('class' => 'n2-i n2-it n2-i-more2'), ''); ?></a>
+        <div class="n2-box-menu-content">
+            <ul>
+                <li class="n2-ss-preview"><?php n2_e("Preview"); ?></li>
+                <?php ?>
+                <li class="n2-ss-duplicate"><?php n2_e("Duplicate"); ?></li>
+                <li class="n2-ss-delete"><?php n2_e("Delete"); ?></li>
+            </ul>
+        </div>
+    </div>
+</div>

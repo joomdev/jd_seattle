@@ -1,0 +1,56 @@
+/**
+ * @package    AcyMailing for Joomla!
+ * @version    5.10.3
+ * @author     acyba.com
+ * @copyright  (C) 2009-2018 ACYBA S.A.R.L. All rights reserved.
+ * @license    GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
+ */
+
+#acymailing_messages_error, #acymailing_messages_success, #acymailing_messages_message, #acymailing_messages_info, #acymailing_messages_warning {
+	margin: 5px 10px;
+	overflow: hidden;
+}
+
+#acymailing_messages_warning a{
+	color: #c4872f;
+}
+
+#system-message-container{
+	margin: 0px;
+	height: 0px;
+}
+
+.alert p{
+	margin: 0;
+}
+
+.alert{
+	padding: 8px !important;
+	margin-bottom: 18px;
+	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+	background-color: #fcf8e3;
+	border: 1px solid #fbeed5;
+	border-radius: 4px;
+	margin: 10px;
+}
+
+.alert ul{
+	list-style-type: none;
+	margin-bottom: 0;
+}
+
+.alert .close{
+	right: 0px !important;
+}
+
+.alert-success{
+	background-color: #dff0d8;
+	border-color: #d6e9c6;
+	color: #468847;
+}
+
+.alert-info{
+	background-color: #d9edf7;
+	border-color: #bce8f1;
+	color: #3a87ad;
+}

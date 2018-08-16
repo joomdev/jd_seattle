@@ -1,0 +1,107 @@
+.sp-simpleportfolio {
+  .sp-simpleportfolio-filter {
+    margin-bottom: 25px;
+    border-bottom: 1px solid $indigo-light;
+    text-align: left;
+    ul>li {
+      margin: 0;
+      >a {
+        background: transparent;
+        display: inline-block;
+        padding: 10px 20px;
+        padding-left: 0;
+        margin-left: 0;
+        margin: 0 5px 10px;
+        font-size: 1rem;
+        cursor: pointer;
+        @include transition(all 0.3s ease);
+      }
+      &.active,
+      &:hover {
+        >a {
+          color: $primary;
+          background: transparent;
+        }
+      }
+    }
+  }
+  .sp-simpleportfolio-item {
+    .sp-simpleportfolio-overlay-wrapper {
+      .sp-simpleportfolio-overlay {
+        @include transition(all 0.4s ease);
+        background: rgba($white, 0.8);
+        .sp-simpleportfolio-btns a {
+          font-size: 0;
+          padding: 8px 20px;
+          border: none;
+          background: $white;
+          color: $primary;
+          &:after {
+            font-family: 'Font Awesome\ 5 Free';
+            font-weight: 900;
+            display: block;
+            font-size: 22px;
+            line-height: 1;
+          }
+          &.btn-zoom {
+            &:after {
+              content: "\f00e";
+            }
+          }
+          &.btn-view:after {
+            content: "\f06e";
+          }
+          &:hover:after {
+            color: $primary;
+          }
+        }
+        .sp-simpleportfolio-title{
+          a{
+            color: $dark-hard !important;
+            &:hover{
+              color: $primary !important;
+            }
+          }
+        }
+        .sp-simpleportfolio-tags{
+          color: $dark-hard;
+        }
+      }
+      .sp-vertical-middle>div {
+        .sp-simpleportfolio-tags,
+        .sp-simpleportfolio-title {
+          &:hover {
+            color: $primary;
+            >a {
+              color: $primary;
+            }
+          }
+        }
+      }
+    }
+    .sp-simpleportfolio-info {
+      background: $gray-100;
+      .sp-simpleportfolio-title {
+        a {
+          color: $primary !important;
+        }
+      }
+      &:hover {
+        background: $primary;
+        color: $white;
+        .sp-simpleportfolio-title {
+          a {
+            color: $white !important;
+          }
+        }
+      }
+    }
+  }
+  .sp-simpleportfolio-image{
+    padding-bottom: 20px;
+    text-align: center;
+  }
+}
+.featherlight{
+  z-index: 9999 !important;
+}

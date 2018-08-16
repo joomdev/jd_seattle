@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form>
+   <fieldset name="jd_skillset" label="MOD_JD_SKILLSET_CREATE_LABE">
+        <field name="skillset_title"
+				required="true"
+                label="MOD_JD_SKILLSET_TITLE_LABEL"
+                type="text"  />
+        <field name="skillset_number"
+                label="MOD_JD_SKILLSET_NUMBER_LABEL"
+                type="text"  />
+        <field
+                name="skillset_icon_option"
+                type="list"
+                label="MOD_JD_SKILLSET_ICON_LABEL"
+                description="MOD_JD_SKILLSET_ICON_DESC"
+                default="upload"
+            >
+                <option value="upload">MOD_JD_SKILLSET_ICON_OPTIONS_UPLOAD</option>
+                <option value="icon">MOD_JD_SKILLSET_ICON_CLASS</option>
+        </field>
+        <field name="skillset_icon_upload"
+                label="MOD_JD_SKILLSET_ICON_OPTIONS_UPLAOD_LABEL"
+                showon="skillset_icon_option:upload"
+                type="media"  />
+        <field name="skillset_icon_icon"
+                label="MOD_JD_SKILLSET_ENTER_FONTAWESOME_ICON_CODE"
+				hint="fab fa-accusoft"
+                showon="skillset_icon_option:icon"
+                type="text" />
+        <field
+                name="skillset_enable_symbol"
+                type="radio"
+                label="MOD_JD_SKILLSET_ENABLE_SYMBOL_LABEL"
+                description="MOD_JD_SKILLSET_ENABLE_SYMBOL_DESC"
+                default="1"
+            >
+                <option value="1">JYES</option>
+                <option value="0">JNO</option>
+        </field>
+        <field
+                name="skillset_symbol"
+                type="text"
+                showon="skillset_enable_symbol:1"
+                label="MOD_JD_SKILLSET_ENTER_SYMBOL_LABEL"
+                description="MOD_JD_SKILLSET_ENTER_SYMBOL_DESC" />
+   </fieldset>
+</form>

@@ -1,0 +1,43 @@
+h1 { color:#393939 !important; font-size:14px; font-weight:bold; margin:10px 0px; } 
+h2 { color: #309fb3 !important; font-size: 14px; font-weight: normal; text-align:left; margin:0px; padding:0px; } 
+h3 { color: #393939 !important; font-size: 18px; font-weight: bold; text-align:left; margin:0px; padding-bottom:5px; border-bottom:1px solid #bdbdbd; } 
+h4 { color: #309fb3 !important; font-size: 14px; font-weight: bold; text-align:left; margin:0px; padding: 5px 0px 0px 0px; } 
+a { color:#309FB3; text-decoration:none; font-style:italic; cursor:pointer; } 
+.acymailing_readmore {font-size: 12px; color: #fff; background-color:#309fb3; font-weight:bold; padding:3px 5px;} 
+.acymailing_online {color:#a3a3a3; text-decoration:none; font-size:11px;} 
+.acymailing_unsub {color:#a3a3a3; text-decoration:none; font-size:11px;} 
+body{background-color:#ffffff;} 
+.acymailing_content {text-align:justify;} 
+a img{ border:0px; text-decoration:none;} 
+div,table,p,td{font-family: Verdana, Arial, Helvetica, sans-serif; font-size:12px; text-align:justify; color:#8c8c8c; margin:0px}
+div.info{text-align:center;padding:10px;font-size:11px;color:#a3a3a3;}
+
+@media (min-width:10px){
+	.w600 { width: 320px !important;}
+	.w520 { width: 280px !important;}
+	.w480 { width: 260px !important;}
+	.w40 { width: 20px !important;}
+	.w20 { width: 10px !important;}
+	.w600 img {max-width:320px; height:auto !important}
+	.w480 img {max-width:260px; height:auto !important;}
+}
+
+@media (min-width:480px) {
+	.w600 { width: 480px !important;}
+	.w520 { width: 440px !important;}
+	.w480 { width: 420px !important;}
+	.w40 { width: 20px !important;}
+	.w20 { width: 10px !important;}
+	.w600 img {max-width:480px; height:auto !important}
+	.w480 img {max-width:420px;  height:auto !important;}
+}
+
+@media (min-width:600px){
+	.w600 { width: 600px !important;}
+	.w520 { width: 520px !important;}
+	.w480 { width: 480px !important;}
+	.w40 { width: 40px !important;}
+	.w20 { width: 20px !important;}
+	.w600 img {max-width:600px; height:auto !important}
+	.w480 img {max-width:480px;  height:auto !important;}
+}

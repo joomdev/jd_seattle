@@ -1,0 +1,53 @@
+// Horizontal Style
+.acymailing_module_form {
+    .acymailing_introtext {
+        .section-heading {
+            @extend .mb-4;
+        }
+    }
+    table.acymailing_form {
+        @extend .w-100;
+        td {
+            padding: 0 5px !important;
+            @extend .form-group;
+            @include media-breakpoint-down(md) {
+                display: block !important;
+            }
+        }
+        select,
+        textarea,
+        input {
+            &[type="text"],
+            &[type="password"],
+            &[type="datetime"],
+            &[type="datetime-local"],
+            &[type="date"],
+            &[type="month"],
+            &[type="time"],
+            &[type="week"],
+            &[type="number"],
+            &[type="email"],
+            &[type="url"],
+            &[type="search"],
+            &[type="tel"],
+            &[type="color"],
+            &[type="file"] {
+                font-family: $font-family-sans-serif;
+                @extend .form-control;
+                @extend .form-control-lg;
+            }
+        }
+        button,
+        input {
+            &[type="submit"],
+            &[type="button"] {
+                font-family: $font-family-sans-serif;
+                @extend .btn;
+                @extend .btn-lg;
+                @extend .btn-dark;
+                @extend .m-0;
+                @extend .btn-block;
+            }
+        }
+    }
+}

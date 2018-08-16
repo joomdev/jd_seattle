@@ -1,0 +1,47 @@
+<?php
+/**
+ * @var $_class N2SmartsliderBackendSliderView
+ */
+?>
+
+
+    <div class="n2-form-tab " style="display: block;">
+        <div class="n2-heading-controls n2-content-box-title-bg">
+            <div class="n2-table">
+                <div class="n2-tr">
+                    <div class="n2-td n2-h2">
+                        <?php
+                        echo n2_('Live Preview');
+                        ?>
+                    </div>
+
+                    <div class="n2-td" id="n2-ss-zoom">
+                        <div class="n2-ss-slider-zoom-container">
+                            <i class="n2-i n2-i-minus"></i>
+                            <i class="n2-i n2-i-plus"></i>
+
+                            <div class="n2-ss-slider-zoom-bg"></div>
+
+                            <div class="n2-ss-slider-zoom-1"></div>
+
+                            <div id="n2-ss-slider-zoom"></div>
+                        </div>
+                    </div>
+
+                    <div class="n2-td" id="n2-ss-devices">
+                        <div class="n2-controls-panel n2-table n2-table-auto">
+                            <div class="n2-tr">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin: 20px; min-height: 1200px;">
+            <?php
+            echo $_class->_renderSliderCached($slider['id'], true);
+            ?>
+        </div>
+    </div>
+

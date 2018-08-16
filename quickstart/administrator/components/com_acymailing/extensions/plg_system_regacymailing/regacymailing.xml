@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE install SYSTEM "http://dev.joomla.org/xml/1.5/plugin-install.dtd">
+<install type="plugin" version="1.5" method="upgrade" group="system">
+	<name>AcyMailing : (auto)Subscribe during Joomla registration</name>
+	<creationDate>July 2018</creationDate>
+	<version>5.10.3</version>
+	<author>Acyba</author>
+	<authorEmail>dev@acyba.com</authorEmail>
+	<authorUrl>http://www.acyba.com</authorUrl>
+	<copyright>Copyright (C) 2009-2018 ACYBA SAS - All rights reserved.</copyright>
+	<license>GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html</license>
+	<description>Automatically subscribe the user to AcyMailing during the Joomla registration process</description>
+	<files>
+		<filename plugin="regacymailing">regacymailing.php</filename>
+	</files>
+	<params addpath="/components/com_acymailing/params">
+		<param name="help" type="help" label="Help" description="Click on the help button to get some help" default="plugin-regacymailing"/>
+		<param name="lists" type="lists" default="None" label="Lists displayed on registration form" description="The following selected lists will be added to your Joomla registration form and will be visible." />
+		<param name="listschecked" type="lists" default="All" label="Lists checked by default" description="The selected lists will be checked by default on your registration form." />
+		<param name="subscribetext" type="text" size="50" default="" label="Subscribe Caption" description="Text displayed for the subscription field. If you don't specify anything, the default value will be used from the current language file" />
+		<param name="displaymode" type="list" default="dispall" label="Display mode" description="Select the way you want AcyMailing to display your lists">
+			<option value="dispall">Display one checkbox per list</option>
+			<option value="onecheck">Group the lists into one checkbox</option>
+			<option value="dropdown">Display the lists in a dropdown</option>
+		</param>
+		<param name="fieldafter" type="radio" default="password" label="Display the lists after" description="AcyMailing will display the lists after the selected field on your registration form">
+			<option value="password">Password</option>
+			<option value="email">Email</option>
+			<option value="custom">Custom</option>
+		</param>
+		<param name="fieldaftercustom" default="" type="text" size="10" label="Display the lists after (custom)" description="If your registration page contains other fields, you can specify the name of other fields (separated with a ;) to display the lists after these custom fields (The previous option should be set to 'custom')" />
+		<param name="@spacer" type="spacer" default="" label="" description="" />
+		<param name="customfieldsafter" type="radio" default="email" label="Display the fields after" description="AcyMailing will display the extra fields after the selected field on your registration form">
+			<option value="password">Password</option>
+			<option value="email">Email</option>
+			<option value="custom">Custom</option>
+		</param>
+		<param name="customfieldsaftercustom" default="" type="text" size="10" label="Display the fields after (custom)" description="If your registration page contains other fields, you can specify the name of other fields (separated with a ;) to display the lists after these custom fields (The previous option should be set to 'custom')" />
+		<param name="@spacer" type="spacer" default="" label="" description="" />
+		<param name="sendnotif" type="radio" default="0" label="Send notification" description="When an user is created, send the Acy notification message">
+			<option value="0">JOOMEXT_NO</option>
+			<option value="1">JOOMEXT_YES</option>
+		</param>
+		<param name="forceconf" type="radio" default="1" label="Force double opt-in" description="The registration process may already have its confirmation e-mail... Do you want Acy to send its own confirmation e-mail (so in addition to the Joomla one)?">
+			<option value="0">JOOMEXT_NO</option>
+			<option value="1">JOOMEXT_YES</option>
+		</param>
+		<param name="@spacer" type="spacer" default="" label="" description="" />
+		<param name="customcss" cols="40" rows="5" type="textarea" default="" label="Custom CSS" description="You can specify here some CSS which will be added to the registration page" />
+        <param name="deletebehavior" type="radio" default="0" label="User deletion behavior" description="Choose if the AcyMailing user should also be deleted when the Joomla account is deleted">
+            <option value="0">Delete AcyMailing user</option>
+            <option value="1">Keep AcyMailing user</option>
+        </param>
+        <param label="Excluded components" name="excluded" size="50" type="text" value="" description="Acy won't display the subscription lists on the components you exclude with this option. Each value should be separated by a coma, here are the possible values: com_user, com_users, com_alpharegistration, com_ccusers, com_community, com_extendedreg, com_gcontact, com_hikashop, com_jblance, com_jshopping, com_juser, com_mijoshop, com_osemsc, com_redshop, com_tienda, com_virtuemart." />
+		<param name="addcategory" type="radio" default="0" label="Display category name" description="Order the lists by category and display their category name above them.">
+			<option value="0">JOOMEXT_NO</option>
+			<option value="1">JOOMEXT_YES</option>
+		</param>
+    </params>
+	<config>
+		<fields name="params" addfieldpath="/components/com_acymailing/params">
+			<fieldset name="basic">
+				<field name="help" type="help" label="Help" description="Click on the help button to get some help" default="plugin-regacymailing"/>
+				<field name="lists" type="lists" default="None" label="Lists displayed on registration form" description="The following selected lists will be added to your Joomla registration form and will be visible." />
+				<field name="listschecked" type="lists" default="All" label="Lists checked by default" description="The selected lists will be checked by default on your registration form." />
+				<field name="subscribetext" type="text" size="50" default="" label="Subscribe Caption" description="Text displayed for the subscription field. If you don't specify anything, the default value will be used from the current language file" />
+				<field name="displaymode" type="list" default="dispall" label="Display mode" description="Select the way you want AcyMailing to display your lists">
+					<option value="dispall">Display one checkbox per list</option>
+					<option value="onecheck">Group the lists into one checkbox</option>
+					<option value="dropdown">Display the lists in a dropdown</option>
+				</field>
+				<field name="fieldafter" type="radio" default="password" label="Display the lists after" description="AcyMailing will display the lists after the selected field on your registration form">
+					<option value="password">Password</option>
+					<option value="email">Email</option>
+					<option value="custom">Custom</option>
+				</field>
+				<field name="fieldaftercustom" default="" type="text" size="10" label="Display the lists after (custom)" description="If your registration page contains other fields, you can specify the name of other fields (separated with a ;) to display the lists after these custom fields (The previous option should be set to 'custom')" />
+				<field name="@spacer" type="spacer" default="" label="" description="" />
+				<field name="customfieldsafter" type="radio" default="email" label="Display the fields after" description="AcyMailing will display the extra fields after the selected field on your registration form">
+					<option value="password">Password</option>
+					<option value="email">Email</option>
+					<option value="custom">Custom</option>
+				</field>
+				<field name="customfieldsaftercustom" default="" type="text" size="10" label="Display the fields after (custom)" description="If your registration page contains other fields, you can specify the name of other fields (separated with a ;) to display the lists after these custom fields (The previous option should be set to 'custom')" />
+				<field name="@spacer" type="spacer" default="" label="" description="" />
+				<field name="sendnotif" type="radio" default="0" label="Send notification" description="When an user is created, send the Acy notification message">
+					<option value="0">JOOMEXT_NO</option>
+					<option value="1">JOOMEXT_YES</option>
+				</field>
+				<field name="forceconf" type="radio" default="1" label="Force double opt-in" description="The registration process may already have its confirmation e-mail... Do you want Acy to send its own confirmation e-mail (so in addition to the Joomla one)?">
+					<option value="0">JOOMEXT_NO</option>
+					<option value="1">JOOMEXT_YES</option>
+				</field>
+				<field name="@spacer" type="spacer" default="" label="" description="" />
+				<field name="customcss" cols="40" rows="5" type="textarea" default="" label="Custom CSS" description="You can specify here some CSS which will be added to the registration page" />
+                <field name="deletebehavior" type="radio" default="0" label="User deletion behavior" description="Choose if the AcyMailing user should also be deleted when the Joomla account is deleted">
+                    <option value="0">Delete AcyMailing user</option>
+                    <option value="1">Keep AcyMailing user</option>
+                </field>
+                <field label="Excluded components" name="excluded" type="checkboxes" description="Acy won't display the subscription lists on the components you exclude with this option">
+                    <option value="com_user">com_user</option>
+                    <option value="com_users">com_users</option>
+                    <option value="com_alpharegistration">com_alpharegistration</option>
+                    <option value="com_ccusers">com_ccusers</option>
+                    <option value="com_community">com_community</option>
+                    <option value="com_extendedreg">com_extendedreg</option>
+                    <option value="com_gcontact">com_gcontact</option>
+                    <option value="com_hikashop">com_hikashop</option>
+                    <option value="com_jblance">com_jblance</option>
+                    <option value="com_jshopping">com_jshopping</option>
+                    <option value="com_juser">com_juser</option>
+                    <option value="com_mijoshop">com_mijoshop</option>
+                    <option value="com_osemsc">com_osemsc</option>
+                    <option value="com_redshop">com_redshop</option>
+                    <option value="com_tienda">com_tienda</option>
+                    <option value="com_virtuemart">com_virtuemart</option>
+                </field>
+				<field name="addcategory" type="radio" default="0" label="Display category name" description="Order the lists by category and display their category name above them.">
+					<option value="0">JOOMEXT_NO</option>
+					<option value="1">JOOMEXT_YES</option>
+				</field>
+			</fieldset>
+		</fields>
+	</config>
+</install>

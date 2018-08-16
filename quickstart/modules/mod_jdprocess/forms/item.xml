@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form>
+   <fieldset name="items_modal" label="Process Items">
+      <field name="icon" label="Icon" type="text">
+      </field>
+      <field name="title" type="text" label="Title">
+      </field>
+   </fieldset>
+</form>

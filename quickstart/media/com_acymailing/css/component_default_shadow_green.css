@@ -1,0 +1,101 @@
+/**
+ * @package    AcyMailing for Joomla!
+ * @version    5.10.3
+ * @author     acyba.com
+ * @copyright  (C) 2009-2018 ACYBA S.A.R.L. All rights reserved.
+ * @license    GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
+ */
+
+@import url("component_default_shadow_black.css");
+
+
+
+#acyarchivelisting .button, #acymodifyform .button, #unsubbutton_div .button {
+color:#fff !important;
+background-color:#727127 !important;
+background-image: linear-gradient(bottom, #727127 21%, #9e9c07 58%) !important;
+background-image: -o-linear-gradient(bottom, #727127 21%, #9e9c07 58%) !important;
+background-image: -moz-linear-gradient(bottom, #727127 21%, #9e9c07 58%) !important;
+background-image: -webkit-linear-gradient(bottom, #727127 21%, #9e9c07 58%) !important;
+background-image: -ms-linear-gradient(bottom, #727127 21%, #9e9c07 58%) !important;
+
+  background: -ms-linear-gradient(top, ellipse cover, #727127 0%,#9e9c07 100%);   background: radial-gradient(top, ellipse cover, #727127 0%,#9e9c07 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#9e9c07', endColorstr='#727127',GradientType=0 ) !important; }
+
+#acyarchivelisting .button:hover, #acymodifyform .button:hover, #unsubbutton_div .button:hover{
+    color:#fff !important;
+	background-color:#9e9c07 !important;
+background-image: linear-gradient(bottom, #9e9c07 21%, #cdcb2e 58%) !important;
+background-image: -o-linear-gradient(bottom, #9e9c07 21%, #cdcb2e 58%) !important;
+background-image: -moz-linear-gradient(bottom, #9e9c07 21%, #cdcb2e 58%) !important;
+background-image: -webkit-linear-gradient(bottom, #9e9c07 21%, #cdcb2e 58%) !important;
+background-image: -ms-linear-gradient(bottom, #9e9c07 21%, #cdcb2e 58%) !important;
+
+  background: -ms-linear-gradient(top, ellipse cover, #9e9c07 0%,#cdcb2e 100%);   background: radial-gradient(top, ellipse cover, #9e9c07 0%,#cdcb2e 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cdcb2e', endColorstr='#9e9c07',GradientType=0 ) !important; }
+
+
+
+#acyarchivelisting .contentheading{
+	color:#727127;
+	border-bottom:1px solid #727127;
+}
+
+#acyarchivelisting .contentpane .contentdescription{
+	color:#9e9c07;
+}
+
+#acyarchivelisting .sectiontableheader a:hover{
+	color:#9e9c07;
+}
+
+#acyarchivelisting .contentpane tbody .sectiontableentry1 a:hover{
+	color:#9e9c07;
+}
+
+#acyarchivelisting .contentpane tbody .sectiontableentry2 a:hover{
+	color:#9e9c07;
+}
+
+
+#acyarchiveview .contentheading{
+	color:#9e9c07;}
+	
+	
+
+#acylistslisting .componentheading{
+	color:#727127;
+	border-bottom:1px solid #727127;
+}
+
+#acylistslisting .list_name a{
+    color:#9e9c07;
+}
+
+#acylistslisting .list_name a:hover, #acylistslisting .list_name a:focus {
+	color:#9e9c07;
+}
+
+
+
+#acymodifyform legend{
+	color:#727127;
+	border-bottom:1px solid #727127;
+}
+
+#acyusersubscription .list_name{
+    color: #9e9c07;
+}
+
+	
+
+#unsubpage .unsubintro{
+	color:#9e9c07;
+	border-bottom: 1px solid #9e9c07;
+}
+
+#unsubpage .unsubsurveytext{
+    border-bottom: 1px solid #9e9c07;
+    color: #9e9c07;
+}
+

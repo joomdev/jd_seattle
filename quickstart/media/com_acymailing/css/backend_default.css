@@ -1,0 +1,2847 @@
+/**
+ * @package    AcyMailing for Joomla!
+ * @version    5.10.3
+ * @author     acyba.com
+ * @copyright  (C) 2009-2018 ACYBA S.A.R.L. All rights reserved.
+ * @license    GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
+ */
+
+@import "acyicon.css";
+@import "acymessages.css";
+
+#acymenu_top a, #acy_content a {
+	text-decoration: none;
+}
+
+
+.com_acymailing .subhead-collapse{
+	display: none;
+}
+
+#acyallcontent{
+	width: 100%;
+	background-color: #f8f8f8;
+	color: #555555;
+	display: block;
+	position: relative;
+	margin-bottom: 25px;
+}
+
+#acymenu_leftside{
+	background-color: #728fbd;
+	position: absolute;
+	bottom: 0;
+	top: 0;
+	left: 0;
+	width: 230px;
+}
+
+#acymainarea{
+	margin-left: 230px;
+	margin-right: 0;
+	margin-top: 0;
+	min-height: 100%;
+	padding: 0;
+}
+
+.iconsonly #acymainarea{
+	margin-left: 50px;
+	margin-right: 0;
+	margin-top: 0;
+	min-height: 100%;
+	padding: 0;
+	transition: margin 0s linear;
+}
+
+#acy_content{
+	padding: 20px;
+	display: block;
+	font-size: 13px;
+	background-color: #f9f9f9;
+}
+
+#acy_content textarea{
+	font-size: 12px;
+}
+
+#acy_content table{
+	border-spacing: 0;
+}
+
+.acytoolbarmenu{
+	background-color: #728fbd;
+	padding: 0px 20px;
+	text-align: right;
+	height: 40px;
+}
+
+.acytoolbarmenu button{
+	background-color: #728fbd;
+	transition: background 0.3s ease;
+	color: #fff;
+	border: none;
+	padding: 0px 10px;
+	font-weight: bold;
+	text-shadow: 1px 1px 2px #5c759f;
+	margin: 0px;
+	height: 40px;
+	font-size: 12px;
+	cursor: pointer;
+	vertical-align: middle;
+}
+
+.acytoolbarmenu button.acytoolbar_save{
+	padding: 0px 5px 0px 10px;
+}
+
+.acytoolbarmenu .buttonOptions button{
+	white-space: nowrap;
+	height: 35px;
+}
+
+.acytoolbarmenu button:hover{
+	background-color: #b1c7ea;
+	margin: 0px;
+	border: none;
+}
+
+.acytoolbarmenu i{
+	font-size: 14px;
+	margin: 0 6px 0 0;
+}
+
+.acytoolbarmenu i.acyicon-save, .acytoolbarmenu i.acyicon-spamtest{
+	background-color: #ffffff;
+	border-radius: 20px;
+	color: #51a351;
+	border: 2px solid #51a351;
+	padding: 2px;
+	text-shadow: none;
+}
+
+.acytoolbarmenu .acytoolbar_spamtest:hover i.acyicon-spamtest{
+	background-color: #51a351;
+	color: #ffffff;
+	border: 2px solid #ffffff;
+}
+
+.acytoolbarmenu i.acyicon-new{
+	background-color: #ffffff;
+	border-radius: 20px;
+	color: #51a351;
+	border: 2px solid #51a351;
+	padding: 2px;
+	text-shadow: none;
+}
+
+.acytoolbarmenu i.acyicon-edit, .acytoolbarmenu i.acyicon-copy{
+	background-color: #ffffff;
+	border-radius: 20px;
+	color: #63728d;
+	border: 2px solid #63728d;
+	padding: 3px;
+	font-size: 12px;
+	text-shadow: none;
+}
+
+.acytoolbarmenu i.acyicon-cancel{
+	background-color: #ffffff;
+	border-radius: 20px;
+	color: #d75c55;
+	border: 2px solid #d75c55;
+	padding: 2px;
+	text-shadow: none;
+}
+
+.acytoolbarmenu i.acyicon-delete{
+	background-color: #ffffff;
+	border-radius: 20px;
+	color: #d75c55;
+	border: 2px solid #d75c55;
+	padding: 3px;
+	font-size: 12px;
+	text-shadow: none;
+}
+
+.acytoolbarmenu .acytoolbar_save:hover, .acytoolbarmenu .acytoolbar_new:hover, .acytoolbarmenu .acytoolbar_saveastmpl:hover, .acytoolbarmenu .acytoolbar_spamtest:hover, .acytoolbarmenu .acytoolbar_spamtest{
+	background-color: #51a351;
+}
+
+.acytoolbarmenu .acytoolbar_spamtest:hover, .acytoolbarmenu .acytoolbar_spamtest{
+	padding: 0px 20px;
+}
+
+.acytoolbarmenu .acytoolbar_edit:hover, .acytoolbarmenu .acytoolbar_copy:hover{
+	background-color: #63728d;
+}
+
+.acytoolbarmenu .acytoolbar_cancel:hover, .acytoolbarmenu .acytoolbar_delete:hover{
+	background-color: #d75c55;
+}
+
+.acyallcontent{
+	min-height: 700px;
+}
+
+
+.acytoolbarmenu.acyaffix{
+	width: 100%;
+	position: fixed;
+	top: 30px;
+	right: 0px;
+	z-index: 9;
+}
+
+.m .acytoolbarmenu.acyaffix{
+	top: 0px;
+	margin-right: 11px;
+	width: auto;
+	left: 11px;
+}
+
+.acytoolbarmenu .acytoolbar_divider{
+	border-left: 1px solid #b1c7ea;
+	margin: 0px 10px;
+}
+
+.iconsonly .acyaffix .acytoolbartitle{
+	padding-left: 90px;
+}
+
+.acyaffix .acytoolbartitle{
+	padding-left: 270px;
+}
+
+.wrapper.closed .acyaffix .acytoolbartitle{
+	padding-left: 50px;
+}
+
+#acymenu_leftside.acyaffix{
+	position: fixed;
+	top: 30px;
+	z-index: 12;
+}
+
+.m #acymenu_leftside.acyaffix{
+	top: 0px;
+	left: 10px;
+}
+
+.container-fluid.container-main{
+	padding: 0;
+}
+
+#system-debug{
+	z-index: 50;
+	position: relative;
+	margin: 0 !important;
+	background-color: white;
+	border: 1px dashed silver;
+	padding: 10px;
+}
+
+.roundsubscrib{
+	height: 16px;
+	width: 16px;
+	border-radius: 20px;
+	float: left;
+	margin: 3px;
+}
+
+.roundsubscrib.roundunsub{
+	height: 12px;
+	width: 12px;
+	border: 2px solid;
+	background-color: transparent !important;
+}
+
+.roundsubscrib.rounddisp{
+	margin: 0px 10px
+}
+
+.roundsubscrib.roundconf{
+	background-image: url(../images/wait_dot.png);
+}
+
+.acymailing_user_avatar, #pictureinput #thumbpreview{
+	border-radius: 100px;
+	width: 52px;
+	height: 52px;
+}
+
+.subscriber_filter{
+	text-align: left;
+}
+
+.inputVal #field_avatar{
+	margin: 10px 0px
+}
+
+.inputVal .fileuploaded{
+	display: block;
+}
+
+.inputVal .fileuploaded a{
+	margin-left: 10px;
+}
+
+#travatar .inputVal img{
+	float: left;
+	margin-right: 20px;
+	border-radius: 100px;
+}
+
+#importlists .rounddisp, #exportlists .rounddisp{
+	margin-right: 10px;
+}
+
+#import_mode_container{
+	padding-right: 90px;
+}
+
+#import_mode{
+	float: none;
+	width: 100%;
+}
+
+#import_options, #importlists{
+	width: 42%;
+	min-width: 480px;
+}
+
+#import_options .acyblockoptions{
+	width: 90%
+}
+
+#zohocrm .acyblockoptions .acyblockoptions{
+	width: 85%;
+}
+
+#importlists #lists_choice{
+	width: 100%;
+}
+
+#fieldListing.acymailing_table thead th{
+	padding: 10px 5px;
+	vertical-align: bottom;
+}
+
+#fieldListing .frontendfields, #fieldListing .backendfields{
+	background-color: #728fbd;
+}
+
+#fieldListing .frontendfields{
+	border-right: 1px solid #c9d5e5;
+}
+
+.acymailing_manage_customfield .acyblockoptions{
+	display: block;
+	float: none;
+}
+
+#newsletterLeftColumn{
+	float: left;
+	width: 65%;
+	min-width: 600px;
+}
+
+#newsletterRightColumn{
+	float: left;
+	width: 25%;
+}
+
+.acyblock_newsletter{
+	width: 90%;
+}
+
+.acynewsletterlisting .acystatsbutton .acyicon-statistic, .acynewsletterlisting .acyabtestbutton .acyicon-ABtesting, .acymailing_table .acyicon-statistic, .acymailing_table .acyicon-schedule{
+	color: #54719f;
+	font-size: 16px;
+}
+
+.acynewsletterlisting .acystatsbutton .acyicon-statistic:hover, .acynewsletterlisting .acyabtestbutton .acyicon-ABtesting:hover, .acymailing_table .acyicon-statistic:hover{
+	color: #54719f;
+}
+
+#lists_choice .roundsubscrib, #receiversinfo .roundsubscrib{
+	margin-right: 15px;
+}
+
+#acypreview_resize{
+	margin-bottom: 10px;
+}
+
+#htmlfieldset .acyblock_newsletter .acyblocktitle{
+	float: left;
+	margin-bottom: 0px;
+}
+
+#templateListing .template_thumbnail{
+	background-color: #ffffff;
+	border: 1px solid #dddddd;
+	border-radius: 4px;
+	box-shadow: 1px 1px 4px #dddddd;
+	padding: 8px;
+}
+
+.templateManagement .acytabsystem{
+	margin: 0px !important;
+	width: 600px;
+}
+
+.acymailing_table{
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.acymailing_table th.titlebox, .acymailing_table th.titleid, .acymailing_table th.titlenum{
+	text-align: center;
+	white-space: nowrap;
+	width: 30px;
+}
+
+.acymailing_table th.titletoggle{
+	text-align: center;
+	width: 65px;
+}
+
+.acymailing_table th.titlesender, .acymailing_table th.titledate, .acymailing_table th.titlelist{
+	text-align: center;
+	white-space: nowrap;
+	width: 150px;
+}
+
+.acymailing_table tr:hover{
+	background-color: #f3f7fc;
+}
+
+.acymailing_table td{
+	padding: 10px 5px;
+	border-bottom: 1px solid #eee;
+	color: #666;
+	font-size: 13px;
+}
+
+.acymailing_table .order{
+	text-align: center;
+}
+
+.acymailing_table tbody tr, .acymailing_table thead tr{
+	background-color: #fff;
+}
+
+.acymailing_table thead:not(.calendar-header) tr, .acymailing_table thead:not(.calendar-header) tr:hover{
+	background-color: #91acd7;
+	color: #fff;
+	font-style: normal;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+.acymailing_table thead th{
+	padding: 5px 5px;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 12px;
+}
+
+.acymailing_table tbody a:not(.acymailing_button_grey),
+.acymailing_table tbody a:link:not(.acymailing_button_grey),
+.acymailing_table tbody a:visited:not(.acymailing_button_grey){
+	color: #4c6da2;
+	border: none;
+	font-weight: bold;
+}
+
+.acymailing_table tbody a:hover{
+	color: #6680aa;
+	text-decoration: underline;
+}
+
+.acymailing_table thead a, .acymailing_table thead a:hover, .acymailing_table thead a:link{
+	color: #fff;
+	font-style: normal;
+	font-weight: bold;
+	text-transform: uppercase;
+	font-size: 12px;
+}
+
+.acymailing_table_options .acyicon-search{
+	background-color: #ffffff;
+	border-radius: 25px;
+	color: #51a351;
+	display: block;
+	font-size: 14px;
+	padding: 6px;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2) inset
+}
+
+.acymailing_table_options button:hover .acyicon-search{
+	background-color: #51a351;
+	color: #ffffff;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3) inset
+}
+
+.acymailing_table_options .acyicon-cancel{
+	background-color: #ffffff;
+	border-radius: 25px;
+	color: #d75c55;
+	display: block;
+	font-size: 14px;
+	padding: 6px;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2) inset
+}
+
+.acymailing_table_options button:hover .acyicon-cancel{
+	background-color: #d75c55;
+	color: #ffffff;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3) inset
+}
+
+.acymailing_table_options{
+	border-spacing: 0px;
+}
+
+.acymailing_table_options tbody tr{
+	background-color: #c9d5e5;
+	height: 50px;
+}
+
+.acymailing_table_options td{
+	padding-right: 15px;
+}
+
+.acymailing_table tr{
+	background-color: #fff;
+}
+
+#filter_status_chzn, #filter_lists_chzn{
+	margin-right: 10px;
+}
+
+.acymailing_table_options .chzn-container-single .chzn-single{
+	background-image: none;
+	border: none;
+	background-color: #fff;
+	color: #666;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+}
+
+.acymailing_table_options .filter-search{
+	color: #666;
+	border-radius: 4px;
+	border: none;
+	white-space: nowrap;
+}
+
+.acymailing_table_options .filter-search input{
+	border: none;
+	padding: 4px 15px;
+}
+
+.acymailing_table_options .filter-search button{
+	cursor: pointer;
+}
+
+.tablegroup_options{
+	text-align: right;
+}
+
+.tablegroup_options *{
+	text-align: left;
+}
+
+.acymailing_table_options #subscriberfilter input{
+	padding: 4px 15px;
+}
+
+.acymailing_table_options{
+	width: 100%;
+}
+
+.acymailing_table_options .btn{
+	background-color: #c9d5e5;
+	background-image: none;
+	border: medium none;
+	border-radius: 25px;
+	box-shadow: none;
+	font-size: 11px;
+	margin: 2px;
+	padding: 0px;
+}
+
+.acymailing_table_options .btn:hover{
+	background-color: #c9d5e5;
+}
+
+.acymailing_table_options #subscriberfilter, .acymailing_table_options #search{
+	margin-left: 15px;
+	margin-bottom: 0px;
+}
+
+.acymailing_table_options .btn .icon-remove{
+	background-color: #fff;
+	border-radius: 20px;
+	color: #d75c55;
+	margin: 0;
+	padding: 7px 6px 5px 6px;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4) inset;
+	font-size: 11px;
+}
+
+.acymailing_table_options .btn:hover .icon-remove{
+	background-color: #d75c55;
+	color: #fff;
+	text-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
+}
+
+.acymailing_table_options .btn .icon-search{
+	background-color: #fff;
+	border-radius: 20px;
+	color: #51a351;
+	margin: 6px;
+	padding: 6px;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4) inset;
+}
+
+.acymailing_table_options .btn:hover .icon-search{
+	background-color: #51a351;
+	color: #fff;
+	text-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
+}
+
+.acymailing_table .icon-unpublish::before{
+	color: #d75c55 !important;
+	font-size: 16px;
+}
+
+.acymailing_table td.acykey{
+	width: 25%;
+}
+
+.acymailing_table .acykey label{
+	font-weight: bold;
+}
+
+.acykey label, .acykey{
+	font-size: 13px !important;
+	font-weight: normal;
+	color: #555555;
+}
+
+#acy_content .acymailing_table_options .chzn-search input[type="text"]{
+	margin: 10px 0px;
+	height: 25px;
+}
+
+#acy_content .acymailing_table a.acyicon-apply{
+	color: #5ca85c;
+	font-size: 16px;
+}
+
+#acy_content .acymailing_table a.acyicon-cancel{
+	background-color: #d75c55;
+	border-radius: 25px;
+	color: #ffffff;
+	font-size: 13px;
+	font-weight: normal;
+	padding: 2px 2px 2px 3px;
+}
+
+#acy_content .acymailing_table a.acyicon-cancel:hover{
+	text-decoration: none;
+	background-color: #c54942;
+}
+
+#acy_content .acymailing_table a.acyicon-apply:hover{
+	text-decoration: none;
+	color: #3e843e;
+}
+
+#acy_content #alllists span input, #acy_content #alllists span label{
+	float: none;
+	display: inline-block;
+}
+
+#acy_selectChart label{
+	display: inline;
+}
+
+#acy_content #acy_selectChart input[type="radio"]{
+	margin: 0 5px 3px 10px;
+}
+
+.selectChart, .selectChart input{
+	cursor: pointer;
+}
+
+.acystatsummary ul, .acypopularlinks ul{
+	margin: 0px;
+}
+
+.acystatsummary li, .acypopularlinks li{
+	list-style-type: none;
+	margin: 15px 0;
+	padding-bottom: 5px;
+	border-bottom: 1px solid #eee
+}
+
+.acystatsummary a .statnumber{
+	font-size: 16px
+}
+
+.acyblockoptions{
+	background-color: #fff;
+	padding: 30px;
+	margin: 15px;
+	border: 1px solid #eee;
+	border-bottom: 3px solid #eee;
+	border-radius: 5px;
+	display: inline-block;
+	float: left;
+}
+
+.onelineblockoptions{
+	margin: 15px 0px 15px 0px;
+	background-color: #fff;
+	padding: 30px;
+	border: 1px solid #eee;
+	border-bottom: 3px solid #eee;
+	border-radius: 5px;
+}
+
+.acyblockoptions:hover{
+	box-shadow: 1px 1px 6px #eee;
+}
+
+.acyblocktitle{
+	text-transform: uppercase;
+	font-weight: bold;
+	display: block;
+	margin-bottom: 20px;
+	color: #4c6da2;
+	font-size: 12px;
+}
+
+#mailer_method_config{
+	margin-left: 20px;
+	margin-top: 20px;
+}
+
+#confirmemail .btn{
+	margin: 8px 0px;
+}
+
+#page-queue .alert{
+	position: inherit;
+	margin: 10px 0px;
+}
+
+#acy_content div.current{
+	border: none;
+	border-top: 1px solid #ddd;
+}
+
+#acy_content dl.tabs dt{
+	padding: 10px !important;
+	border-top-left-radius: 4px;
+	border-top-right-radius: 4px;
+	border: none;
+	background-color: #fff;
+	color: #4c6da2;
+	margin-left: 6px;
+	font-size: 14px;
+}
+
+#acy_content dl.tabs{
+	margin: 10px 0px 0px 10px
+}
+
+#acy_content dl.tabs dt.open{
+	background-color: #728fbd;
+	color: #fff;
+}
+
+ul.acynavigationtabs.nav.nav-tabs{
+    background-color: white;
+    padding: 10px 15px 0px 15px !important;
+    margin: 0 !important;
+}
+
+.acynavigationtabs li{
+    display: inline-block;
+    margin-bottom: 0;
+}
+
+
+#page-acl .acymailing_smalltable td.checkfield{
+	text-align: center;
+}
+
+.acymailing_smalltable{
+	width: 100%;
+	border-collapse: collapse;
+	margin: 10px 0px;
+}
+
+.acymailing_smalltable tr:hover{
+	background-color: #f3f7fc;
+}
+
+.acymailing_smalltable td{
+	padding: 5px;
+	border-bottom: 1px solid #eee;
+	color: #666;
+	font-size: 13px;
+}
+
+.acymailing_smalltable tbody tr, .acymailing_smalltable thead tr{
+	background-color: #fff;
+}
+
+.acymailing_smalltable thead tr, .acymailing_smalltable thead tr:hover{
+	background-color: #91acd7;
+	color: #fff;
+	font-style: normal;
+	font-weight: bold;
+	text-transform: uppercase;
+	font-size: 12px;
+}
+
+.acymailing_smalltable thead th{
+	padding: 4px;
+}
+
+.acymailing_table .acyicon-delete{
+	color: #d75c55;
+}
+
+.acymailing_table .acyicon-delete:hover{
+	color: #bb4039;
+}
+
+.acymailing_table .pagination a{
+	font-style: normal;
+	font-size: 11px;
+	color: #91acd7;
+}
+
+.acymailing_table .pagination-list{
+	background-color: #fff;
+}
+
+.acymailing_table .pagination ul{
+	padding: 4px;
+	border-radius: 10px;
+	border: 1px solid #eee;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+	margin-left: -4px;
+}
+
+.acymailing_table .pagination-list .icon-last, .acymailing_table .pagination-list .icon-next, .acymailing_table .pagination-list .icon-previous, .acymailing_table .pagination-list .icon-first{
+	margin: 0px;
+}
+
+.acymailing_table .pagination ul > li > a:focus, .acymailing_table .pagination ul > .active > a, .acymailing_table .pagination ul > .active > span{
+	background-color: #91acd7;
+	border: none;
+	border-radius: 20px;
+	color: #fff;
+}
+
+.acymailing_table .pagination ul > li > a, .acymailing_table .pagination ul > li > span{
+	padding: 1px 6px 0px 6px;
+}
+
+.acymailing_table .pagination ul > li > a, .acymailing_table .pagination ul > li > span{
+	border: none;
+}
+
+.acymailing_table .pagination ul > li > a:hover{
+	background-color: transparent;
+	color: #3c5174;
+}
+
+.acymailing_table .pagination .active a:hover{
+	background-color: #3c5174;
+}
+
+.acymailing_table .chzn-container-single .chzn-single{
+	border: 1px solid #eee;
+	color: #666;
+	background-color: #fff;
+	margin-top: 5px;
+	background-image: none;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+}
+
+.acymailing_table tfoot tr, .acymailing_table tfoot td, .acymailing_table tfoot tr:hover, .acymailing_table tfoot td:hover{
+	background-color: #f8f8f8;
+	border: none;
+}
+
+body.com_acymailing .wrapper #content{
+	margin-top: 10px;
+}
+
+body.com_acymailing .nav-tabs+.tab-content{
+	border: none;
+}
+
+
+.acytabsystem ul.nav-tabs{
+	padding: 0px !important;
+	margin: 0px 0px 9px 0px !important;
+	list-style-type: none !important;
+	box-shadow: none;
+	border: none;
+	border-bottom: 1px solid #ddd;
+}
+
+.nav-tabs{
+	border-bottom: 1px solid #ddd;
+	list-style: none;
+}
+
+#acy_content .nav-tabs > li{
+	float: left;
+	margin-bottom: 0px;
+}
+
+.nav-tabs:before, .nav-tabs:after{
+	display: table;
+	content: "";
+	line-height: 0;
+}
+
+.nav-tabs:after{
+	clear: both;
+}
+
+.nav-tabs > li > a{
+	padding: 8px 12px;
+	margin-right: 2px;
+	line-height: 18px;
+	border: 1px solid transparent;
+	border-radius: 4px 4px 0 0;
+	text-decoration: none;
+}
+
+.acytabsystem .nav > li > a:hover, #template_css.nav > li > a:hover{
+	background-color: #b1c7ea !important;
+	color: #fff;
+	border-color: #b1c7ea #b1c7ea #dddddd;
+	text-decoration: none;
+}
+
+.acytabsystem .nav-tabs > .active > a, .acytabsystem .nav-tabs > .active > a:hover, .acytabsystem .nav-tabs > .active > a:focus, #template_css.nav-tabs > .active > a, #template_css.nav-tabs > .active > a:hover, #template_css.nav-tabs > .active > a:focus{
+	border: 1px solid #728fbd;
+	color: #fff;
+	background-color: #4c6da2;
+}
+
+.acytabsystem .nav-tabs > li > a{
+	background-color: #fff;
+}
+
+.acytabsystem .tab-content .tab-pane, #template_css .tab-content .tab-pane{
+	display: none;
+}
+
+.acytabsystem .tab-content .tab-pane.active, #template_css .tab-content .tab-pane.active{
+	display: block;
+}
+
+.acytabsystem .nav > li > a {
+	display: block;
+}
+
+#template_css.nav-tabs > li > a{
+	background-color: #fff;
+	border: 1px solid #eee;
+	border-bottom: 1px solid #ddd;
+}
+
+#acy_content input[type="radio"], #acy_content input[type="checkbox"]{
+	margin: 0px 10px;
+}
+
+#acy_content #allfilters input[type="checkbox"]{
+	float: none;
+}
+
+#acy_content #allfilters label{
+	display: inline-block;
+}
+
+.m #page-subscription input[type="checkbox"], .m #config_interface input[type="checkbox"]{
+	float: none;
+}
+
+.paramlist .acykey, .admintable .acykey{
+	padding-right: 20px;
+}
+
+.body-overlayed #sbox-window{
+	padding: 0px;
+}
+
+#dashboard_mainview h1{
+	color: #666;
+	text-transform: uppercase;
+	font-size: 18px;
+	font-weight: normal;
+}
+
+#dashboard_mainview{
+	color: #505050;
+	font-family: arial;
+	font-size: 12px;
+}
+
+#dashboard_mainview h1{
+	font-size: 16px;
+	margin: 0px;
+	padding: 0px;
+}
+
+#dashboard_mainview h2{
+	font-size: 16px;
+	font-weight: normal;
+	color: #666;
+	margin: 0px;
+	margin-bottom: 5px;
+	padding: 0px;
+}
+
+#dashboard_mainview .acydashboard_content{
+	font-weight: normal;
+	font-size: 12px;
+	text-align: center;
+}
+
+#dashboard_mainstat h1, #dashboard_mainstat h2{
+	text-align: right;
+}
+
+#dashboard_mainstat .circle{
+	display: inline-block;
+	margin: 10px 20px;
+}
+
+#dashboard_mainstat .circle.stat_lists{
+	margin: 0px 30px;
+}
+
+#dashboard_progress{
+	padding: 40px 20px;
+	margin: 30px 0px;
+	border-top: 2px solid #eee;
+}
+
+#dashboard_progress h1, #dashboard_progress h2{
+	text-align: left;
+}
+
+#dashboard_progress a:link, #dashboard_progress a:visited{
+	color: #666;
+}
+
+#acy_stepbystep{
+	text-align: center;
+}
+
+#acy_stepbystep form{
+	margin: 20px 0px
+}
+
+.acydashboard_progress_steps{
+	max-width: 990px;
+	margin: auto;
+}
+
+.acydashboard_progress_steps a, .acydashboard_progress_steps a:hover{
+	color: #666;
+}
+
+.acydashboard_progress_block{
+	float: left;
+	margin: 20px;
+	width: 195px;
+	padding: 5px;
+	border: 1px solid #f8f8f8;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+.acydashboard_progress_block:hover{
+	box-shadow: 0px 2px 4px #ddd;
+}
+
+.step_info{
+	background-color: #f1f1f1;
+	padding: 15px;
+	border-bottom-right-radius: 4px;
+	border-bottom-left-radius: 4px;
+	min-height: 120px;
+	border-bottom: 2px solid #e1e1e1;
+}
+
+.step_image{
+	padding: 15px;
+	border-top-right-radius: 4px;
+	border-top-left-radius: 4px;
+}
+
+.acydashboard_step1 .step_image{
+	background: url(../images/dashboard/step_list.png) no-repeat center top #dde281;
+	height: 60px;
+	transition: background 0.6s ease 0s;
+	border-bottom: 2px solid #c9ce67;
+}
+
+.acydashboard_step1:hover .step_image{
+	background: url(../images/dashboard/step_list.png) no-repeat center bottom #dde281;
+	height: 60px;
+	transition: background 0.6s ease 0s;
+}
+
+.acydashboard_step2 .step_image{
+	background: url(../images/dashboard/step_contacts.png) no-repeat center top #adccea;
+	height: 60px;
+	transition: background 0.6s ease 0s;
+	border-bottom: 2px solid #95b7d7;
+}
+
+.acydashboard_step2:hover .step_image{
+	background: url(../images/dashboard/step_contacts.png) no-repeat center bottom #adccea;
+	height: 60px;
+	transition: background 0.6s ease 0s;
+}
+
+.acydashboard_step3 .step_image{
+	background: url(../images/dashboard/step_newsletter.png) no-repeat center top #fbdf93;
+	height: 60px;
+	transition: background 0.6s ease 0s;
+	border-bottom: 2px solid #ebce81;
+}
+
+.acydashboard_step3:hover .step_image{
+	background: url(../images/dashboard/step_newsletter.png) no-repeat center bottom #fbdf93;
+	height: 60px;
+	transition: background 0.6s ease 0s;
+}
+
+.acydashboard_step4 .step_image{
+	background: url(../images/dashboard/step_sendprocess.png) no-repeat center top #b6e3e6;
+	height: 60px;
+	transition: background 0.6s ease 0s;
+	border-bottom: 2px solid #a5d5d8;
+}
+
+.acydashboard_step4:hover .step_image{
+	background: url(../images/dashboard/step_sendprocess.png) no-repeat center bottom #b6e3e6;
+	height: 60px;
+	transition: background 0.6s ease 0s;
+}
+
+.step_title{
+	font-size: 13px;
+	font-weight: bold;
+	margin-bottom: 10px;
+	display: block;
+	text-transform: uppercase;
+}
+
+.acydashboard_step1 .step_title{
+	color: #a7ac51;
+}
+
+.acydashboard_step2 .step_title{
+	color: #699fd2;
+}
+
+.acydashboard_step3 .step_title{
+	color: #e9bf4f;
+}
+
+.acydashboard_step4 .step_title{
+	color: #5eb1b6;
+}
+
+#acy_stepbystep{
+	display: block;
+	clear: both;
+}
+
+.acydashboard_progressbar{
+	border-radius: 5px;
+	max-width: 990px;
+	text-align: center;
+	margin: auto;
+}
+
+.acydashboard_progressbar_colors{
+	background-color: #f4f4f4;
+	padding: 2px;
+}
+
+.acydashboard_progressbar .acydashboard_progress1{
+	border-bottom-left-radius: 5px;
+	border-top-left-radius: 5px;
+}
+
+.acydashboard_progressbar .acydashboard_progress1 span{
+	background-color: #dde281;
+	height: 3px;
+	float: left;
+	display: inline-block;
+}
+
+.acydashboard_progressbar .acydashboard_progress2{
+	border-bottom-left-radius: 5px;
+	border-top-left-radius: 5px;
+}
+
+.acydashboard_progressbar .acydashboard_progress2 span{
+	background-color: #adccea;
+	height: 3px;
+	float: left;
+	display: inline-block;
+}
+
+.acydashboard_progressbar .acydashboard_progress3{
+	border-bottom-left-radius: 5px;
+	border-top-left-radius: 5px;
+}
+
+.acydashboard_progressbar .acydashboard_progress3 span{
+	background-color: #fbdf93;
+	height: 3px;
+	float: left;
+	display: inline-block;
+}
+
+.acydashboard_progressbar .acydashboard_progress4{
+	border-bottom-right-radius: 5px;
+	border-top-right-radius: 5px;
+}
+
+.acydashboard_progressbar .acydashboard_progress4 span{
+	background-color: #b6e3e6;
+	height: 3px;
+	float: left;
+	display: inline-block;
+}
+
+.acydashboard_progressbar span.acystepdone{
+	width: 100%;
+	-webkit-animation: stepcomplete 2s ease-out 1;
+	-moz-animation: stepcomplete 2s ease-out 1;
+	-ms-animation: stepcomplete 2s ease-out 1;
+	-o-animation: stepcomplete 2s ease-out 1;
+	animation: stepcomplete 2s ease-out 1;
+
+}
+
+@keyframes stepcomplete{
+	0%{
+		width: 0;
+	}
+	100%{
+		width: 100%;
+	}
+}
+
+.acydashboard_progressbar .acydashboard_plane1.acystepdone{
+	background: url(../images/dashboard/plane1.png) no-repeat center;
+}
+
+.acydashboard_progressbar .acydashboard_plane2.acystepdone{
+	background: url(../images/dashboard/plane2.png) no-repeat center;
+}
+
+.acydashboard_progressbar .acydashboard_plane3.acystepdone{
+	background: url(../images/dashboard/plane3.png) no-repeat center;
+}
+
+.acydashboard_progressbar .acydashboard_plane4.acystepdone{
+	background: url(../images/dashboard/plane4.png) no-repeat center;
+}
+
+.acydashboard_progress1.acystepdone, .acydashboard_progress2.acystepdone, .acydashboard_progress3.acystepdone, .acydashboard_progress4.acystepdone{
+	opacity: 1;
+}
+
+#dashboard_mainstat h1.acy_graphtitle{
+	background-color: #95afd8;
+	border-radius: 4px;
+	color: #ffffff;
+	display: inline-block;
+	font-size: 12px;
+	font-weight: bold;
+	margin-bottom: 15px;
+	padding: 9px;
+	position: relative;
+	text-align: center;
+	text-transform: uppercase;
+	line-height: 14px;
+}
+
+#acyallcontent.iconsonly .acy_stepbystep_newsletter .subtitle{
+	display: inline
+}
+
+.acy_stepbystep_newsletter{
+	margin-top: 20px;
+	display: block
+}
+
+#acy_stepbystep .acymailing_button{
+	display: inline;
+	float: none;
+	margin: auto;
+	margin-top: 10px;
+	background-image: none;
+	background-color: #4c6da2;
+	color: white;
+}
+
+#acy_stepbystep .acymailing_button:hover{
+	background-color: #b1c7ea;
+	transition: background 0.3s ease
+}
+
+#acy_stepbystep #user_name, #acy_stepbystep #user_email{
+	background-color: #f5f5f5;
+	border: 1px solid #dddddd;
+	border-bottom: 2px solid #f1f1f1;
+	box-shadow: none;
+	margin: 0 4px;
+	padding: 6px;
+	transition: background 0.3s ease;
+}
+
+#acy_stepbystep #user_name:hover, #acy_stepbystep #user_email:hover{
+	background-color: #fff;
+}
+
+
+.acycircles{
+	margin-bottom: 20px;
+}
+
+.acyprogress{
+	display: block;
+	margin: 0 auto;
+	overflow: hidden;
+	transform: rotate(-90deg) rotateX(180deg);
+}
+
+.acyprogress circle{
+	stroke-dashoffset: 0;
+	transition: stroke-dashoffset 1s ease;
+	stroke-width: 9px;
+}
+
+.acyprogress .bar{
+	cursor: pointer;
+	stroke: #e5e5e5;
+}
+
+.progressdiv{
+	position: relative;
+}
+
+.progressdiv:after{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	font-size: 30px;
+	transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	content: attr(data-title);
+}
+
+.circle_title{
+	color: #787878;
+	position: relative;
+	top: -65px;
+}
+
+.circle_more_stat{
+	color: #fff;
+	background-color: #b1c7ea;
+	padding: 10px 20px;
+	border-radius: 4px;
+	transition: background 0.3s ease;
+}
+
+.circle_more_stat:hover, .circle_more_stat:active, .circle_more_stat:focus{
+	background-color: #4c6da2;
+	color: #fff;
+	text-decoration: none;
+	transition: background 0.3s ease;
+}
+
+.circle_informations{
+	display: block;
+}
+
+.acydashboard_content .circle_informations span{
+	border-radius: 50px;
+	display: inline-block;
+	height: 8px;
+	width: 8px;
+	margin-right: 5px;
+}
+
+.stats_blue_point{
+	background-color: #93bfeb;
+}
+
+.stats_green_point{
+	background-color: #c9c472;
+}
+
+.stats_darkblue_point{
+	background-color: #7c95ad;
+}
+
+.stats_grey_point{
+	background-color: #d6d6d6;
+	margin: 0 5px 0 20px;
+}
+
+.progressdiv::after{
+	color: #999;
+}
+
+.stat_subscribers .progressdiv::after{
+	color: #adccea;
+}
+
+.stat_lists .progressdiv::after{
+	color: #c9c472;
+}
+
+.stat_newsletters .progressdiv::after{
+	color: #7c95ad;
+}
+
+#liststats, #statsqueue{
+	margin: auto;
+	position: relative;
+	top: -30px;
+}
+
+#statsusers{
+	margin: auto;
+	position: relative;
+	top: -30px;
+}
+
+.stat_subscribers{
+	border-right: 1px solid #eee;
+	border-left: 1px solid #eee;
+	padding: 0px 40px;
+}
+
+.stat_newsletters{
+	border-right: 1px solid #eee;
+	border-left: 1px solid #eee;
+	padding: 0px 40px;
+}
+
+@keyframes deploy{
+	from{
+		max-height: 0px;
+	}
+	to{
+		max-height: 800px;
+	}
+}
+
+.acygraph #userStatisticDetails, .acygraph #listStatisticDetails, .acygraph #newsletterStatisticDetails, .acymailing_deploy{
+	animation-name: deploy;
+	animation-duration: 2s;
+	overflow: hidden;
+}
+
+.acygraph svg{
+	overflow: visible !important;
+}
+
+h1.acy_graphtitle:after{
+	border-color: #95afd8 rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
+	border-style: solid;
+	border-width: 8px 8px 0;
+	content: "";
+	height: 0;
+	margin-right: -7px;
+	position: absolute;
+	right: 50%;
+	top: 32px;
+}
+
+
+@keyframes deployslide{
+	from{
+		max-height: 0px;
+	}
+	to{
+		max-height: 450px;
+	}
+}
+
+@keyframes retractslide{
+	from{
+		max-height: 450px;
+	}
+	to{
+		max-height: 0px;
+		display: none;
+	}
+}
+
+.slide_close{
+	animation: retractslide 1s forwards;
+	overflow: hidden;
+	background-color: #fff;
+	height: 350px;
+	box-shadow: 0px 1px 5px #eee;
+	padding: 5px;
+	margin-bottom: 20px;
+}
+
+.slide_open{
+	animation: deployslide 2s forwards;
+	overflow: hidden;
+	background-color: #fff;
+	height: 350px;
+	box-shadow: 0px 1px 5px #eee;
+	padding: 5px;
+	margin-bottom: 20px;
+}
+
+.contentpane h1.title{
+	font-size: 12px !important;
+}
+
+
+.acymailing_button{
+	background-color: #4c6da2;
+	color: #fff;
+	text-shadow: none;
+	padding: 8px 15px;
+	border-radius: 4px;
+	border: none;
+	border-bottom: 1px solid #4f6c99;
+	background-image: none;
+	transition: background 0.3s ease;
+	font-size: 14px;
+	display: inline-block;
+	cursor: pointer;
+}
+
+.acymailing_button:hover, .acymailing_button:focus, .acytoolbarmenu button:focus{
+	background-color: #b1c7ea;
+	color: #fff;
+	text-decoration: none;
+	transition: background 0.3s ease;
+	border: none;
+}
+
+.acymailing_button:hover, .acymailing_button:focus{
+	border-bottom: 1px solid #95afd8;
+}
+
+.acymailing_button_delete{
+	background-color: #d75c55;
+	color: #fff;
+	border-bottom: 1px solid #d75c55;
+}
+
+.acymailing_button_delete:hover, .acymailing_button_delete:focus{
+	background-color: #f58e88;
+	color: #fff;
+	border-bottom: 1px solid #d75c55;
+}
+
+a.acyupload.acymailing_button_grey{
+	color: #000;
+}
+
+.acymailing_button_grey{
+	-moz-border-bottom-colors: none;
+	-moz-border-left-colors: none;
+	-moz-border-right-colors: none;
+	-moz-border-top-colors: none;
+	background-color: #f5f5f5;
+	background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);
+	background-repeat: repeat-x;
+	border-color: #bbbbbb #bbbbbb #a2a2a2;
+	border-image: none;
+	border-radius: 4px;
+	border-style: solid;
+	border-width: 1px;
+	box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 1px 2px rgba(0, 0, 0, 0.05);
+	color: #333333;
+	cursor: pointer;
+	display: inline-block;
+	font-size: 13px;
+	line-height: 18px;
+	margin: 3px 0px;
+	padding: 4px 12px;
+	text-align: center;
+	text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+	vertical-align: middle;
+	text-decoration: none;
+}
+
+.acyupload.acymailing_button_grey{
+	margin-left: 10px;
+	margin-bottom: 5px
+}
+
+.acymailing_button_grey:hover, .acymailing_button_grey:focus{
+	background-position: 0 -15px;
+	color: #333333;
+	text-decoration: none;
+	transition: background-position 0.1s linear 0s;
+}
+
+.acymailing_button_grey:hover, .acymailing_button_grey:focus, .acymailing_button_grey:active, .acymailing_button_grey.active, .acymailing_button_grey.disabled, .acymailing_button_grey[disabled]{
+	background-color: #e6e6e6;
+	color: #333333;
+}
+
+
+ul.buttonOptions{
+	background-color: #5d7bab;
+	box-shadow: 0 5px 6px #516890 inset;
+	border-bottom-right-radius: 4px !important;
+	border-bottom-left-radius: 4px !important;
+	list-style: none;
+	padding-bottom: 2px;
+	padding-left: 0px;
+	min-width: 120px;
+}
+
+.acytoolbar_save .buttonOptions li{
+	text-align: center;
+	display: block;
+	background-color: transparent;
+	padding: 5px 10px;
+	border-bottom-right-radius: 4px !important;
+	border-bottom-left-radius: 4px !important;
+}
+
+.buttonOptions li i{
+	display: none;
+}
+
+.acytoolbarmenu .subbuttonactions .buttonOptions span{
+	font-size: 13px;
+}
+
+.buttonOptions .acyicon-apply{
+	font-size: 14px;
+	margin: 0 10px 0 0;
+}
+
+.buttonOptions .acyicon-apply, .buttonOptions .acyicon-copy, .buttonOptions .acyicon-saveastmpl{
+	font-size: 14px;
+	margin: 0px 5px;
+	padding-right: 8px;
+}
+
+.buttonOptions .acyicon-new{
+	font-size: 16px;
+	padding-right: 5px;
+}
+
+.acytoolbarmenu .buttonOptions .acytoolbar_apply, .acytoolbarmenu .buttonOptions .acytoolbar_new, .acytoolbarmenu .buttonOptions .acytoolbar_saveastmpl, .acytoolbarmenu .buttonOptions .acytoolbar_copy{
+	background-color: transparent;
+	text-transform: none;
+	color: #a5c6e8;
+	font-weight: normal;
+	font-size: 16px;
+	list-style-type: none;
+	line-height: 14px;
+	border-bottom-right-radius: 4px !important;
+	border-bottom-left-radius: 4px !important;
+	display: inline-block;
+	min-width: 100%;
+}
+
+.acytoolbarmenu button, .acytoolbarmenu span{
+	font-size: 12px;
+	background-image: none;
+}
+
+.subbuttonactions{
+	display: inline-block !important;
+}
+
+.subbuttonactions:hover .acytoolbar_save{
+	background-color: #51a351;
+}
+
+.subbuttonactions:hover .acybuttongroup_save{
+	background-color: #419141;
+}
+
+.subbuttonactions:hover .acybuttongroup_save:hover{
+	box-shadow: 0px 3px 5px #2c752c inset
+}
+
+.acytoolbar_hover_display button{
+	box-shadow: none;
+	text-align: left;
+	padding: 0 15px;
+}
+
+.acytoolbar_hover_display button span{
+	margin: 0 !important;
+}
+
+.acytoolbar_hover_display{
+	position: absolute;
+	right: -50%;
+	top: 40px;
+}
+
+.acytoolbarmenu .acyicon-up, .acytoolbarmenu .acyicon-down{
+	color: #fff;
+	font-size: 20px;
+	padding: 0px !important;
+}
+
+.acytoolbarmenu .buttonOptions button:hover{
+	background-color: transparent;
+	text-transform: none;
+	color: #fff;
+}
+
+.acytoolbar_hover:hover .acytoolbar_hover_display{
+	display: block;
+}
+
+.acytoolbar_hover{
+	position: relative;
+	display: inline-block;
+	height: 31px;
+	vertical-align: top;
+	padding-top: 9px;
+}
+
+.acytoolbar_hover_display{
+	display: none;
+}
+
+.acymailing_campaigns_listing .acystatsbutton .acyicon-statistic{
+	font-size: 14px;
+	color: #8eb0dd;
+}
+
+.acymailing_campaigns_listing .acystatsbutton .acyicon-statistic:hover{
+	color: #6680aa;
+}
+
+.acymailing_campaigns_listing .acyblockoptions{
+	float: none;
+	display: block;
+	margin-top: 10px;
+}
+
+.container-title .page-title a{
+	color: #fff;
+}
+
+.acymailing_campaigns_listing .acyicon-new{
+	padding-right: 5px;
+	margin-right: 5px;
+	border-right: 1px solid #ddd;
+	font-size: 16px;
+}
+
+
+.acymailing_table .titleorder{
+	width: 18px
+}
+
+.acymailing_table .titleorder i{
+	display: inline;
+}
+
+.donotprint input:not([type='checkbox']):not([type='radio']){
+	padding-right: 40px !important;
+}
+
+.donotprint .acyicon-refresh{
+	position: relative;
+	right: 26px;
+	color: #fff;
+	font-size: 16px;
+	top: 4px;
+}
+
+#acy_exportchartlegend .acyicon-export{
+	margin-left: 15px;
+}
+
+#acy_exportchartlegend.acymailing_button{
+	margin-top: 15px;
+}
+
+
+#acy_content textarea, #acy_content input[type="text"], #acy_content input[type="password"], #acy_content input[type="datetime"], #acy_content input[type="datetime-local"], #acy_content input[type="date"], #acy_content input[type="month"], #acy_content input[type="time"], #acy_content input[type="week"], #acy_content input[type="number"], #acy_content input[type="email"], #acy_content input[type="url"], #acy_content input[type="search"], #acy_content input[type="tel"], #acy_content input[type="color"], #acy_content select, #acy_content .uneditable-input, .acymailing_table_options #category{
+	background-color: #fff;
+	border: 1px solid #ccc;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+	-moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+	-webkit-transition: border linear .2s, box-shadow linear .2s;
+	-moz-transition: border linear .2s, box-shadow linear .2s;
+	-o-transition: border linear .2s, box-shadow linear .2s;
+	transition: border linear .2s, box-shadow linear .2s;
+	display: inline-block;
+	min-height: 18px;
+	padding: 4px 6px;
+	font-size: 13px;
+	line-height: 18px;
+	color: #555;
+	border-radius: 5px;
+	vertical-align: middle;
+	margin-bottom: 0px;
+}
+
+#acy_content select, .acymailing_table_options #category{
+	height: 28px;
+}
+
+#acy_content input.required{
+	background-color: #fff;
+}
+
+
+#toolbar-box{
+	display: none;
+}
+
+#element-box .m{
+	border: none;
+	background-color: transparent;
+}
+
+#element-box, div#element-box div.m{
+	padding: 0px !important;
+	margin: 0px !important;
+}
+
+#allfilters .plugarea, #allactions .plugarea{
+	padding: 10px 0px;
+}
+
+#allfilters .inputbox, #allactions .inputbox, .subscriber_filter select{
+	padding: 5px 0px;
+	border-radius: 4px;
+	border: 1px solid #ddd;
+	color: #666;
+}
+
+#acy_content #allfilters select, #acy_content #allactions select{
+	margin: 5px 0px
+}
+
+#acyallcontent div.current label, #acyallcontent div.current span.faux-label{
+	display: inline;
+	float: none;
+}
+
+#acy_content input[type="radio"]{
+	float: none;
+}
+
+#acy_content label{
+	display: inline-block;
+}
+
+
+#content-box .border .padding{
+	padding: 0px !important;
+}
+
+#content-box #element-box .t{
+	display: none;
+}
+
+.acytoolbartitle{
+	font-size: 14px !important;
+	color: #fff;
+	text-align: left;
+	font-weight: bold;
+	margin-top: 10px;
+	white-space: nowrap;
+	text-overflow:ellipsis;
+	overflow: hidden;
+	max-width:1px;
+}
+
+.titleorder img{
+	display: none;
+}
+
+.m .titleorder a:first-child:before{
+	content: "\e602";
+	font-size: 16px;
+	color: #fff;
+	font-family: "acyicon";
+	font-style: normal;
+	font-variant: normal;
+	font-weight: bold;
+	line-height: 1;
+	text-transform: none;
+	margin: 0px 10px;
+}
+
+.m .titleorder a:last-child:before{
+	content: "\e620";
+	font-size: 14px;
+	color: #fff;
+	font-family: "acyicon";
+	font-style: normal;
+	font-variant: normal;
+	font-weight: normal;
+	line-height: 1;
+	text-transform: none;
+	margin: 0px 10px;
+}
+
+.m th.title img{
+	margin-left: 5px;
+	max-width: 10px;
+}
+
+.m .statsubjectsenddate img{
+	display: none
+}
+
+.m .statsubjectsenddate:before{
+	content: "\e602";
+	font-size: 16px;
+	color: #fff;
+	font-family: "acyicon";
+	font-style: normal;
+	font-variant: normal;
+	font-weight: bold;
+	line-height: 1;
+	text-transform: none;
+	margin: 0px 10px;
+}
+
+.checkcontent label{
+	display: inline;
+}
+
+.acymailing_table thead a.saveorder, .acymailing_table thead a.saveorder:hover, .acymailing_table thead a.saveorder:link{
+	background-image: none;
+	width: 25px;
+}
+
+div.acytagpopup .familymenu a{
+	background: #eee;
+	background: -moz-linear-gradient(top, #ffffff 0%, #eeeeee 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff), color-stop(100%, #eeeeee));
+	background: -webkit-linear-gradient(top, #ffffff 0%, #eeeeee 100%);
+	background: -o-linear-gradient(top, #ffffff 0%, #eeeeee 100%);
+	background: -ms-linear-gradient(top, #ffffff 0%, #eeeeee 100%);
+	background: linear-gradient(to bottom, #ffffff 0%, #eeeeee 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#eeeeee', GradientType=0);
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	color: #555;
+	display: block;
+	float: left;
+	font-size: 12px;
+	margin-bottom: 4px;
+	margin-right: 4px;
+	padding: 5px 10px;
+	text-decoration: none;
+	white-space: nowrap;
+	text-shadow: 0 -1px 0 rgba(255, 255, 255, 1);
+	box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+div.acytagpopup .familymenu a:hover, div.acytagpopup .familymenu a.selected{
+	background: #95afd8;
+	background: -moz-linear-gradient(top, #95afd8 0%, #728fbd 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #95afd8), color-stop(100%, #728fbd));
+	background: -webkit-linear-gradient(top, #95afd8 0%, #728fbd 100%);
+	background: -o-linear-gradient(top, #95afd8 0%, #728fbd 100%);
+	background: -ms-linear-gradient(top, #95afd8 0%, #728fbd 100%);
+	background: linear-gradient(to bottom, #95afd8 0%, #728fbd 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#95afd8', endColorstr='#728fbd', GradientType=0);
+	border: 1px solid #728fbd;
+	color: #fff;
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+	box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+#inserttagdiv input{
+	margin-bottom: 0px;
+}
+
+#acy_content #plugarea label{
+	display: inline;
+	float: none;
+}
+
+#acy_content td.acytdcheckbox{
+	width: 35px;
+	background-image: url(../images/checkbox.png);
+	background-repeat: no-repeat;
+	background-position: 14px 8px;
+}
+
+#acy_content #lists_choice td.acytdcheckbox{
+	width: 25px;
+	min-width: 25px;
+}
+
+#acy_content tr:hover td.acytdcheckbox{
+	background-position: -56px 8px;
+}
+
+#acy_content tr.selectedrow td.acytdcheckbox, #acy_content tr.acy_list_checked td.acytdcheckbox{
+	background-position: -126px 8px;
+}
+
+#lists_choice.acymailing_table tr{
+	cursor: pointer;
+}
+
+.acymailing_table tr.acy_list_checked{
+	background-color: #f3f7fc;
+}
+
+div.acytagpopup table.acymailing_table tr.selectedrow td, div.acytagpopup table.adminlist tr.selectedrow td{
+	background-color: #FDE2BA;
+}
+
+.acytagpopup .acymailing_button{
+	padding: 4px 8px;
+}
+
+.acytagpopup #inserttagdiv{
+	margin: 15px 0px;
+}
+
+.acytagpopup #inserttagdiv #tagstring{
+	margin-bottom: 4px;
+	padding: 5px;
+}
+
+.contentpane{
+	padding: 0px !important;
+}
+
+#dateDetails{
+	background-color: #f5f5f5;
+	background-image: linear-gradient(to bottom, #fff, #eee);
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	box-shadow: 1px 1px 3px 3px #fff inset, 1px 2px 3px #ddd;
+	opacity: 1;
+	padding: 7px 12px 12px 12px;
+	position: fixed;
+}
+
+#filters_block, #actions_block, #filterinfo, #filteredUsers, #selectedUsers, #existing_filters{
+	float: none;
+	display: block;
+}
+
+#filteredUsers #filteredUsersTable{
+	width: 100%;
+}
+
+#filters_block .acyfilterarea, #actions_block .acyfilterarea{
+	margin-top: 5px;
+}
+
+.acyautofiltertriggers{
+	clear: both;
+}
+
+div.acyfilterarea{
+	border-left: 2px solid #b1c7ea;
+	margin-left: 10px;
+	padding: 10px 5px 0px 10px;
+	clear: both;
+}
+
+.acy_filter_mail #filtersblock input, .acy_filter_mail #filtersblock select{
+	max-width: 100%;
+}
+
+#executed_actions_block div.acyfilterarea{
+	margin: 10px 0px 10px 10px;
+	padding: 10px 5px 10px 10px;
+}
+
+#actionlisting td{
+	text-align: center;
+}
+
+#acy_content input[type=checkbox], #wysija input, #wysija select{
+	padding: 0px;
+}
+
+div#wysija{
+	background: url(../images/editorback.png) no-repeat;
+	height: 25px;
+	width: 150px;
+	padding: 7px 12px;
+}
+
+#wysija span{
+	width: 15px;
+	height: 16px;
+	display: inline-block;
+	background: url(../images/typo.png) no-repeat;
+	cursor: pointer;
+	vertical-align: middle;
+}
+
+#wysija span.ielement{
+	background-position: -19px 0px;
+}
+
+#wysija span.uelement{
+	background-position: -38px 0px;
+}
+
+#wysija span.belementselected{
+	background-position: 0px -29px;
+}
+
+#wysija span.ielementselected{
+	background-position: -19px -29px;
+}
+
+#wysija span.uelementselected{
+	background-position: -38px -29px;
+}
+
+#acy_content .order .uparrow, #acy_content .order .downarrow{
+	width: 12px;
+	height: 12px;
+}
+
+@media screen and (max-width: 1050px){
+	.acyaffix .acytoolbarmenu_menu button, .acyaffix-top .acytoolbarmenu_menu button{
+		padding: 0 5px;
+	}
+
+	.acyaffix .acytoolbarmenu_menu .acytoolbar_hover, .acyaffix-top .acytoolbarmenu_menu .acytoolbar_hover{
+		display: none;
+	}
+
+	.acyaffix .acytoolbarmenu_menu button span, .acyaffix-top .acytoolbarmenu_menu button span{
+		display: none;
+	}
+
+	.acyaffix .acytoolbarmenu_menu button i, .acyaffix-top .acytoolbarmenu_menu button i{
+		margin: 0;
+	}
+
+	.acyaffix .acytoolbartitle, .acyaffix-top .acytoolbartitle{
+		display: none;
+	}
+}
+
+.acyplugformat .formatbox{
+	width: 235px;
+	position: absolute;
+	padding: 12px 20px;
+	border: 1px solid #CCC;
+	box-shadow: 1px 1px 5px #CCC;
+	background-color: white;
+	border-radius: 4px;
+	z-index: 3;
+}
+
+.acyplugformat .acybuttonformat{
+	background-image: url("../images/article_format.png");
+	background-repeat: no-repeat;
+	width: 46px;
+	height: 26px;
+	display: inline-block;
+	margin: 5px;
+	text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+	border: 1px solid #bbb;
+	border-radius: 4px;
+	text-align: center;
+	vertical-align: middle;
+	cursor: pointer;
+	transition: background-position .1s linear;
+	padding: 0;
+}
+
+.acyplugformat .acyokbutton{
+	background: linear-gradient(to bottom, #62c462, #51a351) !important;
+	color: #fff !important;
+	text-shadow: none;
+	float: right;
+	margin: 5px 8px;
+	line-height: 26px;
+}
+
+.respuserinfo fieldset input, .respuserinfo fieldset select, .respuserinfo fieldset img, .respuserinfo fieldset textarea, .respuserinfo fieldset button{
+	float: none;
+}
+
+.respuserinfo fieldset legend{
+	font-weight: bold;
+	display: block;
+	margin-bottom: 20px;
+	color: #4c6da2;
+	font-size: 12px;
+}
+
+.respuserinfo .acy_onefield{
+	margin-bottom: 20px;
+}
+
+.respuserinfo .acy_onefield label{
+	margin-bottom: 5px;
+	margin-right: 10px;
+}
+
+.respuserinfo .acykey label{
+	float: left;
+}
+
+#mapGeoloc_div{
+	text-align: center;
+	width: 650px;
+	margin: 20px auto;
+	display: block;
+}
+
+.onlyprint{
+	display: none
+}
+
+.acymailing_table .hasTip{
+	border-bottom: 1px dotted #ddd;
+}
+
+.acy_filter_mail #filtersblock{
+	float: none;
+	display: block;
+	margin-top: 40px;
+}
+
+.acy_filter_mail #filtersblock{
+	padding: 20px;
+	margin: 30px 0px
+}
+
+
+span.onload{
+	background-image: url(../images/spinner.gif);
+	background-repeat: no-repeat;
+	background-position: left;
+	padding: 2px 20px;
+}
+
+span.onload.spinner2{
+	background-image: url(../images/spinner2.gif);
+}
+
+#acy_content span.loading, #acy_content span.spanloading{
+	padding: 2px 0;
+	display: inline;
+}
+
+div.onload{
+	background-image: url(../images/spinner.gif);
+	background-repeat: no-repeat;
+	width: 19px;
+	height: 19px;
+	float: left;
+	margin-left: 3px;
+}
+
+#acy_content .abtesting_actions input{
+	float: left;
+}
+
+.current .paramlist_value label{
+	float: none;
+	display: inline-block;
+}
+
+#newsletter_preview_area #iframepreview{
+	display: block;
+	margin: 95px auto 0 auto;
+	transition: width 1s ease;
+}
+
+#config_mailer_methodfieldset .acyblockoptions{
+	float: left;
+}
+
+#config_mailer_methodfieldset .acyblockoptions:nth-child(2){
+	margin-left: 20px;
+}
+
+#indexfollow input, #indexfollow label{
+	float: left;
+	display: inline;
+}
+
+#acy_content div.current input, #acy_content div.current select{
+	float: none;
+	margin-bottom: 0px;
+	clear: none;
+}
+
+#acy_content .clr{
+	display: block;
+	clear: both;
+}
+
+.customfields_pane{
+	float: right;
+	cursor: pointer;
+	box-sizing: border-box;
+	text-align: center;
+	font-size: 13px;
+	text-transform: uppercase;
+	display: inline-block;
+	width: 50%;
+	height: 100%;
+	color: white;
+	line-height: 40px;
+	-webkit-transition: background-color 0.2s;
+	-moz-transition: background-color 0.2s;
+	-ms-transition: background-color 0.2s;
+	-o-transition: background-color 0.2s;
+	transition: background-color 0.2s;
+	background-color: #B7CEF2 !important;
+	font-weight: 600;
+	border: 0 !important;
+}
+
+.customfields_pane:first-of-type{
+	border-radius: 0;
+	border-top-right-radius: 10px;
+}
+
+.customfields_pane:last-of-type{
+	border-radius: 0;
+	border-top-left-radius: 10px;
+}
+
+.customfields_pane.active, .customfields_pane:hover{
+	background-color: #7F99C3 !important;
+}
+
+#acy_content .acy_onefield input[type="radio"], #acy_content .acy_onefield input[type="checkbox"]{
+	float: none;
+	display: inline-block;
+	margin: 0 5px
+}
+
+#acy_content .acy_onefield label{
+	display: inline-block !important
+}
+
+span.acy_stat_date{
+	margin-top: 5px;
+	display: block;
+}
+
+.searchtext{
+	background-color: rgb(255, 255, 102);
+	color: black;
+	font-weight: bold;
+}
+
+.acymaincontent_action #actionsarea{
+	margin-top: 10px;
+}
+
+.acymaincontent_action #actionsarea select{
+	margin-top: 5px;
+}
+
+.tree{
+	position: absolute;
+	left: 0;
+	right: 0;
+	background-color: white;
+	-webkit-box-shadow: 0 4px 8px #d7d7d7;
+	-moz-box-shadow: 0 4px 8px #d7d7d7;
+	box-shadow: 0 4px 8px #d7d7d7;
+	z-index: 2;
+}
+
+.tree li{
+	list-style: none;
+}
+
+.tree ul{
+	margin-left: 10px;
+}
+
+.tree > ul{
+	margin: 15px 0;
+}
+
+.tree-child-item .tree-child-title{
+	cursor: pointer;
+	font-size: 15px;
+	color: #545454;
+}
+
+.tree-icon{
+	padding-right: 5px;
+	padding-left: 5px;
+	font-size: 15px;
+	color: #6b6c5a;
+
+}
+
+.tree-child-item.tree-empty .tree-icon:before{
+	opacity: 0;
+}
+
+.tree-child-item .tree-icon:before{
+	text-decoration: none;
+	content: '\25bc';
+	padding: 0 5px;
+}
+
+.tree-child-item.tree-closed .tree-icon, .tree-child-item.tree-closed .tree-icon:before{
+	content: '\25b6';
+	color: #aeaf98;
+}
+
+.tree-closed .acyicon-folder{
+	font-size: 12px;
+}
+
+.tree-closed .tree-icon:before{
+	font-size: 16px;
+}
+
+.tree-icon:before{
+	font-size: 12px;
+}
+
+.tree-current > span,
+.tree-child-item:hover > span{
+	color: #08c !important;
+}
+
+.tree-child-item.tree-closed ul{
+	height: 0;
+	-webkit-transform: scaleY(0);
+	-moz-transform: scaleY(0);
+	-ms-transform: scaleY(0);
+	-o-transform: scaleY(0);
+	transform: scaleY(0);
+}
+
+.tree-child-item ul{
+	height: auto;
+	overflow: hidden;
+	-webkit-transform: scaleY(1);
+	-moz-transform: scaleY(1);
+	-ms-transform: scaleY(1);
+	-o-transform: scaleY(1);
+	transform: scaleY(1);
+	-webkit-transition: transform 0.5s;
+	-moz-transition: transform 0.5s;
+	-ms-transition: transform 0.5s;
+	-o-transition: transform 0.5s;
+	transition: transform 0.5s;
+}
+
+.acytable_userinfo{
+	float: left;
+	margin-right: 40px;
+}
+
+.acytable_userinfo td{
+	height: 28px;
+}
+
+.acytable_userinfo .controls fieldset.radio{
+	padding-top: 0px;
+}
+
+.acytable_userinfo td.acykey label{
+	margin-bottom: 0px;
+}
+
+.acymaincontent_stats #statfilter{
+	text-align: left;
+}
+
+#displayPict .acy_attachment_delete{
+	height: 24px;
+	width: 24px;
+	vertical-align: top;
+	position: absolute;
+	right: 15px;
+	top: 15px;
+	z-index: 990;
+}
+
+.acy_attachment_delete{
+	cursor: pointer;
+}
+
+.acy_selected_attachment{
+	max-width: 50%;
+	width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+    margin-left: 5px;
+    vertical-align: middle;
+}
+
+#confirmBoxAttach{
+	width: 370px;
+	background: rgba(255, 255, 255, 0.8);
+	border: 1px solid #d6d6d6;
+	padding: 5px;
+	border-radius: 5px;
+	box-shadow: 1px 1px 5px #dddddd;
+	-moz-box-shadow: 1px 1px 5px #dddddd;
+	-webkit-box-shadow: 1px 1px 5px #dddddd;
+	position: absolute;
+	left: 234px;
+	top: 150px;
+	z-index: 999;
+}
+
+#acy_popup_content{
+	background-color: #fff;
+	padding: 20px;
+	text-align: center;
+	color: #706f6f;
+}
+
+.acy_folder_name{
+	color: #5e93c0
+}
+
+#acy_media_browser .drag-resize:hover{
+	cursor: nw-resize;
+}
+
+#acy_media_browser #image-edition{
+	display: block;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	background: url(../images/grid.png);
+	top: 0;
+}
+
+#acy_media_browser #image-edition.hidden-edition{
+	display: none;
+}
+
+#acy_media_browser #image-edition .image-edition-toolbar{
+	position: absolute;
+	top: 0;
+	right: 0;
+	height: 100%;
+	padding: 0px 25px;
+	background-color: #ECECEC;
+	border-left: solid 1px #DCDCDC;
+	width: 190px;
+}
+
+#acy_media_browser #image-edition .image-edition-toolbar *{
+	margin-bottom: 5px;
+}
+
+.acymailing_active_button{
+	box-shadow: inset 0 2px 4px rgba(0, 0, 0, .15), 0 1px 2px rgba(0, 0, 0, .05);
+	background-color: #e6e6e6;
+	background-image: none;
+}
+
+.acydashboard_specialcontent{
+	margin-top: 30px;
+}
+
+#tagfieldcontainer{
+	display: inline-block;
+	position: relative;
+	width: 250px;
+}
+
+#tagul{
+	position: relative;
+	overflow: hidden;
+	box-sizing: border-box;
+	margin: 0px;
+	padding: 0px;
+	border: 1px solid #aaa;
+	width: 250px;
+	background-color: white;
+	border-radius: 3px;
+	border: 1px solid #cccccc;
+}
+
+.acymailing_table_options #tagul{
+	border-radius: 5px;
+}
+
+#tagul li{
+	list-style: none;
+	float: left;
+}
+
+#tagul li.tagchoice{
+	position: relative;
+	margin: 1px 0px 1px 2px;
+	padding: 3px 20px 3px 5px;
+	border: 1px solid #aaa;
+	border-radius: 3px;
+	background-color: #e4e4e4;
+	background-image: linear-gradient(#f4f4f4 20%, #f0f0f0 50%, #e8e8e8 52%, #eeeeee 100%);
+	line-height: 13px;
+}
+
+#tagul li.tagchoice a.choice-close{
+	position: absolute;
+	top: 0px;
+	width: 20px;
+	height: 20px;
+	background-image: url("../images/closecross.png");
+	cursor: pointer;
+}
+
+#tagul #searchbartag{
+	border: none;
+	box-shadow: none;
+	min-width: 175px;
+}
+
+#tagul .searchtag{
+	height: 21px;
+	padding-bottom: 2px;
+	margin-top: -2px;
+}
+
+#existingtags{
+	position: absolute;
+	z-index: 1060;
+	border: 1px solid #aaa;
+	border-top: 0;
+	background: #fff;
+	box-shadow: 0 4px 5px rgba(0, 0, 0, 0.15);
+	width: 248px;
+}
+#existingtags ul{
+	margin: 0px;
+	padding: 0px;
+}
+
+#existingtags ul li{
+	list-style: none;
+	padding: 5px 6px;
+	cursor: pointer;
+}
+
+#existingtags ul li:hover, #existingtags ul li:focus{
+	background-color: #3875d7;
+	background-image: linear-gradient(#3875d7 20%, #2a62bc 90%);
+	color: #fff;
+}
+
+.acymailing_table_options #tagfilter{
+	vertical-align: top;
+}
+
+.onelineblockoptions #tagfilter{
+	vertical-align: middle;
+}
+
+.installacysms #meter {
+	background: #555;
+	border-radius: 16px;
+}
+
+.installacysms #meter > div {
+	margin: 8px 10px;
+	height: 45px;
+	position: relative;
+}
+
+.installacysms #progressbar {
+	border-radius: 20px;
+	background-color: rgb(43,194,83);
+	box-shadow:
+			inset 0 2px 9px  rgba(255,255,255,0.3),
+			inset 0 -2px 6px rgba(0,0,0,0.4);
+	width: 0%;
+	position: absolute;
+	margin: 8px 0px;
+	top: 0;
+	left: 0;
+	bottom: 14px;
+	right: 0;
+	background-image: linear-gradient(
+			-45deg,
+			rgba(255, 255, 255, .2) 25%,
+			transparent 25%,
+			transparent 50%,
+			rgba(255, 255, 255, .2) 50%,
+			rgba(255, 255, 255, .2) 75%,
+			transparent 75%,
+			transparent
+	);
+	background-size: 50px 50px;
+	animation: progress 2s linear infinite;
+	transition: 2s ease;
+}
+
+.installacysms #information{
+	color: white;
+	position: absolute;
+	left: 1px;
+	top: 26px;
+}
+
+.installacysms #information a{
+	color:#ffac15;
+	text-decoration:none;
+}
+
+.installacysms #postinstall a {
+	color: white;
+	text-decoration: none;
+}
+
+.installacysms .myacymailingarea{
+	padding: 6px 0px 0px 0px;
+}
+
+@keyframes progress {
+	0% {
+		background-position: 0 0;
+	}
+	100% {
+		background-position: 50px 50px;
+	}
+}
+
+.subbuttonactions:hover .acytoolbar_compare{
+	background-color: #5d7bab;
+	box-shadow: 0 5px 6px #516890 inset;
+	color: #a5c6e8;
+	width: 100%;
+}
+
+.subbuttonactions:hover .acytoolbar_compare:hover{
+	color: #fff;
+}
+
+.acybuttongroup_addcompare .acytoolbar_hover_display{
+	z-index: 1;
+}
+
+.subbuttonactions:hover .acybuttongroup_addcompare{
+	background-color: #94b3e4;
+}
+
+.subbuttonactions:hover .acybuttongroup_addcompare:hover{
+	background-color: #5d7bab;
+	box-shadow: 0 5px 6px #516890 inset;
+}
+
+.columnclassname {
+	text-overflow: ellipsis;
+	max-width: 350px;
+	overflow: hidden;
+}
+
+.icon-16-refuse{
+	 background-image: url(../images/icons/icon-16-refuse.png);
+	 background-repeat: no-repeat;
+	 width: 16px !important;
+	 height: 16px !important;
+	 float: left;
+	 margin: 3px;
+}
+
+.acypagination li{
+	display: inline-block;
+	width: 40px;
+	height: 30px;
+	line-height: 30px;
+	border: 1px solid #ddd;
+	border-left-width: 0;
+	font-family: 'acyicon';
+}
+
+.acypagination li.selectedPage{
+	width: 200px;
+}
+
+.acypagination li input{
+	width: 35px;
+}
+
+.acypagination li:first-child{
+	border-left-width: 1px;
+	border-radius: 3px 0px 0px 3px;
+}
+
+.acypagination li:last-child{
+	border-radius: 0px 3px 3px 0px;
+}
+
+.acypagination_counter, .acypagination{
+	text-align: center;
+	margin-left: 0;
+}
+
+.acypagination li span {
+	cursor: pointer;
+	display: block;
+	line-height: 30px;
+	height: 100%;
+}
+
+.acypagination li span.acypaginactive{
+	opacity: 0.5;
+	cursor: default;
+}
+
+.acypagination li span:not(.acypaginactive):hover{
+	background-color: #e8e8e8;
+}
+
+.acypagination .selectedPage #acypagination{
+	vertical-align: baseline;
+}
+
+.deleteFilter{
+	cursor: pointer;
+	margin-left: 10px;
+	width: 20px;
+}

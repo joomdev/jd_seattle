@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.3.0" type="component" method="upgrade">
+	<name>Akeeba</name>
+	<creationDate>2018-06-05</creationDate>
+	<author>Nicholas K. Dionysopoulos</author>
+	<authorEmail>nicholas@dionysopoulos.me</authorEmail>
+	<authorUrl>http://www.akeebabackup.com</authorUrl>
+	<copyright>Copyright (c)2006-2017 Akeeba Ltd / Nicholas K. Dionysopoulos</copyright>
+	<license>GNU GPL v3 or later</license>
+	<version>6.1.1</version>
+	<description>Akeeba Backup Core - Full Joomla! site backup solution, Core Edition.</description>
+
+	<!-- Public front end files -->
+	<files folder="frontend">
+		<folder>Controller</folder>
+		<folder>Dispatcher</folder>
+		<folder>Model</folder>
+		<filename>akeeba.php</filename>
+	</files>
+
+	<!-- Front end translation files -->
+	<languages folder="language/frontend">
+		<language tag="en-GB">en-GB/en-GB.com_akeeba.ini</language>
+	</languages>
+
+	<!-- Media files -->
+	<media destination="com_akeeba" folder="media">
+		<folder>css</folder>
+		<folder>js</folder>
+		<folder>icons</folder>
+	</media>
+
+	<!-- Administrator back-end section -->
+	<administration>
+		<!-- Administration menu -->
+		<menu view="cpanel"
+			img="../media/com_akeeba/icons/akeeba-16.png">COM_AKEEBA</menu>
+
+		<!-- Back-end files -->
+		<files folder="backend">
+			<folder>backup</folder>
+			<folder>BackupEngine</folder>
+			<folder>BackupPlatform</folder>
+			<folder>Controller</folder>
+			<folder>Dispatcher</folder>
+			<folder>fields</folder>
+			<folder>Helper</folder>
+			<folder>Master</folder>
+			<folder>Model</folder>
+			<folder>sql</folder>
+			<folder>Toolbar</folder>
+			<folder>View</folder>
+			<folder>views</folder>
+
+			<filename>akeeba.php</filename>
+			<filename>fof.xml</filename>
+			<filename>restore.php</filename>
+			<filename>version.php</filename>
+			<filename>config.xml</filename>
+			<filename>access.xml</filename>
+			<filename>CHANGELOG.php</filename>
+		</files>
+
+		<!-- Back-end translation files -->
+		<languages folder="language/backend">
+			<language tag="en-GB">en-GB/en-GB.com_akeeba.ini</language>
+			<language tag="en-GB">en-GB/en-GB.com_akeeba.sys.ini</language>
+		</languages>
+
+	</administration>
+
+	<!-- Installation / uninstallation script file -->
+	<scriptfile>script.com_akeeba.php</scriptfile>
+</extension>

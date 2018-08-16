@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="3.5" client="site" method="upgrade">
+   <name>mod_jdprocess</name>
+   <author>JoomDev Team</author>
+   <creationDate>July 2018</creationDate>
+   <copyright>Copyright (C) 2005 - 2017 Open Source Matters. All rights reserved.</copyright>
+   <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+   <authorEmail>info@joomdev.com</authorEmail>
+   <authorUrl>www.joomdev.com</authorUrl>
+   <version>1.0.0</version>
+   <description>mod_jdprocess</description>
+   <files>
+      <filename module="mod_jdprocess">mod_jdprocess.php</filename>
+      <folder>tmpl</folder>
+      <folder>fields</folder>
+      <folder>forms</folder>
+      <filename>helper.php</filename>
+   </files>
+   <languages folder="language">
+      <language tag="en-GB">en-GB/en-GB.mod_jdprocess.ini</language>
+      <language tag="en-GB">en-GB/en-GB.mod_jdprocess.sys.ini</language>
+   </languages>
+   <config>
+      <fields name="params">
+         <fieldset name="basic" addfieldpath="/modules/mod_jdprocess/fields">
+            <field name="items"
+                   type="subform"
+                   formsource="/modules/mod_jdprocess/forms/item.xml"
+                   multiple="true"
+                   label="Process Items"
+            >
+            </field>
+         </fieldset>
+         <fieldset name="advanced">
+            <field
+               name="layout"
+               type="modulelayout"
+               label="JFIELD_ALT_LAYOUT_LABEL"
+               description="JFIELD_ALT_MODULE_LAYOUT_DESC"
+               default="default"
+            />
+            <field
+               name="load_bootstrap"
+               type="radio"
+               label="Load Bootstrap?"
+               description="Load Bootstrap?"
+               default="1"
+               class="btn-group btn-group-yesno"
+            >
+               <option value="1">JYES</option>
+               <option value="0">JNO</option>
+            </field>
+			<field name="moduleclass_sfx" type="textarea" label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL" description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC" rows="3"/>
+         </fieldset>
+      </fields>
+   </config>
+</extension>

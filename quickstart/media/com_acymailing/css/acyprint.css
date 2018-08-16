@@ -1,0 +1,79 @@
+/**
+ * @package    AcyMailing for Joomla!
+ * @version    5.10.3
+ * @author     acyba.com
+ * @copyright  (C) 2009-2018 ACYBA S.A.R.L. All rights reserved.
+ * @license    GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
+ */
+
+.onlyprint{
+	display: block !important;
+}
+
+.donotprint{
+	display: none !important;
+}
+
+.acymailing_footer{
+	display: none !important;
+}
+
+.acyheaderarea{
+	display: none !important;
+}
+
+#element-box > div.t, #element-box > div.b, #border-bottom{
+	display: none !important
+}
+
+#border-top, #toolbar-box, #header-box, #footer, #system-debug, body > p{
+	display: none !important
+}
+
+#content-box, #element-box div.m{
+	border: 0px !important;
+}
+
+#header, #nav, #module-status, .pagetitle, #system-message-container, .toolbar-box, #no-submenu{
+	display: none !important
+}
+
+#element-box{
+	border: 0px !important
+}
+
+#ap-header, #ap-submenu, #ap-sidebar, #ap-title{
+	display: none !important
+}
+
+#ap-content{
+	margin: 0px !important
+}
+
+#ap-content-body{
+	height: auto !important
+}
+
+#mc-header, #mc-footer, #mc-message{
+	display: none !important
+}
+
+.navbar, .subhead-collapse, header{
+	display: none !important
+}
+
+html, body{
+	height: auto !important;
+}
+
+.acyblockoptions{
+	margin: 0px;
+}
+
+#acy_content{
+	padding: 0px;
+}
+
+div{
+	max-width: 600px !important;
+}

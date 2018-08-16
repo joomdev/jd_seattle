@@ -1,0 +1,102 @@
+/**
+ * @package    AcyMailing for Joomla!
+ * @version    5.10.3
+ * @author     acyba.com
+ * @copyright  (C) 2009-2018 ACYBA S.A.R.L. All rights reserved.
+ * @license    GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
+ */
+
+@import url("component_default_box_black.css");
+
+
+
+
+#acyarchivelisting .button:hover, #unsubbutton_div .button:hover, #acymodifyform .button:hover {
+    color:#79adb2;}
+
+
+#acyarchivelisting .contentheading{
+	color:#6a9195;
+	border-bottom:1px solid #6a9195;
+}
+
+#acyarchivelisting .contentpane .contentdescription{
+	color:#79adb2;
+}
+
+#acyarchivelisting .sectiontableheader a:hover{
+	color:#79adb2;
+}
+
+#acyarchivelisting .contentpane tbody .sectiontableentry1 a:hover{
+	color:#79adb2;
+}
+
+#acyarchivelisting .contentpane tbody .sectiontableentry2 a:hover{
+	color:#79adb2;
+}
+
+
+#acyarchivelisting .contentpane tbody .sectiontableentry1{
+	background-color:#e8f0f1;
+}
+
+#acyarchivelisting .contentpane tbody .sectiontableentry1:hover{
+	background-color:#e0eaeb;
+}
+
+#acyarchivelisting .contentpane tbody .sectiontableentry2{
+	background-color:#f0f5f6;
+}
+
+#acyarchivelisting .contentpane tbody .sectiontableentry2:hover{
+	background-color:#e0eaeb;
+}
+
+
+
+#acyarchiveview .contentheading{
+	color:#79adb2;
+}
+
+
+
+#acylistslisting .componentheading{
+	color:#6a9195;
+	border-bottom:1px solid #6a9195;
+}
+#acylistslisting .list_name a{
+    color:#79adb2;
+}
+
+#acylistslisting .list_name a:hover, #acylistslisting .list_name a:focus {
+	color:#79adb2;
+}
+
+div.acymailing_list:hover{
+	background-color :#F0F5F6;
+}
+
+
+
+#acymodifyform legend{
+	color:#6a9195;
+	border-bottom:1px solid #6a9195;
+}
+
+#acyusersubscription .list_name{
+    color: #79adb2;
+}
+	
+
+#unsubpage .unsubintro{
+	color:#79adb2;
+	border-bottom: 1px solid #79adb2;
+}
+#unsubpage .unsubsurveytext{
+    border-bottom: 1px solid #79adb2;
+    color: #79adb2;
+}
+
+
+

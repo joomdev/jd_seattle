@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<fieldset name="media" label="COM_SPPORTFOLIO_THUMBNAIL_LABEL" addfieldpath="/administrator/components/com_spsimpleportfolio/models/fields/">
+		<field name="square" type="text" label="COM_SPPORTFOLIO_THUMBNAIL_SQAURE" description="COM_SPPORTFOLIO_THUMBNAIL_SQAURE_DESC" default="600x600" />
+		<field name="rectangle" type="text" label="COM_SPPORTFOLIO_THUMBNAIL_RECTANGLE" description="COM_SPPORTFOLIO_THUMBNAIL_RECTANGLE_DESC" default="600x400" />
+		<field name="tower" type="text" label="COM_SPPORTFOLIO_THUMBNAIL_TOWER" description="COM_SPPORTFOLIO_THUMBNAIL_TOWER_DESC" default="600X800" />
+		<field type="resetthumbs" label="COM_SPPORTFOLIO_RESET_THUMBNAIL" description="COM_SPPORTFOLIO_RESET_THUMBNAIL_DESC" />
+	</fieldset>
+	<fieldset name="permissions" label="JCONFIG_PERMISSIONS_LABEL" description="JCONFIG_PERMISSIONS_DESC">
+		<field name="rules" type="rules" label="JCONFIG_PERMISSIONS_LABEL" filter="rules" component="com_spsimpleportfolio" section="component" />
+	</fieldset>
+</config>

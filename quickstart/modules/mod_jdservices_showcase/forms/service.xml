@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form>
+   <fieldset name="services_modal" label="Services Showcase Item">
+        <field
+            name="serveices_iconOption"
+            type="list"
+            label="MOD_JDSERVICES_SHOWCASE_UPLOAD_SELECT_MEDIA"
+            description="MOD_JDSERVICES_SHOWCASE_UPLOAD_SELECT_MEDIA"
+            default="upload"
+            >
+            <option value="icon">MOD_JDSERVICES_SHOWCASE_ICON</option>
+            <option value="upload">MOD_JDSERVICES_SHOWCASE_UPLOAD</option>
+        </field>
+        <field name="serveices_icon_upload"
+                label="Upload Media"
+                showon="serveices_iconOption:upload"
+				
+                type="media"  />
+        <field name="serveices_icon_class"
+                label="MOD_JDSERVICES_SHOWCASE_ICON_CLASS"
+				description="MOD_JDSERVICES_SHOWCASE_ICON_CLASS_DESCRIPTION"
+				showon="serveices_iconOption:icon"
+                type="text" />
+      <field name="title"
+             label="MOD_JDSERVICES_SHOWCASE_OPTIONS_TITLE_LBL"
+             description="MOD_JDSERVICES_SHOWCASE_OPTIONS_TITLE_DESC"
+             type="text"   />
+      <field name="subtitle"
+             label="MOD_JDSERVICES_SHOWCASE_OPTIONS_SUBTITLE_LBL"
+             description="MOD_JDSERVICES_SHOWCASE_OPTIONS_SUBTITLE_DESC"
+             type="text"   />
+      <field name="description"
+             label="MOD_JDSERVICES_SHOWCASE_OPTIONS_DESC_LBL"
+             description="MOD_JDSERVICES_SHOWCASE_OPTIONS_DESC_DESC"
+             type="textarea"  />
+      <field name="link"
+             label="MOD_JDSERVICES_SHOWCASE_OPTIONS_LINK_LBL"
+             description="MOD_JDSERVICES_SHOWCASE_OPTIONS_LINK_DESC"
+             type="menuitem"  />
+   </fieldset>
+</form>

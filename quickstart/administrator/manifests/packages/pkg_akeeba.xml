@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.3.0" type="package" method="upgrade">
+    <name>Akeeba Backup package</name>
+    <author>Nicholas K. Dionysopoulos</author>
+    <creationDate>2018-06-05</creationDate>
+    <packagename>akeeba</packagename>
+    <version>6.1.1</version>
+    <url>https://www.akeebabackup.com</url>
+    <packager>Akeeba Ltd</packager>
+    <packagerurl>https://www.akeebabackup.com</packagerurl>
+    <copyright>Copyright (c)2006-2017 Akeeba Ltd / Nicholas K. Dionysopoulos</copyright>
+    <license>GNU GPL v3 or later</license>
+    <description>Akeeba Backup installation package v.6.1.1</description>
+
+    <!-- List of extensions to install -->
+    <files>
+        <!-- Component -->
+        <file type="component" id="com_akeeba">com_akeeba-core.zip</file>
+
+        <!-- Modules -->
+        <!--<file type="module" client="site" id="mod_example">mod_example.zip</file>-->
+
+        <!-- Plugins: quickicon -->
+        <file type="plugin" group="quickicon" id="akeebabackup">plg_quickicon_akeebabackup.zip</file>
+
+        <!-- Plugins: system -->
+        <file type="plugin" group="system" id="akeebaupdatecheck">plg_system_akeebaupdatecheck.zip</file>
+        <file type="plugin" group="system" id="backuponupdate">plg_system_backuponupdate.zip</file>
+    </files>
+
+    <!-- Installation script -->
+    <scriptfile>script.akeeba.php</scriptfile>
+
+    <!-- Update servers -->
+    <updateservers>
+        <server type="extension" priority="1" name="Akeeba Backup Core">https://cdn.akeebabackup.com/updates/pkgakeebacore.xml</server>
+    </updateservers>
+</extension>

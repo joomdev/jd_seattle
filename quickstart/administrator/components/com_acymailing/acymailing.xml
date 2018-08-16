@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" version="3.0" method="upgrade">
+	<name>AcyMailing</name>
+	<creationDate>July 2018</creationDate>
+	<version>5.10.3</version>
+	<level>starter</level>
+	<author>Acyba</author>
+	<authorEmail>dev@acyba.com</authorEmail>
+	<authorUrl>http://www.acyba.com</authorUrl>
+	<copyright>Copyright (C) 2009-2018 ACYBA SAS - All rights reserved.</copyright>
+	<description>Manage your Mailing lists, Newsletters, e-mail marketing campaigns</description>
+	<license>GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html</license>
+	<languages folder="language">
+		<language tag="en-GB">en-GB.com_acymailing.ini</language>
+	</languages>
+	<install>
+		<sql>
+			<file driver="mysql">tables.sql</file>
+			<file driver="mysql" charset="utf8">tables.sql</file>
+			<file driver="mysqli">tables.sql</file>
+			<file driver="mysqli" charset="utf8">tables.sql</file>
+		</sql>
+	</install>
+	<scriptfile>install.joomla.php</scriptfile>
+	<files folder="front">
+		<folder>controllers</folder>
+		<folder>inc</folder>
+		<folder>params</folder>
+		<folder>sef_ext</folder>
+		<folder>views</folder>
+		<filename>acymailing.php</filename>
+		<filename>index.html</filename>
+		<filename>router.php</filename>
+	</files>
+	<media folder="media" destination="com_acymailing">
+		<folder>css</folder>
+		<folder>images</folder>
+		<folder>js</folder>
+		<folder>templates</folder>
+		<filename>index.html</filename>
+	</media>
+	<administration>
+		<files folder="back">
+			<folder>classes</folder>
+			<folder>controllers</folder>
+			<folder>compat</folder>
+			<folder>extensions</folder>
+			<folder>helpers</folder>
+			<folder>logs</folder>
+			<folder>types</folder>
+			<folder>views</folder>
+			<filename>acymailing.php</filename>
+			<filename>config.xml</filename>
+			<filename>index.html</filename>
+			<filename>tables.sql</filename>
+		</files>
+		<menu img="../media/com_acymailing/images/icons/icon-16-acymailing.png" link="option=com_acymailing">AcyMailing</menu>
+		<submenu>
+			<menu link="option=com_acymailing&amp;ctrl=subscriber" img="../media/com_acymailing/images/icons/icon-16-users.png">Users</menu>
+			<menu link="option=com_acymailing&amp;ctrl=list" img="../media/com_acymailing/images/icons/icon-16-acylist.png">Lists</menu>
+			<menu link="option=com_acymailing&amp;ctrl=newsletter" img="../media/com_acymailing/images/icons/icon-16-newsletter.png">Newsletters</menu>
+			<menu link="option=com_acymailing&amp;ctrl=template" img="../media/com_acymailing/images/icons/icon-16-acytemplate.png">Templates</menu>
+			<menu link="option=com_acymailing&amp;ctrl=queue" img="../media/com_acymailing/images/icons/icon-16-process.png">Queue</menu>
+			<menu link="option=com_acymailing&amp;ctrl=stats" img="../media/com_acymailing/images/icons/icon-16-stats.png">Statistics</menu>
+			<menu link="option=com_acymailing&amp;ctrl=cpanel" img="../media/com_acymailing/images/icons/icon-16-acyconfig.png">Configuration</menu>
+		</submenu>
+	</administration>
+</extension>

@@ -1,0 +1,22 @@
+<?php
+/**
+ * @var $_class N2SmartsliderBackendSettingsView
+ */
+
+N2Html::topBar(array(
+    "actions" => array(
+        N2Html::tag('a', array(
+            'href'    => '#',
+            'class'   => 'n2-button n2-button-normal n2-button-l n2-radius-s n2-button-green n2-h4 n2-b n2-uc',
+            'onclick' => 'return N2Classes.Form.submit("#n2-form");'
+        ), n2_('Save'))
+    )
+));
+?>
+<form id="n2-form" action="#" method="post">
+    <?php
+    $_class->renderDefaultsForm();
+    ?>
+    <input name="save" value="1" type="hidden"/>
+</form>
+<?php N2SS3::showBeacon('Item defaults'); ?>

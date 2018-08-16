@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="3.1" client="site" method="upgrade">
+  <name>JD Pricing Table</name>
+  <author>JoomDev Team</author>
+  <creationDate>July 2018</creationDate>
+  <copyright>Copyright (C) 2005 - 2017 Open Source Matters. All rights reserved.</copyright>
+  <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+  <authorEmail>info@joomdev.com</authorEmail>
+  <authorUrl>www.joomdev.com</authorUrl>
+  <version>1.0.0</version>
+  <description>MOD_JDPRICINGTABLES_XML_DESCRIPTION</description>
+  <files>
+    <filename module="mod_jdpricingtables">mod_jdpricingtables.php</filename>
+    <folder>tmpl</folder>
+    <folder>fields</folder>
+    <folder>forms</folder>
+    <folder>assets</folder>
+    <filename>helper.php</filename>
+  </files>
+  <media folder="media" destination="mod_jdpricingtables">
+    <folder>images</folder>
+  </media>
+  <languages folder="language">
+    <language tag="en-GB">en-GB/en-GB.mod_jdpricingtables.ini</language>
+    <language tag="en-GB">en-GB/en-GB.mod_jdpricingtables.sys.ini</language>
+  </languages>
+  <config>
+    <fields name="params">
+      <fieldset name="basic" addfieldpath="/modules/mod_jdpricingtables/fields">
+        <fieldset name="basic" addfieldpath="/modules/mod_jdpricingtables/fields">
+          <field name="pricingtables" type="subform" formsource="/modules/mod_jdpricingtables/forms/table.xml" multiple="true" label="Pricing Tables" />
+        </fieldset>
+      </fieldset>
+      <fieldset name="Design">
+        <field name="itemsInRow" type="list" label="MOD_JDPRICINGTABLES_ITEMS_IN_ROW_LABEL" description="MOD_JDPRICINGTABLES_ITEMS_IN_ROW_DESC" default="1" class="btn-group btn-group-yesno">
+          <option value="12">1</option>
+          <option value="6">2</option>
+          <option value="4">3</option>
+          <option value="3">4</option>
+          <option value="2">6</option>
+        </field>
+        <field name="select_view" type="jdthumbnailradio" label="Select View " description="" default="1">
+          <option value="1">media/mod_jdpricingtables/images/layouts/layout-1.svg|Style - 1</option>
+        </field>
+      </fieldset>
+      <fieldset name="advanced">
+        <field name="layout" type="modulelayout" label="JFIELD_ALT_LAYOUT_LABEL" description="JFIELD_ALT_MODULE_LAYOUT_DESC" default="default" />
+        <field name="load_bootstrap" type="radio" label="MOD_JDPRICINGTABLES_OPTIONS_LOAD_BOOTSTRAP_LBL" description="MOD_JDPRICINGTABLES_OPTIONS_LOAD_BOOTSTRAP_DESC" default="1" class="btn-group btn-group-yesno">
+          <option value="1">JYES</option>
+          <option value="0">JNO</option>
+        </field>
+        <field name="moduleclass_sfx" type="textarea" label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL" description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC" rows="3"/>
+      </fieldset>
+    </fields>
+  </config>
+</extension>

@@ -1,0 +1,36 @@
+/**
+ * @package    AcyMailing for Joomla!
+ * @version    5.10.3
+ * @author     acyba.com
+ * @copyright  (C) 2009-2018 ACYBA S.A.R.L. All rights reserved.
+ * @license    GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
+ */
+
+.acymailingtooltip {
+	cursor: pointer;
+}
+
+.acymailingtooltiptext{
+    text-align: left;
+	visibility: hidden;
+	position: fixed;
+	z-index: 10000;
+	padding: 4px 8px;
+	max-width: 250px;
+	background-color: hsla(0, 0%, 20%, 0.9);
+	color: #fff;
+	font-size: 12px;
+	font-weight: normal;
+	text-transform: none;
+}
+
+th .acymailingtooltiptext{
+	text-align: center;
+	white-space: normal;
+}
+
+.acymailingtooltip:hover .acymailingtooltiptext{
+	visibility: visible;
+	transform: translateY(-12px);
+	transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out, transform 0.2s cubic-bezier(0.71, 1.7, 0.77, 1.24);
+}

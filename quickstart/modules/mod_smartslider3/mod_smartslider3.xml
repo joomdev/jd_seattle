@@ -1,0 +1,34 @@
+<extension type="module" version="1.5.0" method="upgrade" client="site">
+    <name>Smart Slider 3</name>
+    <author>Nextendweb</author>
+    <copyright>Copyright (C) Nextendweb.com</copyright>
+    <authorEmail>support@nextendweb.com</authorEmail>
+    <authorUrl>https://smartslider3.com</authorUrl>
+    <version>3.3.1</version>
+    <description>This module displays sliders from Smart Slider 3. You can create the sliders in the Smart Slider 3 component!</description>
+    <config>
+        <fields name="params">
+            <fieldset name="basic" addfieldpath="/modules/mod_smartslider3/models/fields">
+                <field name="slider" type="sql" default="1" label="Select a slider"
+                       query="SELECT id, CONCAT('#', id, ' - ', title) AS title FROM #__nextend2_smartslider3_sliders ORDER BY time DESC "
+                       key_field="id"
+                       value_field="title"/>
+                <field name="editslider" type="editslider" default="" label=""/>
+                <field name="slider-embed" type="sliderembed" default="" label=""/>
+            </fieldset>
+            <fieldset name="advanced">
+                <field name="moduleclass_sfx" type="text" label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL"
+                       description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC"/>
+            </fieldset>
+        </fields>
+    </config>
+    <creationDate>2017.08.03.</creationDate>
+    <license>http://www.gnu.org/licenses/gpl-3.0.txt GNU/GPL</license>
+    <releaseDate>2017.08.03.</releaseDate>
+    <files>
+        <filename module="mod_smartslider3">mod_smartslider3.php</filename>
+        <filename>mod_smartslider3.xml</filename>
+        <folder>models</folder>
+        <filename>index.html</filename>
+    </files>
+</extension>

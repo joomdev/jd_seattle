@@ -1,0 +1,12 @@
+<?php
+/* @var $this N2Layout */
+?>
+    <div id="n2-admin" class="n2 n2-border-radius">
+        <?php
+        $this->renderFragmentBlock('nextend_content');
+        ?>
+    </div>
+<?php
+$isPro = 0;
+
+N2JS::addInline("N2Classes.ExpertMode(" . $isPro . ");");

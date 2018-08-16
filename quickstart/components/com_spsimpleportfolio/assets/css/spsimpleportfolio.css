@@ -1,0 +1,314 @@
+/**
+* @package     SP Simple Portfolio
+*
+* @copyright   Copyright (C) 2010 - 2018 JoomShaper. All rights reserved.
+* @license     GNU General Public License version 2 or later.
+*/
+
+.sp-simpleportfolio {
+  padding: 0;
+}
+.sp-simpleportfolio:before,
+.sp-simpleportfolio:after {
+  content: " ";
+  display: table;
+}
+.sp-simpleportfolio:after {
+  clear: both;
+}
+.sp-simpleportfolio .sp-simpleportfolio-img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+.sp-simpleportfolio .sp-simpleportfolio-filter {
+  text-align: center;
+  margin-bottom: 30px;
+}
+.sp-simpleportfolio .sp-simpleportfolio-filter > ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: inline-block;
+}
+.sp-simpleportfolio .sp-simpleportfolio-filter > ul > li {
+  float: left;
+  display: block;
+  margin: 0 5px;
+}
+.sp-simpleportfolio .sp-simpleportfolio-filter > ul > li > a {
+  display: block;
+  padding: 5px 10px;
+  background: #eee;
+  color: #333;
+  text-decoration: none;
+  border-radius: 3px;
+}
+.sp-simpleportfolio .sp-simpleportfolio-filter > ul > li.active > a {
+  background: #333;
+  color: #fff;
+}
+.sp-simpleportfolio .sp-simpleportfolio-items {
+  margin: -15px;
+}
+.sp-simpleportfolio.layout-gallery-nospace .sp-simpleportfolio-items {
+  margin: 0;
+}
+.sp-simpleportfolio.layout-gallery-nospace .sp-simpleportfolio-item {
+  padding: 0;
+}
+.sp-simpleportfolio .sp-simpleportfolio-columns-2 .sp-simpleportfolio-item {
+  width: 50%;
+}
+.sp-simpleportfolio .sp-simpleportfolio-columns-3 .sp-simpleportfolio-item {
+  width: 33.3333%;
+}
+.sp-simpleportfolio .sp-simpleportfolio-columns-4 .sp-simpleportfolio-item {
+  width: 25%;
+}
+.sp-simpleportfolio .sp-simpleportfolio-item {
+  float: left;
+  padding: 15px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.sp-simpleportfolio .sp-simpleportfolio-item .sp-simpleportfolio-overlay-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+.sp-simpleportfolio .sp-simpleportfolio-item .sp-simpleportfolio-overlay-wrapper .sp-simpleportfolio-icon-video {
+  display: inline-block;
+  position: absolute;
+  width: 48px;
+  height: 48px;
+  background: url(../img/icon-play.png) no-repeat 50% 50%;
+  background-size: contain;
+  top: 50%;
+  left: 50%;
+  margin-top: -24px;
+  margin-left: -24px;
+  z-index: 1;
+}
+.sp-simpleportfolio .sp-simpleportfolio-item .sp-simpleportfolio-overlay-wrapper .sp-simpleportfolio-img {
+  float: left;
+  -webkit-transform: scale3d(1, 1, 1);
+  transform: scale3d(1, 1, 1);
+  -webkit-transition: all 400ms;
+  transition: all 400ms;
+}
+.sp-simpleportfolio .sp-simpleportfolio-item .sp-simpleportfolio-overlay-wrapper .sp-simpleportfolio-overlay {
+  opacity: 0;
+  transition: opacity 400ms;
+  -webkit-transition: opacity 400ms;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  z-index: 2;
+}
+.sp-simpleportfolio .sp-simpleportfolio-item .sp-simpleportfolio-overlay-wrapper .sp-simpleportfolio-overlay h3 {
+  font-size: 16px;
+  line-height: 1;
+  margin: 0;
+  color: #fff;
+}
+.sp-simpleportfolio .sp-simpleportfolio-item:hover .sp-simpleportfolio-overlay {
+  opacity: 1;
+}
+
+.sp-simpleportfolio .sp-simpleportfolio-item .sp-simpleportfolio-info:hover {
+  background: #333;
+  color: #fff;
+}
+
+.sp-simpleportfolio .sp-simpleportfolio-item .sp-simpleportfolio-info:hover h3 > a {
+  color: #fff;
+}
+
+.sp-simpleportfolio .sp-simpleportfolio-item:hover .sp-vertical-middle .sp-simpleportfolio-title,
+.sp-simpleportfolio .sp-simpleportfolio-item:hover .sp-vertical-middle .sp-simpleportfolio-tags {
+  opacity: 1;
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+.sp-simpleportfolio .sp-simpleportfolio-item:hover .sp-simpleportfolio-btns a {
+  opacity: 1;
+  -webkit-transform: scale3d(1, 1, 1);
+  transform: scale3d(1, 1, 1);
+}
+.sp-simpleportfolio .sp-simpleportfolio-item:hover .sp-simpleportfolio-img {
+  -webkit-transform: scale3d(1.15, 1.15, 1);
+  transform: scale3d(1.15, 1.15, 1);
+}
+.sp-simpleportfolio .sp-simpleportfolio-item .sp-simpleportfolio-info {
+  background: #f5f5f5;
+  padding: 20px;
+  font-size: 13px;
+  line-height: 13px;
+  -webkit-transition: all 400ms;
+  transition: all 400ms;
+}
+.sp-simpleportfolio .sp-simpleportfolio-item .sp-simpleportfolio-info h3 {
+  margin: 0 0 10px;
+  padding: 0;
+  font-size: 16px;
+  line-height: 16px;
+}
+.sp-simpleportfolio .sp-simpleportfolio-item .sp-simpleportfolio-info h3 > a {
+  text-decoration: none;
+  color: #000;
+  -webkit-transition: color 400ms;
+  transition: color 400ms;
+}
+.sp-simpleportfolio .sp-simpleportfolio-item .sp-vertical-middle {
+  height: 100%;
+  width: 100%;
+  display: table;
+}
+.sp-simpleportfolio .sp-simpleportfolio-item .sp-vertical-middle > div {
+  display: table-cell;
+  vertical-align: middle;
+}
+.sp-simpleportfolio .sp-simpleportfolio-item .sp-vertical-middle > div .sp-simpleportfolio-title {
+  margin-top: 10px;
+  display: inline-block;
+  font-size: 18px;
+  line-height: 1;
+  letter-spacing: 1px;
+}
+.sp-simpleportfolio .sp-simpleportfolio-item .sp-vertical-middle > div .sp-simpleportfolio-title a {
+  text-decoration: none;
+  color: #fff;
+}
+.sp-simpleportfolio .sp-simpleportfolio-item .sp-vertical-middle .sp-simpleportfolio-title {
+  opacity: 0;
+  -webkit-transform: translate3d(0, 15px, 0);
+  transform: translate3d(0, 15px, 0);
+  -webkit-transition: all 400ms;
+  transition: all 400ms;
+}
+.sp-simpleportfolio .sp-simpleportfolio-item .sp-vertical-middle .sp-simpleportfolio-tags {
+  opacity: 0;
+  -webkit-transform: translate3d(0, 15px, 0);
+  transform: translate3d(0, 15px, 0);
+  -webkit-transition: all 500ms;
+  transition: all 500ms;
+}
+.sp-simpleportfolio .sp-simpleportfolio-item .sp-simpleportfolio-btns a {
+  display: inline-block;
+  padding: 7px 12px;
+  margin: 3px;
+  font-size: 12px;
+  letter-spacing: 2px;
+  line-height: 1;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  background: transparent;
+  color: #fff;
+  border: 1px solid #fff;
+  border-radius: 100px;
+  text-decoration: none;
+  text-transform: uppercase;
+  opacity: 0;
+  -webkit-transform: scale3d(0, 0, 0);
+  transform: scale3d(0, 0, 0);
+  -webkit-transition: all 400ms;
+  transition: all 400ms;
+}
+.sp-simpleportfolio .sp-simpleportfolio-item .sp-simpleportfolio-btns a:hover {
+  background: #333;
+  border-color: #333;
+}
+.sp-simpleportfolio .sp-simpleportfolio-image {
+  margin-bottom: 20px;
+}
+.sp-simpleportfolio .sp-simpleportfolio-description {
+  width: 65%;
+  float: left;
+}
+.sp-simpleportfolio .sp-simpleportfolio-description > h2 {
+  font-size: 30px;
+  line-height: 1;
+  margin: 0 0 10px;
+}
+.sp-simpleportfolio .sp-simpleportfolio-meta {
+  width: 35%;
+  float: left;
+  padding-left: 30px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.sp-simpleportfolio .sp-simpleportfolio-meta > div {
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #eee;
+}
+.sp-simpleportfolio .sp-simpleportfolio-meta > div:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+.sp-simpleportfolio .sp-simpleportfolio-meta h4 {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0 0 10px;
+}
+.sp-simpleportfolio .sp-simpleportfolio-embed {
+  position: relative;
+  display: block;
+  height: 0;
+  padding-bottom: 56.25%;
+  overflow: hidden;
+}
+.sp-simpleportfolio .sp-simpleportfolio-embed iframe,
+.sp-simpleportfolio .sp-simpleportfolio-embed embed,
+.sp-simpleportfolio .sp-simpleportfolio-embed object,
+.sp-simpleportfolio .sp-simpleportfolio-embed video {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+.sp-simpleportfolio-lightbox {
+  display: none;
+}
+
+@media only screen and (max-width : 992px) {
+  .sp-simpleportfolio .sp-simpleportfolio-items .sp-simpleportfolio-item {
+    width: 50%;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .sp-simpleportfolio .sp-simpleportfolio-description {
+    width: auto;
+    float: none;
+    margin-bottom: 30px;
+  }
+  .sp-simpleportfolio .sp-simpleportfolio-meta {
+    width: auto;
+    float: none;
+    padding-left: 0;
+  }
+}
+
+@media only screen and (max-width : 480px) {
+  .sp-simpleportfolio .sp-simpleportfolio-items .sp-simpleportfolio-item {
+    width: 100%;
+  }
+}

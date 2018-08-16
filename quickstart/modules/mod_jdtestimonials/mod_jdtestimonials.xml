@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="3.5" client="site" method="upgrade">
+    <name>Jd Testimonials</name>
+    <author>JoomDev Team</author>
+    <creationDate>July 2018</creationDate>
+    <copyright>Copyright (C) 2005 - 2017 Open Source Matters. All rights reserved.</copyright>
+    <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+    <authorEmail>info@joomdev.com</authorEmail>
+    <authorUrl>www.joomdev.com</authorUrl>
+    <version>1.0.0</version>
+    <description>MOD_JDTESTIMONIALS_XML_DESCRIPTION</description>
+    <files>
+        <filename module="mod_jdtestimonials">mod_jdtestimonials.php</filename>
+        <folder>tmpl</folder>
+        <folder>fields</folder>
+        <folder>forms</folder>
+        <filename>helper.php</filename>
+    </files>
+    <media folder="media" destination="mod_jdtestimonials">
+        <folder>images</folder>
+    </media>
+    <languages folder="language">
+        <language tag="en-GB">en-GB/en-GB.mod_jdtestimonials.ini</language>
+        <language tag="en-GB">en-GB/en-GB.mod_jdtestimonials.sys.ini</language>
+    </languages>
+    <config>
+        <fields name="params">
+            <fieldset name="basic" addfieldpath="/modules/mod_jdtestimonials/fields">
+                <field name="items" type="subform" formsource="/modules/mod_jdtestimonials/forms/item.xml" multiple="true" label="MOD_JDTESTIMONIALS_TABS_ITEMS">
+                </field>
+            </fieldset>
+            <fieldset name="design">
+                <field name="select_view" type="jdthumbnailradio" label="MOD_JDTESTIMONIALS_SELECT_VIEW" description="" default="1">
+                    <option value="1">media/mod_jdtestimonials/images/layouts/layout-1.svg|Style - 1</option>
+                </field>
+                <field name="arrow" type="radio" default="1" class="btn-group btn-group-yesno" label="MOD_JDTESTIMONIALS_ENABLE_ARROW">
+                    <option value="1">JYES</option>
+                    <option value="0">JNO</option>
+                </field>
+                <field name="note1" type="note" showon="arrow:1" label="Arrow Style" />
+                <field name="NormalColor" type="color" label="Normal Color" description="" showon="arrow:1" default="#e80e0e" />
+                <field name="hoverColor" type="color" label="Hover Color" description="" showon="arrow:1" default="#e80e0e" />
+                <field name="bullets" type="radio" default="1" class="btn-group btn-group-yesno" label="MOD_JDTESTIMONIALS_ENABLE_BULLETS">
+                    <option value="1">JYES</option>
+                    <option value="0">JNO</option>
+                </field>
+                <field name="note2" type="note" showon="bullets:1" label="Bullet Style" />
+                <field name="NormalColor1" type="color" label="Normal Color" description="" showon="bullets:1" default="#e80e0e" />
+                <field name="activeColor" type="color" label="Active Color" description="" showon="bullets:1" default="#e80e0e" />
+                <field name="customstyle" type="radio" default="1" class="btn-group btn-group-yesno" label="MOD_JDTESTIMONIALS_CUSTOM_STYLE">
+                    <option value="1">JYES</option>
+                    <option value="0">JNO</option>
+                </field>
+                <field name="note3" type="note" showon="customstyle:1" label="Colors" />
+                <field name="nameColor" type="color" label="Name Color" description="" showon="customstyle:1" default="#e80e0e" />
+                <field name="designationColor" type="color" label="Designation Color" description="" showon="customstyle:1" default="#e80e0e" />
+                <field name="reviewColor" type="color" label="Review Color" description="" showon="customstyle:1" default="#e80e0e" />
+                <field name="note4" type="note" showon="customstyle:1" label="Sizes" />
+                <field name="nameSize" type="number" min="10" label="Name Size" description="" showon="customstyle:1" default="10" />
+                <field name="designationSize" type="number" min="10" label="Designation Size" description="" showon="customstyle:1" default="10" />
+                <field name="reviewSize" type="number" min="10" label="Review Size" description="" showon="customstyle:1" default="10" />
+            </fieldset>
+            <fieldset name="advanced">
+                <field name="layout" type="modulelayout" label="JFIELD_ALT_LAYOUT_LABEL" description="JFIELD_ALT_MODULE_LAYOUT_DESC" default="default" />
+                <field name="load_bootstrap" type="radio" label="Load Bootstrap?" description="Load Bootstrap?" default="1" class="btn-group btn-group-yesno">
+                    <option value="1">JYES</option>
+                    <option value="0">JNO</option>
+                </field>
+            <field name="moduleclass_sfx" type="textarea" label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL" description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC" rows="3"/>
+            </fieldset>
+        </fields>
+    </config>
+</extension>

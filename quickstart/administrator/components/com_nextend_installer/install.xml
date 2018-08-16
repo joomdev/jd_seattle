@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" version="2.5.0" method="upgrade">
+    <name>nextend_installer</name>
+    <author>Nextendweb</author>
+    <creationDate>2017.08.03.</creationDate>
+    <copyright>Copyright (C) 2017 All rights reserved.</copyright>
+    <license>http://www.gnu.org/licenses/gpl-3.0.txt GNU/GPL</license>
+    <authorEmail>roland@nextendweb.com</authorEmail>
+    <authorUrl>http://www.nextendweb.com</authorUrl>
+    <version>2.0</version>
+    <scriptfile>install.php</scriptfile>
+    <administration>
+        <files folder="admin">
+            <filename>nextend_installer.php</filename>
+            <filename>index.html</filename>
+            <folder>components</folder>
+            <folder>libraries</folder>
+            <folder>modules</folder>
+            <folder>plugins</folder>
+            <folder>media</folder>
+        </files>
+    </administration>
+</extension>

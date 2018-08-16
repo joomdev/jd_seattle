@@ -1,0 +1,60 @@
+<?php
+
+$settings = array(
+    array(
+        'title' => n2_('General settings'),
+        'url'   => array("settings/default")
+    )
+);
+
+$settings[] = array(
+    'title' => n2_('Framework settings'),
+    'url'   => array("settings/framework")
+);
+
+$settings[] = array(
+    'title' => n2_('Fonts'),
+    'url'   => array("settings/fonts")
+);
+
+
+$settings[] = array(
+    'title' => n2_('Item defaults'),
+    'url'   => array("settings/itemDefaults")
+);
+
+foreach (N2SSGeneratorFactory::getGenerators() AS $generator) {
+    if ($generator->hasConfiguration()) {
+        $settings[] = array(
+            'title' => sprintf(n2_('%s generator'), $generator->getLabel()),
+            'url'   => $this->appType->router->createUrl(array(
+                'generator/configure',
+                array(
+                    'group' => $generator->getName()
+                )
+            ))
+        );
+
+    }
+}
+
+
+$dl = array();
+
+foreach ($settings AS $id => $setting) {
+    $linkOptions = isset($setting['linkOptions']) ? $setting['linkOptions'] : array();
+    if (is_array($setting['url'])) {
+        $linkOptions['href'] = $this->appType->router->createUrl($setting['url']);
+    } else {
+        $linkOptions['href'] = $setting['url'];
+    }
+    $dl[] = array(
+        'title'       => $setting['title'],
+        'class'       => '',
+        'linkOptions' => $linkOptions
+    );
+}
+
+N2Html::definitionList(array(
+    "dl" => $dl
+));

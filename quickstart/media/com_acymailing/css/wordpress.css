@@ -1,0 +1,96 @@
+/**
+ * @package    AcyMailing for Joomla!
+ * @version    5.10.3
+ * @author     acyba.com
+ * @copyright  (C) 2009-2018 ACYBA S.A.R.L. All rights reserved.
+ * @license    GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
+ */
+
+[class*="toplevel_page_acymailing_"] #wpcontent, [class*="acymailing_page_"] #wpcontent, [class*="admin_page_acymailing_"] #wpcontent{
+    padding-left: 0px;
+}
+
+body{
+    background: white !important;
+}
+
+#wpfooter{
+    display: none;
+}
+
+#wpbody-content {
+    padding-bottom: 0;
+}
+
+#unsubpage, #acymodifyform{
+    margin-left: auto;
+    margin-right: auto;
+    width: 500px;
+    margin-top: 40px;
+}
+
+#acymodifyform legend{
+    padding-top: 10px;
+    font-size: 20px;
+    line-height: 40px;
+    color: #333;
+}
+
+#acymodifyform #acyusersubscription{
+    margin-top: 10px;
+}
+
+#acymodifyform #acyusersubscription .acymailingradiogroup input[type="radio"][value="1"]{
+    margin-left: 5px;
+}
+
+#acymodifyform .acymodifybutton{
+    margin-top: 0;
+}
+
+@media screen and (min-width: 600px) and (max-width: 782px){
+    #wpcontent .acyaffix{
+        top: 46px !important;
+    }
+}
+
+@media screen and (min-width: 783px){
+    #wpcontent .acyaffix{
+        top: 32px !important;
+    }
+}
+
+#wpcontent .acyaffix{
+    left: 160px;
+    width: auto;
+}
+
+@media screen and (max-width: 1050px){
+    #wpcontent .acyaffix{
+        left: 0px !important;
+    }
+}
+
+#wpcontent .acyaffix .acytoolbartitle{
+    padding-left: 0;
+}
+
+#acy_content select[multiple] {
+    height: 100px !important;
+}
+
+.mce-i-acytags{
+    font-family: 'acyicon' !important;
+}
+
+.mce-i-acytags:before{
+	content: "\e627";
+}
+
+#acy_content #fieldListing .front, #acy_content .hidewp{
+    display: none !important;
+}
+
+#acy_content #fieldListing th.back {
+    background-color: #91acd7;
+}

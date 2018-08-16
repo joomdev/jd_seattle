@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.3" type="component" method="upgrade">
+	<name>SP Simple Portfolio</name>
+	<creationDate>December 2015</creationDate>
+	<author>JoomShaper</author>
+	<authorEmail>support@joomshaper.com</authorEmail>
+	<authorUrl>http://www.joomshaper.com</authorUrl>
+	<copyright>Copyright (c) 2010- 2018 JoomShaper. All rights reserved.</copyright>
+	<license>GNU General Public License version 2 or later</license>
+	<version>1.6</version>
+	<description>Simple Portfolio Component for Joomla 3.3+</description>
+
+	<updateservers>
+		<server type="extension" priority="1" name="SP Simple Portfolio">http://www.joomshaper.com/updates/com-sp-simple-portfolio.xml</server>
+	</updateservers>
+
+	<files folder="site">
+		<filename>controller.php</filename>
+		<filename>router.php</filename>
+		<filename>spsimpleportfolio.php</filename>
+		<folder>assets</folder>
+		<folder>helpers</folder>
+		<folder>models</folder>
+		<folder>views</folder>
+	</files>
+
+	<languages folder="language/site">
+		<language tag="en-GB">en-GB/en-GB.com_spsimpleportfolio.ini</language>
+	</languages>
+
+	<install>
+		<sql>
+			<file driver="mysql" charset="utf8">sql/install/mysql/install.sql</file>
+			<file driver="mysql">sql/install/mysql/install.sql</file>
+
+			<file driver="mysqli" charset="utf8">sql/install/mysql/install.sql</file>
+			<file driver="mysqli">sql/install/mysql/install.sql</file>
+		</sql>
+	</install>
+
+	<update>
+		<schemas>
+			<schemapath type="mysql">sql/updates/mysql</schemapath>
+			<schemapath type="mysqli">sql/updates/mysql</schemapath>
+		</schemas>
+	</update>
+
+	<administration>
+		<menu>COM_SPSIMPLEPORTFOLIO</menu>
+
+		<files folder="admin">
+			<filename>access.xml</filename>
+			<filename>config.xml</filename>
+			<filename>spsimpleportfolio.php</filename>
+			<filename>controller.php</filename>
+			<folder>assets</folder>
+			<folder>controllers</folder>
+			<folder>helpers</folder>
+			<folder>models</folder>
+			<folder>sql</folder>
+			<folder>tables</folder>
+			<folder>views</folder>
+			<folder>views</folder>
+		</files>
+
+		<languages folder="language/admin">
+			<language tag="en-GB">en-GB/en-GB.com_spsimpleportfolio.ini</language>
+			<language tag="en-GB">en-GB/en-GB.com_spsimpleportfolio.sys.ini</language>
+		</languages>
+	</administration>
+
+</extension>

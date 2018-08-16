@@ -1,0 +1,117 @@
+<?php
+/**
+ * @var $model N2SystemAnimationModel
+ */
+
+$sets = $model->getSets();
+
+$backgroundAnimations = new stdClass();
+
+
+N2JS::addFirstCode("
+    new N2Classes.BgAnimationManager({
+        setsIdentifier: '" . $model->type . "set',
+        sets: " . json_encode($sets) . ",
+        visuals: " . json_encode($backgroundAnimations) . ",
+        ajaxUrl: '" . $this->appType->router->createAjaxUrl(array('backgroundanimation/index')) . "'
+    });
+");
+
+$model->renderForm();
+?>
+<div class="n2-form-tab ">
+    <div class="n2-heading-controls n2-content-box-title-bg">
+        <div class="n2-table n2-table-fixed">
+            <div class="n2-tr">
+                <div class="n2-td n2-h2">
+                    <?php n2_e('Preview'); ?>
+                </div>
+
+                <div class="n2-td n2-last n2-visual-editor-tabs">
+                    <div class="n2-form-element-radio-tab">
+                        <div class="n2-radio-option n2-h4 n2-first n2-active">
+                            <?php n2_e('Forward'); ?>
+                        </div><!-- --><div class="n2-radio-option n2-h4 n2-last">
+                            <?php n2_e('Backward'); ?>
+                        </div>
+                        <input type="hidden" autocomplete="off" value="0" name="n2-background-animation-preview-tabs"
+                               id="n2-background-animation-preview-tabs">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <div class="n2-bg-animation-slider">
+
+            <div class="n2-bg-animation">
+            </div>
+
+            <div class="n2-bg-animation-slide">
+                <div class="n2-bg-animation-slide-bg">
+
+                    <div class="n2-bg-animation-slide-bg-image n2-bg-animation-slide-bg-image-front"></div>
+                </div>
+            </div>
+
+            <div class="n2-bg-animation-slide" style="opacity: 0;">
+                <div class="n2-bg-animation-slide-bg">
+                    <div class="n2-bg-animation-slide-bg-image n2-bg-animation-slide-bg-image-back"></div>
+                </div>
+            </div>
+        </div>
+
+        <style>
+            #n2-lightbox-backgroundanimation .n2-content-area {
+                overflow: hidden;
+            }
+
+            .n2-bg-animation-slider {
+                position: relative;
+                width: 770px;
+                height: 532px;
+                margin: 20px;
+                z-index: 3;
+            }
+
+            .n2-bg-animation,
+            .n2-bg-animation-slide {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 770px;
+                height: 532px;
+            }
+
+            .n2-bg-animation-slide {
+                z-index: 2;
+            }
+
+            .n2-bg-animation-slide-bg {
+                height: 100%;
+            }
+
+            .n2-bg-animation-slider .n2-bg-animation-slide-bg-image {
+                height: 100%;
+                background-size: cover;
+            }
+
+            .n2-bg-animation-slide-bg-image-front {
+                background-image: url(<?php echo N2ImageHelperAbstract::SVGToBase64('$system$/images/placeholder/image.svg'); ?>);
+            }
+
+            .n2-bg-animation-slide-bg-image-back {
+                background-image: url(<?php echo N2ImageHelperAbstract::SVGToBase64('$system$/images/placeholder/imageback.svg'); ?>);
+            }
+
+            .n2-3d-side {
+                position: absolute;
+                left: 0;
+                top: 0;
+                overflow: hidden;
+            }
+
+        </style>
+    </div>
+</div>

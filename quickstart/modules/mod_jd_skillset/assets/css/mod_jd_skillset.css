@@ -1,0 +1,6 @@
+
+@media (min-width: 992px){
+	.border-lg-right {
+		border-right: 1px solid #dee2e6 !important;
+	}
+}

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<extension type="package" version="1.6" method="upgrade">
+	<name>ChronoForms6 Package</name>
+	<author>ChronoEngine.com Team</author>
+	<creationDate>2017</creationDate>
+	<packagename>chronoforms6</packagename>
+	<version>6.0</version>
+	<url>http://www.chronoengine.com/</url>
+	<packager>ChronoEngine.com Team</packager>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+	<packagerurl>http://www.www.chronoengine.com.com/</packagerurl>
+	<description>ChronoForms6 extension package (Component + CEGCore2 library)</description>
+	<scriptfile>install.pkg_chronoforms6.php</scriptfile>
+	<files folder="packages">
+		<file type="library" id="cegcore2">cegcore2.zip</file>
+		<file type="component" id="chronoforms6" >com_chronoforms6.zip</file>
+		<file type="plugin" id="chronoengine_gcore2" >chronoengine_gcore2.zip</file>
+	</files>
+</extension>

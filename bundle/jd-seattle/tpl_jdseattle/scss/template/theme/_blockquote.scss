@@ -1,0 +1,30 @@
+/* blockquote
+=========================== */
+
+blockquote {
+    background: $indigo-light;
+    padding: 80px 30px 30px 45px;
+    position: relative;
+    z-index: 2;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    @include box-shadow($box-shadow-sm);
+    &:after {
+        position: absolute;
+        top: 15px;
+        left: 40px;
+        font-family: "Font Awesome 5 Free";
+        font-weight: $font-weight-bold;
+        content: "\f10d";
+        font-size: 36px;
+    }
+    cite {
+        position: absolute;
+        right: 25px;
+        bottom: 15px;
+        font-style: normal;
+        color: $dark;
+        font-weight: $font-weight-bold;
+        font-size: $font-size-base;
+    }
+}

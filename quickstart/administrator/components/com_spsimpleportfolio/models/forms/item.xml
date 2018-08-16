@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form>
+	<fieldset name="basic">
+		<field name="id" type="hidden" />
+		<field name="title" type="text" label="JGLOBAL_TITLE" description="JFIELD_TITLE_DESC" class="input-large-text" size="40" required="true" />
+		<field id="alias" name="alias" type="text" label="JFIELD_ALIAS_LABEL" description="JFIELD_ALIAS_DESC" hint="JFIELD_ALIAS_PLACEHOLDER" size="40" />
+		<field name="image" type="media" label="COM_SPSIMPLEPORTFOLIO_ITEMS_IMAGE_LABEL" description="COM_SPSIMPLEPORTFOLIO_ITEMS_IMAGE_DESC" required="true" />
+		<field name="video" type="url" label="COM_SPSIMPLEPORTFOLIO_ITEMS_VIDEO_LABEL" description="COM_SPSIMPLEPORTFOLIO_ITEMS_VIDEO_DESC" />
+		<field name="url" type="text" label="COM_SPSIMPLEPORTFOLIO_ITEMS_URL_LABEL" description="COM_SPSIMPLEPORTFOLIO_ITEMS_URL_DESC" />
+		<field name="description" label="COM_SPSIMPLEPORTFOLIO_ITEMS_DESCRIPTION_LABEL" type="editor" required="true" filter="JComponentHelper::filterText" buttons="true" />
+	</fieldset>
+
+	<fieldset name="sidebar">
+		<field name="client" type="text" filter="raw" label="COM_SPSIMPLEPORTFOLIO_ITEMS_CLIENT_LABEL" description="COM_SPSIMPLEPORTFOLIO_ITEMS_CLIENT_LABEL_DESC" />
+		<field name="tagids" type="taglist" multiple="multiple" label="COM_SPSIMPLEPORTFOLIO_ITEMS_TAGS_LABEL" description="COM_SPSIMPLEPORTFOLIO_ITEMS_TAGS_DESC" required="true" />
+		<field name="catid" type="category" extension="com_spsimpleportfolio" default="" label="COM_SPSIMPLEPORTFOLIO_CATEGORY_NAME" description="COM_SPSIMPLEPORTFOLIO_CATEGORY_NAME_DESC">
+			<option value="">COM_SPSIMPLEPORTFOLIO_CATEGORY_ALL</option>
+		</field>
+		<field name="published" type="list" label="JSTATUS" filter="intval" default="1">
+			<option value="1">JPUBLISHED</option>
+			<option value="0">JUNPUBLISHED</option>
+		</field>
+		<field name="language" type="language">
+			<option value="*">COM_SPSIMPLEPORTFOLIO_LANGUAGE_ALL</option>
+		</field>
+		<field name="access" type="accesslevel" label="JFIELD_ACCESS_LABEL" />
+		<field name="created" type="calendar" label="JGLOBAL_FIELD_CREATED_LABEL" size="22" format="%Y-%m-%d %H:%M:%S" filter="user_utc" />
+		<field name="created_by" type="user" label="JGLOBAL_FIELD_CREATED_BY_LABEL" />
+		<field name="checked_out" type="hidden" filter="unset" />
+		<field name="checked_out_time" type="hidden" filter="unset" />
+	</fieldset>
+</form>

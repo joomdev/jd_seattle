@@ -1,0 +1,17 @@
+.astroid-banner-inner {
+   background-color: #f9f9f9;
+   background-repeat: no-repeat;
+   background-position: center;
+   background-size: cover;
+   padding: 160px 0 100px;
+   text-align: center;
+   .astroid-banner-title {
+      color: #fff;
+      @include media-breakpoint-up(lg) {
+         padding-top: 50px;
+     }
+   }
+   .astroid-banner-subtitle {
+      color: #fff;
+   }
+}

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.6" type="plugin" group="system" method="upgrade">
+	<name>ChronoengineGcore2</name>
+	<author>chronoengine.com</author>
+	<creationDate>2017</creationDate>
+	<copyright>2017 chronoengine.com All rights reserved.</copyright>
+	<license>GPL v2</license>
+	<authorEmail>chronoengine.com</authorEmail>
+	<authorUrl>chronoengine.com</authorUrl>
+	<version>1.0</version>
+	<description>Load the ChronoEngine GCore2 framework, this plugin must be enabled for the Chrono extensions to function properly.</description>
+	<scriptfile>script.chronoengine_gcore2.php</scriptfile>
+	<files>
+		<file plugin="chronoengine_gcore2">chronoengine_gcore2.php</file>
+    	<filename>script.chronoengine_gcore2.php</filename>
+    	<filename>index.html</filename>
+	</files>
+</extension>

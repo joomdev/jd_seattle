@@ -1,0 +1,67 @@
+<?php
+/**
+ * @var N2SmartsliderBackendGeneratorView $_class
+ */
+
+$generatorGroups = N2SSGeneratorFactory::getGenerators();
+
+$installed    = array();
+$notInstalled = array();
+
+foreach ($generatorGroups AS $generatorGroup) {
+    $options = array();
+    if ($generatorGroup->hasConfiguration()) {
+
+        $url = $this->appType->router->createUrl(array(
+            "generator/checkConfiguration",
+            array(
+                "sliderid" => N2Request::getInt('sliderid'),
+                "group"    => $generatorGroup->getName()
+            )
+        ));
+
+        $installed[] = $_class->renderGeneratorBox($generatorGroup, N2Html::link($generatorGroup->getLabel(), $url, array(
+            "class" => "n2-button n2-button-normal n2-button-s n2-button-blue n2-radius-s n2-h5"
+        )));
+
+    } elseif (!$generatorGroup->isInstalled()) {
+        $notInstalled[] = $_class->renderGeneratorBox($generatorGroup, N2Html::link(n2_("Visit site"), $generatorGroup->getUrl(), array(
+            "target" => "_blank",
+            "class"  => "n2-button n2-button-normal n2-button-s n2-radius-s n2-button-grey"
+        )));
+    } else {
+        $url = $this->appType->router->createUrl(array(
+            "generator/createStep2",
+            array(
+                "sliderid" => N2Request::getInt('sliderid'),
+                "group"    => $generatorGroup->getName()
+            )
+        ));
+
+        $installed[] = $_class->renderGeneratorBox($generatorGroup, N2Html::link($generatorGroup->getLabel(), $url, array(
+            "class" => "n2-button n2-button-normal n2-button-s n2-button-blue n2-radius-s n2-h5"
+        )));
+    }
+}
+
+?>
+
+<div class="n2-form-tab ">
+    <div class="n2-h2 n2-content-box-title-bg"><?php n2_e('Choose dynamic source'); ?></div>
+    <?php
+    echo implode($installed);
+    ?>
+    <div class="n2-clear"></div>
+</div>
+
+<?php if (count($notInstalled)): ?>
+    <div class="n2-form-tab ">
+        <div class="n2-h2 n2-content-box-title-bg"><?php n2_e('Not installed'); ?></div>
+        <?php
+        echo implode($notInstalled);
+        ?>
+        <div class="n2-clear"></div>
+    </div>
+<?php endif; ?>
+
+<div style="height: 200px"></div>

@@ -1,0 +1,9 @@
+<access component="com_nextend2">
+    <section name="component">
+        <action name="core.admin" title="JACTION_ADMIN" description="JACTION_ADMIN_COMPONENT_DESC"/>
+        <action name="core.manage" title="JACTION_MANAGE" description="JACTION_MANAGE_COMPONENT_DESC"/>
+        <action name="nextend.config" title="Nextend - Config" description=""/>
+        <action name="nextend.visual.edit" title="Visual - Edit" description=""/>
+        <action name="nextend.visual.delete" title="Visual - Delete" description=""/>
+    </section>
+</access>

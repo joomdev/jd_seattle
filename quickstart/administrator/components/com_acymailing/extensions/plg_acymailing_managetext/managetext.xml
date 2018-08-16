@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE install SYSTEM "http://dev.joomla.org/xml/1.5/plugin-install.dtd">
+<install type="plugin" version="1.5" method="upgrade" group="acymailing">
+	<name>AcyMailing Manage text</name>
+	<creationDate>October 2010</creationDate>
+	<version>1.0.0</version>
+	<author>Acyba</author>
+	<authorEmail>dev@acyba.com</authorEmail>
+	<authorUrl>http://www.acyba.com</authorUrl>
+	<copyright>Copyright (C) 2009-2018 ACYBA SAS - All rights reserved..</copyright>
+	<license>GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html</license>
+	<description>This plugin enables you to remove some text from your Newsletter or add a signature at the end of all your Newsletters or add/remove an e-mail from the queue...</description>
+	<files>
+		<filename plugin="managetext">managetext.php</filename>
+	</files>
+	<params addpath="/components/com_acymailing/params">
+		<param name="help" type="help" label="Help" description="Click on the help button to get some help" default="plugin-managetext"/>
+		<param name="removetext" type="text" size="100" default="{reg},{/reg},{pub},{/pub}" label="Text to remove" description="Enter the different strings you want AcyMailing to remove and separate them with a comma. Example : {reg},{/reg},{pub},{/pub}" />
+		<param name="removetags" type="text" size="100" default="youtube" label="Code to remove" description="AcyMailing will remove all tags specified in this option and its content, separate them with a comma" />
+
+		<param name="footer" type="textarea" rows="5" cols="35" default="" label="Footer" description="Write the text you want to be added at the end of each e-mail" />
+		<param name="@spacer" type="spacer" default="" label="" description="" />
+
+		<param name="frontendaccess" type="list" default="all" label="Front-end Access for filter" description="You can restrict the access to the filter 'Randomly select X Users' on the Front-end">
+			<option value="all">Always display this filter</option>
+			<option value="none">Don't display this filter on the front-end</option>
+		</param>
+	</params>
+	<config>
+		<fields name="params" addfieldpath="/components/com_acymailing/params">
+			<fieldset name="basic">
+				<field name="help" type="help" label="Help" description="Click on the help button to get some help" default="plugin-managetext"/>
+				<field name="removetext" type="text" size="100" default="{reg},{/reg},{pub},{/pub}" label="Text to remove" description="Enter the different strings you want AcyMailing to remove and separate them with a comma. Example : {reg},{/reg},{pub},{/pub}" />
+				<field name="removetags" type="text" size="100" default="youtube" label="Code to remove" description="AcyMailing will remove all tags specified in this option and its content, separate them with a comma" />
+
+				<field name="footer" type="textarea" rows="5" cols="35" default="" label="Footer" description="Write the text you want to be added at the end of each e-mail" filter="SAFEHTML" />
+				<field name="@spacer" type="spacer" default="" label="" description="" />
+
+				<field name="frontendaccess" type="list" default="all" label="Front-end Access for filter" description="You can restrict the access to the filter 'Randomly select X Users' on the Front-end">
+					<option value="all">Always display this filter</option>
+					<option value="none">Don't display this filter on the front-end</option>
+				</field>
+			</fieldset>
+		</fields>
+	</config>
+</install>

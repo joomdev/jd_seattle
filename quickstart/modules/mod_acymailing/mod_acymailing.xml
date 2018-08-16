@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="1.5.0" method="upgrade">
+	<name>AcyMailing Module</name>
+	<creationDate>September 2009</creationDate>
+	<version>3.7.0</version>
+	<author>Acyba</author>
+	<authorEmail>dev@acyba.com</authorEmail>
+	<authorUrl>http://www.acyba.com</authorUrl>
+	<copyright>Copyright (C) 2009-2018 ACYBA SAS - All rights reserved..</copyright>
+	<license>GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html</license>
+	<description>Subscribe / Unsubscribe Module for AcyMailing</description>
+	<files>
+		<filename module="mod_acymailing">mod_acymailing.php</filename>
+		<filename>index.html</filename>
+		<folder>tmpl</folder>
+	</files>
+	<params addpath="/components/com_acymailing/params">
+		<param name="help" type="help" default="module" label="Help" description="Click on the help button to get some help"/>
+		<param name="effect" type="radio" default="normal" label="DISPLAY_EFFECT" description="Select the effect you want to add to your module">
+			<option value="normal">Normal (no effect)</option>
+			<option value="mootools-slide">Slide effect</option>
+			<option value="mootools-box">Popup effect</option>
+		</param>
+		<param name="lists" type="lists" default="None" label="VISIBLE_LISTS" description="The following selected lists will be added on the Module and will be visible (if they are not selected as automatically subscribed to)."/>
+		<param name="hiddenlists" type="lists" default="All" label="AUTO_SUBSCRIBE_TO" description="The user will be automatically subscribed to the selected lists. They won't be displayed on your module but if the user subscribes, he will be subscribed to those lists as well"/>
+		<param name="displaymode" type="radio" default="vertical" label="DISPLAY_MODE" description="Select whether you want to display the form horizontally, vertically or without table">
+			<option value="inline">Horizontal</option>
+			<option value="vertical">Vertical</option>
+			<option value="tableless">Tableless</option>
+		</param>
+		<param name="listschecked" type="lists" default="All" label="LISTS_CHECKED_DEFAULT" description="The selected lists will be checked by default on your module if they are visible."/>
+		<param name="checkmode" type="radio" default="0" label="CHECKED_MODE" description="If you select the first option - Show user's subscription status - only the lists that the logged-in user is subscribed to will be checked. This option has an effect on logged-in users only so you can choose whether you want to display his own subscription or always the default one.">
+			<option value="0">Show user's subscription status</option>
+			<option value="1">Default checked lists</option>
+		</param>
+		<param name="dropdown" type="radio" default="0" label="DROPDOWN_LISTS" description="Display the visible lists in a dropdown">
+			<option value="0">JOOMEXT_NO</option>
+			<option value="1">JOOMEXT_YES</option>
+		</param>
+		<param name="overlay" type="radio" default="0" label="DESC_OVERLAY" description="Add the description of each visible list as an overlay of the list name. Be careful, you might have conflicts using this option if you have some flash elements on your website.">
+			<option value="0">JOOMEXT_NO</option>
+			<option value="1">JOOMEXT_YES</option>
+		</param>
+		<param name="link" type="radio" default="1" label="LINKED_ARCHIVE" description="Add a link to the archive section for each list.">
+			<option value="0">JOOMEXT_NO</option>
+			<option value="1">JOOMEXT_YES</option>
+		</param>
+		<param name="listposition" type="radio" default="before" label="LIST_POSITION" description="Select where to display the list.">
+			<option value="before">ACY_BEFORE_FIELDS</option>
+			<option value="after">ACY_AFTER_FIELDS</option>
+		</param>
+		<param name="customfields" type="customfields" default="name,email" label="DISP_FIELDS" description="Select the fields you want to display on your subscription module"/>
+
+		<param name="@spacer" type="spacer" default="" label="" description=""/>
+
+		<param name="nametext" type="text" size="50" default="" label="CAPT_NAME" description="Text displayed on the name field. If you don't specify anything, the default value will be used from the current language file"/>
+		<param name="emailtext" type="text" size="50" default="" label="CAPT_EMAIL" description="Text displayed on the e-mail field. If you don't specify anything, the default value will be used from the current language file"/>
+		<param name="fieldsize" type="text" size="10" default="80%" label="FIELD_SIZE" description="Specify the size of the email and name fields on your subscription form"/>
+		<param name="displayfields" type="radio" default="0" label="DISP_TEXT_MODE" description="Display the Name and E-mail text inside or outside the field?">
+			<option value="0">Inside</option>
+			<option value="1">Outside</option>
+		</param>
+		<param name="introtext" type="textarea" rows="5" cols="35" default="" label="INTRO_TEXT" description="This text will be displayed before the form inside a span class=acymailing_introtext"/>
+		<param name="finaltext" type="textarea" rows="5" cols="35" default="" label="POST_TEXT" description="This text will be displayed after the form inside a span class=acymailing_finaltext"/>
+		<param name="@spacer" type="spacer" default="" label="" description=""/>
+		<param name="showsubscribe" type="radio" default="1" label="DISP_SUB_BUTTON" description="Display the subscribe button on the module">
+			<option value="0">JOOMEXT_NO</option>
+			<option value="1">JOOMEXT_YES</option>
+		</param>
+		<param name="subscribetext" type="text" size="50" default="" label="CAPT_SUB" description="Text displayed on the subscribe button. If you don't specify anything, the default value will be used from the current language file"/>
+		<param name="subscribetextreg" type="text" size="50" default="" label="CAPT_SUB_LOGGED" description="Text displayed on the subscribe button if the user is logged in. If you don't specify anything, the default value will be used from the current language file"/>
+		<param name="showunsubscribe" type="radio" default="0" label="DISP_UNSUB_BUTTON" description="Display the unsubscribe button on the module">
+			<option value="0">JOOMEXT_NO</option>
+			<option value="1">JOOMEXT_YES</option>
+		</param>
+		<param name="unsubscribetext" type="text" size="50" default="" label="CAPT_UNSUB" description="Text displayed on the unsubscribe button. If you don't specify anything, the default value will be used from the current language file"/>
+
+		<param name="@spacer" type="spacer" default="" label="" description=""/>
+		<param name="redirectmode" type="radio" default="0" label="REDIRECT_MODE" description="After submitting the form, the user can be redirected to the previous page, to the Acymailing archive page or to a custom link (in that case, please write the url in the next field)">
+			<option value="3">Ajax</option>
+			<option value="0">Previous page</option>
+			<option value="1">AcyMailing Archive</option>
+			<option value="2">Custom Redirect Link</option>
+		</param>
+		<param name="redirectlink" type="text" size="50" default="" label="REDIRECT_LINK" description="If you selected the mode 'Custom Redirect Link', the user will be redirected to this url after clicking on the button subscribe"/>
+		<param name="redirectlinkunsub" type="text" size="50" default="" label="REDIRECTION_UNSUB" description="If you selected the mode 'Custom Redirect Link', the user will be redirected to this url after clicking on the button unsubscribe"/>
+
+		<param name="@spacer" type="spacer" default="" label="" description=""/>
+
+		<param name="showterms" type="radio" default="0" label="JOOMEXT_TERMS" description="Display the 'Accept Terms and Conditions' box">
+			<option value="0">JOOMEXT_NO</option>
+			<option value="1">JOOMEXT_YES</option>
+		</param>
+		<param name="showtermspopup" type="radio" default="1" label="TERMS_POPUP" description="If you select 'Yes', the article linked to the terms and conditions will be displayed in a popup, otherwise it will be displayed as a separated page">
+			<option value="0">JOOMEXT_NO</option>
+			<option value="1">JOOMEXT_YES</option>
+		</param>
+		<param name="termscontent" type="termscontent" default="0" label="TERMS_CONTENT" description="The selected article will be displayed if the user clicks on the link 'Terms and Conditions'"/>
+		<param name="privacypolicy" type="termscontent" default="0" label="ACY_PRIVACY_POLICY" description="The selected article will be displayed if the user clicks on the link 'privacy policy'"/>
+		<param name="@spacer" type="spacer" default="" label="" description=""/>
+		<param name="mootoolsintro" type="textarea" rows="5" cols="35" default="" label="MOO_INTRO" description="This text will be displayed before the button in case of you use the Slide / Popup effect"/>
+		<param name="mootoolsbutton" type="text" size="50" default="" label="MOO_BUTTON" description="Text displayed on the button in case of you use the Slide / Popup effect. If you don't specify anything, the default value will be used from the current language file"/>
+		<param name="boxwidth" type="text" size="5" default="250" label="MOO_BOX_WIDTH" description="If you use the popup effect, you can set the width of the box in this area"/>
+		<param name="boxheight" type="text" size="5" default="200" label="MOO_BOX_HEIGHT" description="If you use the popup effect, you can set the height of the box in this area"/>
+
+	</params>
+
+	<params group="advanced">
+		<param name="moduleclass_sfx" type="text" default="" label="MODULE_CLASSSUF" description="PARAMMODULECLASSSUFFIX"/>
+		<param name="textalign" type="list" default="0" label="MODULE_ALIGNMENT" description="This option enables you to align the text inside the module">
+			<option value="none">Default CSS alignment</option>
+			<option value="right">Right</option>
+			<option value="left">Left</option>
+			<option value="center">Center</option>
+		</param>
+		<param name="loggedin" type="radio" default="1" label="MODULE_AUTOID" description="Do you want the logged in users to be automatically identified in the module?">
+			<option value="0">JOOMEXT_NO</option>
+			<option value="1">JOOMEXT_YES</option>
+		</param>
+		<param name="cache" type="list" default="0" label="MODULE_CACHING" description="Select whether to cache the content of this module">
+			<option value="0">No caching</option>
+			<option value="1">Use global</option>
+		</param>
+		<param name="cache_time" type="text" default="15" label="COM_MODULES_FIELD_CACHE_TIME_LABEL" description="COM_MODULES_FIELD_CACHE_TIME_DESC"/>
+		<param name="includejs" type="list" default="header" label="MODULE_JS" description="How should AcyMailing add the necessary JS files">
+			<option value="header">In the header</option>
+			<option value="module">On the module itself</option>
+		</param>
+		<param name="itemid" size="10" type="text" default="" label="ACY_ITEMID" description="Menu ID used in the archive links coming from this module"/>
+	</params>
+
+	<config>
+		<fields name="params" addfieldpath="/components/com_acymailing/params">
+			<fieldset name="basic">
+				<field name="help" type="help" default="module" label="Help" description="Click on the help button to get some help"/>
+				<field name="effect" type="radio" default="normal" label="DISPLAY_EFFECT" description="Select the effect you want to add to your module">
+					<option value="normal">Normal (no effect)</option>
+					<option value="mootools-slide">Slide effect</option>
+					<option value="mootools-box">Popup effect</option>
+				</field>
+				<field name="lists" type="lists" default="None" label="VISIBLE_LISTS" description="The following selected lists will be added on the Module and will be visible (if they are not selected as automatically subscribed to)."/>
+				<field name="hiddenlists" type="lists" default="All" label="AUTO_SUBSCRIBE_TO" description="The user will be automatically subscribed to the selected lists. They won't be displayed on your module but if the user subscribes, he will be subscribed to those lists as well"/>
+				<field name="displaymode" type="radio" default="vertical" label="DISPLAY_MODE" description="Select whether you want to display the form horizontally, vertically or without table">
+					<option value="inline">Horizontal</option>
+					<option value="vertical">Vertical</option>
+					<option value="tableless">Tableless</option>
+				</field>
+				<field name="listschecked" type="lists" default="All" label="LISTS_CHECKED_DEFAULT" description="The selected lists will be checked by default on your module if they are visible."/>
+				<field name="checkmode" type="radio" default="0" label="CHECKED_MODE" description="If you select the first option - Show user's subscription status - only the lists that the logged-in user is subscribed to will be checked. This option has an effect on logged-in users only so you can choose whether you want to display his own subscription or always the default one.">
+					<option value="0">Show user's subscription status</option>
+					<option value="1">Default checked lists</option>
+				</field>
+				<field name="dropdown" type="radio" default="0" label="DROPDOWN_LISTS" description="Display the visible lists in a dropdown">
+					<option value="0">JOOMEXT_NO</option>
+					<option value="1">JOOMEXT_YES</option>
+				</field>
+				<field name="overlay" type="radio" default="0" label="DESC_OVERLAY" description="Add the description of each visible list as an overlay of the list name. Be careful, you might have conflicts using this option if you have some flash elements on your website.">
+					<option value="0">JOOMEXT_NO</option>
+					<option value="1">JOOMEXT_YES</option>
+				</field>
+				<field name="link" type="radio" default="1" label="LINKED_ARCHIVE" description="Add a link to the archive section for each list.">
+					<option value="0">JOOMEXT_NO</option>
+					<option value="1">JOOMEXT_YES</option>
+				</field>
+				<field name="listposition" type="radio" default="before" label="LIST_POSITION" description="Select where to display the list.">
+					<option value="before">ACY_BEFORE_FIELDS</option>
+					<option value="after">ACY_AFTER_FIELDS</option>
+				</field>
+				<field name="customfields" type="customfields" default="name,email" label="DISP_FIELDS" description="Select the fields you want to display on your subscription module"/>
+
+				<field name="@spacer" type="spacer" default="" label="" description=""/>
+
+				<field name="nametext" type="text" size="50" default="" label="CAPT_NAME" description="Text displayed on the name field. If you don't specify anything, the default value will be used from the current language file" filter="SAFEHTML"/>
+				<field name="emailtext" type="text" size="50" default="" label="CAPT_EMAIL" description="Text displayed on the e-mail field. If you don't specify anything, the default value will be used from the current language file" filter="SAFEHTML"/>
+				<field name="fieldsize" type="text" size="10" default="80%" label="FIELD_SIZE" description="Specify the size of the email and name fields on your subscription form"/>
+				<field name="displayfields" type="radio" default="0" label="DISP_TEXT_MODE" description="Display the Name and E-mail text inside or outside the field?">
+					<option value="0">Inside</option>
+					<option value="1">Outside</option>
+				</field>
+				<field name="introtext" type="textarea" rows="5" cols="35" default="" label="INTRO_TEXT" description="This text will be displayed before the form inside a span class=acymailing_introtext" filter="SAFEHTML"/>
+				<field name="finaltext" type="textarea" rows="5" cols="35" default="" label="POST_TEXT" description="This text will be displayed after the form inside a span class=acymailing_finaltext" filter="SAFEHTML"/>
+				<field name="@spacer" type="spacer" default="" label="" description=""/>
+				<field name="showsubscribe" type="radio" default="1" label="DISP_SUB_BUTTON" description="Display the subscribe button on the module">
+					<option value="0">JOOMEXT_NO</option>
+					<option value="1">JOOMEXT_YES</option>
+				</field>
+				<field name="subscribetext" type="text" size="50" default="" label="CAPT_SUB" description="Text displayed on the subscribe button. If you don't specify anything, the default value will be used from the current language file" filter="SAFEHTML"/>
+				<field name="subscribetextreg" type="text" size="50" default="" label="CAPT_SUB_LOGGED" description="Text displayed on the subscribe button if the user is logged in. If you don't specify anything, the default value will be used from the current language file" filter="SAFEHTML"/>
+				<field name="showunsubscribe" type="radio" default="0" label="DISP_UNSUB_BUTTON" description="Display the unsubscribe button on the module">
+					<option value="0">JOOMEXT_NO</option>
+					<option value="1">JOOMEXT_YES</option>
+				</field>
+				<field name="unsubscribetext" type="text" size="50" default="" label="CAPT_UNSUB" description="Text displayed on the unsubscribe button. If you don't specify anything, the default value will be used from the current language file" filter="SAFEHTML"/>
+
+				<field name="@spacer" type="spacer" default="" label="" description=""/>
+				<field name="redirectmode" type="radio" default="0" label="REDIRECT_MODE" description="After submitting the form, the user can be redirected to the previous page, to the Acymailing archive page or to a custom link (in that case, please write the url in the next field)">
+					<option value="3">Ajax</option>
+					<option value="0">Previous page</option>
+					<option value="1">AcyMailing Archive</option>
+					<option value="2">Custom Redirect Link</option>
+				</field>
+				<field name="redirectlink" type="text" size="50" default="" label="REDIRECT_LINK" description="If you selected the mode 'Custom Redirect Link', the user will be redirected to this url after clicking on the button subscribe"/>
+				<field name="redirectlinkunsub" type="text" size="50" default="" label="REDIRECTION_UNSUB" description="If you selected the mode 'Custom Redirect Link', the user will be redirected to this url after clicking on the button unsubscribe"/>
+
+				<field name="@spacer" type="spacer" default="" label="" description=""/>
+
+				<field name="showterms" type="radio" default="0" label="JOOMEXT_TERMS" description="Display the 'Accept Terms and Conditions' box">
+					<option value="0">JOOMEXT_NO</option>
+					<option value="1">JOOMEXT_YES</option>
+				</field>
+				<field name="showtermspopup" type="radio" default="1" label="TERMS_POPUP" description="If you select 'Yes', the article linked to the terms and conditions will be displayed in a popup, otherwise it will be displayed as a separated page">
+					<option value="0">JOOMEXT_NO</option>
+					<option value="1">JOOMEXT_YES</option>
+				</field>
+				<field name="termscontent" type="termscontent" default="0" label="TERMS_CONTENT" description="The selected article will be displayed if the user clicks on the link 'Terms and Conditions'"/>
+				<field name="privacypolicy" type="termscontent" default="0" label="ACY_PRIVACY_POLICY" description="The selected article will be displayed if the user clicks on the link 'privacy policy'"/>
+				<field name="@spacer" type="spacer" default="" label="" description=""/>
+				<field name="mootoolsintro" type="textarea" rows="5" cols="35" default="" label="MOO_INTRO" description="This text will be displayed before the button in case of you use the Slide / Popup effect" filter="SAFEHTML"/>
+				<field name="mootoolsbutton" type="text" size="50" default="" label="MOO_BUTTON" description="Text displayed on the button in case of you use the Slide / Popup effect. If you don't specify anything, the default value will be used from the current language file" filter="SAFEHTML"/>
+				<field name="boxwidth" type="text" size="5" default="250" label="MOO_BOX_WIDTH" description="If you use the popup effect, you can set the width of the box in this area"/>
+				<field name="boxheight" type="text" size="5" default="200" label="MOO_BOX_HEIGHT" description="If you use the popup effect, you can set the height of the box in this area"/>
+			</fieldset>
+			<fieldset name="advanced">
+				<field name="moduleclass_sfx" type="text" default="" label="MODULE_CLASSSUF" description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC"/>
+				<field name="textalign" type="list" default="0" label="MODULE_ALIGNMENT" description="This option enables you to align the text inside the module">
+					<option value="none">Default CSS alignment</option>
+					<option value="right">Right</option>
+					<option value="left">Left</option>
+					<option value="center">Center</option>
+				</field>
+				<field name="loggedin" type="radio" default="1" label="MODULE_AUTOID" description="Do you want the logged in users to be automatically identified in the module?">
+					<option value="0">JOOMEXT_NO</option>
+					<option value="1">JOOMEXT_YES</option>
+				</field>
+				<field name="cache" type="list" default="0" label="MODULE_CACHING" description="Select whether to cache the content of this module">
+					<option value="0">No caching</option>
+					<option value="1">Use global</option>
+				</field>
+				<field name="cache_time" type="text" default="15" label="COM_MODULES_FIELD_CACHE_TIME_LABEL" description="COM_MODULES_FIELD_CACHE_TIME_DESC"/>
+				<field name="includejs" type="list" default="header" label="MODULE_JS" description="How should AcyMailing add the necessary JS files">
+					<option value="header">In the header</option>
+					<option value="module">On the module itself</option>
+				</field>
+				<field name="itemid" size="10" type="text" default="" label="ACY_ITEMID" description="Menu ID used in the archive links coming from this module"/>
+			</fieldset>
+		</fields>
+	</config>
+</extension>
+

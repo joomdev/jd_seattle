@@ -1,0 +1,51 @@
+<style type="text/css">
+
+    #n2-admin {
+        min-width: 0;
+        margin: 0 !important;
+    }
+
+    .n2-form-tab {
+        margin: 0;
+        border: 0;
+    }
+
+    body,
+    .n2-form-tab {
+        background-color: #e9edf0;
+    }
+
+    .n2-ss-device-zoomer {
+        position: absolute;
+        left: 50%;
+        top: 10px;
+        margin-left: -140px;
+        z-index: 10;
+    }
+
+    .n2-content-area{
+        border: 0 !important;
+    }
+
+    <?php N2Platform::adminHideCSS(); ?>
+</style>
+<div id="n2-admin" class="n2">
+
+    <div class="n2-table n2-table-fixed n2-content n2-sidebar-hidden">
+        <div class="n2-tr">
+            <div class="n2-td n2-content-base-bg n2-content-area n2-border-radius-br">
+                <!-- Begin Content -->
+                <?php
+                $this->renderFragmentBlock('nextend_content');
+                ?>
+                <!-- End Content -->
+            </div>
+        </div>
+    </div>
+    <?php
+    N2Pluggable::doAction('afterApplicationContent');
+    ?>
+</div>
+<?php
+
+N2Message::show();

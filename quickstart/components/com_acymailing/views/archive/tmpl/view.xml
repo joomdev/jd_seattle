@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<layout title="Latest Newsletter">
+		<message>Display the latest published and visible Newsletter from the selected list</message>
+	</layout>
+	<state>
+		<name>Latest Newsletter</name>
+		<params addpath="/components/com_acymailing/params">
+			<param name="listid" type="listid" label="List" description="" />
+		</params>
+	</state>
+	<fields name="params" addfieldpath="/components/com_acymailing/params">
+		<fieldset name="basic">
+			<field name="listid" type="listid" label="List" description="" />
+		</fieldset>
+	</fields>
+</metadata>

@@ -1,0 +1,93 @@
+<?php
+$router = N2Base::getApplication('smartslider')
+                ->getApplicationType('backend')->router;
+?>
+<div class="n2-box n2-box-promo n2-box-promo-light n2-box-review" data-stars="0">
+  <div class="n2-box-review-bigstar"></div>
+  <div class="n2-box-review-label" data-star="0">Rate your experience!</div>
+  <div class="n2-box-review-label" data-star="1">Hated it</div>
+  <div class="n2-box-review-label" data-star="2">Disliked it</div>
+  <div class="n2-box-review-label" data-star="3">It was ok</div>
+  <div class="n2-box-review-label" data-star="4">Liked it</div>
+  <div class="n2-box-review-label" data-star="5">Loved it</div>
+  <div class="n2-box-review-stars-container">
+    <div class="n2-box-review-star" data-star="1" data-href="https://smartslider3.com/suggestion/?utm_campaign=<?php echo N2SS3::$campaign; ?>&utm_source=dashboard-review-1&utm_medium=smartslider-<?php echo N2Platform::getPlatform() . '-' . N2SS3::$plan; ?>"></div>
+    <div class="n2-box-review-star" data-star="2" data-href="https://smartslider3.com/suggestion/?utm_campaign=<?php echo N2SS3::$campaign; ?>&utm_source=dashboard-review-2&utm_medium=smartslider-<?php echo N2Platform::getPlatform() . '-' . N2SS3::$plan; ?>"></div>
+    <div class="n2-box-review-star" data-star="3" data-href="https://smartslider3.com/satisfied-customer/?utm_campaign=<?php echo N2SS3::$campaign; ?>&utm_source=dashboard-review-3&utm_medium=smartslider-<?php echo N2Platform::getPlatform() . '-' . N2SS3::$plan; ?>"></div>
+    <div class="n2-box-review-star" data-star="4" data-href="https://smartslider3.com/satisfied-customer/?utm_campaign=<?php echo N2SS3::$campaign; ?>&utm_source=dashboard-review-4&utm_medium=smartslider-<?php echo N2Platform::getPlatform() . '-' . N2SS3::$plan; ?>"></div>
+    <div class="n2-box-review-star" data-star="5"></div>
+  </div>
+    <a href="<?php echo $router->createUrl(array(
+        'sliders/HideReview',
+        N2Form::tokenizeUrl()
+    )); ?>" class="n2-close"></a>
+</div>
+<?php
+$reviewUrl = 'https://smartslider3.com/redirect/joomla-review.html?utm_campaign=' . N2SS3::$campaign . '&utm_source=dashboard-review-5&utm_medium=smartslider-' . N2Platform::getPlatform() . '-' . N2SS3::$plan;
+
+?>
+<script type="text/javascript">
+    N2R('documentReady', function ($) {
+
+        var $box = $('.n2-box-review'),
+            dismissReviewUrl = '<?php echo $router->createAjaxUrl(array(
+                'sliders/HideReview',
+                N2Form::tokenizeUrl()
+            )); ?>',
+            hideBox = function () {
+                $box.remove();
+                N2Classes.AjaxHelper.ajax({
+                    type: "POST",
+                    url: dismissReviewUrl
+                })
+            };
+        $box.find('.n2-box-review-star').on({
+            mouseenter: function () {
+                $box.attr('data-stars', $(this).data('star'));
+            },
+            click: function (e) {
+                e.preventDefault();
+
+                var star = parseInt($(this).data('star'));
+                if (star < 5) {
+                    var win = window.open($(this).data('href'), '_blank');
+                    hideBox();
+                    win.focus();
+                } else {
+                    this.createSliderModal = new N2Classes.NextendModal({
+                        zero: {
+                            size: [600, 460],
+                            title: n2_('Let us know how we’re doing!'),
+                            back: false,
+                            close: true,
+                            content: '<div class="n2-modal-review-star-5"></div><div class="n2-modal-review-details">Awesome! If you’re happy with Smart Slider 3 and can<br> take a minute please leave us a review. It will be a<br> tremendous help for us! Thank you very  much!</div>',
+                            controls: [
+                                '<a href="<?php echo $reviewUrl; ?>" target="_blank" class="n2-button n2-button-normal n2-button-l n2-radius-s n2-button-green n2-uc n2-h4">' + n2_('ok, you deserve it') + '</a>'
+                            ],
+                            fn: {
+                                show: function () {
+                                    this.controls.find('.n2-button').on('click', $.proxy(function (e) {
+                                        this.hide();
+                                    }, this));
+                                },
+                                hide: hideBox
+                            }
+                        }
+                    }, true);
+                }
+            }
+        });
+        $box.find('.n2-box-review-stars-container').on({
+            mouseleave: function () {
+                $box.attr('data-stars', 0);
+            }
+        });
+        $box.find('.n2-close').on({
+            click: function (e) {
+                e.preventDefault();
+                hideBox();
+            }
+        });
+    });
+
+</script>

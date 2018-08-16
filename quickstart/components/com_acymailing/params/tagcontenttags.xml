@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form>
+	<fields>
+		<fieldset name="tagcontenttagfield">
+			<field id="tagsauto" name="tagsauto" type="tag" mode="ajax" label="JTAG" multiple="true" custom="deny"></field>
+		</fieldset>
+	</fields>
+</form>

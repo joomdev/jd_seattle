@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension
+	type="module"
+	version="3.0"
+	client="site"
+	method="upgrade">
+	<name>Register Login</name>
+	<author>JoomDev</author>
+	<creationDate>June, 2018</creationDate>
+	<copyright>All rights reserved.</copyright>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+	<authorEmail>support@joomdev.com</authorEmail>
+	<authorUrl>www.joomDev.com</authorUrl>
+	<version>1.7</version>
+	<description>
+	<![CDATA[<div style="font-size:16px; font-weight:bold; color:black; text-align:left; margin:0px; padding:0px 5px;"><h3>Register Login By JoomDev</h3></div>	
+	<div style="font-weight:normal; border-bottom:1px solid #f0dc7e;display:block; padding-bottom:5px; margin:5px; background-color:#fff;"></div>
+	<p>This extension enables you to manage both Login and registration from a module itself without having the user to go the registration page.</p>
+	<p>List of features:</p>
+	<ul>
+	<li>Option to disable login and display only registration in the module.</li>
+	<li>Recaptcha  Support.</li>
+	<li>Fields Validation.</li>
+	<li>Option to display Radio Buttons to switch between login and Register either at the top or bottom.</li>
+	<li>Ajax Registration helps to register without reloading the entire page.</li>
+	<li>Option to select the process for new user account activation.</li>
+	<li>Option to manage terms of use on registration.</li>
+	<li>Managelabel for the input fields with single click </li>
+	</ul>
+	]]>
+	</description>
+	<updateservers>
+		<server type="extension" name="mod_registerlogin" priority="1">https://www.joomdev.com/extensionupdates/mod_registerlogin.xml</server>
+	</updateservers>
+
+	<files>
+		<filename module="mod_registerlogin">mod_registerlogin.php</filename>
+		<folder>tmpl</folder>
+		<filename>helper.php</filename>
+		<filename>index.html</filename>
+        <filename>mod_registerlogin.xml</filename>
+	</files>
+	<languages>
+		<language folder="admin" tag="en-GB">en-GB.mod_registerlogin.ini</language>
+		<language folder="admin" tag="en-GB">en-GB.mod_registerlogin.sys.ini</language>
+	</languages>
+	<help key="JHELP_EXTENSIONS_MODULE_MANAGER_LOGIN" />
+	<config>
+		<fields name="params">
+			<fieldset name="basic" addfieldpath="/administrator/components/com_content/models/fields" addfieldprefix="Joomla\Component\Content\Administrator\Field">
+				<field
+					name="view"
+					type="list"
+					default="1"
+					label="MOD_REGISTERLOGIN_LABEL_DEFAULTVIEW"
+					description="MOD_REGISTERLOGIN_DESC_DEFAULTVIEW">
+					<option	value="1">MOD_REGISTERLOGIN_PARAM_DEFAULTVIEW_LOGIN</option>
+					<option	value="2">MOD_REGISTERLOGIN_PARAM_DEFAULTVIEW_REGISTER</option>
+				</field>
+				<field
+					name="view1"
+					type="list"
+					default="1"
+					label="MOD_REGISTERLOGIN_CHOOSELAYOUT"
+					description="MOD_REGISTERLOGIN_CHOOSELAYOUT_DES">
+					<option	value="1">MOD_REGISTERLOGIN_CHOOSELAYOUT_VALUE</option>
+					<option	value="2">MOD_REGISTERLOGIN_CHOOSELAYOUT_VALUE1</option>
+				</field>
+				<field
+					name="useractivation"
+					type="list"
+					default="1"
+					label="MOD_REGISTERLOGIN_USERACTIVATION_LABEL"
+					description="MOD_REGISTERLOGIN_USERACTIVATION_DESC">
+					<option value="0">MOD_REGISTERLOGIN_USERACTIVATION_OPTION_SELFACTIVATION</option>
+					<option	value="1">MOD_REGISTERLOGIN_USERACTIVATION_OPTION_ADMINACTIVATION</option>
+				</field>
+				<field
+					name="ajax_registration"
+					type="radio"
+					default="1"
+					class="btn-group btn-group-yesno"
+					label="MOD_REGISTERLOGIN_AJAX_REGISTRATION"
+					description="MOD_REGISTERLOGIN_AJAX_REGISTRATION_DESCRIPTION">
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+				<field
+					name="mail_to_admin"
+					type="radio"
+					class="btn-group btn-group-yesno"
+					default="1"
+					label="MOD_REGISTERLOGIN_LABEL_NOTIFICATION_EMAIL_TO_ADMINISTRATOR"
+					description="MOD_REGISTERLOGIN_LABEL_AJAX_REGISTRATION">
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+				<field
+					name="enablecap_on_register"
+					type="radio"
+					class="btn-group btn-group-yesno"
+					default="0"
+					label="MOD_REGISTERLOGIN_LABEL_ENABLECAPTCHAONREGISTRE"
+					description="MOD_REGISTERLOGIN_LABEL_ENABLECAPTCHAONREGISTRE_DESCRIPTION">
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+				<field
+					name="sitekey"
+					type="test"
+					label="MOD_REGISTERLOGIN_LABEL_SITE_KEY"
+					description=""
+					showon="enablecap_on_register:1"
+				/>
+				<field
+					name="secretkey"
+					type="test"
+					label="MOD_REGISTERLOGIN_LABEL_SECRATE_KEY"
+					description=""
+					showon="enablecap_on_register:1"
+				/>
+				<field
+					name="login"
+					type="menuitem"
+					disable="separator"
+					label="MOD_REGISTERLOGIN_FIELD_LOGIN_REDIRECTURL_LABEL"
+					description="MOD_REGISTERLOGIN_FIELD_LOGIN_REDIRECTURL_DESC" >
+					<option value="">JDEFAULT</option>
+				</field>
+				<field
+					name="logout"
+					type="menuitem"
+					disable="separator"
+					label="MOD_REGISTERLOGIN_FIELD_LOGOUT_REDIRECTURL_LABEL"
+					description="MOD_REGISTERLOGIN_FIELD_LOGOUT_REDIRECTURL_DESC" >
+					<option	value="">JDEFAULT</option>
+				</field>
+				<field
+					name="tou"
+					type="radio"
+					class="btn-group btn-group-yesno"
+					default="1"
+					label="MOD_REGISTERLOGIN_LABEL_TERMFOUSE"
+					description="MOD_REGISTERLOGIN_LABEL_ENABLE_TERMS_OF_USE_ON_REGISTER">
+					<option value="1">MOD_REGISTERLOGIN_TERMFOUSE_ENABLE</option>
+					<option value="0">MOD_REGISTERLOGIN_TERMFOUSE_DISABLE</option>
+				</field>
+				<field
+					type="text" 
+					name="title" 
+					default="I Agree to the Terms of Use" 
+					showon="tou:1" 
+					label="MOD_REGISTERLOGIN_LABEL_DISPLAYTEXT" 
+					size="50" 
+					description="MOD_REGISTERLOGIN_DESC_DISPLAYTEXT">
+				</field>
+				<field
+					type="modal_article" 
+					name="articleid" 
+					label="MOD_REGISTERLOGIN_LABEL_ARTICLEID" 
+					description="MOD_REGISTERLOGIN_DESC_ARTICLEID" 
+					showon="tou:1">
+				</field>
+				<field
+					name="checkbox"
+					type="radio"
+					class="btn-group btn-group-yesno"
+					default="0"
+					showon="tou:1" 
+					label="MOD_REGISTERLOGIN_LABEL_CHECKBOX"
+					description="MOD_REGISTERLOGIN_LABEL_ENABLE_CHECKBOX_REGISTER_DESC">
+					<option value="1">MOD_REGISTERLOGIN_CHECKBOX</option>
+					<option value="0">MOD_REGISTERLOGIN_UNCHECKBOX</option>
+				</field>
+				<field name="newwindow" type="list" default="modal" showon="tou:1"
+				label="MOD_REGISTERLOGIN_LABEL_LINK">
+				    <option value="modal">MOD_REGISTERLOGIN_OPENINMODEL</option>
+					<option value="_self">MOD_REGISTERLOGIN_OPENINTHESAMEWINDOW</option>
+					<option value="_blank">MOD_REGISTERLOGIN_OPENINTHENEWWINDOW</option>
+				</field>
+				<field
+					name="usetext"
+					type="radio"
+					class="btn-group btn-group-yesno"
+					default="1"
+					label="MOD_REGISTERLOGIN_DISPLAY_LABEL"
+					description="MOD_REGISTERLOGIN_DISPLAY_LABEL_DESC">
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+			</fieldset>
+			<fieldset name="advanced" addfieldpath="/administrator/components/com_content/models/fields">
+				<field
+					name="layout"
+					type="modulelayout"
+					label="JFIELD_ALT_LAYOUT_LABEL"
+					description="JFIELD_ALT_MODULE_LAYOUT_DESC" />
+				<field
+					name="moduleclass_sfx"
+					type="text"
+					label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL"
+					description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC" />
+				<field
+					name="cache"
+					type="list"
+					default="0"
+					label="COM_MODULES_FIELD_CACHING_LABEL"
+					description="COM_MODULES_FIELD_CACHING_DESC">
+					<option	value="0">COM_MODULES_FIELD_VALUE_NOCACHING</option>
+				</field>
+			</fieldset>
+		</fields>
+	</config>
+</extension>

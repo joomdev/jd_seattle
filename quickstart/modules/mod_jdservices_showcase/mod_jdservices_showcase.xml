@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="3.6" client="site" method="upgrade">
+   <name>JD Services</name>
+   <author>JoomDev Team</author>
+   <creationDate>July 2018</creationDate>
+   <copyright>Copyright (C) 2005 - 2017 Open Source Matters. All rights reserved.</copyright>
+   <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+   <authorEmail>info@joomdev.com</authorEmail>
+   <authorUrl>www.joomdev.com</authorUrl>
+   <version>1.0</version>
+   <description>MOD_JDSERVICES_SHOWCASE_XML_DESCRIPTION</description>
+   <files>
+      <filename module="mod_jdservices_showcase">mod_jdservices_showcase.php</filename>
+      <folder>tmpl</folder>
+      <folder>fields</folder>
+      <folder>forms</folder>
+      <folder>assets</folder>
+      <filename>helper.php</filename>
+   </files>
+	<media folder="media" destination="mod_jdservices_showcase">
+		<folder>images</folder>
+	</media>
+   <languages folder="language">
+      <language tag="en-GB">en-GB/en-GB.mod_jdservices_showcase.ini</language>
+      <language tag="en-GB">en-GB/en-GB.mod_jdservices_showcase.sys.ini</language>
+   </languages>
+   <config>
+      <fields name="params">
+         <fieldset name="basic" addfieldpath="/modules/mod_jdservices_showcase/fields">
+            <field name="services"
+                   type="subform"
+                   formsource="/modules/mod_jdservices_showcase/forms/service.xml"
+                   multiple="true"
+                   description="MOD_JDSERVICES_SHOWCASE_OPTIONS_SERVICES_DESC"
+                   label="Add Items"
+                   >
+            </field>
+         </fieldset>
+         <fieldset name="Design">
+            <field
+               name="LinkOn"
+               type="list"
+               label="Link On"
+               description=""
+               default="0"
+               class="btn-group btn-group-yesno"
+            >
+               <option value="title">Title Only</option>
+               <option value="titleAndMedia">Title and Media</option>
+               <option value="fullBox">Full Box</option>
+            </field>
+            <field
+               name="showReadMore"
+               type="radio"
+               label="Show Read More"
+               description=""
+               default="0"
+               class="btn-group btn-group-yesno"
+            >
+               <option value="1">JYES</option>
+               <option value="0">JNO</option>
+            </field>
+            <field name="showReadMoreText"
+                label="Read More Text"
+                showon="showReadMore:1"
+                type="text" />
+            <field name="showcase_height"
+                type="text"
+                label="MOD_JDSERVICES_SHOWCASE_OPTIONS_HEIGHT_LBL"
+                default="auto">
+            </field>
+            <field
+               name="select_view"
+               type="jdthumbnailradio"
+               label="Select View "
+               description=""
+               default="1"
+            >
+			  <option value="1">media/mod_jdservices_showcase/images/layouts/layout-1.svg|Style - 1</option>
+
+			</field>
+         </fieldset>
+         <fieldset name="advanced">
+            <field
+               name="layout"
+               type="modulelayout"
+               label="JFIELD_ALT_LAYOUT_LABEL"
+               description="JFIELD_ALT_MODULE_LAYOUT_DESC"
+               default="default"
+            />
+            
+            <field
+               name="load_bootstrap"
+               type="radio"
+               label="MOD_JDSERVICES_SHOWCASE_OPTIONS_LOAD_BOOTSTRAP_LBL"
+               description="MOD_JDSERVICES_SHOWCASE_OPTIONS_LOAD_BOOTSTRAP_DESC"
+               default="0"
+               class="btn-group btn-group-yesno"
+            >
+               <option value="1">JYES</option>
+               <option value="0">JNO</option>
+            </field>
+            <field name="moduleclass_sfx" type="textarea" label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL" description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC" rows="3"/>
+         </fieldset>
+      </fields>
+   </config>
+</extension>

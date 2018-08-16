@@ -1,0 +1,148 @@
+/**
+ * @package    AcyMailing for Joomla!
+ * @version    5.10.3
+ * @author     acyba.com
+ * @copyright  (C) 2009-2018 ACYBA S.A.R.L. All rights reserved.
+ * @license    GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
+ */
+
+@import url("module_default.css");
+
+
+.acymailing_module .inputbox{
+	color:#666 !important;
+	border:1px solid #ddd !important;
+	margin-right: 10px!important;
+		padding: 4px 10px !important;
+background-image: linear-gradient(bottom, rgb(235,235,235) 21%, rgb(255,255,255) 58%) !important;
+background-image: -o-linear-gradient(bottom, rgb(235,235,235) 21%, rgb(255,255,255) 58%) !important;
+background-image: -moz-linear-gradient(bottom, rgb(235,235,235) 21%, rgb(255,255,255) 58%) !important;
+background-image: -webkit-linear-gradient(bottom, rgb(235,235,235) 21%, rgb(255,255,255) 58%) !important;
+background-image: -ms-linear-gradient(bottom, rgb(235,235,235) 21%, rgb(255,255,255) 58%) !important;
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ebebeb',GradientType=0 )!important;  }
+
+
+.acymailing_module .inputbox:hover{
+	border:1px solid #ddd !important;
+	border-bottom:1px solid #999!important;
+box-shadow: 0 0 3px 2px #eee!important;
+-moz-box-shadow: 0 0 3px 2px #eee !important;
+-webkit-box-shadow: 0 0 3px 2px #eee !important;
+}
+
+.acymailing_module .inputbox:focus{
+	border:1px solid #bbb !important;
+	background-color:#f5f5f5 !important;
+	box-shadow: 0 0 3px 2px #eee!important;
+-moz-box-shadow: 0 0 3px 2px #eee !important;
+-webkit-box-shadow: 0 0 3px 2px #eee !important;}
+
+
+
+
+.acysubbuttons input.button, .acysubbuttons .button, .acysubbuttons button.validate, .acymailing_mootoolsbutton a:link, .acymailing_mootoolsbutton a:visited {
+	color:#666 !important;
+	border:1px solid #ddd !important;
+	padding: 3px !important;
+	text-shadow:1px 1px 1px #fff !important;
+	margin-right:5px !important;
+	background-color:#CCC !important;
+
+background-image: linear-gradient(bottom, rgb(235,235,235) 21%, rgb(255,255,255) 58%) !important;
+background-image: -o-linear-gradient(bottom, rgb(235,235,235) 21%, rgb(255,255,255) 58%) !important;
+background-image: -moz-linear-gradient(bottom, rgb(235,235,235) 21%, rgb(255,255,255) 58%) !important;
+background-image: -webkit-linear-gradient(bottom, rgb(235,235,235) 21%, rgb(255,255,255) 58%) !important;
+background-image: -ms-linear-gradient(bottom, rgb(235,235,235) 21%, rgb(255,255,255) 58%) !important;
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ebebeb',GradientType=0 ) !important; }
+
+.acysubbuttons input.button:hover, .acysubbuttons .button:hover, .acysubbuttons button.validate:hover, .acymailing_mootoolsbutton a:hover, .acymailing_mootoolsbutton a:active {
+		color:#000 !important;
+	background-color:#f5f5f5 !important;
+background-image: linear-gradient(bottom, rgb(255,255,255) 57%, rgb(238,237,237) 86%) !important;
+background-image: -o-linear-gradient(bottom, rgb(255,255,255) 57%, rgb(238,237,237) 86%) !important;
+background-image: -moz-linear-gradient(bottom, rgb(255,255,255) 57%, rgb(238,237,237) 86%) !important;
+background-image: -webkit-linear-gradient(bottom, rgb(255,255,255) 57%, rgb(238,237,237) 86%) !important;
+background-image: -ms-linear-gradient(bottom, rgb(255,255,255) 57%, rgb(238,237,237) 86%) !important;
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ebebeb', endColorstr='#ffffff',GradientType=0 ) !important; 
+box-shadow: 0 0 3px 2px #eee!important;
+-moz-box-shadow: 0 0 3px 2px #eee !important;
+-webkit-box-shadow: 0 0 3px 2px #eee !important;
+}
+
+
+
+.acymailing_module_form td{
+	padding-bottom:0px;}
+
+
+.acymailing_module .acyfield_html {
+	display:inline-block;
+	padding-right:10px !important;}
+
+
+.acymailing_module .acymailing_mootoolsbutton p{
+	text-align:left;}
+
+.acymailing_module a.acymailing_togglemodule{
+	display:inline;
+		font-size: 13px;
+		font-weight: bold;}
+
+
+.acymailing_mootoolsbutton a:link, .acymailing_mootoolsbutton a:visited{
+	text-decoration:none !important;
+	display:inline-block !important;
+}
+
+.acymailing_module table.acymailing_form {
+	margin:0px;}
+
+.acymailing_module .acymailing_module_form td{
+	padding-bottom:8px;}
+
+
+
+.acymailing_form {
+	margin:0px;}
+
+.acymailing_form label{
+	margin-right:10px;
+	}
+
+.acymailing_module .acymailing_module_form td{
+	padding-bottom:8px;}
+
+
+
+.acymailing_module .acymailing_module_form .acymailing_lists a:link, .acymailing_module .acymailing_module_form .acymailing_lists a:visited{
+	color:#000;
+	text-decoration:none;}
+
+.acymailing_module form a:hover, .acymailing_module form a:active, .acymailing_module form a:focus{
+	color:#666!important;
+	text-decoration:underline !important;
+	background-color:transparent !important;}
+
+.acymailing_module .acymailing_module_form .acymailing_lists .acymailing_checkbox{
+	margin-right:10px;}
+
+.acymailing_module_form .acymailing_form a:link{
+	background-color:transparent;
+	color:#000;
+	text-decoration:none;}
+
+.acymailing_module .acyfield_html input{
+	margin-right:10px;
+	margin-left:10px;
+	border:none !important;
+	background:none !important;
+	filter:none !important;}
+
+.acymailing_form .checkbox{
+	border: none !important;
+	background:none !important;
+	filter:none !important;}
+
+
+.acymailing_module .invalid{
+border:1px solid #999 !important;}

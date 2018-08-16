@@ -1,0 +1,40 @@
+<?php
+echo N2Html::openTag('div', $attributes); ?>
+
+<?php
+if ($lt) {
+    echo N2Html::tag('div', $ltAttributes, $lt);
+}
+if ($rt) {
+    echo N2Html::tag('div', $rtAttributes, $rt);
+}
+if ($lb) {
+    echo N2Html::tag('div', $lbAttributes, $lb);
+}
+if ($rb) {
+    echo N2Html::tag('div', $rbAttributes, $rb);
+}
+if ($center) {
+    echo N2Html::tag('div', $centerAttributes, $center);
+}
+if ($overlay) {
+    if ($overlay === true) {
+        echo N2Html::tag('div', array(
+            'class' => 'n2-box-overlay n2-on-hover'
+        ), $rb);
+    } else {
+        echo $overlay;
+    }
+}
+?>
+
+<?php
+if (!empty($placeholderContent)):
+    ?>
+    <div class="n2-box-placeholder">
+        <?php echo $placeholderContent; ?>
+    </div>
+    <?php
+endif;
+?>
+</div>

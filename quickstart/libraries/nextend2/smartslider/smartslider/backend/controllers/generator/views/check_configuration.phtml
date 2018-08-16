@@ -1,0 +1,37 @@
+<?php
+
+$actions = array();
+
+if (isset($slider)) {
+    $actions[] = N2Html::tag('a', array(
+        'href'  => $this->appType->router->createUrl(array(
+            "generator/create",
+            array(
+                "sliderid" => $slider['id']
+            )
+        )),
+        'class' => 'n2-button n2-button-normal n2-button-l n2-radius-s n2-button-red n2-h4 n2-b n2-uc'
+    ), n2_('Cancel'));
+}
+
+$actions[] = N2Html::tag('a', array(
+    'href'    => '#',
+    'class'   => 'n2-button n2-button-normal n2-button-l n2-radius-s n2-button-green n2-h4 n2-b n2-uc',
+    'onclick' => 'return N2Classes.Form.submit("#smartslider-form");'
+), n2_('Save'));
+
+N2Html::topBar(array(
+    "actions" => $actions
+));
+
+?>
+
+<form id="smartslider-form" action="#" method="post">
+    <?php
+    echo $configuration->render();
+    ?>
+    <input name="save" value="1" type="hidden"/>
+</form>
+<?php N2SS3::showBeacon(ucfirst(N2Request::getCmd('group')) . ' generator'); ?>
+
+<div style="height: 200px"></div>

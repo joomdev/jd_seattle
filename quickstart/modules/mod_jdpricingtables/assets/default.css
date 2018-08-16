@@ -1,0 +1,170 @@
+.jmm-pricing.default .jmm-mod-row:before,
+.jmm-pricing.default .jmm-mod-row:after {
+	display: table;
+	content: "";
+	line-height: 0
+}
+
+.jmm-pricing.default .jmm-mod-row:after {
+	clear: both
+}
+
+.jmm-pricing.default .jmm-mod-row>div {
+	float: left;
+	box-sizing: border-box
+}
+
+html[dir='rtl'] .jmm-pricing.default .jmm-mod-row>div {
+	float: right;
+}
+
+.jmm-pricing.default .jmm-mod-row.row-1>div {
+	width: 100%
+}
+
+.jmm-pricing.default .jmm-mod-row.row-2>div {
+	width: 50%
+}
+
+.jmm-pricing.default .jmm-mod-row.row-3>div {
+	width: 33.33%
+}
+
+.jmm-pricing.default .jmm-mod-row.row-4>div {
+	width: 25%
+}
+
+.jmm-pricing.default .jmm-mod-row.row-5>div {
+	width: 20%
+}
+
+.jmm-pricing.default .jmm-mod-row.row-6>div {
+	width: 16.66%
+}
+
+.jmm-pricing.default .jmm-mod-row.row-7>div {
+	width: 14.28%
+}
+
+.jmm-pricing.default .jmm-mod-row.row-8>div {
+	width: 12.5%
+}
+
+.jmm-pricing.default .jmm-mod-row.row-9>div {
+	width: 11.11%
+}
+
+.jmm-pricing.default .jmm-mod-row.row-10>div {
+	width: 10%
+}
+
+.jmm-pricing.default .jmm-mod-row.row-11>div {
+	width: 9.09%
+}
+
+.jmm-pricing.default .jmm-mod-row.row-12>div {
+	width: 8.33%
+}
+
+.jmm-pricing.default {
+	text-align: center
+}
+
+.jmm-pricing.default .jmm-item {
+	background: #fff;
+	color: #666;
+	padding: 0 0 45px;
+	margin-top: 60px;
+	box-shadow: 0px 0px 80px 0px #d1d1d1
+}
+
+.jmm-pricing.default .jmm-item.highlight {
+	position: relative;
+	margin-top: 0;
+	z-index: 2
+}
+
+.jmm-pricing.default .jmm-item.highlight .jmm-title {
+	padding-top: 30px;
+	padding-bottom: 30px
+}
+
+.jmm-pricing.default .jmm-item.highlight .jmm-button {
+	padding-top: 40px;
+	padding-bottom: 10px
+}
+
+.jmm-pricing.default .jmm-title {
+	color: #444;
+	letter-spacing: 2px;
+	text-transform: uppercase;
+	padding: 20px 30px
+}
+
+.jmm-pricing.default .jmm-price {
+	padding: 25px 30px;
+	background: #f2f2f2;
+	position: relative
+}
+
+.jmm-pricing.default .jmm-price .jmm-number {
+	font-size: 84px;
+	line-height: 1;
+	color: #444
+}
+
+.jmm-pricing.default .jmm-price .jmm-currency {
+	font-size: 1.714em;
+	vertical-align: top;
+	color: #444
+}
+
+.jmm-pricing.default .jmm-price .jmm-period {
+	opacity: 0.70;
+	text-transform: uppercase;
+	vertical-align: sub;
+	position: relative
+}
+
+.jmm-pricing.default .jmm-price .jmm-period:before {
+	content: '/'
+}
+
+.jmm-pricing.default .jmm-description {
+	padding: 30px
+}
+
+.jmm-pricing.default .jmm-description ul {
+	text-align: left;
+}
+
+html[dir='rtl'] .jmm-pricing.default .jmm-description ul {
+	text-align: right;
+}
+
+@media (max-width: 767px) {
+	.jmm-pricing.default .jmm-mod-row.row-2>div,
+	.jmm-pricing.default .jmm-mod-row.row-3>div,
+	.jmm-pricing.default .jmm-mod-row.row-4>div,
+	.jmm-pricing.default .jmm-mod-row.row-5>div,
+	.jmm-pricing.default .jmm-mod-row.row-6>div,
+	.jmm-pricing.default .jmm-mod-row.row-7>div,
+	.jmm-pricing.default .jmm-mod-row.row-8>div,
+	.jmm-pricing.default .jmm-mod-row.row-9>div,
+	.jmm-pricing.default .jmm-mod-row.row-10>div,
+	.jmm-pricing.default .jmm-mod-row.row-11>div,
+	.jmm-pricing.default .jmm-mod-row.row-12>div {
+		width: 100%
+	}
+	.jmm-pricing.default .jmm-item.highlight {
+		margin-top: 60px;
+	}
+	.jmm-pricing.default .jmm-item.highlight .jmm-title {
+		padding-top: 20px;
+		padding-bottom: 20px;
+	}
+	.jmm-pricing.default .jmm-item.highlight .jmm-button {
+		padding-top: 0;
+		padding-bottom: 0;
+	}
+}

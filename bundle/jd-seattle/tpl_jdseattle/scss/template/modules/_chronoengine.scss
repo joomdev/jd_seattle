@@ -1,0 +1,68 @@
+.chronoforms6_credits {
+    display: none;
+}
+
+.chronoforms {
+    .ui.form {
+        .ui.segment {
+            font-family: $font-family-sans-serif;
+            box-shadow: none;
+            @extend .border-0;
+        }
+        .column {
+            @include media-breakpoint-down(lg) {
+                width: 100% !important;
+                margin: 0 !important;
+                &:last-child {
+                    padding-top: 0;
+                }
+            }
+        }
+        .ui.dividing.header {
+            padding: 0;
+            border: none;
+        }
+        .field {
+            @extend .form-group;
+            select,
+            input {
+                &[type="text"],
+                &[type="password"],
+                &[type="datetime"],
+                &[type="datetime-local"],
+                &[type="date"],
+                &[type="month"],
+                &[type="time"],
+                &[type="week"],
+                &[type="number"],
+                &[type="email"],
+                &[type="url"],
+                &[type="search"],
+                &[type="tel"],
+                &[type="color"],
+                &[type="file"] {
+                    font-family: $font-family-sans-serif;
+                    @extend .form-control;
+                    @extend .form-control-lg;
+                }
+            }
+        }
+        textarea {
+            @extend .form-control;
+            @extend .form-control-lg;
+            font-family: $font-family-sans-serif;
+        }
+        .ui.button,
+        button,
+        input {
+            &[type="submit"],
+            &[type="button"] {
+                font-family: $font-family-sans-serif;
+                @extend .btn;
+                @extend .btn-lg;
+                @extend .btn-dark;
+                @extend .m-0;
+            }
+        }
+    }
+}

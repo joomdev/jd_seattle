@@ -1,0 +1,9 @@
+.container-fluid.container-main{
+	padding-top:20px;
+}
+.subhead-collapse.collapse{
+	display:none;
+}
+body.admin header.header{
+	display:none;
+}

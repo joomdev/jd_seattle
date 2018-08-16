@@ -1,0 +1,9 @@
+<?php
+$locale = setlocale(LC_NUMERIC, 0);
+setlocale(LC_NUMERIC, "C");
+
+$sliderManager = new N2SmartSliderManager($sliderid);
+$sliderManager->setUsage($usage);
+echo $sliderManager->render(true);
+
+setlocale(LC_NUMERIC, $locale);

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE install SYSTEM "http://dev.joomla.org/xml/1.5/plugin-install.dtd">
+<install type="plugin" version="1.5" method="upgrade" group="acymailing">
+	<name>AcyMailing table of contents generator</name>
+	<creationDate>January 2011</creationDate>
+	<version>1.0.0</version>
+	<author>Acyba</author>
+	<authorEmail>dev@acyba.com</authorEmail>
+	<authorUrl>http://www.acyba.com</authorUrl>
+	<copyright>Copyright (C) 2009-2018 ACYBA SAS - All rights reserved..</copyright>
+	<license>GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html</license>
+	<description>This plugin enables you to generate table of contents</description>
+	<files>
+		<filename plugin="tablecontents">tablecontents.php</filename>
+	</files>
+	<params addpath="/components/com_acymailing/params">
+		<param name="help" type="help" label="Help" description="Click on the help button to get some help" default="plugin-tablecontents"/>
+		<param name="divider" type="radio" default="br" label="Divider" description="Separator added between each link">
+			<option value="br">Carriage return</option>
+			<option value="space">Space</option>
+			<option value="li">ul / li</option>
+		</param>
+	</params>
+	<config>
+		<fields name="params" addfieldpath="/components/com_acymailing/params">
+			<fieldset name="basic">
+				<field name="help" type="help" label="Help" description="Click on the help button to get some help" default="plugin-tablecontents"/>
+				<field name="divider" type="radio" default="br" label="Divider" description="Separator added between each link">
+					<option value="br">Carriage return</option>
+					<option value="space">Space</option>
+					<option value="li">ul / li</option>
+				</field>
+			</fieldset>
+		</fields>
+	</config>
+</install>

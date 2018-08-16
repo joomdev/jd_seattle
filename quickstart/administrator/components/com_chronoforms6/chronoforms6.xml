@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" version="1.6.0" method="upgrade">
+	<name>ChronoForms6</name>
+	<creationDate>June 2018</creationDate>
+	<author>Chronoman</author>
+	<copyright>ChronoEngine.com 2006 - 2018</copyright>
+	<authorEmail>webmaster@chronoengine.com</authorEmail>
+	<authorUrl>www.chronoengine.com</authorUrl>
+	<version>6.0.19</version>
+	<license>GPLv2</license>
+	<description>Build all kinds of forms using Chronoforms.</description>
+
+	<scriptfile>install.chronoforms6.php</scriptfile>
+	<uninstallfile>uninstall.chronoforms6.php</uninstallfile>
+	<files>
+		<filename>chronoforms6.php</filename>
+		<filename>index.html</filename>
+		<folder>views</folder>
+		<folder>chronoforms</folder>
+	</files>
+	<install>
+		<sql>
+			<file driver="mysql" charset="utf8">chronoforms/sql/install.chronoforms.sql</file>
+		</sql>
+	</install>
+	<uninstall>
+		<sql>
+			<file driver="mysql" charset="utf8">chronoforms/sql/uninstall.chronoforms.sql</file>
+		</sql>
+	</uninstall>	
+	<administration>		
+		<menu link="com_chronoforms6" view="main">COM_CHRONOFORMS6</menu>
+		<submenu>
+			<menu>COM_CHRONOFORMS6</menu>
+			<menu act="validateinstall">COM_CHRONOFORMS6_VALIDATE</menu>
+		</submenu>
+		<files folder="admin">
+			<filename>chronoforms6.php</filename>
+			<filename>index.html</filename>
+			<filename>access.xml</filename>
+			<filename>config.xml</filename>
+			<folder>chronoforms</folder>
+			<folder>language</folder>
+		</files>
+		<languages folder="admin">
+			<language tag="en-GB">language/en-GB.com_chronoforms6.sys.ini</language>
+			<language tag="en-GB">language/en-GB.com_chronoforms6.menu.ini</language>
+			<language tag="en-GB">language/en-GB.com_chronoforms6.ini</language>
+		</languages>
+	</administration>
+	<updateservers>
+		<server type="extension" priority="1" name="ChronoForms v6 update server">http://www.chronoengine.com/chrono_joomla_updates/chronoforms6.xml</server>
+	</updateservers>
+</extension>

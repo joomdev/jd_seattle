@@ -1,0 +1,56 @@
+/* Services Showcase Features box icon
+=========================== */
+.features-box-icon-wrapper {
+  background: #fff;
+  position: relative;
+  transition: all 0.4s linear; }
+  .features-box-icon-wrapper.shadow-lg {
+    box-shadow: 0px 10px 50px 0px rgba(0, 0, 0, 0.07) !important; }
+  .features-box-icon-wrapper:before, .features-box-icon-wrapper:after {
+    content: "";
+    display: block;
+    position: absolute;
+    height: 40px;
+    width: 40px;
+    opacity: 0;
+    transition: all 0.4s linear; }
+  .features-box-icon-wrapper:before {
+    top: 7px;
+    left: 7px;
+    border-left: 1px solid #fff;
+    border-top: 1px solid #fff; }
+  .features-box-icon-wrapper:after {
+    bottom: 7px;
+    right: 7px;
+    border-right: 1px solid #fff;
+    border-bottom: 1px solid #fff; }
+  .features-box-icon-wrapper .features-box-icon {
+    font-size: 42px;
+    position: relative;
+    z-index: 1; }
+  .features-box-icon-wrapper .features-box-content {
+    position: relative;
+    z-index: 1; }
+  .features-box-icon-wrapper:focus, .features-box-icon-wrapper:hover {
+    background: #1c60ff;
+    color: #fff; }
+    .features-box-icon-wrapper:focus:before, .features-box-icon-wrapper:focus:after, .features-box-icon-wrapper:hover:before, .features-box-icon-wrapper:hover:after {
+      opacity: 1; }
+    .features-box-icon-wrapper:focus:before, .features-box-icon-wrapper:hover:before {
+      width: 70%;
+      height: 60px; }
+    .features-box-icon-wrapper:focus:after, .features-box-icon-wrapper:hover:after {
+      height: 60px;
+      width: 70%; }
+    .features-box-icon-wrapper:focus h4,
+    .features-box-icon-wrapper:focus p, .features-box-icon-wrapper:hover h4,
+    .features-box-icon-wrapper:hover p {
+      color: #fff; }
+  .features-box-icon-wrapper.features-box-hover-none {
+    background: #fff; }
+    .features-box-icon-wrapper.features-box-hover-none:before, .features-box-icon-wrapper.features-box-hover-none:after {
+      border-color: #1c60ff; }
+    .features-box-icon-wrapper.features-box-hover-none:focus p, .features-box-icon-wrapper.features-box-hover-none:hover p {
+      color: #333; }
+
+/*# sourceMappingURL=style.css.map */

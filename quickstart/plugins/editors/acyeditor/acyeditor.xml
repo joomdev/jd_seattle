@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<extension type="plugin" version="2.5" method="upgrade" group="editors">
+	<name>AcyMailing Editor</name>
+	<creationDate>July 2018</creationDate>
+	<version>5.10.3</version>
+	<author>Acyba</author>
+	<authorEmail>dev@acyba.com</authorEmail>
+	<authorUrl>http://www.acyba.com</authorUrl>
+	<copyright>Copyright (C) 2009-2018 ACYBA SAS - All rights reserved.</copyright>
+	<license>GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html</license>
+	<description>This editor will make your life easier when writing Newsletters with AcyMailing</description>
+	<files>
+		<filename plugin="acyeditor">acyeditor.php</filename>
+		<folder>acyeditor</folder>
+	</files>
+	<params addpath="/components/com_acymailing/params">
+		<param name="pasteType" type="radio" default="plain" label="Copy/paste type" description="Choose the way you want to paste text in your newsletter">
+			<option value="plain">Plain text</option>
+			<option value="simpleStyle">Simple styles from word</option>
+		</param>
+		<param name="enterMode" type="radio" default="br" label="Behaviour of the Enter key" description="Choose the separator when pressing the enter key">
+			<option value="p">p</option>
+			<option value="br">br</option>
+			<option value="div">div</option>
+		</param>
+		<param name="inlineSource" type="radio" default="1" label="Display source button for inline editor" description="Choose to display the source button for the editor inb inline mode">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</param>
+	</params>
+	<config>
+		<fields name="params" addfieldpath="/components/com_acymailing/params">
+			<fieldset name="basic">
+				<field name="pasteType" type="radio" default="plain" label="Copy/paste type" description="Choose the way you want to paste text in your newsletter">
+					<option value="plain">Plain text</option>
+					<option value="simpleStyle">Simple styles from word</option>
+				</field>
+				<field name="enterMode" type="radio" default="br" label="Behaviour of the Enter key" description="Choose the separator when pressing the enter key">
+					<option value="p">p</option>
+					<option value="br">br</option>
+					<option value="div">div</option>
+				</field>
+				<field name="inlineSource" type="radio" default="1" label="Display source button for inline editor" description="Choose to display the source button for the editor inb inline mode">
+					<option value="0">No</option>
+					<option value="1">Yes</option>
+				</field>
+			</fieldset>
+		</fields>
+	</config>
+</extension>
+
