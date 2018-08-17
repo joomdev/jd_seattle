@@ -3,13 +3,13 @@
 <extension version="3.1" type="template" client="site" method="upgrade">
    <name>JD Seattle  </name>
    <element>tpl_jdseattle</element>
-   <creationDate>June 2018</creationDate>
+   <creationDate>July 2018</creationDate>
    <author>JoomDev</author>
    <authorEmail>info@joomdev.com</authorEmail>
    <authorUrl>http://www.joomdev.com</authorUrl>
    <copyright>Copyright (C) 2018 Joomdev, Inc. All rights reserved.</copyright>
    <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
-   <version>1.0.0</version>
+   <version>1.1</version>
    <description>TPL_TPL_JDSEATTLE_XML_DESCRIPTION</description>
    <scriptfile>script.php</scriptfile>
    <files>
