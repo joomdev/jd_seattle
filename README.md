@@ -18,10 +18,10 @@ JD Seattle has a very clean and responsive design which allow it to adapt in any
 # ![JD Seattle mockup](https://cdn.joomdev.com/images/templates/landing_page/icons/backed_with_astroid.png) Clean and Lightweight
 Well formatted and optimized code, to keep the template lightweight and have a fast page loading speed.
 
-# ![JD Seattle mockup](https://cdn.joomdev.com/images/templates/landing_page/icons/header_variations.png) Attractive Contact Form
+## ![JD Seattle mockup](https://cdn.joomdev.com/images/templates/landing_page/icons/header_variations.png) Attractive Contact Form
 JD Seattle comes with eye-catching contact form that helps the user to get connected with you.
 
-### ![JD Seattle mockup](https://cdn.joomdev.com/images/templates/landing_page/icons/fully_customizable.png) Engaging Typography
+## ![JD Seattle mockup](https://cdn.joomdev.com/images/templates/landing_page/icons/fully_customizable.png) Engaging Typography
 800+ of Google fonts integrated with template offers unlimited possibilities to play and experiment with typography.
 
 ### Powerful Admin Panel & Header Variations
