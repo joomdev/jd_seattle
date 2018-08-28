@@ -6,6 +6,15 @@
 JD Seattle - Free Multipurpose Business Joomla Template
 ![JD Seattle mockup](https://cdn.joomdev.com/images/jd-seattle-desktop-thumb.jpg)
 
+# Requirements
+* Joomla: 3.8 +
+* PHP : 5.6+
+
+# Browser Support
+| ![Chrome](https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png)|![Firefox](https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png)|![Edge](https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png)|![Safari](https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png)|
+| :---: | :---:	|:---:|:---:|
+| &nbsp;&nbsp;Chrome 64+&nbsp;&nbsp; | &nbsp;&nbsp;Firefox 58+&nbsp;&nbsp; | &nbsp;&nbsp;Edge 14+&nbsp;&nbsp; | &nbsp;&nbsp;Safari 10+ &nbsp;&nbsp; |
+
 ## ![JD Seattle mockup](https://cdn.joomdev.com/images/templates/landing_page/icons/fully_responsive_design.png) Clean and Fully Responsive
 JD Seattle has a very clean and responsive design which allow it to adapt in any mobile screen easily.
 
@@ -25,6 +34,7 @@ JD Seattle comes with eye-catching contact form that helps the user to get conne
 800+ of Google fonts integrated with template offers unlimited possibilities to play and experiment with typography.
 
 ### Powerful Admin Panel & Header Variations
+## ![JD Seattle mockup](https://cdn.joomdev.com/images/templates/jd_seattle/power-full-admin-panel-and-header-verations.jpg)
 Having a powerful admin panel in a free template is very rare but not with this template. JD Seattle got a very powerful admin panel which allows you to have a full control over the website. There are various features likes preloader animation, back to top button, wide/boxed layout etc that are accessible and can be customized from the admin panel with one click.’
 
 Multiple header variations are also included in the template to give the freedom to customize the header as the way you want. There are two modes -Horizontal Mode and Stacked Mode. Further, each of these Header Mode consist of 3 more sub header variations to provide more flexibility.
