@@ -6,16 +6,16 @@
 JD Seattle - Free Multipurpose Business Joomla Template
 ![JD Seattle mockup](https://cdn.joomdev.com/images/jd-seattle-desktop-thumb.jpg)
 
-# ![JD Seattle mockup](https://cdn.joomdev.com/images/templates/landing_page/icons/fully_responsive_design.png) Clean and Fully Responsive
+## ![JD Seattle mockup](https://cdn.joomdev.com/images/templates/landing_page/icons/fully_responsive_design.png) Clean and Fully Responsive
 JD Seattle has a very clean and responsive design which allow it to adapt in any mobile screen easily.
 
-# ![JD Seattle mockup](https://cdn.joomdev.com/images/templates/landing_page/icons/clean_and_lightweight.png) Mega Menu and Offcanvas
+## ![JD Seattle mockup](https://cdn.joomdev.com/images/templates/landing_page/icons/clean_and_lightweight.png) Mega Menu and Offcanvas
 Responsive professional Joomla navigation extension for your website which support unlimited menu items with preset styles.
 
-# ![JD Seattle mockup](https://cdn.joomdev.com/images/templates/landing_page/icons/fully_responsive_design.png) Clean and Fully Responsive
+## ![JD Seattle mockup](https://cdn.joomdev.com/images/templates/landing_page/icons/fully_responsive_design.png) Clean and Fully Responsive
 JD Seattle has a very clean and responsive design which allow it to adapt in any mobile screen easily.
 
-# ![JD Seattle mockup](https://cdn.joomdev.com/images/templates/landing_page/icons/backed_with_astroid.png) Clean and Lightweight
+## ![JD Seattle mockup](https://cdn.joomdev.com/images/templates/landing_page/icons/backed_with_astroid.png) Clean and Lightweight
 Well formatted and optimized code, to keep the template lightweight and have a fast page loading speed.
 
 ## ![JD Seattle mockup](https://cdn.joomdev.com/images/templates/landing_page/icons/header_variations.png) Attractive Contact Form
