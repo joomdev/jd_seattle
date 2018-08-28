@@ -3,4 +3,4 @@
 ![AUR](https://img.shields.io/aur/license/yaourt.svg)
 ![GitHub release](https://img.shields.io/github/release/joomdev/jd_seattle.svg)
 
-# Powerful Admin Panel & Header Variations
+## Powerful Admin Panel & Header Variations
