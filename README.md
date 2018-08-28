@@ -15,23 +15,8 @@ JD Seattle - Free Multipurpose Business Joomla Template
 | :---: | :---:	|:---:|:---:|
 | &nbsp;&nbsp;Chrome 64+&nbsp;&nbsp; | &nbsp;&nbsp;Firefox 58+&nbsp;&nbsp; | &nbsp;&nbsp;Edge 14+&nbsp;&nbsp; | &nbsp;&nbsp;Safari 10+ &nbsp;&nbsp; |
 
-## ![JD Seattle mockup](https://cdn.joomdev.com/images/templates/landing_page/icons/fully_responsive_design.png) Clean and Fully Responsive
-JD Seattle has a very clean and responsive design which allow it to adapt in any mobile screen easily.
-
-## ![JD Seattle mockup](https://cdn.joomdev.com/images/templates/landing_page/icons/clean_and_lightweight.png) Mega Menu and Offcanvas
-Responsive professional Joomla navigation extension for your website which support unlimited menu items with preset styles.
-
-## ![JD Seattle mockup](https://cdn.joomdev.com/images/templates/landing_page/icons/fully_responsive_design.png) Clean and Fully Responsive
-JD Seattle has a very clean and responsive design which allow it to adapt in any mobile screen easily.
-
-## ![JD Seattle mockup](https://cdn.joomdev.com/images/templates/landing_page/icons/backed_with_astroid.png) Clean and Lightweight
-Well formatted and optimized code, to keep the template lightweight and have a fast page loading speed.
-
-## ![JD Seattle mockup](https://cdn.joomdev.com/images/templates/landing_page/icons/header_variations.png) Attractive Contact Form
-JD Seattle comes with eye-catching contact form that helps the user to get connected with you.
-
-## ![JD Seattle mockup](https://cdn.joomdev.com/images/templates/landing_page/icons/fully_customizable.png) Engaging Typography
-800+ of Google fonts integrated with template offers unlimited possibilities to play and experiment with typography.
+| ![JD Seattle mockup](https://cdn.joomdev.com/images/templates/landing_page/icons/fully_responsive_design.png)|![JD Seattle mockup](https://cdn.joomdev.com/images/templates/landing_page/icons/clean_and_lightweight.png)|![JD Seattle mockup](https://cdn.joomdev.com/images/templates/landing_page/icons/fully_responsive_design.png)|![JD Seattle mockup](https://cdn.joomdev.com/images/templates/landing_page/icons/backed_with_astroid.png)|![JD Seattle mockup](https://cdn.joomdev.com/images/templates/landing_page/icons/header_variations.png)|![JD Seattle mockup](https://cdn.joomdev.com/images/templates/landing_page/icons/fully_customizable.png)|
+| :---: | :---:	|:---:|:---:|:---:|:---:|
 
 ### Powerful Admin Panel & Header Variations
 ## ![JD Seattle mockup](https://cdn.joomdev.com/images/templates/jd_seattle/power-full-admin-panel-and-header-verations.jpg)
