@@ -12,17 +12,17 @@ JD Seattle has a very clean and responsive design which allow it to adapt in any
 # ![JD Seattle mockup](https://cdn.joomdev.com/images/templates/landing_page/icons/clean_and_lightweight.png) Mega Menu and Offcanvas
 Responsive professional Joomla navigation extension for your website which support unlimited menu items with preset styles.
 
-# ![JD Seattle mockup](https://cdn.joomdev.com/images/templates/landing_page/icons/backed_with_astroid.png) Clean and Lightweight
-Well formatted and optimized code, to keep the template lightweight and have a fast page loading speed.
-
 # ![JD Seattle mockup](https://cdn.joomdev.com/images/templates/landing_page/icons/fully_responsive_design.png) Clean and Fully Responsive
 JD Seattle has a very clean and responsive design which allow it to adapt in any mobile screen easily.
 
-# ![JD Seattle mockup](https://cdn.joomdev.com/images/templates/landing_page/icons/hikashop.png) Powerful Admin Panel
-Backed with Astroid, JD Seattle comes with features like layout builder, header variations and much more.
+# ![JD Seattle mockup](https://cdn.joomdev.com/images/templates/landing_page/icons/backed_with_astroid.png) Clean and Lightweight
+Well formatted and optimized code, to keep the template lightweight and have a fast page loading speed.
 
-### ![JD Seattle mockup](https://cdn.joomdev.com/images/templates/landing_page/icons/fully_responsive_design.png) Clean and Fully Responsive
-JD Seattle has a very clean and responsive design which allow it to adapt in any mobile screen easily.
+# ![JD Seattle mockup](https://cdn.joomdev.com/images/templates/landing_page/icons/header_variations.png) Attractive Contact Form
+JD Seattle comes with eye-catching contact form that helps the user to get connected with you.
+
+### ![JD Seattle mockup](https://cdn.joomdev.com/images/templates/landing_page/icons/fully_customizable.png) Engaging Typography
+800+ of Google fonts integrated with template offers unlimited possibilities to play and experiment with typography.
 
 ### Powerful Admin Panel & Header Variations
 Having a powerful admin panel in a free template is very rare but not with this template. JD Seattle got a very powerful admin panel which allows you to have a full control over the website. There are various features likes preloader animation, back to top button, wide/boxed layout etc that are accessible and can be customized from the admin panel with one click.’
