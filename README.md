@@ -19,7 +19,7 @@ JD Seattle - Free Multipurpose Business Joomla Template
 
 | ![JD Seattle mockup](https://cdn.joomdev.com/images/templates/landing_page/icons/fully_responsive_design.png)|![JD Seattle mockup](https://cdn.joomdev.com/images/templates/landing_page/icons/clean_and_lightweight.png)|![JD Seattle mockup](https://cdn.joomdev.com/images/templates/landing_page/icons/fully_responsive_design.png)|![JD Seattle mockup](https://cdn.joomdev.com/images/templates/landing_page/icons/backed_with_astroid.png)|![JD Seattle mockup](https://cdn.joomdev.com/images/templates/landing_page/icons/header_variations.png)|![JD Seattle mockup](https://cdn.joomdev.com/images/templates/landing_page/icons/fully_customizable.png)|
 | :---: | :---:	|:---:|:---:|:---:|:---:|
-| &nbsp;&nbsp;Clean and Fully Responsive&nbsp;&nbsp; | &nbsp;&nbsp;Firefox 58+&nbsp;&nbsp; | &nbsp;&nbsp;Edge 14+&nbsp;&nbsp; | &nbsp;&nbsp;Safari 10+ &nbsp;&nbsp; |
+| &nbsp;&nbsp;Clean and Fully Responsive&nbsp;&nbsp; | &nbsp;&nbsp;Mega Menu and Offcanvas&nbsp;&nbsp; | &nbsp;&nbsp;Clean and Lightweight&nbsp;&nbsp; | &nbsp;&nbsp;Powerful Admin Panel&nbsp;&nbsp; | &nbsp;&nbsp;Attractive Contact Form&nbsp;&nbsp; | &nbsp;&nbsp;Engaging Typography&nbsp;&nbsp; |
 
 ### Powerful Admin Panel & Header Variations
 ## ![JD Seattle mockup](https://cdn.joomdev.com/images/templates/jd_seattle/power-full-admin-panel-and-header-verations.jpg)
