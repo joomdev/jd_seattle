@@ -4,6 +4,8 @@
 ![GitHub release](https://img.shields.io/github/release/joomdev/jd_seattle.svg)
 
 JD Seattle - Free Multipurpose Business Joomla Template
+
+
 ![JD Seattle mockup](https://cdn.joomdev.com/images/jd-seattle-desktop-thumb.jpg)
 
 # Requirements
@@ -17,7 +19,7 @@ JD Seattle - Free Multipurpose Business Joomla Template
 
 # Features
 
-| ![JD Seattle mockup](https://cdn.joomdev.com/images/templates/landing_page/icons/fully_responsive_design.png)|![JD Seattle mockup](https://cdn.joomdev.com/images/templates/landing_page/icons/clean_and_lightweight.png)|![JD Seattle mockup](https://cdn.joomdev.com/images/templates/landing_page/icons/fully_responsive_design.png)|![JD Seattle mockup](https://cdn.joomdev.com/images/templates/landing_page/icons/backed_with_astroid.png)|![JD Seattle mockup](https://cdn.joomdev.com/images/templates/landing_page/icons/header_variations.png)|![JD Seattle mockup](https://cdn.joomdev.com/images/templates/landing_page/icons/fully_customizable.png)|
+| ![JD Seattle mockup](https://cdn.joomdev.com/images/templates/landing_page/icons/fully_responsive_design.png)|![JD Seattle mockup](https://cdn.joomdev.com/images/templates/landing_page/icons/clean_and_lightweight.png)|![JD Seattle mockup](https://cdn.joomdev.com/images/templates/landing_page/icons/backed_with_astroid.png)|![JD Seattle mockup](https://cdn.joomdev.com/images/templates/landing_page/icons/hikashop.png)|![JD Seattle mockup](https://cdn.joomdev.com/images/templates/landing_page/icons/header_variations.png)|![JD Seattle mockup](https://cdn.joomdev.com/images/templates/landing_page/icons/fully_customizable.png)|
 | :---: | :---:	|:---:|:---:|:---:|:---:|
 | &nbsp;&nbsp;Clean and Fully Responsive&nbsp;&nbsp; | &nbsp;&nbsp;Mega Menu and Offcanvas&nbsp;&nbsp; | &nbsp;&nbsp;Clean and Lightweight&nbsp;&nbsp; | &nbsp;&nbsp;Powerful Admin Panel&nbsp;&nbsp; | &nbsp;&nbsp;Attractive Contact Form&nbsp;&nbsp; | &nbsp;&nbsp;Engaging Typography&nbsp;&nbsp;|
 | &nbsp;&nbsp;JD Seattle has a very clean and responsive design which allow it to adapt in any mobile screen easily.&nbsp;&nbsp; | &nbsp;&nbsp;Responsive professional Joomla navigation extension for your website which support unlimited menu items with preset styles.&nbsp;&nbsp; | &nbsp;&nbsp;Well formatted and optimized code, to keep the template lightweight and have a fast page loading speed.&nbsp;&nbsp; | &nbsp;&nbsp;Backed with Astroid, JD Seattle comes with features like layout builder, header variations and much more.&nbsp;&nbsp; | &nbsp;&nbsp;JD Seattle comes with eye-catching contact form that helps the user to get connected with you.&nbsp;&nbsp; | &nbsp;&nbsp;800+ of Google fonts integrated with template offers unlimited possibilities to play and experiment with typography.&nbsp;&nbsp; |
