@@ -11,6 +11,7 @@ JD Seattle - Free Multipurpose Business Joomla Template
 # Requirements
 * Joomla: 3.8 +
 * PHP : 5.6+
+* Astroid Framework : 1.2+
 
 # Browser Support
 | ![Chrome](https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png)|![Firefox](https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png)|![Edge](https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png)|![Safari](https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png)|
