@@ -1,0 +1,418 @@
+/*Slick Slider
+=========================== */
+.slick-dotted.slick-slider{
+    margin: 0 !important;
+}
+.slick-arrow {
+    padding: 5px;
+    background: $primary !important;
+    height: auto;
+    width: auto;
+    z-index: 99;
+}
+
+.slick-prev {
+    &::before {
+        content: "\e93c";
+    }
+}
+
+.slick-next {
+    &::before {
+        content: "\e93e";
+    }
+}
+
+.slick-dots {
+    position: static;
+    li {
+        button {
+            padding: 0;
+            line-height: 1;
+            &:before {
+                color: $primary !important;
+                height: auto;
+                font-size: 42px;
+                line-height: 1;
+                top: -10px;
+            }
+        }
+    }
+}
+
+/* Skew block
+=========================== */
+
+.skew-block {
+    position: relative;
+    overflow: hidden;
+    >div {
+        position: relative;
+        z-index: 1;
+    }
+    &:after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background-color: $primary;
+        display: block;
+    }
+    &.skew-top {
+        &:after {
+            @include transform(translateY(5vw) skewY(-5deg));
+        }
+    }
+    &.skew-bottom {
+        &:after {
+            @include transform(translateY(-5vw) skewY(-5deg));
+        }
+    }
+}
+
+/* Banner
+=========================== */
+
+.master-slider {
+    margin: 0 !important;
+    .master-banner-bg {
+        background-color: $primary;
+        color: $white;
+        background-position: center center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        min-height: 700px;
+        padding: 170px 35px;
+    }
+    .slick-dots {
+        padding: 100px 0;
+        bottom: 0px !important;
+        position: absolute;
+        z-index: 99;
+    }
+    .slick-prev {
+        left: 10px;
+    }
+    .slick-next {
+        right: 10px;
+    }
+}
+
+/* Counter
+=========================== */
+
+.counter-overlap {
+    margin-top: -80px;
+    position: relative;
+    z-index: 99;
+}
+
+.counter-sub-container {
+    .counter-wrapper {
+        .counter-icon {
+            font-size: 52px;
+            line-height: 1;
+        }
+        .counter-text-container {
+            .counter-title {
+                margin: 0 0 5px;
+            }
+            .counter-number {
+                font-size: 40px;
+                line-height: 1;
+                margin: 0;
+            }
+        }
+    }
+}
+
+/* box icon
+=========================== */
+
+.box-icon-wrapper {
+    .box-icon {
+        font-size: 42px;
+        position: absolute;
+        background: $white;
+        top: -15px;
+        left: -5px;
+        border: 1px solid rgba(71, 93, 255, 0.25);
+        color: $primary;
+        @include transition(all 0.5s linear);
+    }
+    &:hover,
+    &:focus {
+        .box-icon {
+            background: $primary;
+            color: $white;
+        }
+    }
+}
+
+/* Features box icon
+=========================== */
+
+.features-box-icon-wrapper {
+    background: $white;
+    position: relative;
+    @include transition(all 0.4s linear);
+    &:before,
+    &:after {
+        content: "";
+        display: block;
+        position: absolute;
+        height: 40px;
+        width: 40px;
+        opacity: 0;
+        @include transition(all 0.4s linear);
+    }
+    &:before {
+        top: 7px;
+        left: 7px;
+        border-left: 1px solid $white;
+        border-top: 1px solid $white;
+    }
+    &:after {
+        bottom: 7px;
+        right: 7px;
+        border-right: 1px solid $white;
+        border-bottom: 1px solid $white;
+    }
+    .features-box-icon {
+        font-size: 42px;
+        position: relative;
+        z-index: 1;
+    }
+    .features-box-content {
+        position: relative;
+        z-index: 1;
+    }
+    &:focus,
+    &:hover {
+        background: $primary;
+        color: $white;
+        &:before,
+        &:after {
+            opacity: 1;
+        }
+        &:before {
+            width: 70%;
+            height: 60px;
+        }
+        &:after {
+            height: 60px;
+            width: 70%;
+        }
+        h4,
+        p {
+            color: $white;
+        }
+    }
+    &.features-box-hover-none {
+        background: $white;
+        &:before,
+        &:after {
+            border-color: $primary;
+        }
+        &:focus,
+        &:hover {
+            p {
+                color: $indigo;
+            }
+        }
+    }
+}
+
+/* Features process
+=========================== */
+
+div div[class*="col-"] {
+    .process-wrapper {
+        .pro-icon {
+            position: relative;
+            background: $primary;
+            font-size: 42px;
+            height: 100px;
+            width: 100px;
+            text-align: center;
+            border: 1px solid $white;
+            line-height: 104px;
+            @include transition(all 0.3s ease);
+            z-index: 1;
+            &:after {
+                content: attr(title); // content: "1";
+                position: absolute;
+                top: -20px;
+                left: -20px;
+                height: 40px;
+                width: 40px;
+                background: $white;
+                color: $primary;
+                font-size: 26px;
+                line-height: 40px;
+                border-radius: 50% 50% 0 50%;
+                @include box-shadow($box-shadow-lg !important);
+            }
+        }
+        &:hover {
+            .pro-icon {
+                color: $primary;
+                @include box-shadow(0 0 25px 50px $white inset);
+            }
+        }
+        >i {
+            position: absolute;
+            right: -24px;
+            top: 20%;
+            transform: translateY(-20%);
+            font-size: 52px;
+            line-height: 1;
+        }
+    }
+    &:last-child {
+        >.process-wrapper {
+            >i {
+                display: none !important;
+            }
+        }
+    }
+}
+
+/* Testimonial Wrapper
+=========================== */
+
+.testimonial-wrapper {
+    margin-top: -150px;
+    .testimonial-container {
+        overflow: hidden;
+        position: relative;
+        .slide-content {
+            .author {
+                position: relative;
+                padding: 9px 0px 45px 89px;
+                .author-img {
+                    position: absolute;
+                    overflow: hidden;
+                    border-radius: 50%;
+                    background: #eeeeee;
+                    width: 70px;
+                    height: 70px;
+                    left: 0px;
+                    top: 0px;
+                    img {
+                        width: 100%;
+                    }
+                }
+                .author-info {
+                    position: relative;
+                    display: inline-block;
+                    h5 {
+                        margin: 0;
+                    }
+                }
+            }
+        }
+    }
+    .slick-prev {
+        left: 5px;
+    }
+    .slick-next {
+        right: 5px;
+    }
+}
+
+/* Card Team
+=========================== */
+
+.card-team {
+    position: relative;
+    .card-body {
+        position: absolute;
+        background: rgba($white, 0.9);
+        max-width: 90%;
+        max-height: 95%;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        opacity: 0;
+        visibility: hidden;
+        padding-bottom: 60px !important;
+        @include transition(all 0.3s ease);
+        overflow: hidden;
+    }
+    .card-footer {
+        position: relative;
+        z-index: 1;
+        .social-icon {
+            ul {
+                li {
+                    display: inline-block;
+                    &:not(:last-child) {
+                        margin-right: 10px;
+                    }
+                    a {
+                        text-align: center;
+                        display: block;
+                        padding: 5px 10px;
+                        min-width: 40px;
+                        @include transition(all 0.3s ease);
+                    }
+                }
+            }
+        }
+    }
+    &:focus,
+    &:hover {
+        .card-body {
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+}
+
+/* clients 
+=========================== */
+
+.clients-images {
+    img {
+        @include transform(scale(1));
+        @include transition(all 0.3s ease);
+        &:hover {
+            @include transform(scale(1.1));
+        }
+    }
+}
+
+/* Form
+=========================== */
+
+.footer-form-wrapper {
+    margin-top: -130px;
+}
+
+/* Map
+=========================== */
+
+.contact-map {
+    filter: grayscale(100%);
+}
+
+/* Article padding remove
+=========================== */
+.article-padding-none {
+    .astroid-component-section {
+        &.py-5 {
+            padding-top: 0 !important;
+            padding-bottom: 0 !important;
+        }
+        .astroid-component {
+            &.mb-5 {
+                margin-bottom: 0 !important;
+            }
+        }
+    }
+}

@@ -23,6 +23,10 @@ class plgSystemNextend2 extends JPlugin {
 
     function onAfterRender() {
 
+        require_once dirname(__FILE__) . '/joomla3.php';
+
+        $joomla3Assets = new SystemNextend2Joomla3Assets();
+
         if (class_exists('JEventDispatcher', false)) {
             $dispatcher = JEventDispatcher::getInstance();
             $dispatcher->trigger('onNextendBeforeCompileHead');
@@ -31,6 +35,8 @@ class plgSystemNextend2 extends JPlugin {
                     ->triggerEvent('onNextendBeforeCompileHead');
         }
 
+        $joomla3Assets->process();
+
 
         ob_start();
         if (class_exists('N2AssetsManager')) {
@@ -38,14 +44,14 @@ class plgSystemNextend2 extends JPlugin {
             echo N2AssetsManager::getJs();
         }
         $head = ob_get_clean();
-        if ($head != '') {
+        if (!empty($head)) {
 
             $application = JFactory::getApplication();
             $body        = $application->getBody();
 
             $parts = preg_split('/<\/head>/', $body, 2);
 
-            $body = implode($head . '</head>', $parts);
+            $body = implode($head . $joomla3Assets->renderHead() . '</head>', $parts);
 
             $application->setBody($body);
         }

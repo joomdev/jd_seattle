@@ -64,7 +64,9 @@ abstract class N2SmartSliderComponentOwnerAbstract {
         );
     }
 
-    public abstract function addScript($script);
+    public abstract function addScript($script, $name = false);
+
+    public abstract function isScriptAdded($name);
 
     public abstract function addLess($file, $context);
 

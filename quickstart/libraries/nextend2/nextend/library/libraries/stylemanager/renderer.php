@@ -244,7 +244,29 @@ N2StyleRenderer::$mode = array(
             '@pre@selector'                                => '@tab0',
             '@pre@selector.n2-active, @pre@selector:HOVER' => '@tab1'
         )
-    )
+    ),
+    'highlight'      => array(
+        'id'            => 'highlight',
+        'label'         => n2_('Highlight'),
+        'tabs'          => array(
+            n2_('Normal'),
+            n2_('Highlight'),
+            n2_('Hover')
+        ),
+        'renderOptions' => array(
+            'combined' => true
+        ),
+        'preview'       => '<div class="{fontClassName}">' . n2_('Button') . '</div>',
+        'selectors'     => $frontendAccessibility ? array(
+            '@pre@selector'                                                                                                  => '@tab0',
+            '@pre@selector .n2-highlighted'                                                                                  => '@tab1',
+            '@pre@selector .n2-highlighted:HOVER, @pre@selector .n2-highlighted:ACTIVE, @pre@selector .n2-highlighted:FOCUS' => '@tab2'
+        ) : array(
+            '@pre@selector'                                                             => '@tab0',
+            '@pre@selector .n2-highlighted, @pre@selector .n2-highlighted:FOCUS'        => '@tab1',
+            '@pre@selector .n2-highlighted:HOVER, @pre@selector .n2-highlighted:ACTIVE' => '@tab2'
+        )
+    ),
 );
 
 N2Loader::import('libraries.image.color');
@@ -287,7 +309,7 @@ class N2Style {
         $hex   = N2Color::hex82hex($v);
         $style = 'background: #' . $hex[0] . ';';
         if ($hex[1] != 'ff') {
-            $rgba = N2Color::hex2rgba($v);
+            $rgba  = N2Color::hex2rgba($v);
             $style .= 'background: RGBA(' . $rgba[0] . ',' . $rgba[1] . ',' . $rgba[2] . ',' . round($rgba[3] / 127, 2) . ');';
         }
 
@@ -321,9 +343,9 @@ class N2Style {
     public function parseBorder($v) {
         $border = explode('|*|', $v);
         $style  = 'border-width: ' . $border[0] . 'px;';
-        $style .= 'border-style: ' . $border[1] . ';';
-        $rgba = N2Color::hex2rgba($border[2]);
-        $style .= 'border-color: #' . substr($border[2], 0, 6) . "; border-color: RGBA(" . $rgba[0] . ',' . $rgba[1] . ',' . $rgba[2] . ',' . round($rgba[3] / 127, 2) . ');';
+        $style  .= 'border-style: ' . $border[1] . ';';
+        $rgba   = N2Color::hex2rgba($border[2]);
+        $style  .= 'border-color: #' . substr($border[2], 0, 6) . "; border-color: RGBA(" . $rgba[0] . ',' . $rgba[1] . ',' . $rgba[2] . ',' . round($rgba[3] / 127, 2) . ');';
 
         return $style;
     }

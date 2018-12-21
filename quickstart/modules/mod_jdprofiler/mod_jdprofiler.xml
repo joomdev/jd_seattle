@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="3.1" client="site" method="upgrade">
+   <name>mod_jdprofiler</name>
+   <author>JoomDev</author>
+   <creationDate>Oct 2018</creationDate>
+   <copyright>Copyright (C) 2005 - 2017 Open Source Matters. All rights reserved.</copyright>
+   <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+   <authorEmail>info@joomdev.com</authorEmail>
+   <authorUrl>www.joomdev.com</authorUrl>
+   <version>1.0</version>
+   <description>MOD_JDPROFILER_XML_DESCRIPTION</description>
+   <updateservers>
+		<server type="extension" name="mod_jdprofiler" priority="1">https://cdn.joomdev.com/extensionupdates/mod_jdprofiler.xml</server>
+	</updateservers>
+   <files>
+      <filename module="mod_jdprofiler">mod_jdprofiler.php</filename>
+      <folder>tmpl</folder>
+      <folder>fields</folder>
+      <filename>helper.php</filename>
+   </files>
+    <media folder="media" destination="mod_jdprofiler">
+      <folder>assets</folder>
+    </media>
+   <languages folder="language">
+      <language tag="en-GB">en-GB/en-GB.mod_jdprofiler.ini</language>
+      <language tag="en-GB">en-GB/en-GB.mod_jdprofiler.sys.ini</language>
+   </languages>
+   <config>
+      <fields name="params">
+         <fieldset name="basic" addfieldpath="/modules/mod_jdprofiler/fields">
+            <field
+                name="team"
+                type="sql"
+                query="SELECT id, title FROM #__jdprofiler_team  where state=1"
+                label="MOD_PROFILE_SELECT_TEAM_LABEL"
+                key_field="id"
+                value_field="title"
+                description="MOD_JDPROFILER_FILTER_DESIGNATION_DESC"
+            />
+             <field
+               name="template"
+               type="list"
+               label="MOD_JDPROFILER_SELECT_TEMPLATE_LABEL"
+               description="MOD_JDPROFILER_SELECT_TEMPLATE_DESC"
+               default="grid_layout"
+            >
+               <option value="grid_layout">MOD_JDPROFILER_SELECT_TEMPLATE_OPTION_GRID</option>
+               <option value="carousel_layout">MOD_JDPROFILER_SELECT_TEMPLATE_OPTION_CAROUSEL</option>
+               <option value="layout/list/list_layout">MOD_JDPROFILER_SELECT_TEMPLATE_OPTION_LIST</option>
+               <option value="layout/table/table">MOD_JDPROFILER_SELECT_TEMPLATE_OPTION_TABLE</option>
+            </field>   
+            <field name="grid_template" type="jdthumbnailradio" label="MOD_JDPROFILER_SELECT_VIEW"  showon="template:grid_layout" description="MOD_JDPROFILER_SELECT_VIEW" default="layout/grid/grid_layout">
+                <option value="layout/grid/grid_layout">media/mod_jdprofiler/assets/images/layouts/layout-1.svg|  Grid Circle Layout</option>
+                <option disabled="true" value="grid_hover_layout">media/mod_jdprofiler/assets/images/layouts/layout-4.jpg|   Grid Hover Layout </option>
+                <option disabled="true" value="grid_hover_layout">media/mod_jdprofiler/assets/images/layouts/layout-4.jpg|   Grid Hover Layout </option>
+                <option disabled="true" value="grid_hover_layout">media/mod_jdprofiler/assets/images/layouts/layout-4.jpg|   Grid Hover Layout </option>
+             </field>
+            <field name="carousel_template" type="jdthumbnailradio" label="MOD_JDPROFILER_SELECT_VIEW"  showon="template:carousel_layout" description="MOD_JDPROFILER_SELECT_VIEW" default="layout/carousel/carousel_layout">
+                <option value="layout/carousel/carousel_layout">media/mod_jdprofiler/assets/images/layouts/layout-2.svg| Carousel Circle Layout</option>
+                <option  disabled="true" value="carousel_layout">media/mod_jdprofiler/assets/images/layouts/layout-4.jpg| Carousel Circle Layout</option>
+                <option  disabled="true" value="carousel_layout">media/mod_jdprofiler/assets/images/layouts/layout-4.jpg| Carousel Circle Layout</option>
+                <option  disabled="true" value="carousel_layout">media/mod_jdprofiler/assets/images/layouts/layout-4.jpg| Carousel Circle Layout</option>
+             </field>
+            <field name="list_template" type="jdthumbnailradio" label="MOD_JDPROFILER_SELECT_VIEW"  showon="template:layout/list/list_layout" description="MOD_JDPROFILER_SELECT_VIEW" default="layout/list/list_template">
+                <option value="layout/list/list_template">media/mod_jdprofiler/assets/images/layouts/layout-3.svg| Carousel Circle Layout</option>
+                <option  disabled="true" value="list_template">media/mod_jdprofiler/assets/images/layouts/layout-4.jpg| Carousel Circle Layout</option>
+                <option  disabled="true" value="list_template">media/mod_jdprofiler/assets/images/layouts/layout-4.jpg| Carousel Circle Layout</option>
+                <option  disabled="true" value="list_template">media/mod_jdprofiler/assets/images/layouts/layout-4.jpg| Carousel Circle Layout</option>
+             </field>
+             <field name="table_template" type="jdthumbnailradio" label="MOD_JDPROFILER_SELECT_VIEW"  showon="template:layout/table/table" description="MOD_JDPROFILER_SELECT_VIEW" default="layout/template/table_template">
+                <option value="layout/template/table_template">media/mod_jdprofiler/assets/images/layouts/layout-3.svg| Carousel Circle Layout</option>
+                <option  disabled="true" value="table_template">media/mod_jdprofiler/assets/images/layouts/layout-4.jpg| Carousel Circle Layout</option>
+                <option  disabled="true" value="table_template">media/mod_jdprofiler/assets/images/layouts/layout-4.jpg| Carousel Circle Layout</option>
+                <option  disabled="true" value="table_template">media/mod_jdprofiler/assets/images/layouts/layout-4.jpg| Carousel Circle Layout</option>
+             </field>
+            <field
+               name="grid_coloumns"
+               type="list"
+			         showon="template:grid_layout[OR]template:carousel_layout"
+               label="MOD_JDPROFILER_GRID_COLUMNS_LABEL"
+               description="MOD_JDPROFILER_GRID_COLUMNS_DESC"
+               default="4"
+               class="btn-group btn-group-yesno"
+            >
+               <option value="12">J1</option>
+               <option value="6">J2</option>
+               <option value="4">J3</option>
+               <option value="3">J4</option>
+               <option value="2">J6</option>
+            </field>
+            <field
+               name="gutter_space"
+               type="radio"
+                showon="template:grid_layout[OR]template:carousel_layout"
+               label="MOD_JDPROFILER_GUTTER_SPACE_LABEL"
+               description="MOD_JDPROFILER_GUTTER_SPACE_DESC"
+               default=""
+               class="btn-group btn-group-yesno"
+            >
+              <option value="">MOD_JDPROFILER_GUTTER_SPACE_OPTIONS_DEFAULT</option>
+               <option value="nomargin">MOD_JDPROFILER_GUTTER_SPACE_OPTIONS_NOMARGIN</option>
+               <option value="custom">MOD_JDPROFILER_GUTTER_SPACE_OPTIONS_CUSTOM</option>
+             </field> 
+            <field
+               name="margin"
+               type="number"
+               showon="gutter_space:custom"
+               min="1"
+               max="100"
+               label="MOD_JDPROFILER_MARGIN_LABEL"
+               description="MOD_JDPROFILER_MARGIN_DESC"
+               default="1"
+            />
+            
+            <field
+               name="display_all"
+               type="radio"
+               label="MOD_JDPROFILER_DISPLAY_ALL_LABEL"
+               description="MOD_JDPROFILER_DISPLAY_ALL_DESC"
+               default="1"
+               class="btn-group btn-group-yesno"
+            >
+               <option value="1">JYES</option>
+               <option value="0">JNO</option>
+            </field>
+            <field
+               name="limit"
+               type="number"
+               min="1"
+               showon="display_all:0"
+               label="MOD_JDPROFILER_DISPLAY_PROFILE_LABEL"
+               description="MOD_JDPROFILER_DISPLAY_PROFILE_DESC"
+               default="1"
+               class="btn-group btn-group-yesno"
+            />
+         </fieldset>
+         <fieldset name="options">
+            <field
+               name="display_name"
+               type="radio"
+               label="MOD_JDPROFILER_DISPLAY_NAME_LABEL"
+               description="MOD_JDPROFILER_DISPLAY_NAME_DESC"
+               default="1"
+               class="btn-group btn-group-yesno"
+            >
+               <option value="1">JYES</option>
+               <option value="0">JNO</option>
+            </field>
+            <field
+               name="display_designation"
+               type="radio"
+               label="MOD_JDPROFILER_DISPLAY_DESIGNATION_LABEL"
+               description="MOD_JDPROFILER_DISPLAY_DESIGNATION_DESC"
+               default="1"
+               class="btn-group btn-group-yesno"
+            >
+               <option value="1">JYES</option>
+               <option value="0">JNO</option>
+            </field>
+            <field
+               name="display_sbio"
+               type="radio"
+               label="Display Short Bio"
+               description="Display Short Bio"
+               default="1"
+               class="btn-group btn-group-yesno"
+            >
+               <option value="1">JYES</option>
+               <option value="0">JNO</option>
+            </field>
+            <field
+               name="show_Contact"
+               type="radio"
+               label="MOD_JDPROFILER_DISPLAY_CONTACT_LABEL"
+               description="MOD_JDPROFILER_DISPLAY_CONTACT_DESC"
+               default="1"
+               class="btn-group btn-group-yesno"
+            >
+               <option value="1">JYES</option>
+               <option value="0">JNO</option>
+            </field>
+            <field
+               name="show_socialsIcon"
+               type="radio"
+               label="MOD_JDPROFILER_DISPLAY_ICON_LABEL"
+               description="MOD_JDPROFILER_DISPLAY_ICON_DESC"
+               default="1"
+               class="btn-group btn-group-yesno"
+            >
+               <option value="1">JYES</option>
+               <option value="0">JNO</option>
+            </field>
+            <field
+               name="new_tab"
+               type="radio"
+               showon="show_socialsIcon:1"
+               label="MOD_JDPROFILER_OPEN_IN_NEW_TAB_LABEL"
+               description="MOD_JDPROFILER_OPEN_IN_NEW_TAB_DESC"
+               default="1"
+               class="btn-group btn-group-yesno"
+            >
+               <option value="1">JYES</option>
+               <option value="0">JNO</option>
+            </field>
+            <field
+               name="IconStyle"
+               type="radio"
+               showon="show_socialsIcon:1"
+               label="MOD_JDPROFILER_ICON_STYLE_LABEL"
+               description="MOD_JDPROFILER_ICON_STYLE_DESC"
+               default="none"
+               class="btn-group btn-group-yesno"
+            >
+               <option value="circle">MOD_JDPROFILER_CIRCLE</option>
+               <option value="rounded">MOD_JDPROFILER_ROUNDED</option> 
+               <option value="square">MOD_JDPROFILER_SQUARE</option>
+               <option value="none">MOD_JDPROFILER_NONE</option>
+            </field>
+            <field
+               name="DisplayBullit"
+               type="radio"
+               label="MOD_JDPROFILER_DISPLAY_BULETS_LABEL"
+               showon="template:carousel_layout[OR]template:carousel_circle_layout"
+               description="MOD_JDPROFILER_DISPLAY_BULETS_DESC"
+               default="1"
+               class="btn-group btn-group-yesno"
+            >
+               <option value="1">JYES</option>
+               <option value="0">JNO</option>
+            </field>
+            <field
+               name="DisplayArrow"
+               type="radio"
+               showon="template:carousel_layout[OR]template:carousel_circle_layout"
+               label="MOD_JDPROFILER_DISPLAY_ARROW_LABEL"
+               description="MOD_JDPROFILER_DISPLAY_ARROW_DESC"
+               default="1"
+               class="btn-group btn-group-yesno"
+            >
+               <option value="1">JYES</option>
+               <option value="0">JNO</option>
+            </field>
+         </fieldset>
+         <fieldset name="advanced">
+           	<field name="load_bootstrap" type="radio" label="MOD_JD_LOAD_BOOTSTRAP_LABEL" description="MOD_JD_LOAD_BOOTSTRAP_LABEL" default="0" class="btn-group btn-group-yesno">
+                <option value="1">JYES</option>
+                <option value="0">JNO</option>
+			</field>
+			<field name="load_fontawesome" type="radio" label="MOD_JD_LOAD_FONT_AWESOME_LABEL" description="MOD_JD_LOAD_BOOTSTRAP_DESC" default="0" class="btn-group btn-group-yesno">
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+             <field name="moduleclass_sfx" type="textarea" label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL" description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC" rows="3"/>
+         </fieldset>
+      </fields>
+   </config>
+</extension>

@@ -1,0 +1,25 @@
+.header-container-wraper {
+	z-index: 999;
+	.top-header-navbar {
+		color: $white;	
+		ul {
+			li {
+				a {
+					color: $white;
+					position: relative;
+				}
+			}
+		}
+	}
+	.astroid-contact-info {
+		a {
+			color: $white;
+		}
+	}
+}
+
+@include media-breakpoint-down(md) {
+	.astroid-header-section {
+		background: #fff;
+	}
+}

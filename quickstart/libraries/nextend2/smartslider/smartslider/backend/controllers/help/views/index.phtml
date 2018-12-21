@@ -1,4 +1,5 @@
 <?php
+N2Html::topBar();
 
 $conflictsModel = new N2SmartsliderConflictsModel();
 $conflicts      = $conflictsModel->getConflicts();
@@ -24,7 +25,11 @@ $conflicts      = $conflictsModel->getConflicts();
                         <p><?php echo $conflict; ?></p>
                     <?php endforeach; ?>
                 <?php endif; ?>
+                <p style="margin-top:30px;">
+                    <a href="<?php echo $this->appType->router->createUrl('help/testApi'); ?>" class="n2-button n2-button-normal n2-button-m n2-radius-s n2-button-blue n2-h4 n2-b n2-uc">Test API connection</a>
+                </p>
             </div>
+
         </div>
     </div>
 </div>
@@ -59,30 +64,30 @@ $conflicts      = $conflictsModel->getConflicts();
 <?php
 $selectedArticles = array(
     array(
-        'https://smartslider3.helpscoutdocs.com/article/54-free-version'   => 'Free vs Pro',
+        'https://smartslider3.helpscoutdocs.com/article/54-free-version'                           => 'Free vs Pro',
         'https://smartslider3.helpscoutdocs.com/article/484-updating-the-free-version-to-the-full' => 'How to update to the Pro version?',
-        'https://smartslider3.helpscoutdocs.com/article/1454-publish' => 'How can I publish my sliders?',
-        'https://smartslider3.helpscoutdocs.com/article/1101-license' => 'How can I add the license key?',
-        'https://smartslider3.helpscoutdocs.com/article/1522-canvas-vs-content-mode' => 'Content vs Canvas',
-        'https://smartslider3.helpscoutdocs.com/article/56-slider-settings-general#fillmode' => 'Why does the slider crop my images?',
-        'https://smartslider3.helpscoutdocs.com/article/185-how-can-i-speed-up-my-website'   => 'How can I speed up my site?',
+        'https://smartslider3.helpscoutdocs.com/article/1454-publish'                              => 'How can I publish my sliders?',
+        'https://smartslider3.helpscoutdocs.com/article/1101-license'                              => 'How can I add the license key?',
+        'https://smartslider3.helpscoutdocs.com/article/1522-canvas-vs-content-mode'               => 'Content vs Canvas',
+        'https://smartslider3.helpscoutdocs.com/article/56-slider-settings-general#fillmode'       => 'Why does the slider crop my images?',
+        'https://smartslider3.helpscoutdocs.com/article/185-how-can-i-speed-up-my-website'         => 'How can I speed up my site?',
     ),
     array(
-        'https://smartslider3.helpscoutdocs.com/article/60-autoplay'   => 'Where is the autoplay?',
-        'https://smartslider3.helpscoutdocs.com/article/1372-all-video-options' => 'How can I add my videos?',
-        'https://smartslider3.helpscoutdocs.com/article/299-using-your-own-fonts' => 'Can I use my fonts in the slider?',
-        'https://smartslider3.helpscoutdocs.com/article/88-generator-functionality' => 'Dynamic slide does not refresh',
-        'https://smartslider3.helpscoutdocs.com/article/371-link' => 'Can I create a lightbox?',
-        'https://smartslider3.helpscoutdocs.com/article/1275-cant-make-my-fullpage-slider-responsive?_ga=2.2863280.1497016966.1529905256-1631431887.1528198647' => 'Full page slider responsiveness',        
-        'https://smartslider3.helpscoutdocs.com/article/1473-how-to-disable-the-slider-on-mobile' => 'How to disable the slider on moble?',
+        'https://smartslider3.helpscoutdocs.com/article/60-autoplay'                                                                                            => 'Where is the autoplay?',
+        'https://smartslider3.helpscoutdocs.com/article/1372-all-video-options'                                                                                 => 'How can I add my videos?',
+        'https://smartslider3.helpscoutdocs.com/article/299-using-your-own-fonts'                                                                               => 'Can I use my fonts in the slider?',
+        'https://smartslider3.helpscoutdocs.com/article/88-generator-functionality'                                                                             => 'Dynamic slide does not refresh',
+        'https://smartslider3.helpscoutdocs.com/article/371-link'                                                                                               => 'Can I create a lightbox?',
+        'https://smartslider3.helpscoutdocs.com/article/1275-cant-make-my-fullpage-slider-responsive?_ga=2.2863280.1497016966.1529905256-1631431887.1528198647' => 'Full page slider responsiveness',
+        'https://smartslider3.helpscoutdocs.com/article/1473-how-to-disable-the-slider-on-mobile'                                                               => 'How to disable the slider on moble?',
     ),
     array(
-        'https://smartslider3.helpscoutdocs.com/article/1195-how-big-images-should-i-use' => 'How big images should I use?',
-        'https://smartslider3.helpscoutdocs.com/article/1556-video-autoplay-handling'   => 'Why isn\'t my video autoplaying?',
-        'https://smartslider3.helpscoutdocs.com/category/1422-events' => 'Event tutorials',
+        'https://smartslider3.helpscoutdocs.com/article/1195-how-big-images-should-i-use'                                  => 'How big images should I use?',
+        'https://smartslider3.helpscoutdocs.com/article/1556-video-autoplay-handling'                                      => 'Why isn\'t my video autoplaying?',
+        'https://smartslider3.helpscoutdocs.com/category/1422-events'                                                      => 'Event tutorials',
         'https://smartslider3.helpscoutdocs.com/article/1534-what-to-do-with-smart-slider-3-when-you-are-moving-a-website' => 'What to do after migration',
-        'https://smartslider3.helpscoutdocs.com/article/1526-custom-javascript-and-php-codes' => 'Developer documentation',
-        'https://smartslider3.helpscoutdocs.com/collection/205-troubleshooting' => 'Troubleshooting',
+        'https://smartslider3.helpscoutdocs.com/article/1526-custom-javascript-and-php-codes'                              => 'Developer documentation',
+        'https://smartslider3.helpscoutdocs.com/collection/205-troubleshooting'                                            => 'Troubleshooting',
     )
 );
 
@@ -117,6 +122,11 @@ $selectedArticles = array(
         'Browser: ' . $_SERVER['HTTP_USER_AGENT'],
         ''
     );
+
+    if ($conflictsModel->curlLog) {
+        $debug   = array_merge($debug, $conflictsModel->curlLog);
+        $debug[] = '';
+    }
 
     if (function_exists('ini_get')) {
         $debug[] = 'PHP: ' . PHP_VERSION;

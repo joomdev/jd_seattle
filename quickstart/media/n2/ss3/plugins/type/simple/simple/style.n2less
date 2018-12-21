@@ -110,13 +110,11 @@
       perspective: @perspective;
     }
 
-    @supports (-ms-ime-align:auto) {
-      .n2-ss-slide {
-        -webkit-perspective: none;
-        perspective: none;
-        -webkit-transform: perspective(@perspective);
-        transform: perspective(@perspective);
-      }
+    &[data-ie] .n2-ss-slide {
+      -webkit-perspective: none;
+      perspective: none;
+      -webkit-transform: perspective(@perspective);
+      transform: perspective(@perspective);
     }
   }
   .ssPerspective();

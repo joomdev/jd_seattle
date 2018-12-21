@@ -50,7 +50,7 @@ class N2SSPluginWidgetArrowImage extends N2SSPluginWidgetAbstract {
         ));
         new N2ElementOnOff($previous, 'widget-arrow-previous-hover', n2_('Hover'), 0, array(
             'relatedFields' => array(
-                'widget-arrow-previous-hover-color'
+                'sliderwidget-arrow-previous-hover-color'
             )
         ));
         new N2ElementColor($previous, 'widget-arrow-previous-hover-color', n2_('Hover color'), '', array(
@@ -214,20 +214,14 @@ class N2SSPluginWidgetArrowImage extends N2SSPluginWidgetAbstract {
 
         if ($imageHover === null) {
             $image = N2Html::image($image, $alt, array(
-                'class'        => 'n2-ow',
-                'data-no-lazy' => '1',
-                'data-hack'    => 'data-lazy-src'
-            ));
+                    'class' => 'n2-ow'
+                ) + N2Html::getExcludeLazyLoadAttributes());
         } else {
             $image = N2Html::image($image, $alt, array(
-                    'class'        => 'n2-arrow-normal-img n2-ow',
-                    'data-no-lazy' => '1',
-                    'data-hack'    => 'data-lazy-src'
-                )) . N2Html::image($imageHover, $alt, array(
-                    'class'        => 'n2-arrow-hover-img n2-ow',
-                    'data-no-lazy' => '1',
-                    'data-hack'    => 'data-lazy-src'
-                ));
+                        'class' => 'n2-arrow-normal-img n2-ow'
+                    ) + N2Html::getExcludeLazyLoadAttributes()) . N2Html::image($imageHover, $alt, array(
+                        'class' => 'n2-arrow-hover-img n2-ow'
+                    ) + N2Html::getExcludeLazyLoadAttributes());
         }
 
         $label = '';
@@ -262,9 +256,9 @@ class N2SSPluginWidgetArrowImage extends N2SSPluginWidgetAbstract {
                 'aria-label' => $label,
                 'tabindex'   => '0'
             ), N2Html::tag('div', array(
-                'class' => $styleClass
+                'class' => $styleClass . ' n2-resize'
             ), $image) . N2Html::tag('div', array(
-                'class' => $styleClass . ' n2-active'
+                'class' => $styleClass . ' n2-active' . ' n2-resize'
             ), $image));
     }
 

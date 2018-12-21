@@ -6,7 +6,7 @@ class N2SSPluginItemFactoryButton extends N2SSPluginItemFactoryAbstract {
 
     public $type = 'button';
 
-    protected $priority = 3;
+    protected $priority = 4;
 
     private $font = 1103;
     private $style = 1101;
@@ -15,7 +15,7 @@ class N2SSPluginItemFactoryButton extends N2SSPluginItemFactoryAbstract {
 
     public function __construct() {
         $this->title = n2_x('Button', 'Slide item');
-        $this->group = n2_('Basic');
+        $this->group = n2_x('Content', 'Layer group');
     }
 
     private function initDefaultFont() {

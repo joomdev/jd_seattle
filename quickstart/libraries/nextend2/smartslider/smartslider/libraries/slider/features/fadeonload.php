@@ -19,16 +19,19 @@ class N2SmartSliderFeatureFadeOnLoad {
 
     public $customSpinner = '';
 
+    public $placeholderBackground = '';
+
     public function __construct($slider) {
 
         $this->slider = $slider;
 
-        $this->fadeOnLoad        = intval($slider->params->get('fadeOnLoad', 1));
-        $this->fadeOnScroll      = intval($slider->params->get('fadeOnScroll', 0));
-        $this->playWhenVisible   = intval($slider->params->get('playWhenVisible', 1));
-        $this->playWhenVisibleAt = max(0, min(100, intval($slider->params->get('playWhenVisibleAt', 50)))) / 100;
-        $this->placeholderColor  = N2Color::colorToRGBA($this->slider->params->get('placeholder-color', 'FFFFFF00'));
-        $this->customSpinner     = !!$this->slider->params->get('custom-placeholder', 0) ? '' : N2ImageHelper::fixed($this->slider->params->get('custom-spinner', ''));
+        $this->fadeOnLoad            = intval($slider->params->get('fadeOnLoad', 1));
+        $this->fadeOnScroll          = intval($slider->params->get('fadeOnScroll', 0));
+        $this->playWhenVisible       = intval($slider->params->get('playWhenVisible', 1));
+        $this->playWhenVisibleAt     = max(0, min(100, intval($slider->params->get('playWhenVisibleAt', 50)))) / 100;
+        $this->placeholderColor      = N2Color::colorToRGBA($this->slider->params->get('placeholder-color', 'FFFFFF00'));
+        $this->placeholderBackground = N2ImageHelper::fixed($this->slider->params->get('placeholder-background-image', ''));
+        $this->customSpinner         = !!$this->slider->params->get('custom-placeholder', 0) ? N2ImageHelper::fixed($this->slider->params->get('custom-spinner', '')) : '';
 
         if (!empty($this->fadeOnScroll) && $this->fadeOnScroll) {
             $this->fadeOnLoad   = 1;
@@ -61,6 +64,8 @@ class N2SmartSliderFeatureFadeOnLoad {
 
                 if (!empty($this->customSpinner)) {
                     $style = "background-image:url('" . $this->customSpinner . "'); background-size:cover; ";
+                } else if (!empty($this->placeholderBackground)) {
+                    $style = "background-image:url('" . $this->placeholderBackground . "'); background-size:cover; ";
                 } else {
                     $style = '';
                 }

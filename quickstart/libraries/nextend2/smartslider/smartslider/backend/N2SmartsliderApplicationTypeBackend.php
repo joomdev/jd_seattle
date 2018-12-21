@@ -35,7 +35,7 @@ class N2SmartsliderApplicationTypeBackend extends N2ApplicationType {
                  'class' => 'n2-h4'
              ), n2_('Dashboard')));
 
-        N2JS::addFirstCode("window.N2SS3VERSION='" . N2SS3::$version . "';");
+        N2JS::addGlobalInline("window.N2SS3VERSION='" . N2SS3::$version . "';");
     }
 
 }

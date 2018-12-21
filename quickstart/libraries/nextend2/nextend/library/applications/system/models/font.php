@@ -47,6 +47,8 @@ class N2SystemFontModel extends N2SystemVisualModel {
                 '100' => '100',
                 '200' => '200 - ' . n2_('Extra light'),
                 '300' => '300 - ' . n2_('Light'),
+                '400' => '400 - ' . n2_('Normal'),
+                '500' => '500',
                 '600' => '600 - ' . n2_('Semi bold'),
                 '700' => '700 - ' . n2_('Bold'),
                 '800' => '800 - ' . n2_('Extra bold'),

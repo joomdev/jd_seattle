@@ -13,7 +13,7 @@ class N2ElementList extends N2ElementHidden {
     protected $isMultiple = false;
     protected $size = '';
 
-    protected $relatedFields = array();
+    protected $relatedValueFields = array();
 
     protected function fetchElement() {
 
@@ -49,7 +49,7 @@ class N2ElementList extends N2ElementHidden {
 
         $html .= parent::fetchElement();
 
-        N2JS::addInline('new N2Classes.FormElementList("' . $this->fieldID . '", ' . intval($this->isMultiple) . ', ' . json_encode($this->relatedFields) . ');');
+        N2JS::addInline('new N2Classes.FormElementList("' . $this->fieldID . '", ' . intval($this->isMultiple) . ', ' . json_encode($this->relatedFields) . ', ' . json_encode($this->relatedValueFields) . ');');
 
         return $html;
     }
@@ -133,10 +133,7 @@ class N2ElementList extends N2ElementHidden {
         return $list;
     }
 
-    /**
-     * @param string $relatedFields
-     */
-    public function setRelatedFields($relatedFields) {
-        $this->relatedFields = $relatedFields;
+    public function setRelatedValueFields($relatedValueFields) {
+        $this->relatedValueFields = $relatedValueFields;
     }
 }

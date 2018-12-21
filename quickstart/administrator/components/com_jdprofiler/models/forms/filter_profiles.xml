@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+    <fields name="filter">
+        <field name="search" type="text" hint="COM_JDPROFILER_SEARCH_FILTER_SUBMIT"
+               label="COM_USERS_FILTER_SEARCH_DESC"
+               class="js-stools-search-string" />
+
+        <field name="state"
+               type="status"
+               label="COM_JDPROFILER_FILTER_STATE"
+               description="COM_JDPROFILER_FILTER_STATE_DESC"
+               onchange="this.form.submit();"
+        >
+            <option value="">JOPTION_SELECT_PUBLISHED</option>
+        </field>
+         <field name="designation"
+               type="sql"
+                query="SELECT id, title FROM #__jdprofiler_designation"
+                key_field="title"
+                value_field="title"
+               label=""
+               description=""
+               onchange="this.form.submit();"
+        >
+            <option value="">Select Designation</option>
+        </field>
+        <field name="team"
+            type="sql"
+            query="SELECT * FROM #__jdprofiler_team where state=1"
+            key_field="title"
+            value_field="title"
+            label=""
+            description=""
+            onchange="this.form.submit();"
+        >
+            <option value="">Select Team</option>
+        </field>
+    </fields>
+
+    <fields name="list">
+
+        <field name="fullordering"
+               type="list"
+               label="COM_CONTENT_LIST_FULL_ORDERING"
+               description="COM_CONTENT_LIST_FULL_ORDERING_DESC"
+               onchange="this.form.submit();"
+               default="a.id DESC"
+        >
+            <option value="">JGLOBAL_SORT_BY</option>
+            <option value="a.`id` ASC">ID Ascending</option><option value="a.`id` DESC">ID Descending</option><option value="a.`name` ASC">Name Ascending</option><option value="a.`name` DESC">Name Descending</option><option value="a.`state` ASC">State Ascending</option><option value="a.`state` DESC">State Descending</option><option value="a.`email` ASC">Email Ascending</option><option value="a.`email` DESC">Email Descending</option><option value="a.`phone` ASC">Phone Ascending</option><option value="a.`phone` DESC">Phone Descending</option><option value="a.`designation` ASC">Desig Ascending</option><option value="a.`designation` DESC">Desig Descending</option>
+
+        </field>
+
+        <field name="limit"
+               type="limitbox"
+               class="input-mini"
+               default="25"
+               onchange="this.form.submit();"
+        />
+
+    </fields>
+
+</form>

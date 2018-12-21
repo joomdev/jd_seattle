@@ -25,7 +25,7 @@ N2Localization::addJS(array(
     'Pick the child layer!',
     'Pick the parent layer!',
     'Preset',
-    'Previous slie',
+    'Previous slide',
     'Reset design to default',
     'Row',
     'Ruler',
@@ -36,7 +36,17 @@ N2Localization::addJS(array(
     'Show Guides',
     'Slide event',
     'Smart Snap',
-    'There is not any layer available to be child of the selected layer!',
+    'There is no layer available to be child of the selected layer!',
+    'Round to 5px',
+    'Clear Guides',
+    'External url',
+    'Insert',
+    'Choose images',
+    'Titles',
+    'Search',
+    'Icons',
+    'Image field can not be empty!',
+    'The image is empty',
 ));
 
 $externals = N2SmartSliderSettings::get('external-css-files');
@@ -295,25 +305,19 @@ if ($isAddSample):
 </form>
 
 <?php
-if (!$isAddSample && !N2Base::getApplication('smartslider')->storage->get('tutorial', 'hideContentMode')):
-    ?>
-    <div id="n2-ss32-content-mode-tutorial">
-        <div class="n2-ss-tutorial-container">
-            <div class="n2-ss-tutorial-left">
-                <a href="https://smartslider3.com/videos/contentmode" target="_blank">
-                    <img src="<?php echo N2ImageHelper::fixed('$ss$/admin/images/contentmode.png'); ?>" style="width:400px;height:220px;max-width:none;"/>
-                </a>
-            </div>
-            <div class="n2-ss-tutorial-right">
-                <div class="n2-h1">Slide Editing in 3.2</div>
-                <p>Start building your first slide by watching the video and learn the basic steps of to the Slide editing. Smart Slider 3.2 introduces the new Content Builder mode which is a block-based system where you can add rows, columns and of course layers to the slide.</p>
-
-                <a href="https://smartslider3.com/videos/contentmode" class="n2-button n2-button-normal n2-button-green n2-button-l n2-h4 n2-b n2-uc n2-radius-s" target="_blank">Watch now</a><a onclick="N2Classes.AjaxHelper.ajax({url: N2Classes.AjaxHelper.makeAjaxUrl('<?php echo $this->appType->router->createAjaxUrl(array('settings/hidecontentmode')); ?>')});N2Classes.$('#n2-ss32-content-mode-tutorial').remove(); return false;" href="#" class="n2-button n2-button-normal n2-button-grey n2-button-l n2-h4 n2-b n2-uc n2-radius-s" target="_blank">Close</a>
-            </div>
-        </div>
-    </div>
-<?php
-endif;
+if (!$isAddSample && !N2Base::getApplication('smartslider')->storage->get('tutorial', 'hideContentMode')) {
+    N2Html::banner(array(
+        'id'          => 'n2-ss-tutorial-content-mode',
+        'image'       => '$ss$/admin/images/contentmode.png',
+        'imageLink'   => 'https://smartslider3.com/videos/contentmode',
+        'title'       => n2_('Slide Editing - Getting Started'),
+        'description' => n2_('Start building your first slide by watching the video and learn the basic steps of to the Slide editing. Smart Slider 3.2 introduces the new Content Builder mode which is a block-based system where you can add rows, columns and of course layers to the slide.'),
+        'buttons'     => array(
+            '<a href="https://smartslider3.com/videos/contentmode" class="n2-button n2-button-normal n2-button-green n2-button-l n2-h4 n2-b n2-uc n2-radius-s" target="_blank">' . n2_('Watch now') . '</a>',
+            '<a onclick="N2Classes.AjaxHelper.ajax({url: N2Classes.AjaxHelper.makeAjaxUrl(\'' . $this->appType->router->createAjaxUrl(array('settings/hidecontentmode')) . '\')});N2Classes.$(\'#n2-ss32-content-mode-tutorial\').remove(); return false;" href="#" class="n2-button n2-button-normal n2-button-grey n2-button-l n2-h4 n2-b n2-uc n2-radius-s" target="_blank">' . n2_('Close') . '</a>'
+        )
+    ));
+}
 ?>
 
 <?php

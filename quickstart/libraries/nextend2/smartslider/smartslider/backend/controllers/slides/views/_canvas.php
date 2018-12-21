@@ -37,11 +37,21 @@
         'Hide'
     ));
 
+    $fillMode = $slider->params->get('backgroundMode', 'fill');
+    if ($fillMode == 'fixed') {
+        $fillMode = 'fill';
+    }
+
     $options = array(
         'isAddSample'         => $isAddSample,
+        'sampleSlidesUrl'     => N2SS3::getSampleSlidesUrl(array(
+            'utm_source'   => 'slide-library-frame',
+            'utm_medium'   => 'smartslider-' . N2Platform::getPlatform() . '-' . N2SS3::$plan,
+            'utm_campaign' => N2SS3::$campaign
+        )),
         'slideAsFile'         => intval(N2SmartSliderSettings::get('slide-as-file', 0)),
         'isUploadDisabled'    => defined('N2_IMAGE_UPLOAD_DISABLE'),
-        'slideBackgroundMode' => $slider->params->get('backgroundMode', 'fill')
+        'slideBackgroundMode' => $fillMode
     );
     if (!defined('N2_IMAGE_UPLOAD_DISABLE')) {
         $options['uploadUrl'] = N2Base::getApplication('system')->router->createAjaxUrl(array('browse/upload'));

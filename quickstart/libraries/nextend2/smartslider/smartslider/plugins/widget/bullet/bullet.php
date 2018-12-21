@@ -30,10 +30,10 @@ class N2SSPluginWidgetBullet extends N2SSPluginSliderWidget {
         $thumbnail = new N2elementGroup($settings, 'bullet-thumbnail', n2_('Thumbnail'));
         new N2ElementOnOff($thumbnail, 'widget-bullet-thumbnail-show-image', n2_('Enable'), 0, array(
             'relatedFields' => array(
-                'widget-bullet-thumbnail-width',
-                'widget-bullet-thumbnail-height',
-                'widget-bullet-thumbnail-style',
-                'widget-bullet-thumbnail-side'
+                'sliderwidget-bullet-thumbnail-width',
+                'sliderwidget-bullet-thumbnail-height',
+                'sliderwidget-bullet-thumbnail-style',
+                'sliderwidget-bullet-thumbnail-side'
             )
         ));
 

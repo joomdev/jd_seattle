@@ -1,0 +1,101 @@
+html {
+	font-size: 0.9rem;
+	@include media-breakpoint-up(md) {
+		font-size: 1rem;
+	}
+}
+
+/* Heading With Links
+=========================== */
+
+/* section heading
+=========================== */
+
+.split-title-module {
+	span {
+		display: block;
+		&.split-1 {
+			color: $primary;
+			font-size: 1.15rem;
+			font-weight: 400;
+			line-height: 1.1;
+			margin-bottom: 10px;
+		}
+	}
+	.text-white {
+		[class*="split-"] {
+			color: #fff;
+		}
+	}
+	.heading-center {
+		span {
+			text-align: center;
+		}
+	}
+}
+
+/* Text hightlight
+=========================== */
+
+mark {
+	//padding: 0.1em .3em;
+	color: $white;
+	display: inline-block;
+	@extend .rounded;
+}
+
+/* List style
+=========================== */
+
+ul.list-styled {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	text-align: left;
+	li {
+		display: -ms-flexbox;
+		display: flex !important;
+		&:not(:last-child) {
+			margin-bottom: 10px;
+		}
+		&::before {
+			font-family: "Font Awesome 5 Free";
+			font-weight: $font-weight-bold;
+			content: "\f111";
+			display: inline-block;
+			font-size: 55%;
+			margin-right: 10px;
+			padding-top: 10px;
+			padding-left: 0.39rem;
+			line-height: 1;
+		}
+	}
+}
+
+ol.list-styled-unoder {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	counter-reset: unoder-sec-counter;
+	li {
+		display: -ms-flexbox;
+		display: flex !important;
+		&:not(:last-child) {
+			margin-bottom: 10px;
+		}
+		&::before {
+			counter-increment: unoder-sec-counter;
+			content: "" counter(unoder-sec-counter) "";
+			height: 20px;
+			width: 20px;
+			border-radius: 100%;
+			background: $indigo;
+			color: $white;
+			text-align: center;
+			font-size: 11px;
+			line-height: 21px;
+			margin-top: 3px;
+			margin-right: 10px;
+		}
+	}
+}

@@ -1,13 +1,10 @@
 <?php
 /**
- * @package		Login Register module for joomla
- * @subpackage  mod_loginregister
- * @author		www.joomdev.com
- * @author		Created on March 2016
- * @copyright	Copyright (C) 2009 - 2016 www.joomdev.com. All rights reserved.
- * @license		GNU GPL2 or later; see LICENSE.txt
+ * @package		Register Login Joomla Module
+ * @author		JoomDev
+ * @copyright	Copyright (C) 2018 Joomdev, Inc. All rights reserved.
+ * @license    GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
-
 defined('_JEXEC') or die;
 class modRegisterLoginHelper
 {	
@@ -16,7 +13,6 @@ class modRegisterLoginHelper
 		$username = JRequest::getVar('username');
 		$password = JRequest::getVar('password');
 		$remember = JRequest::getVar('remember');
-		
 		$result = JFactory::getApplication()->login(array('username'=>$username,'password'=>$password), array('remember' => $remember));$userid = JFactory::getUser()->id;
 		if(isset($userid) && !empty($userid)){
 			$data['message']  = '<div class="alert alert-success"><a data-dismiss="alert" class="close">x</a><div><p>'.JText::_('MOD_REGISTERLOGIN_LOGIN_SUCCESS').'</p></div></div>';
@@ -28,12 +24,11 @@ class modRegisterLoginHelper
 		echo json_encode($data);
 		exit;
 	}
-	
 	public static function getUserlogin($params = array()){
 		$username = JRequest::getVar('username');
 		$password = JRequest::getVar('password');
 		$remember = JRequest::getVar('remember');
-		$result = JFactory::getApplication()->login(array('username'=>$username,'password'=>$password), array('remember' =>$remember));  
+		$result = JFactory::getApplication()->login(array('username'=>$username,'password'=>$password), array('remember' =>$remember)); 
 		if(isset($result) && !empty($result)){
 			$response['error']			=	false;
 			$response['error_message']	=  JText::_('MOD_REGISTERLOGIN_LOGIN_SUCCESS');
@@ -41,24 +36,22 @@ class modRegisterLoginHelper
 			$response['error']			=	true;
 			$response['error_message']	= 	JText::_('MOD_REGISTERLOGIN_WRONG_LOGIN_MESSAGE');
 		}
-		return $response;	
+		return $response;
 	}
-	
-	// ajax registeration	
+	// ajax registeration
 	public static function getUserRegisterAjax($params = array()){
 		$language = JFactory::getLanguage();
 		$language->load('com_users');	
 		$app	 			= JFactory::getApplication();
-		$userParams    		=  JComponentHelper::getParams('com_users');
-		$data 				= $app->input->post->get('jform', array(), 'array');
-		$user 				= new JUser;
-		
+		$userParams    =  JComponentHelper::getParams('com_users');
+		$data 			= $app->input->post->get('jform', array(), 'array');
+		$user 			= new JUser;
 		jimport( 'joomla.application.module.helper' );
 		$module = JModuleHelper::getModule('mod_registerlogin');
 		$params = new JRegistry($module->params);
 		$publickey 	 = $params->get('public');
 		$privatekey	 = $params->get('private');
-		
+
 		//check captcha validate
 		$captch_enable = $params->get('enablecap_on_register');
 		if($captch_enable){
@@ -69,15 +62,12 @@ class modRegisterLoginHelper
 				echo $msg;
 				exit;
 			}
-		}	
+		}
 		JPluginHelper::importPlugin('user');
-		
 		$data['email'] 		= JStringPunycode::emailToPunycode($data['email1']);
 		$data['password'] 	= $data['password1'];
-		
 		$useractivation 	= $params->get('useractivation');
 		$sendpassword 		= $userParams->get('sendpassword', 1);
-		
 		if (($useractivation == 1)){
 			$data['activation'] = JApplicationHelper::getHash(JUserHelper::genRandomPassword());
 			$data['block'] = 1;
@@ -88,10 +78,8 @@ class modRegisterLoginHelper
 		// Bind the data.
 		if (!$user->bind($data)){
 		}
-
 		// Load the users plugin group.
 		JPluginHelper::importPlugin('user');
-
 		// Store the data.
 		if (!$user->save())
 		{
@@ -99,7 +87,7 @@ class modRegisterLoginHelper
 				$errorMessage  = JText::_('COM_USERS_REGISTER_USERNAME_MESSAGE');
 			}else{
 				$errorMessage  = $user->getError();
-			}			
+			}
 			$data['message']  = $errorMessage;
 			$msg = $data['message'];
 			$data['success']  = false;
@@ -108,12 +96,10 @@ class modRegisterLoginHelper
 		}else{
 			$id 		= $user->id;
 			$gId 		= $userParams->get('new_usertype');
-			
-			$db    		=  JFactory::getDBO();
-			$query 		= $db->getQuery(true);
-			
+			$db    	=  JFactory::getDBO();
+			$query 	= $db->getQuery(true);
 			$columns = array('user_id', 'group_id');
-			$values = array($id,$gId);
+			$values 	= array($id,$gId);
 			$query
 				->insert($db->quoteName('#__user_usergroup_map'))
 				->columns($db->quoteName($columns))
@@ -142,7 +128,6 @@ class modRegisterLoginHelper
 					'COM_USERS_EMAIL_ACCOUNT_DETAILS',
 					$data['name'],
 					$data['sitename'] );
-
 				if ($sendpassword){
 					$emailBody = JText::sprintf(
 						'COM_USERS_EMAIL_REGISTERED_WITH_ADMIN_ACTIVATION_BODY',
@@ -195,7 +180,6 @@ class modRegisterLoginHelper
 			catch(Exception $e){
                echo $e;
 			}
-			
 			// Send Notification mail to administrators
 			if (($params->get('useractivation') < 2) && ($params->get('mail_to_admin') == 1))
 			{
@@ -241,22 +225,20 @@ class modRegisterLoginHelper
 			exit;
 		}
 	}
-	
 	// register user without ajax 
 	public static function getUserRegister($params = array()){
 		$app	 			= JFactory::getApplication();
 		$session	 		= JFactory::getApplication();
-		$userParams    		=  JComponentHelper::getParams('com_users');
-		$data 				= $app->input->post->get('jform', array(), 'array');
-		$user 				= new JUser;
+		$userParams    =  JComponentHelper::getParams('com_users');
+		$data 			= $app->input->post->get('jform', array(), 'array');
+		$user 			= new JUser;
 		$flag				= true;
-		$response			= array();
+		$response		= array();
 		jimport( 'joomla.application.module.helper' );
 		$module = JModuleHelper::getModule('mod_registerlogin');
 		$params = new JRegistry($module->params);
 		$publickey 	 = $params->get('public');
 		$privatekey	 = $params->get('private');
-		
 		//check captcha validate
 		$captch_enable = $params->get('enablecap_on_register');
 		if($captch_enable){
@@ -264,7 +246,6 @@ class modRegisterLoginHelper
 				JPluginHelper::importPlugin('captcha');
 				$dispatcher = JDispatcher::getInstance();
 				$resp = $dispatcher->trigger('onCheckAnswer',$_REQUEST['recaptcha_response_field']);
-
 				if (!$resp[0]) {
 					$flag = false;
 					$response['error']			=	true;
@@ -280,14 +261,12 @@ class modRegisterLoginHelper
 					return $response; 
 					exit; 
 			}
-		}		
-		
+		}
 		JPluginHelper::importPlugin('user');
-		$data['email'] 		= JStringPunycode::emailToPunycode($data['email1']);
-		$data['password'] 	= $data['password1'];
+		$data['email'] 	= JStringPunycode::emailToPunycode($data['email1']);
+		$data['password'] = $data['password1'];
 		$useractivation 	= $params->get('useractivation');
 		$sendpassword 		= $userParams->get('sendpassword', 1);
-		
 		if (($useractivation == 1)){
 			$data['activation'] = JApplicationHelper::getHash(JUserHelper::genRandomPassword());
 			$data['block'] = 1;
@@ -297,11 +276,9 @@ class modRegisterLoginHelper
 		}
 		// Bind the data.
 		if (!$user->bind($data)){	
-			
 		}
 		// Load the users plugin group.
 		JPluginHelper::importPlugin('user');
-
 		// Store the data.
 		if (!$user->save()){
 			$response['error']			=  true;
@@ -310,28 +287,24 @@ class modRegisterLoginHelper
 		}else{
 			$id 		= $user->id;
 			$gId 		= $userParams->get('new_usertype');
-			$db    		=  JFactory::getDBO();
-			$query 		= $db->getQuery(true);
-			
+			$db    	=  JFactory::getDBO();
+			$query 	= $db->getQuery(true);
 			$columns = array('user_id', 'group_id');
-			$values = array($id,$gId);
+			$values	= array($id,$gId);
 			$query
 				->insert($db->quoteName('#__user_usergroup_map'))
 				->columns($db->quoteName($columns))
 				->values(implode(',', $values));
 			$db->setQuery($query);
 			$db->execute();
-			
 			$config = JFactory::getConfig();
 			$query = $db->getQuery(true);
-
 			// Compile the notification mail values.
 			$data = $user->getProperties();
 			$data['fromname'] = $config->get('fromname');
 			$data['mailfrom'] = $config->get('mailfrom');
 			$data['sitename'] = $config->get('sitename');
-			$data['siteurl'] = JUri::root();
-
+			$data['siteurl'] 	= JUri::root();
 			// Handle account activation/confirmation emails.
 			if ($useractivation == 1)
 			{
@@ -339,12 +312,10 @@ class modRegisterLoginHelper
 				$uri = JUri::getInstance();
 				$base = $uri->toString(array('scheme', 'user', 'pass', 'host', 'port'));
 				$data['activate'] = $base . JRoute::_('index.php?option=com_users&task=registration.activate&token=' . $data['activation']);
-
 				$emailSubject = JText::sprintf(
 					'COM_USERS_EMAIL_ACCOUNT_DETAILS',
 					$data['name'],
 					$data['sitename']);
-
 				if ($sendpassword){
 					$emailBody = JText::sprintf(
 						'COM_USERS_EMAIL_REGISTERED_WITH_ADMIN_ACTIVATION_BODY',
@@ -399,7 +370,6 @@ class modRegisterLoginHelper
         	catch(Exception $e){
                echo $e;
         	}
- 
 			// Send Notification mail to administrators
 			if (($params->get('useractivation') < 2) && ($params->get('mail_to_admin') == 1))
 			{
@@ -414,7 +384,6 @@ class modRegisterLoginHelper
 					$data['username'],
 					$data['siteurl']
 				);
-
 				// Get all admin users
 				$query->clear()
 					->select($db->quoteName(array('name', 'email', 'sendEmail')))
@@ -422,7 +391,6 @@ class modRegisterLoginHelper
 					->where($db->quoteName('sendEmail') . ' = ' . 1);
 
 				$db->setQuery($query);
-
 				try{
 					$rows = $db->loadObjectList();
 				}
@@ -430,7 +398,6 @@ class modRegisterLoginHelper
 					$app->setError(JText::sprintf('COM_USERS_DATABASE_ERROR', $e->getMessage()), 500);
 					return false;
 				}
-
 				// Send mail to all superadministrators id
 				foreach ($rows as $row)
 				{
@@ -438,7 +405,8 @@ class modRegisterLoginHelper
 
 					// Check for an error.
 					if ($return !== true){
-						JError::raiseError( 4711, JText::_('MOD_REGISTERLOGIN_REGISTRATION_ACTIVATION_NOTIFY_SEND_MAIL_FAILED') );
+						echo $return;
+						//JError::raiseError( 4711, JText::_('MOD_REGISTERLOGIN_REGISTRATION_ACTIVATION_NOTIFY_SEND_MAIL_FAILED') );
 						return false;
 					}
 				}
@@ -456,14 +424,7 @@ class modRegisterLoginHelper
 
 		if ($item)
 		{
-			$lang = '';
-
-			if ($item->language !== '*' && JLanguageMultilang::isEnabled())
-			{
-				$lang = '&lang=' . $item->language;
-			}
-
-			$url = 'index.php?Itemid=' . $item->id . $lang;
+			$url = JRoute::_('index.php?Itemid=' . $item->id);
 		}
 
 		return base64_encode($url);
@@ -471,7 +432,6 @@ class modRegisterLoginHelper
 	public static function getType()
 	{
 		$user = JFactory::getUser();
-
 		return (!$user->get('guest')) ? 'logout' : 'login';
 	}
 }

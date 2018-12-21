@@ -55,7 +55,7 @@ class N2SSPluginResponsiveFullWidth extends N2SSPluginSliderResponsive {
         $limitSlideWidthDesktop = new N2ElementGroup($settings, 'responsive-limit-slide-width-desktop', n2_('Limit slide width') . ' - ' . n2_('Desktop'));
         new N2ElementOnoff($limitSlideWidthDesktop, 'responsiveSlideWidth', n2_('Portrait'), 1, array(
             'relatedFields' => array(
-                'responsiveSlideWidthMax'
+                'sliderresponsiveSlideWidthMax'
             )
         ));
         new N2ElementNumberAutocomplete($limitSlideWidthDesktop, 'responsiveSlideWidthMax', n2_('Max'), 3000, array(
@@ -68,7 +68,7 @@ class N2SSPluginResponsiveFullWidth extends N2SSPluginSliderResponsive {
         ));
         new N2ElementOnoff($limitSlideWidthDesktop, 'responsiveSlideWidthDesktopLandscape', n2_('Landscape'), 0, array(
             'relatedFields' => array(
-                'responsiveSlideWidthMaxDesktopLandscape'
+                'sliderresponsiveSlideWidthMaxDesktopLandscape'
             )
         ));
         new N2ElementNumberAutocomplete($limitSlideWidthDesktop, 'responsiveSlideWidthMaxDesktopLandscape', n2_('Max'), 1600, array(
@@ -84,7 +84,7 @@ class N2SSPluginResponsiveFullWidth extends N2SSPluginSliderResponsive {
         $limitSlideWidthTablet = new N2ElementGroup($settings, 'responsive-limit-slide-width-tablet', n2_('Limit slide width') . ' - ' . n2_('Tablet'));
         new N2ElementOnoff($limitSlideWidthTablet, 'responsiveSlideWidthTablet', n2_('Portrait'), 0, array(
             'relatedFields' => array(
-                'responsiveSlideWidthMaxTablet'
+                'sliderresponsiveSlideWidthMaxTablet'
             )
         ));
         new N2ElementNumberAutocomplete($limitSlideWidthTablet, 'responsiveSlideWidthMaxTablet', n2_('Max'), 3000, array(
@@ -97,7 +97,7 @@ class N2SSPluginResponsiveFullWidth extends N2SSPluginSliderResponsive {
         ));
         new N2ElementOnoff($limitSlideWidthTablet, 'responsiveSlideWidthTabletLandscape', n2_('Landscape'), 0, array(
             'relatedFields' => array(
-                'responsiveSlideWidthMaxTabletLandscape'
+                'sliderresponsiveSlideWidthMaxTabletLandscape'
             )
         ));
         new N2ElementNumberAutocomplete($limitSlideWidthTablet, 'responsiveSlideWidthMaxTabletLandscape', n2_('Max'), 1200, array(
@@ -113,7 +113,7 @@ class N2SSPluginResponsiveFullWidth extends N2SSPluginSliderResponsive {
         $limitSlideWidthMobile = new N2ElementGroup($settings, 'responsive-limit-slide-width-mobile', n2_('Limit slide width') . ' - ' . n2_('Mobile'));
         new N2ElementOnoff($limitSlideWidthMobile, 'responsiveSlideWidthMobile', n2_('Portrait'), 0, array(
             'relatedFields' => array(
-                'responsiveSlideWidthMaxMobile'
+                'sliderresponsiveSlideWidthMaxMobile'
             )
         ));
         new N2ElementNumberAutocomplete($limitSlideWidthMobile, 'responsiveSlideWidthMaxMobile', n2_('Max'), 480, array(
@@ -126,7 +126,7 @@ class N2SSPluginResponsiveFullWidth extends N2SSPluginSliderResponsive {
         ));
         new N2ElementOnoff($limitSlideWidthMobile, 'responsiveSlideWidthMobileLandscape', n2_('Landscape'), 0, array(
             'relatedFields' => array(
-                'responsiveSlideWidthMaxMobileLandscape'
+                'sliderresponsiveSlideWidthMaxMobileLandscape'
             )
         ));
         new N2ElementNumberAutocomplete($limitSlideWidthMobile, 'responsiveSlideWidthMaxMobileLandscape', n2_('Max'), 740, array(

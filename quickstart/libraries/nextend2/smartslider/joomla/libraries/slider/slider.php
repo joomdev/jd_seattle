@@ -17,6 +17,7 @@ class N2SmartSlider extends N2SmartSliderAbstract {
                 $excludedPlugins[] = 'plgcontentemailcloak';
                 $excludedPlugins[] = 'plgcontentdropeditor';
                 $excludedPlugins[] = 'plgcontentshortcode_ultimate';
+                $excludedPlugins[] = 'plgcontentarkcontent';
 
                 JPluginHelper::importPlugin('content');
 

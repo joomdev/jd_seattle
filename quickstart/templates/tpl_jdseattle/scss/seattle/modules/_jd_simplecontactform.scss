@@ -1,0 +1,10 @@
+div .jd-simple-contact-form {
+   textarea {
+      min-height: 200px;
+   }
+   .btn-primary {
+      @extend .btn;
+      @extend .btn-lg;
+      @extend .btn-dark;
+   }
+}

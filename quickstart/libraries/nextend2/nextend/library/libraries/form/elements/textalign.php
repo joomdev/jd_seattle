@@ -28,4 +28,16 @@ class N2ElementTextAlign extends N2ElementRadio {
 
         return $html;
     }
+
+    /**
+     * @param $excluded array
+     */
+    public function setExcludeOptions($excluded) {
+        foreach ($excluded AS $exclude) {
+            if (isset($this->options[$exclude])) {
+                unset($this->options[$exclude]);
+            }
+
+        }
+    }
 }

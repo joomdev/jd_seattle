@@ -6,7 +6,7 @@ class N2SSPluginGeneratorJoomlaContent extends N2SliderGeneratorPluginAbstract {
     protected $name = 'joomlacontent';
 
     public function getLabel() {
-        return 'Joomla articles';
+        return n2_('Joomla articles');
     }
 
     protected function loadSources() {

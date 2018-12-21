@@ -105,7 +105,7 @@ class N2SSPluginWidgetThumbnailDefault extends N2SSPluginWidgetAbstract {
         ));
         new N2ElementOnOff($title, 'widget-thumbnail-title', n2_('Title'), '', array(
             'relatedFields' => array(
-                'widget-thumbnail-title-font'
+                'sliderwidget-thumbnail-title-font'
             )
         ));
         new N2ElementFont($title, 'widget-thumbnail-title-font', n2_('Font'), '', array(
@@ -120,7 +120,7 @@ class N2SSPluginWidgetThumbnailDefault extends N2SSPluginWidgetAbstract {
         ));
         new N2ElementOnOff($description, 'widget-thumbnail-description', n2_('Description'), '', array(
             'relatedFields' => array(
-                'widget-thumbnail-description-font'
+                'sliderwidget-thumbnail-description-font'
             )
         ));
         new N2ElementFont($description, 'widget-thumbnail-description-font', n2_('Font'), '', array(
@@ -178,11 +178,11 @@ class N2SSPluginWidgetThumbnailDefault extends N2SSPluginWidgetAbstract {
      * @return string
      */
     public function render($slider, $id, $params) {
-        $showImage       = intval($params->get(self::$key . 'show-image'));
+        $showThumbnail   = intval($params->get(self::$key . 'show-image'));
         $showTitle       = intval($params->get(self::$key . 'title'));
         $showDescription = intval($params->get(self::$key . 'description'));
 
-        if (!$showImage && !$showTitle && !$showDescription) {
+        if (!$showThumbnail && !$showTitle && !$showDescription) {
             // Nothing to show
             return '';
         }
@@ -192,6 +192,15 @@ class N2SSPluginWidgetThumbnailDefault extends N2SSPluginWidgetAbstract {
         $slider->addLess(N2Filesystem::translate(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'default' . DIRECTORY_SEPARATOR . 'style.n2less'), array(
             "sliderid" => $slider->elementId
         ));
+
+        $parameters = array(
+            'overlay'               => ($params->get(self::$key . 'position-mode') != 'simple' || $params->get(self::$key . 'overlay')) ? 1 : 0,
+            'area'                  => intval($params->get(self::$key . 'position-area')),
+            'action'                => $params->get(self::$key . 'action'),
+            'minimumThumbnailCount' => max(1, intval($params->get(self::$key . 'minimum-thumbnail-count'))) + 0.5,
+            'group'                 => max(1, intval($params->get(self::$key . 'group'))),
+            'invertGroupDirection'  => intval($params->get('widget-thumbnail-invert-group-direction', 0)),
+        );
 
         list($displayClass, $displayAttributes) = self::getDisplayAttributes($params, self::$key);
         list($style, $attributes) = self::getPosition($params, self::$key);
@@ -205,7 +214,7 @@ class N2SSPluginWidgetThumbnailDefault extends N2SSPluginWidgetAbstract {
 
 
         $captionPlacement = $slider->params->get(self::$key . 'caption-placement', 'overlay');
-        if (!$showImage) {
+        if (!$showThumbnail) {
             $captionPlacement = 'before';
         }
 
@@ -213,147 +222,93 @@ class N2SSPluginWidgetThumbnailDefault extends N2SSPluginWidgetAbstract {
             $captionPlacement = 'overlay';
         }
 
-        $captionSize = intval($slider->params->get(self::$key . 'caption-size', 100));
+        $parameters['captionSize'] = intval($slider->params->get(self::$key . 'caption-size', 100));
 
 
-        $showCaption = $showTitle || $showDescription;
+        $orientation               = $params->get(self::$key . 'orientation');
+        $orientation               = self::getOrientationByPosition($params->get(self::$key . 'position-mode'), $params->get(self::$key . 'position-area'), $orientation, 'vertical');
+        $parameters['orientation'] = $orientation;
 
-        if ($showCaption) {
-            $captionStyle = $slider->addStyle($params->get(self::$key . 'title-style'), 'simple');
-
-            if ($showTitle) {
-                $titleFont = $slider->addFont($params->get(self::$key . 'title-font'), 'simple');
-            }
-            if ($showDescription) {
-                $descriptionFont = $slider->addFont($params->get(self::$key . 'description-font'), 'simple');
-            }
-        }
-
-        $group = max(1, intval($params->get(self::$key . 'group')));
-
-        $orientation = $params->get(self::$key . 'orientation');
-        $orientation = self::getOrientationByPosition($params->get(self::$key . 'position-mode'), $params->get(self::$key . 'position-area'), $orientation, 'vertical');
-
-        $captionClass      = 'n2-caption-' . $captionPlacement;
         $captionExtraStyle = '';
         switch ($captionPlacement) {
             case 'before':
             case 'after':
                 switch ($orientation) {
                     case 'vertical':
-                        if (!$showImage) {
+                        if (!$showThumbnail) {
                             $width = 0;
                         }
-                        $containerStyle    = "width: " . ($width + $captionSize) . "px; height: {$height}px;";
-                        $captionExtraStyle .= "width: {$captionSize}px";
+                        $containerStyle    = "width: " . ($width + $parameters['captionSize']) . "px; height: {$height}px;";
+                        $captionExtraStyle .= "width: " . $parameters['captionSize'] . "px";
                         break;
                     default:
-                        if (!$showImage) {
+                        if (!$showThumbnail) {
                             $height = 0;
                         }
-                        $containerStyle    = "width: {$width}px; height: " . ($height + $captionSize) . "px;";
-                        $captionExtraStyle .= "height: {$captionSize}px";
+                        $containerStyle    = "width: {$width}px; height: " . ($height + $parameters['captionSize']) . "px;";
+                        $captionExtraStyle .= "height: " . $parameters['captionSize'] . "px";
                 }
                 break;
             default:
-                $containerStyle = "width: {$width}px; height: {$height}px;";
-                $captionSize    = 0;
+                $containerStyle            = "width: {$width}px; height: {$height}px;";
+                $parameters['captionSize'] = 0;
         }
 
-        $image = '';
-        $rows  = array();
-        $i     = 0;
 
-        $thumbnailCSS   = array(
-            'background-size',
-            'background-repeat',
-            'background-position'
-        );
-        $thumbnailStyle = json_decode(n2_base64_decode($params->get('widget-thumbnail-style-slides')));
-        if (!empty($thumbnailStyle) && !empty($thumbnailStyle->data[0]->extra)) {
-            $extraCSS      = $thumbnailStyle->data[0]->extra;
-            $thumbnailCode = '';
-            foreach ($thumbnailCSS AS $css) {
-                $currentCode = self::getStringBetween($extraCSS, $css . ':', ';');
-                if (!empty($currentCode)) {
-                    $thumbnailCode .= $css . ':' . $currentCode . ';';
+        $parameters['slideStyle']     = $slideStyle;
+        $parameters['containerStyle'] = $containerStyle;
+
+        if ($showThumbnail) {
+            $slider->exposeSlideData['thumbnail']     = true;
+            $slider->exposeSlideData['thumbnailType'] = true;
+
+            $thumbnailCSS   = array(
+                'background-size',
+                'background-repeat',
+                'background-position'
+            );
+            $thumbnailStyle = json_decode(n2_base64_decode($params->get('widget-thumbnail-style-slides')));
+            if (!empty($thumbnailStyle) && !empty($thumbnailStyle->data[0]->extra)) {
+                $extraCSS      = $thumbnailStyle->data[0]->extra;
+                $thumbnailCode = '';
+                foreach ($thumbnailCSS AS $css) {
+                    $currentCode = self::getStringBetween($extraCSS, $css . ':', ';');
+                    if (!empty($currentCode)) {
+                        $thumbnailCode .= $css . ':' . $currentCode . ';';
+                    }
                 }
-            }
-        } else {
-            $thumbnailCode = '';
-        }
-
-        $slides = '';
-        foreach ($slider->slides AS $slide) {
-            $active = '';
-            if ($slider->firstSlideIndex == $i) {
-                $active = 'n2-active ';
-            }
-            if ($orientation == 'horizontal') {
-                $row = $i % $group;
             } else {
-                $row = intval($i / $group);
-            }
-            if (!isset($rows[$row])) {
-                $rows[$row] = array();
+                $thumbnailCode = '';
             }
 
-            if ($showImage) {
-                $imgStyle = "width: {$width}px; height: {$height}px;";
-                $image    = N2Html::tag('div', array(
-                    'class' => 'n2-ss-thumb-image n2-ow',
-                    'style' => "background-image: URL('" . $slider->features->optimize->optimizeThumbnail($slide->getThumbnail()) . "');" . $imgStyle . $thumbnailCode
-                ), $slide->getThumbnailTypeHTML());
-            }
-
-            $inner = '';
-
-            if ($showCaption) {
-                $html = '';
-                if ($showTitle) {
-                    $html .= N2Html::tag('div', array(
-                        'class' => $titleFont . ' n2-ow'
-                    ), $slide->getTitle());
-                }
-                $description = $slide->getDescription();
-                if ($showDescription && !empty($description)) {
-                    $html .= N2Html::tag('div', array(
-                        'class' => $descriptionFont . ' n2-ow'
-                    ), N2SmartSlider::addCMSFunctions(N2Translation::_($description)));
-                }
-
-                $inner = N2Html::tag('div', array(
-                    'class' => $captionStyle . 'n2-ss-caption ' . $captionClass . ' n2-ow',
-                    'style' => $captionExtraStyle
-                ), $html);
-            }
-            switch ($captionPlacement) {
-                case 'before':
-                    $inner .= $image;
-                    break;
-                case 'after':
-                default:
-                    $inner = $image . $inner;
-            }
-
-            $slides .= N2Html::tag('div', array(
-                'class'    => $slideStyle . $active . ' n2-ow',
-                'style'    => $containerStyle,
-                'tabindex' => '0'
-            ), $inner);
-            $i++;
+            $parameters['thumbnail'] = array(
+                'width'  => $width,
+                'height' => $height,
+                'code'   => $thumbnailCode
+            );
         }
 
-        $parameters = array(
-            'overlay'               => $params->get(self::$key . 'position-mode') != 'simple' || $params->get(self::$key . 'overlay'),
-            'area'                  => intval($params->get(self::$key . 'position-area')),
-            'orientation'           => $orientation,
-            'group'                 => $group,
-            'action'                => $params->get(self::$key . 'action'),
-            'captionSize'           => intval($captionSize),
-            'minimumThumbnailCount' => max(1, intval($params->get(self::$key . 'minimum-thumbnail-count'))) + 0.5,
-            'invertGroupDirection'  => intval($params->get('widget-thumbnail-invert-group-direction', 0))
-        );
+        if ($showTitle || $showDescription) {
+            $parameters['caption'] = array(
+                'styleClass' => $slider->addStyle($params->get(self::$key . 'title-style'), 'simple'),
+                'placement'  => $captionPlacement,
+                'style'      => $captionExtraStyle
+            );
+        }
+
+        if ($showTitle) {
+            $slider->exposeSlideData['title'] = true;
+            $parameters['title']              = array(
+                'font' => $slider->addFont($params->get(self::$key . 'title-font'), 'simple'),
+            );
+        }
+
+        if ($showDescription) {
+            $slider->exposeSlideData['description'] = true;
+            $parameters['description']              = array(
+                'font' => $slider->addFont($params->get(self::$key . 'description-font'), 'simple')
+            );
+        }
 
         $slider->features->addInitCallback('new N2Classes.SmartSliderWidgetThumbnailDefault(this, ' . json_encode($parameters) . ');');
 
@@ -402,8 +357,8 @@ class N2SSPluginWidgetThumbnailDefault extends N2SSPluginWidgetAbstract {
             ), $previous . $next . N2Html::tag('div', array(
                 'class' => 'nextend-thumbnail-inner n2-ow'
             ), N2Html::tag('div', array(
-                'class' => $barStyle . 'nextend-thumbnail-scroller n2-ow n2-align-content-' . $params->get('widget-thumbnail-align-content') . ($params->get('widget-thumbnail-invert-group-direction', 0) ? ' nextend-thumbnail-invert-group-dir' : ''),
-            ), $slides)));
+                'class' => $barStyle . 'nextend-thumbnail-scroller n2-ow n2-align-content-' . $params->get('widget-thumbnail-align-content'),
+            ), '')));
     }
 
     public function prepareExport($export, $params) {

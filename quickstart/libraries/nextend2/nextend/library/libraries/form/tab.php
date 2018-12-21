@@ -165,7 +165,7 @@ class N2Tab implements N2FormTabContainer, N2FormElementContainer {
 
         echo N2Html::openTag('tr', array(
                 'class'      => $el->getRowClass(),
-                'data-field' => $el->getName()
+                'data-field' => $el->getID()
             ) + $el->getRowAttributes());
         $colSpan = '';
         if ($renderedElement[0] != '') {

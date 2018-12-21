@@ -24,7 +24,7 @@ class N2SSPluginItemFactoryText extends N2SSPluginItemFactoryAbstract {
 
     public function __construct() {
         $this->title = n2_x('Text', 'Slide item');
-        $this->group = n2_('Content');
+        $this->group = n2_x('Content', 'Layer group');
     }
 
     private function initDefaultFont() {

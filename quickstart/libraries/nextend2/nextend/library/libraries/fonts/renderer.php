@@ -123,6 +123,12 @@ class N2FontRenderer {
                 $tabs[$i] = array_merge($tabs[$i - 1], $tabs[$i]);
                 if ($tabs[$i]['size'] == $tabs[0]['size']) {
                     $tabs[$i]['size'] = '100||%';
+                } else {
+                    $size1 = explode('||', $tabs[0]['size']);
+                    $size2 = explode('||', $tabs[$i]['size']);
+                    if (isset($size1[1]) && isset($size2[1]) && $size1[1] == 'px' && $size2[1] == 'px') {
+                        $tabs[$i]['size'] = round($size2[0] / $size1[0] * 100) . '||%';
+                    }
                 }
             }
         }
@@ -279,7 +285,29 @@ N2FontRenderer::$mode = array(
             '@pre@selector li a, @pre@selector li a:FOCUS'        => '@tab1',
             '@pre@selector li a:HOVER, @pre@selector li a:ACTIVE' => '@tab2'
         )
-    )
+    ),
+    'highlight'           => array(
+        'id'            => 'highlight',
+        'label'         => n2_('Highlight'),
+        'tabs'          => array(
+            n2_('Text'),
+            n2_('Highlight'),
+            n2_('Hover')
+        ),
+        'renderOptions' => array(
+            'combined' => true
+        ),
+        'preview'       => '<div class="{fontClassName}">' . n2_('Button') . '</div>',
+        'selectors'     => $frontendAccessibility ? array(
+            '@pre@selector'                                                                                                  => '@tab0',
+            '@pre@selector .n2-highlighted'                                                                                  => '@tab1',
+            '@pre@selector .n2-highlighted:HOVER, @pre@selector .n2-highlighted:ACTIVE, @pre@selector .n2-highlighted:FOCUS' => '@tab2'
+        ) : array(
+            '@pre@selector'                                                             => '@tab0',
+            '@pre@selector .n2-highlighted, @pre@selector .n2-highlighted:FOCUS'        => '@tab1',
+            '@pre@selector .n2-highlighted:HOVER, @pre@selector .n2-highlighted:ACTIVE' => '@tab2'
+        )
+    ),
 );
 
 N2Loader::import('libraries.image.color');

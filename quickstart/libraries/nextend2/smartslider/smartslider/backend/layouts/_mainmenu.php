@@ -13,7 +13,7 @@ $views[] = N2Html::tag('a', array(
 $views[] = N2Html::tag('a', array(
     'href'   => N2SS3::getProUrlPricing(array(
         'utm_source'   => 'go-pro-button-top-menu',
-        'utm_medium'   => 'smartslider-' . N2Platform::getPlatform() . '-free',
+        'utm_medium'   => 'smartslider-' . N2Platform::getPlatform() . '-' . N2SS3::$plan,
         'utm_campaign' => N2SS3::$campaign
     )),
     'target' => '_blank',

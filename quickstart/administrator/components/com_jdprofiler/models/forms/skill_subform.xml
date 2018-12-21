@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form>
+<field name="skill"
+            label="COM_JDPROFILER_SKILL_LABEL"
+            description="COM_JDPROFILER_SKILL_DESC"
+            type="text"
+            hint="Php"  
+                />
+    <field name="skill_rating"
+            label="Skill Rating in %"
+            min="1"
+            max="100"
+            hint="10"
+            description=""
+            type="number"  />
+</form>

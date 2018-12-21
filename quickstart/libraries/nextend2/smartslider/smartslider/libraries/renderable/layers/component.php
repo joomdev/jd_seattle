@@ -550,9 +550,8 @@ abstract class  N2SSSlideComponent {
             if (empty($uniqueClass)) {
                 $uniqueClass = self::generateUniqueIdentifier('n-uc-');
                 $this->data->set('uniqueclass', $uniqueClass);
-            } else {
-                $uniqueClass .= $this->owner->unique;
             }
+            $uniqueClass .= $this->owner->unique;
 
             $this->getOwner()
                  ->addCSS(str_replace('@rule', 'div#' . $this->owner->getElementID() . ' .' . $uniqueClass, $css));

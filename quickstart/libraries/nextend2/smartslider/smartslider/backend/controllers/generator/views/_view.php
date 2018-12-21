@@ -10,6 +10,7 @@ class N2SmartsliderBackendGeneratorView extends N2ViewBase {
                 'style' => 'background-image: URL(' . N2ImageHelper::fixed(N2Uri::pathToUri(N2Filesystem::translate($group->getPath() . '/dynamic.png'))) . ');',
 
             ),
+            'placeholderAlign' => 'center',
             'placeholderContent' => N2Html::tag('div', array(
                 'class' => 'n2-box-placeholder-button'
             ), $button)

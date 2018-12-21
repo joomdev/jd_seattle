@@ -3,7 +3,7 @@
     <?php
     $structuresWithGroup = array(
         'structure' => array(
-            'Basic'   => array(
+            n2_x('Basic', 'Structure')   => array(
                 "1col",
                 "2col",
                 "3col",
@@ -14,7 +14,7 @@
                 "2col-20-80",
                 "3col-20-60-20",
             ),
-            'Special' => array(
+            n2_x('Special', 'Structure') => array(
                 "special",
             )
         )

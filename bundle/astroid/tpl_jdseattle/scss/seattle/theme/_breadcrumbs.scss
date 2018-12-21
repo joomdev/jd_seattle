@@ -1,0 +1,21 @@
+ul.breadcrumb {
+	padding: 20px 0;
+	margin: 0;
+	background: transparent;
+	-ms-flex-pack: start;
+	justify-content: start;
+	border-bottom: 1px solid $indigo-light;
+	>li {
+		font-size: 1.2rem;
+		line-height: 1;
+		>a {
+			color: $primary;
+			&:hover{
+				color: currentColor !important;
+			}
+		}
+		>span.divider {
+			margin: 0 5px;
+		}
+	}
+}

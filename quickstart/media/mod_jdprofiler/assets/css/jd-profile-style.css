@@ -1,0 +1,497 @@
+.jd-profiler-wrapper .jd-team-columns {
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.jd-profiler-wrapper .jd-team-columns .card-team {
+  width: 100%;
+  position: relative;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  -moz-border-radius: .25rem;
+  -webkit-border-radius: .25rem;
+  border-radius: .25rem;
+  margin-bottom: 2rem;
+  overflow: hidden;
+}
+
+.jd-profiler-wrapper .jd-team-columns .card-team .team-mamber-image {
+  width: 100%;
+}
+
+.jd-profiler-wrapper .jd-team-columns .card-team .card-team-body {
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  padding: 1rem;
+}
+
+.jd-profiler-wrapper .jd-team-columns .card-team .card-team-overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+}
+
+.jd-profiler-wrapper .jd-team-columns .card-team .card-team-footer {
+  padding: .75rem 1rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.jd-profiler-wrapper .jd-team-columns .card-team .team-member-name {
+  margin-bottom: 4px;
+}
+
+.jd-profiler-wrapper .jd-team-columns .card-team .team-member-designation small {
+  font-size: 90%;
+  line-height: 1.2;
+}
+
+.jd-profiler-wrapper .social-profile {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.jd-profiler-wrapper .social-profile li {
+  display: inline-block;
+  margin: 0 5px;
+  border: none;
+}
+
+.jd-profiler-wrapper .social-profile li:first-child {
+  margin-left: 0;
+}
+
+.jd-profiler-wrapper .social-profile li:last-child {
+  margin-right: 0;
+}
+
+.jd-profiler-wrapper .social-profile li a {
+  display: block;
+  padding: 10px 5px;
+  text-align: center;
+  line-height: 1;
+  width: 40px;
+  height: 40px;
+  font-size: 16px;
+  line-height: 1.1;
+}
+.jd-profiler-wrapper .social-profile li a:before{
+ content: none;
+}
+
+.jd-profiler-wrapper .social-profile.square li a {
+  border: 1px solid currentColor;
+}
+
+.jd-profiler-wrapper .social-profile.circle li a {
+  -moz-border-radius: 100%;
+  -webkit-border-radius: 100%;
+  border-radius: 100%;
+  border: 1px solid currentColor;
+}
+
+.jd-profiler-wrapper .social-profile.rounded li a {
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  border: 1px solid currentColor;
+}
+
+.jd-profiler-wrapper .contact-info {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.jd-profiler-wrapper .contact-info li {
+  padding: 5px 0;
+  border: none;
+}
+
+.jd-profiler-wrapper .contact-info li i {
+  margin-right: 10px;
+}
+
+.jd-profiler-wrapper .slick-arrow {
+  padding: 5px 8px;
+  height: auto;
+  width: auto;
+  font-size: 0;
+}
+
+.jd-profiler-wrapper .slick-arrow::before {
+  font-family: 'Font Awesome\ 5 Free';
+  font-weight: 900;
+  font-size: 30px;
+  color: #000;
+}
+
+.jd-profiler-wrapper .slick-arrow.slick-prev::before {
+  content: "\f104";
+}
+
+.jd-profiler-wrapper .slick-arrow.slick-next::before {
+  content: "\f105";
+}
+
+.jd-profiler-wrapper .slick-dots li,
+.jd-profiler-wrapper .slick-dots button {
+  height: 30px;
+  width: 30px;
+}
+
+.jd-profiler-wrapper .slick-dots li button:before {
+  content: "";
+  height: 12px;
+  width: 12px;
+  -moz-border-radius: 100%;
+  -webkit-border-radius: 100%;
+  border-radius: 100%;
+  background: #000;
+  margin: auto;
+  right: 0;
+  bottom: 0;
+}
+.jd-profiler-wrapper .slick-dots{
+	bottom: auto;
+	position: relative;
+}
+.jd-profiler-wrapper .slick-dots li{
+	display: inline-block;
+	border: none;
+}
+
+.jd-carousel-layout-view.jd-carousel-simple-layout .jd-team-columns .jd-team-items .social-profile-wrapper,
+.jd-carousel-layout-view.jd-grid-simple-layout .jd-team-columns .jd-team-items .social-profile-wrapper,
+.jd-grid-layout-view.jd-carousel-simple-layout .jd-team-columns .jd-team-items .social-profile-wrapper,
+.jd-grid-layout-view.jd-grid-simple-layout .jd-team-columns .jd-team-items .social-profile-wrapper {
+  text-align: center;
+}
+
+.jd-carousel-layout-view.jd-carousel-simple-layout .jd-team-columns .jd-team-items .social-profile-wrapper .social-profile,
+.jd-carousel-layout-view.jd-grid-simple-layout .jd-team-columns .jd-team-items .social-profile-wrapper .social-profile,
+.jd-grid-layout-view.jd-carousel-simple-layout .jd-team-columns .jd-team-items .social-profile-wrapper .social-profile,
+.jd-grid-layout-view.jd-grid-simple-layout .jd-team-columns .jd-team-items .social-profile-wrapper .social-profile {
+  display: inline-block;
+}
+
+.jd-carousel-layout-view.jd-carousel-hover-layout .jd-team-columns .jd-team-items .team-member-name-overlay,
+.jd-carousel-layout-view.jd-grid-hover-layout .jd-team-columns .jd-team-items .team-member-name-overlay,
+.jd-grid-layout-view.jd-carousel-hover-layout .jd-team-columns .jd-team-items .team-member-name-overlay,
+.jd-grid-layout-view.jd-grid-hover-layout .jd-team-columns .jd-team-items .team-member-name-overlay {
+  padding: 15px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(255, 255, 255, 0.7);
+  margin: 0;
+  -moz-transform: translateY(0);
+  -webkit-transform: translateY(0);
+  transform: translateY(0);
+}
+
+.jd-carousel-layout-view.jd-carousel-hover-layout .jd-team-columns .jd-team-items .team-member-name-overlay,
+.jd-carousel-layout-view.jd-carousel-hover-layout .jd-team-columns .jd-team-items .card-team-overlay,
+.jd-carousel-layout-view.jd-carousel-hover-layout .jd-team-columns .jd-team-items .social-profile-wrapper,
+.jd-carousel-layout-view.jd-carousel-hover-layout .jd-team-columns .jd-team-items .team-member-content-wrapper,
+.jd-carousel-layout-view.jd-grid-hover-layout .jd-team-columns .jd-team-items .team-member-name-overlay,
+.jd-carousel-layout-view.jd-grid-hover-layout .jd-team-columns .jd-team-items .card-team-overlay,
+.jd-carousel-layout-view.jd-grid-hover-layout .jd-team-columns .jd-team-items .social-profile-wrapper,
+.jd-carousel-layout-view.jd-grid-hover-layout .jd-team-columns .jd-team-items .team-member-content-wrapper,
+.jd-grid-layout-view.jd-carousel-hover-layout .jd-team-columns .jd-team-items .team-member-name-overlay,
+.jd-grid-layout-view.jd-carousel-hover-layout .jd-team-columns .jd-team-items .card-team-overlay,
+.jd-grid-layout-view.jd-carousel-hover-layout .jd-team-columns .jd-team-items .social-profile-wrapper,
+.jd-grid-layout-view.jd-carousel-hover-layout .jd-team-columns .jd-team-items .team-member-content-wrapper,
+.jd-grid-layout-view.jd-grid-hover-layout .jd-team-columns .jd-team-items .team-member-name-overlay,
+.jd-grid-layout-view.jd-grid-hover-layout .jd-team-columns .jd-team-items .card-team-overlay,
+.jd-grid-layout-view.jd-grid-hover-layout .jd-team-columns .jd-team-items .social-profile-wrapper,
+.jd-grid-layout-view.jd-grid-hover-layout .jd-team-columns .jd-team-items .team-member-content-wrapper {
+  -webkit-transition: all 0.4s ease 0s;
+  -moz-transition: all 0.4s ease 0s;
+  -ms-transition: all 0.4s ease 0s;
+  -o-transition: all 0.4s ease 0s;
+  transition: all 0.4s ease 0s;
+}
+
+.jd-carousel-layout-view.jd-carousel-hover-layout .jd-team-columns .jd-team-items .card-team-overlay,
+.jd-carousel-layout-view.jd-grid-hover-layout .jd-team-columns .jd-team-items .card-team-overlay,
+.jd-grid-layout-view.jd-carousel-hover-layout .jd-team-columns .jd-team-items .card-team-overlay,
+.jd-grid-layout-view.jd-grid-hover-layout .jd-team-columns .jd-team-items .card-team-overlay {
+  background: #fff;
+  opacity: 0;
+  visibility: hidden;
+}
+
+@media (min-width: 768px) {
+
+  .jd-carousel-layout-view.jd-carousel-hover-layout .jd-team-columns .jd-team-items .card-team-overlay,
+  .jd-carousel-layout-view.jd-grid-hover-layout .jd-team-columns .jd-team-items .card-team-overlay,
+  .jd-grid-layout-view.jd-carousel-hover-layout .jd-team-columns .jd-team-items .card-team-overlay,
+  .jd-grid-layout-view.jd-grid-hover-layout .jd-team-columns .jd-team-items .card-team-overlay {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+  }
+
+  .jd-carousel-layout-view.jd-carousel-hover-layout .jd-team-columns .jd-team-items .card-team-overlay .team-member-content-wrapper,
+  .jd-carousel-layout-view.jd-grid-hover-layout .jd-team-columns .jd-team-items .card-team-overlay .team-member-content-wrapper,
+  .jd-grid-layout-view.jd-carousel-hover-layout .jd-team-columns .jd-team-items .card-team-overlay .team-member-content-wrapper,
+  .jd-grid-layout-view.jd-grid-hover-layout .jd-team-columns .jd-team-items .card-team-overlay .team-member-content-wrapper {
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    padding-top: 0;
+  }
+}
+
+.jd-carousel-layout-view.jd-carousel-hover-layout .jd-team-columns .jd-team-items .card-team-overlay .social-profile-wrapper,
+.jd-carousel-layout-view.jd-grid-hover-layout .jd-team-columns .jd-team-items .card-team-overlay .social-profile-wrapper,
+.jd-grid-layout-view.jd-carousel-hover-layout .jd-team-columns .jd-team-items .card-team-overlay .social-profile-wrapper,
+.jd-grid-layout-view.jd-grid-hover-layout .jd-team-columns .jd-team-items .card-team-overlay .social-profile-wrapper {
+  padding-top: 20px;
+}
+
+.jd-carousel-layout-view.jd-carousel-hover-layout .jd-team-columns .jd-team-items .card-team-overlay .social-profile-wrapper,
+.jd-carousel-layout-view.jd-carousel-hover-layout .jd-team-columns .jd-team-items .card-team-overlay .team-member-content-wrapper,
+.jd-carousel-layout-view.jd-grid-hover-layout .jd-team-columns .jd-team-items .card-team-overlay .social-profile-wrapper,
+.jd-carousel-layout-view.jd-grid-hover-layout .jd-team-columns .jd-team-items .card-team-overlay .team-member-content-wrapper,
+.jd-grid-layout-view.jd-carousel-hover-layout .jd-team-columns .jd-team-items .card-team-overlay .social-profile-wrapper,
+.jd-grid-layout-view.jd-carousel-hover-layout .jd-team-columns .jd-team-items .card-team-overlay .team-member-content-wrapper,
+.jd-grid-layout-view.jd-grid-hover-layout .jd-team-columns .jd-team-items .card-team-overlay .social-profile-wrapper,
+.jd-grid-layout-view.jd-grid-hover-layout .jd-team-columns .jd-team-items .card-team-overlay .team-member-content-wrapper {
+  -moz-transform: translateY(40px);
+  -webkit-transform: translateY(40px);
+  transform: translateY(40px);
+}
+
+.jd-carousel-layout-view.jd-carousel-hover-layout .jd-team-columns .jd-team-items:hover .team-member-name-overlay,
+.jd-carousel-layout-view.jd-grid-hover-layout .jd-team-columns .jd-team-items:hover .team-member-name-overlay,
+.jd-grid-layout-view.jd-carousel-hover-layout .jd-team-columns .jd-team-items:hover .team-member-name-overlay,
+.jd-grid-layout-view.jd-grid-hover-layout .jd-team-columns .jd-team-items:hover .team-member-name-overlay {
+  -moz-transform: translateY(100%);
+  -webkit-transform: translateY(100%);
+  transform: translateY(100%);
+}
+
+.jd-carousel-layout-view.jd-carousel-hover-layout .jd-team-columns .jd-team-items:hover .card-team-overlay,
+.jd-carousel-layout-view.jd-grid-hover-layout .jd-team-columns .jd-team-items:hover .card-team-overlay,
+.jd-grid-layout-view.jd-carousel-hover-layout .jd-team-columns .jd-team-items:hover .card-team-overlay,
+.jd-grid-layout-view.jd-grid-hover-layout .jd-team-columns .jd-team-items:hover .card-team-overlay {
+  opacity: 1;
+  visibility: visible;
+}
+
+.jd-carousel-layout-view.jd-carousel-hover-layout .jd-team-columns .jd-team-items:hover .card-team-overlay .social-profile-wrapper,
+.jd-carousel-layout-view.jd-carousel-hover-layout .jd-team-columns .jd-team-items:hover .card-team-overlay .team-member-content-wrapper,
+.jd-carousel-layout-view.jd-grid-hover-layout .jd-team-columns .jd-team-items:hover .card-team-overlay .social-profile-wrapper,
+.jd-carousel-layout-view.jd-grid-hover-layout .jd-team-columns .jd-team-items:hover .card-team-overlay .team-member-content-wrapper,
+.jd-grid-layout-view.jd-carousel-hover-layout .jd-team-columns .jd-team-items:hover .card-team-overlay .social-profile-wrapper,
+.jd-grid-layout-view.jd-carousel-hover-layout .jd-team-columns .jd-team-items:hover .card-team-overlay .team-member-content-wrapper,
+.jd-grid-layout-view.jd-grid-hover-layout .jd-team-columns .jd-team-items:hover .card-team-overlay .social-profile-wrapper,
+.jd-grid-layout-view.jd-grid-hover-layout .jd-team-columns .jd-team-items:hover .card-team-overlay .team-member-content-wrapper {
+  -moz-transform: translateY(0);
+  -webkit-transform: translateY(0);
+  transform: translateY(0);
+}
+
+.jd-carousel-layout-view.jd-carousel-circle-layout .jd-team-columns .jd-team-items,
+.jd-carousel-layout-view.jd-grid-circle-layout .jd-team-columns .jd-team-items,
+.jd-grid-layout-view.jd-carousel-circle-layout .jd-team-columns .jd-team-items,
+.jd-grid-layout-view.jd-grid-circle-layout .jd-team-columns .jd-team-items {
+  border: none;
+  text-align: center;
+}
+
+.jd-carousel-layout-view.jd-carousel-circle-layout .jd-team-columns .jd-team-items .team-mamber-image-wrapper,
+.jd-carousel-layout-view.jd-grid-circle-layout .jd-team-columns .jd-team-items .team-mamber-image-wrapper,
+.jd-grid-layout-view.jd-carousel-circle-layout .jd-team-columns .jd-team-items .team-mamber-image-wrapper,
+.jd-grid-layout-view.jd-grid-circle-layout .jd-team-columns .jd-team-items .team-mamber-image-wrapper {
+  display: inline-block;
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+  margin: 0 auto;
+  -moz-border-radius: 100%;
+  -webkit-border-radius: 100%;
+  border-radius: 100%;
+}
+
+.jd-carousel-layout-view.jd-carousel-circle-layout .jd-team-columns .jd-team-items .card-team-body,
+.jd-carousel-layout-view.jd-grid-circle-layout .jd-team-columns .jd-team-items .card-team-body,
+.jd-grid-layout-view.jd-carousel-circle-layout .jd-team-columns .jd-team-items .card-team-body,
+.jd-grid-layout-view.jd-grid-circle-layout .jd-team-columns .jd-team-items .card-team-body {
+  padding: 0;
+  margin-top: 1rem;
+}
+
+.jd-carousel-layout-view.jd-carousel-circle-layout .jd-team-columns .jd-team-items .card-team-footer,
+.jd-carousel-layout-view.jd-grid-circle-layout .jd-team-columns .jd-team-items .card-team-footer,
+.jd-grid-layout-view.jd-carousel-circle-layout .jd-team-columns .jd-team-items .card-team-footer,
+.jd-grid-layout-view.jd-grid-circle-layout .jd-team-columns .jd-team-items .card-team-footer {
+  border: none;
+}
+
+.jd-list-layout-view .jd-team-columns .jd-team-items {
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+}
+
+.jd-list-layout-view .jd-team-columns .jd-team-items .card-team-body {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.jd-list-layout-view .jd-team-columns .jd-team-items .social-profile-wrapper {
+  padding-top: 15px;
+}
+
+@media (min-width: 768px) {
+  .jd-list-layout-view .jd-team-columns .jd-team-items {
+    -ms-flex-direction: row;
+    flex-direction: row;
+    padding-bottom: 20px;
+  }
+
+  .jd-list-layout-view .jd-team-columns .jd-team-items .team-mamber-image-wrapper {
+    width: 250px;
+    min-width: 250px;
+  }
+
+  .jd-list-layout-view .jd-team-columns .jd-team-items .card-team-body {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    padding: 0 0 0 15px;
+  }
+
+  .jd-list-layout-view .jd-team-columns .jd-team-items .card-team-body .team-member-content-wrapper {
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .jd-list-layout-view.jd-list-circle-layout .jd-team-columns .jd-team-items {
+    text-align: center;
+  }
+}
+
+.jd-list-layout-view.jd-list-circle-layout .jd-team-columns .jd-team-items .team-mamber-image-wrapper {
+  overflow: hidden;
+  width: 250px;
+  height: 250px;
+  -moz-border-radius: 100%;
+  -webkit-border-radius: 100%;
+  border-radius: 100%;
+}
+
+@media (max-width: 768px) {
+  .jd-list-layout-view.jd-list-circle-layout .jd-team-columns .jd-team-items .team-mamber-image-wrapper {
+    margin: 15px auto 10px;
+  }
+}
+
+.jd-table-layout-view .jd-team-table .table tr th img {
+  width: 50px;
+  height: 50px;
+}
+
+.jd-table-layout-view .jd-team-table .table tr td {
+  vertical-align: middle;
+}
+
+.jd-table-layout-view .jd-team-table .table tr .team-mamber-image-wrapper {
+  width: 60px;
+}
+
+.jd-table-layout-view .jd-team-table .table tr .team-member-designation,
+.jd-table-layout-view .jd-team-table .table tr .team-member-address,
+.jd-table-layout-view .jd-team-table .table tr .team-member-email {
+  width: 25%;
+}
+
+.jd-table-layout-view .jd-team-table .table tr .team-member-name {
+  width: 20%;
+}
+
+@media (max-width: 767px) {
+
+  .jd-table-layout-view .jd-team-table .table tr th,
+  .jd-table-layout-view .jd-team-table .table tr td {
+    display: block;
+    width: 100% !important;
+    border: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .team-details-single .team-mamber-image-wrapper {
+    margin-bottom: 30px;
+  }
+}
+
+.team-details-single .contact-info {
+  margin-bottom: 30px;
+}
+
+.team-details-single .team-single-details-text {
+  padding: 30px 0 0;
+}
+
+.team-details-single .team-skill-details .team-counter {
+  padding: 30px 0;
+}
+
+.team-details-single .team-skill-details .team-counter .team-count-number {
+  margin: 15px 0;
+}
+
+.team-details-single .blockquote {
+  width: 100%;
+  border: none;
+  position: relative;
+  text-align: center;
+  margin: 15px 0px 23px 0px;
+  padding: 53px 90px 57px;
+  background: #f9f9f9;
+}
+
+.team-details-single .blockquote::before,
+.team-details-single .blockquote::after {
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-size: 83px;
+  line-height: 74px;
+  color: #eff0f0;
+  font-family: 'Font Awesome\ 5 Free';
+  font-weight: 900;
+}
+
+.team-details-single .blockquote::before {
+  content: "\f10d";
+}
+
+.team-details-single .blockquote::after {
+  content: "\f10e";
+  left: auto;
+  right: 0;
+  top: auto;
+  bottom: 0;
+}

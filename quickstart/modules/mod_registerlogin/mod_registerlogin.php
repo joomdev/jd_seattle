@@ -1,11 +1,9 @@
 <?php
 /**
- * @package		Login Register module for joomla
- * @subpackage  mod_loginregister
- * @author		www.joomdev.com
- * @author		Created on March 2016
- * @copyright	Copyright (C) 2009 - 2016 www.joomdev.com. All rights reserved.
- * @license		GNU GPL2 or later; see LICENSE.txt
+ * @package		Register Login Joomla Module
+ * @author		JoomDev
+ * @copyright	Copyright (C) 2018 Joomdev, Inc. All rights reserved.
+ * @license    GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
 
 defined('_JEXEC') or die;
@@ -42,10 +40,9 @@ if($jinput->get($mName) == 'register'){
 		}else{
 			$messge = JText::_('COM_USERS_REGISTRATION_COMPLETE_VERIFY');
 		}
-		
 		$app->enqueueMessage($messge, 'Success');
 		if($params->get('login')){
-			$app->redirect($return);
+			$app->redirect(base64_decode($return));
 		}else{		
 			$app->redirect(JURI::current());
 		}
@@ -58,7 +55,7 @@ if($jinput->get($mName) == 'login'){
 	$loginResponse = modRegisterLoginHelper::getUserlogin($params);
 	if(!$loginResponse['error']){		
 		if($params->get('login')){
-			$app->redirect($return);
+			$app->redirect(base64_decode($return));
 		}else{		
 			$app->redirect(JURI::current());
 		}

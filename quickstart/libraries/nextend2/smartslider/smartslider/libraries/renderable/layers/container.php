@@ -39,7 +39,8 @@ class  N2SSLayersContainer {
                         try {
                             if (empty($node['item'])) {
                                 if (empty($node['items'])) {
-                                    continue;
+                                    $i--;
+                                    break;
                                 }
                                 $node['item'] = $node['items'][0];
                             }
@@ -48,6 +49,7 @@ class  N2SSLayersContainer {
                             $this->layers[] = $layer;
 
                         } catch (Exception $e) {
+                            $i--;
                             N2Message::error($e->getMessage());
                         }
                         break;

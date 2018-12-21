@@ -253,34 +253,6 @@ class N2SystemAnimationModel extends N2SystemVisualModel {
             'rowClass' => 'n2-expert'
         ));
 
-        $eventNames = array(
-            'layerAnimationPlayIn',
-            'LayerClick',
-            'LayerMouseEnter',
-            'LayerMouseLeave',
-            'SlideClick',
-            'SlideMouseEnter',
-            'SlideMouseLeave',
-            'SliderClick',
-            'SliderMouseEnter',
-            'SliderMouseLeave'
-        );
-
-        $events = new N2ElementGroup($tab, 'events', n2_('Event'));
-        new N2ElementAutocomplete($events, 'play', n2_('Play'), '', array(
-            'options' => $eventNames,
-        ));
-        new N2ElementAutocomplete($events, 'pause', n2_('Pause'), '', array(
-            'options' => $eventNames,
-        ));
-        new N2ElementAutocomplete($events, 'stop', n2_('Stop'), '', array(
-            'options' => $eventNames,
-        ));
-
-        new N2ElementOnOff($events, 'repeatable', n2_('Repeatable'), 0);
-        new N2ElementOnOff($events, 'repeat-self-only', n2_('Repeat self only'), 0);
-        new N2ElementOnOff($events, 'instant-out', n2_('Instant out'), 0);
-
         $form->render('n2-animation-editor');
     }
 }

@@ -43,9 +43,9 @@ class N2SSPluginTypeSimple extends N2SSPluginSliderType {
         $backgroundAnimationGroup = new N2ElementGroup($animationSettings, 'slider-background-animation', n2_('Background animation'));
         new N2ElementBackgroundAnimation($backgroundAnimationGroup, 'background-animation', n2_('Animation(s)'), '', array(
             'relatedFields' => array(
-                'background-animation-color',
-                'background-animation-speed',
-                'animation-shifted-background-animation'
+                'sliderbackground-animation-color',
+                'sliderbackground-animation-speed',
+                'slideranimation-shifted-background-animation'
             )
         ));
         new N2ElementHidden($backgroundAnimationGroup, 'background-animation-color', '', '333333ff');
@@ -70,7 +70,7 @@ class N2SSPluginTypeSimple extends N2SSPluginSliderType {
         $backgroundAnimationGroup = new N2ElementGroup($simpleAnimation, 'backgroundanimation', n2_('Background animation'));
         new N2ElementBackgroundAnimation($backgroundAnimationGroup, 'background-animation', n2_('Animation(s)'), '', array(
             'relatedFields' => array(
-                'background-animation-speed'
+                'sliderbackground-animation-speed'
             )
         ));
 

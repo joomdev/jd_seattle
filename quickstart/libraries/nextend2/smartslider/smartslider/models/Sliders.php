@@ -44,6 +44,7 @@ class N2SmartsliderSlidersModel extends N2Model {
     }
 
     public function invalidateCache() {
+        $this->db->query("DELETE FROM `" . $this->db->parsePrefix('#__nextend2_section_storage') . "` WHERE `application` LIKE 'cache'");
 
         return $this->db->query("UPDATE `" . $this->db->parsePrefix('#__nextend2_section_storage') . "` SET `value` = 1 WHERE `application` LIKE 'smartslider' AND `section` LIKE 'sliderChanged';");
     }
@@ -139,21 +140,29 @@ class N2SmartsliderSlidersModel extends N2Model {
             'style' => 'width:400px;'
         ));
 
-        $aliasGroup = new N2ElementGroup($generalTab2, 'aliasgroup', n2_('Alias'));
+        $aliasGroup = new N2ElementGroup($generalTab2, 'aliasgroup', n2_('Alias'), array(
+            'tip' => 'Find the description of the options by hovering over their titles.'
+        ));
 
         new N2ElementText($aliasGroup, 'alias', n2_('Alias'), '', array(
-            'style' => 'width:200px;'
+            'style' => 'width:200px;',
+            'tip'   => 'This alias can be used for your slider\'s shortcode, but you can also use it to create an element for anchors with the next on/off options.'
         ));
 
         new N2ElementOnOff($aliasGroup, 'alias-id', n2_('Use as ID on element before slider'), '', array(
             'tip'           => 'You can have an empty div element before our slider, which would use this alias as its id. This can be useful, if you would want to use #your-alias as the url in your menu to jump to that element.',
             'relatedFields' => array(
-                'alias-smoothscroll'
+                'slideralias-smoothscroll',
+                'slideralias-slideswitch'
             )
         ));
 
         new N2ElementOnOff($aliasGroup, 'alias-smoothscroll', n2_('Smooth scroll to this element'), '', array(
             'tip' => 'The #your-alias urls in links would be forced to smooth scroll to our element.'
+        ));
+
+        new N2ElementOnOff($aliasGroup, 'alias-slideswitch', n2_('Allow slide switching for anchor'), '', array(
+            'tip' => 'If you wouldn\'t use #your-alias as anchor, but rather #your-alias-1 or #your-alias-2, then your slider will switch to the 1st, 2nd, etc. slide.'
         ));
 
         $controls = new N2ElementGroup($generalTab2, 'controls', n2_('Controls'));
@@ -179,35 +188,34 @@ class N2SmartsliderSlidersModel extends N2Model {
             )
         ));
 
-        $backgroundModeOptions = array(
-            'fill'    => array(
-                'image' => '$ss$/admin/images/fillmode/fill.png',
-                'label' => n2_('Fill')
-            ),
-            'blurfit' => array(
-                'image' => '$ss$/admin/images/fillmode/fit.png',
-                'label' => n2_('Blur fit')
-            ),
-            'fit'     => array(
-                'image' => '$ss$/admin/images/fillmode/fit.png',
-                'label' => n2_('Fit')
-            ),
-            'stretch' => array(
-                'image' => '$ss$/admin/images/fillmode/stretch.png',
-                'label' => n2_('Stretch')
-            ),
-            'center'  => array(
-                'image' => '$ss$/admin/images/fillmode/center.png',
-                'label' => n2_('Center')
-            ),
-            'tile'    => array(
-                'image' => '$ss$/admin/images/fillmode/tile.png',
-                'label' => n2_('Tile')
-            )
-        );
         new N2ElementImageListLabel($generalTab2, 'backgroundMode', n2_('Slide background image fill'), 'fill', array(
             'tip'     => n2_('If the size of your image is not the same as your slide\'s, you can improve the result with the filling modes.'),
-            'options' => $backgroundModeOptions
+            'options' => array(
+                'fill'    => array(
+                    'image' => '$ss$/admin/images/fillmode/fill.png',
+                    'label' => n2_('Fill')
+                ),
+                'blurfit' => array(
+                    'image' => '$ss$/admin/images/fillmode/fit.png',
+                    'label' => n2_('Blur fit')
+                ),
+                'fit'     => array(
+                    'image' => '$ss$/admin/images/fillmode/fit.png',
+                    'label' => n2_('Fit')
+                ),
+                'stretch' => array(
+                    'image' => '$ss$/admin/images/fillmode/stretch.png',
+                    'label' => n2_('Stretch')
+                ),
+                'center'  => array(
+                    'image' => '$ss$/admin/images/fillmode/center.png',
+                    'label' => n2_('Center')
+                ),
+                'tile'    => array(
+                    'image' => '$ss$/admin/images/fillmode/tile.png',
+                    'label' => n2_('Tile')
+                )
+            )
         ));
 
         $sliderTypeTab = new N2Tab($generalTab, 'slidertype', n2_('Slider Type'), array(
@@ -286,12 +294,12 @@ class N2SmartsliderSlidersModel extends N2Model {
         new N2ElementOnOff($autoplayGroup, 'autoplay', n2_('Enable'), 0, array(
             'relatedAttribute' => 'autoplay',
             'relatedFields'    => array(
-                'autoplayDuration',
-                'autoplayStart',
-                'autoplayfinish',
-                'autoplayAllowReStart',
-                'autoplay-stop-on',
-                'autoplay-resume-on'
+                'sliderautoplayDuration',
+                'sliderautoplayStart',
+                'sliderautoplayfinish',
+                'sliderautoplayAllowReStart',
+                'sliderautoplay-stop-on',
+                'sliderautoplay-resume-on'
             )
         ));
         new N2ElementNumber($autoplayGroup, 'autoplayDuration', n2_('Interval'), 8000, array(
@@ -316,7 +324,7 @@ class N2SmartsliderSlidersModel extends N2Model {
         $optimizeImages = new N2ElementGroup($optimize2, 'optimize-images', n2_('Optimize images'));
         new N2ElementOnOff($optimizeImages, 'optimize', n2_('Enable'), 0, array(
             'relatedFields' => array(
-                'optimize-quality'
+                'slideroptimize-quality'
             )
         ));
         new N2ElementNumber($optimizeImages, 'optimize-quality', n2_('Quality'), 70, array(
@@ -329,8 +337,8 @@ class N2SmartsliderSlidersModel extends N2Model {
         $backgroundImage = new N2ElementGroup($optimize2, 'background-image-resize', n2_('Background image resize'), array('tip' => n2_('Only works if the \'Optimize images\' option is turned on too!')));
         new N2ElementOnOff($backgroundImage, 'optimize-background-image-custom', n2_('Enable'), '0', array(
             'relatedFields' => array(
-                'optimize-background-image-width',
-                'optimize-background-image-height'
+                'slideroptimize-background-image-width',
+                'slideroptimize-background-image-height'
             )
         ));
         new N2ElementNumber($backgroundImage, 'optimize-background-image-width', n2_('Width'), 800, array(
@@ -363,7 +371,7 @@ class N2SmartsliderSlidersModel extends N2Model {
         $playWhenVisible = new N2ElementGroup($loadingCore, 'play-when-visible', n2_('Play when visible'));
         new N2ElementOnOff($playWhenVisible, 'playWhenVisible', n2_('Enable'), 1, array(
             'relatedFields' => array(
-                'playWhenVisibleAt'
+                'sliderplayWhenVisibleAt'
             )
         ));
         new N2ElementNumber($playWhenVisible, 'playWhenVisibleAt', n2_('At'), 50, array(
@@ -399,10 +407,10 @@ class N2SmartsliderSlidersModel extends N2Model {
             'tip' => n2_('Turn this off to allow contents following the slider get into the same row where the slider is.')
         ));
 
-        new N2ElementTextarea($developerOptions, 'custom-css-codes', 'CSS', '', array(
+        new N2ElementTextarea($developerOptions, 'custom-css-codes', n2_('CSS'), '', array(
             'fieldStyle' => 'width:600px;height:300px;'
         ));
-        new N2ElementTextarea($developerOptions, 'callbacks', 'JavaScript callbacks', '', array(
+        new N2ElementTextarea($developerOptions, 'callbacks', n2_('JavaScript callbacks'), '', array(
             'fieldStyle' => 'width:600px;height:300px;'
         ));
 

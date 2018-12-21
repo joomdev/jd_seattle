@@ -197,7 +197,7 @@ class N2SmartSliderWidgets {
     }
 
     /**
-     * @param $slider N2SmartSlider
+     * @param $slider N2SmartSliderAbstract
      */
     public function __construct($slider) {
 

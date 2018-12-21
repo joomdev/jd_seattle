@@ -15,10 +15,10 @@ class N2DBConnector extends N2DBConnectorAbstract
      */
     public $primaryKeyColumn = "id";
 
-    protected $_prefix = '#__';
-
     public function __construct($class) {
         $this->db = JFactory::getDbo();
+        $this->_prefix = $this->db->getPrefix();
+        
         $this->setTableName($class);
     }
 

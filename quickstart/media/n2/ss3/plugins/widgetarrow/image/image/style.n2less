@@ -36,9 +36,6 @@
 
   .nextend-arrow-animated > div {
     position: relative;
-    width: 100%;
-    height: 100%;
-    box-sizing: border-box;
   }
 
   .nextend-arrow-animated .n2-active {

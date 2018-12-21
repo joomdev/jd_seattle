@@ -22,7 +22,11 @@ abstract class N2SSPluginSliderResponsive {
      * @return N2SSPluginSliderResponsive
      */
     public static function getType($type) {
-        return self::$types[$type];
+        if (isset(self::$types[$type])) {
+            return self::$types[$type];
+        }
+
+        return self::$types['auto'];
     }
 
     /**

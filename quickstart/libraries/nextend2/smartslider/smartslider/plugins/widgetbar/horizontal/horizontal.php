@@ -46,7 +46,7 @@ class N2SSPluginWidgetBarHorizontal extends N2SSPluginWidgetAbstract {
         $title = new N2ElementGroup($settings, 'horizontal-bar-title', n2_('Title'));
         new N2ElementOnOff($title, 'widget-bar-show-title', n2_('Enable'), 0, array(
             'relatedFields' => array(
-                'widget-bar-font-title'
+                'slidersliderwidget-bar-font-title'
             )
         ));
         new N2ElementFont($title, 'widget-bar-font-title', n2_('Font'), '', array(
@@ -60,7 +60,7 @@ class N2SSPluginWidgetBarHorizontal extends N2SSPluginWidgetAbstract {
         $description = new N2ElementGroup($settings, 'horizontal-bar-description', n2_('Description'));
         new N2ElementOnOff($description, 'widget-bar-show-description', n2_('Enable'), 0, array(
             'relatedFields' => array(
-                'widget-bar-font-description'
+                'sliderwidget-bar-font-description'
             )
         ));
         new N2ElementFont($description, 'widget-bar-font-description', n2_('Font'), '', array(
@@ -139,48 +139,35 @@ class N2SSPluginWidgetBarHorizontal extends N2SSPluginWidgetAbstract {
             $innerStyle = 'display: inline-block;';
         }
 
-        $separator       = $params->get(self::$key . 'separator');
-        $showTitle       = intval($params->get(self::$key . 'show-title'));
+        $showTitle = intval($params->get(self::$key . 'show-title'));
+        if ($showTitle) {
+            $slider->exposeSlideData['title'] = true;
+        }
         $showDescription = intval($params->get(self::$key . 'show-description'));
-        $slides          = array();
-        for ($i = 0; $i < count($slider->slides); $i++) {
-
-            $html = '';
-            if ($showTitle) {
-                $title = N2Translation::_($slider->slides[$i]->getTitle());
-                if (!empty($title)) {
-                    $html .= N2Html::tag('span', array(
-                        'class' => $fontTitle . ' n2-ow'
-                    ), $title);
-                }
-            }
-
-            $description = $slider->slides[$i]->getDescription();
-            if ($showDescription && !empty($description)) {
-                $html .= N2Html::tag('span', array('class' => $fontDescription . ' n2-ow'), (!empty($html) ? $separator : '') . N2SmartSlider::addCMSFunctions(N2Translation::_($description)));
-            }
-
-            $slides[$i] = array(
-                'html'    => $html,
-                'hasLink' => $slider->slides[$i]->hasLink
-            );
+        if ($showDescription) {
+            $slider->exposeSlideData['description'] = true;
         }
 
         $parameters = array(
-            'overlay' => $params->get(self::$key . 'position-mode') != 'simple' || $params->get(self::$key . 'overlay'),
-            'area'    => intval($params->get(self::$key . 'position-area')),
-            'animate' => intval($params->get(self::$key . 'animate'))
+            'overlay'         => ($params->get(self::$key . 'position-mode') != 'simple' || $params->get(self::$key . 'overlay')) ? 1 : 0,
+            'area'            => intval($params->get(self::$key . 'position-area')),
+            'animate'         => intval($params->get(self::$key . 'animate')),
+            'showTitle'       => $showTitle,
+            'fontTitle'       => $fontTitle,
+            'showDescription' => $showDescription,
+            'fontDescription' => $fontDescription,
+            'separator'       => $params->get(self::$key . 'separator')
         );
 
-        $slider->features->addInitCallback('new N2Classes.SmartSliderWidgetBarHorizontal(this, ' . json_encode($slides) . ', ' . json_encode($parameters) . ');');
+        $slider->features->addInitCallback('new N2Classes.SmartSliderWidgetBarHorizontal(this, ' . json_encode($parameters) . ');');
 
         return N2Html::tag("div", $displayAttributes + $attributes + array(
                 "class" => $displayClass . "nextend-bar nextend-bar-horizontal n2-ow",
                 "style" => $style
             ), N2Html::tag("div", array(
             "class" => $styleClass . ' n2-ow',
-            "style" => $innerStyle . ($slides[$slider->firstSlideIndex]['hasLink'] ? 'cursor:pointer;' : '')
-        ), $slides[$slider->firstSlideIndex]['html']));
+            "style" => $innerStyle
+        ), ''));
     }
 
     public function prepareExport($export, $params) {

@@ -89,29 +89,22 @@ class N2SSPluginWidgetBulletTransition extends N2SSPluginWidgetAbstract {
         list($style, $attributes) = self::getPosition($params, self::$key);
         $attributes['data-offset'] = $params->get(self::$key . 'position-offset', 0);
 
-        $dots = array();
-
-        for ($i = 0; $i < count($slider->slides); $i++) {
-            $dots[] = N2Html::tag('div', array(
-                'class'    => 'n2-ow ' . $bulletStyle,
-                'tabindex' => '0'
-            ), '');
-        }
-
         $orientation = self::getOrientationByPosition($params->get(self::$key . 'position-mode'), $params->get(self::$key . 'position-area'), $params->get(self::$key . 'orientation'), 'horizontal');
 
-        $html = implode('', $dots);
 
         $parameters = array(
-            'overlay' => $params->get(self::$key . 'position-mode') != 'simple' || $params->get(self::$key . 'overlay'),
-            'area'    => intval($params->get(self::$key . 'position-area'))
+            'overlay'    => ($params->get(self::$key . 'position-mode') != 'simple' || $params->get(self::$key . 'overlay')) ? 1 : 0,
+            'area'       => intval($params->get(self::$key . 'position-area')),
+            'dotClasses' => $bulletStyle,
+            'mode'       => '',
+            'action'     => $params->get(self::$key . 'action')
         );
 
-        $thumbnails = array();
         if ($params->get(self::$key . 'thumbnail-show-image')) {
-            foreach ($slider->slides AS $slide) {
-                $thumbnails[] = $slide->getThumbnail();
-            }
+
+            $slider->exposeSlideData['thumbnail'] = true;
+
+            $parameters['thumbnail']       = 1;
             $parameters['thumbnailWidth']  = intval($params->get(self::$key . 'thumbnail-width'));
             $parameters['thumbnailHeight'] = intval($params->get(self::$key . 'thumbnail-height'));
             $parameters['thumbnailStyle']  = $slider->addStyle($params->get(self::$key . 'thumbnail-style'), 'simple', '');
@@ -133,9 +126,6 @@ class N2SSPluginWidgetBulletTransition extends N2SSPluginWidgetAbstract {
             }
             $parameters['thumbnailPosition'] = $position;
         }
-        $parameters['thumbnails'] = $thumbnails;
-        $parameters['action']     = $params->get(self::$key . 'action');
-        $parameters['numeric']    = 0;
 
         $slider->features->addInitCallback('new N2Classes.SmartSliderWidgetBulletTransition(this, ' . json_encode($parameters) . ');');
 
@@ -146,7 +136,7 @@ class N2SSPluginWidgetBulletTransition extends N2SSPluginWidgetAbstract {
                 "style" => $style
             ), N2HTML::tag("div", array(
             "class" => $barStyle . " nextend-bullet-bar n2-ow n2-bar-justify-content-" . $params->get(self::$key . 'align')
-        ), $html));
+        ), ''));
     }
 
     public function prepareExport($export, $params) {

@@ -10,8 +10,19 @@ class N2SmartSliderFeatureSlideBackground {
     }
 
     public function makeJavaScriptProperties(&$properties) {
-        $properties['background.parallax.tablet'] = intval($this->slider->params->get('bg-parallax-tablet', 0));
-        $properties['background.parallax.mobile'] = intval($this->slider->params->get('bg-parallax-mobile', 0));
+        $enabled = intval($this->slider->params->get('slide-background-parallax', 0));
+        if (!$enabled) {
+            if ($this->slider->params->get('backgroundMode') == 'fixed') {
+                $enabled = 1;
+            }
+        }
+        if ($enabled) {
+            $properties['backgroundParallax'] = array(
+                'strength' => intval($this->slider->params->get('slide-background-parallax-strength', 50)) / 100,
+                'tablet'   => intval($this->slider->params->get('bg-parallax-tablet', 0)),
+                'mobile'   => intval($this->slider->params->get('bg-parallax-mobile', 0))
+            );
+        }
     }
 
     /**
@@ -146,6 +157,10 @@ class N2SmartSliderFeatureSlideBackground {
         $fillMode = $slide->parameters->get('backgroundMode', 'default');
         if ($fillMode == 'default') {
             $fillMode = $this->slider->params->get('backgroundMode', 'fill');
+        }
+
+        if ($fillMode == 'fixed') {
+            $fillMode = 'fill';
         }
 
         return N2Html::tag('div', array(

@@ -211,7 +211,7 @@ class N2SmartsliderSlidesModel extends N2Model {
                     'diagonal2'  => '&#8600;'
                 ),
                 'relatedFields' => array(
-                    'backgroundColorEnd'
+                    'slidebackgroundColorEnd'
                 )
             ));
 
@@ -219,38 +219,37 @@ class N2SmartsliderSlidesModel extends N2Model {
                 'alpha' => true
             ));
 
-            $backgroundModeOptions = array(
-                'default' => array(
-                    'image' => '$ss$/admin/images/fillmode/default.png',
-                    'label' => n2_('Slider\'s default')
-                ),
-                'fill'    => array(
-                    'image' => '$ss$/admin/images/fillmode/fill.png',
-                    'label' => n2_('Fill')
-                ),
-                'blurfit' => array(
-                    'image' => '$ss$/admin/images/fillmode/fit.png',
-                    'label' => n2_('Blur fit')
-                ),
-                'fit'     => array(
-                    'image' => '$ss$/admin/images/fillmode/fit.png',
-                    'label' => n2_('Fit')
-                ),
-                'stretch' => array(
-                    'image' => '$ss$/admin/images/fillmode/stretch.png',
-                    'label' => n2_('Stretch')
-                ),
-                'center'  => array(
-                    'image' => '$ss$/admin/images/fillmode/center.png',
-                    'label' => n2_('Center')
-                ),
-                'tile'    => array(
-                    'image' => '$ss$/admin/images/fillmode/tile.png',
-                    'label' => n2_('Tile')
-                )
-            );
             new N2ElementImageListLabel($slideBackground, 'backgroundMode', n2_('Fill mode'), 'default', array(
-                'options'  => $backgroundModeOptions,
+                'options'  => array(
+                    'default' => array(
+                        'image' => '$ss$/admin/images/fillmode/default.png',
+                        'label' => n2_('Slider\'s default')
+                    ),
+                    'fill'    => array(
+                        'image' => '$ss$/admin/images/fillmode/fill.png',
+                        'label' => n2_('Fill')
+                    ),
+                    'blurfit' => array(
+                        'image' => '$ss$/admin/images/fillmode/fit.png',
+                        'label' => n2_('Blur fit')
+                    ),
+                    'fit'     => array(
+                        'image' => '$ss$/admin/images/fillmode/fit.png',
+                        'label' => n2_('Fit')
+                    ),
+                    'stretch' => array(
+                        'image' => '$ss$/admin/images/fillmode/stretch.png',
+                        'label' => n2_('Stretch')
+                    ),
+                    'center'  => array(
+                        'image' => '$ss$/admin/images/fillmode/center.png',
+                        'label' => n2_('Center')
+                    ),
+                    'tile'    => array(
+                        'image' => '$ss$/admin/images/fillmode/tile.png',
+                        'label' => n2_('Tile')
+                    )
+                ),
                 'rowClass' => 'n2-ss-slide-background-image-param n2-ss-background-video-param'
             ));
 

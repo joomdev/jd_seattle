@@ -18,8 +18,11 @@ abstract class N2SmartSliderCSSAbstract {
         $this->slider = $slider;
 
         $params = $slider->params;
-        N2CSS::addStaticGroup(NEXTEND_SMARTSLIDER_ASSETS . '/smartslider.min.css', 'smartslider');
-    
+
+        if (!N2Platform::needStrongerCSS()) {
+            N2CSS::addStaticGroup(NEXTEND_SMARTSLIDER_ASSETS . '/smartslider.min.css', 'smartslider');
+        
+        }
 
         $width  = intval($params->get('width', 900));
         $height = intval($params->get('height', 500));
@@ -49,12 +52,27 @@ abstract class N2SmartSliderCSSAbstract {
 
     public function getCSS() {
         $css = '';
+        if (N2Platform::needStrongerCSS()) {
+            $css = file_get_contents(NEXTEND_SMARTSLIDER_ASSETS . '/smartslider.min.css');
+        
+        }
+
         foreach ($this->slider->less AS $file => $context) {
             $compiler = new n2lessc();
             $compiler->setVariables($context);
             $css .= $compiler->compileFile($file);
         }
         $css .= implode('', $this->slider->css);
+
+        if (N2Platform::needStrongerCSS()) {
+            $css = preg_replace(array(
+                '/\.n2-ss-align([\. \{,])/',
+                '/(?<!' . preg_quote('#' . $this->slider->elementId) . ')\.n2-ss-slider([\. \{,])/'
+            ), array(
+                '#' . $this->slider->elementId . '-align$1',
+                '#' . $this->slider->elementId . '$1'
+            ), $css);
+        }
 
         $css .= $this->slider->params->get('custom-css-codes', '');
 

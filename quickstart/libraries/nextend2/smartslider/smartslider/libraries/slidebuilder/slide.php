@@ -21,7 +21,7 @@ class N2SmartSliderSlideBuilder extends N2SmartSliderSlideBuilderComponent {
         "backgroundTitle"        => "",
         "backgroundMode"         => "default",
         "backgroundVideoMp4"     => "",
-        "backgroundVideoOpacity" => 0,
+        "backgroundVideoOpacity" => 100,
         "backgroundVideoMuted"   => 1,
         "backgroundVideoLoop"    => 1,
         "backgroundVideoMode"    => "fill",

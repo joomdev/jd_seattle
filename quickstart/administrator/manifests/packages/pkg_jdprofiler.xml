@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE install PUBLIC "-//Joomla! 2.5//DTD template 1.0//EN" "">
+<extension type="package" version="3.1" method="upgrade">
+   <name>JD Profiler</name>
+   <author>JoomDev</author>
+   <packagename>JD Profiler</packagename>
+   <creationDate>Oct 2018</creationDate>
+   <copyright>Copyright (C) 2018 Joomdev, Inc. All rights reserved.</copyright>
+   <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+   <version>1.0</version>
+   <authorEmail>info@joomdev.com</authorEmail>
+   <authorUrl>https://www.joomdev.com</authorUrl>
+   <description></description>
+   <updateservers>
+		<server type="package" name="pkg_jdprofiler" priority="1">https://www.joomdev.com/extensionupdates/pkg_jdprofiler.xml</server>
+	</updateservers>
+   <scriptfile>pkg_jdprofiler.php</scriptfile>
+   <files folder="packages">
+      <folder type="component" id="com_jdprofiler">com_jdprofiler</folder>
+      <folder type="module" id="mod_jdprofiler" client="site">mod_jdprofiler</folder>
+   </files>
+</extension>

@@ -1,0 +1,13 @@
+div.jd-profiler-wrapper {
+   .slick-dots {
+      li {
+         width: 20px;
+         height: 20px;
+         button {
+            &:before {
+               background-color: $primary !important;
+            }
+         }
+      }
+   }
+}

@@ -1,0 +1,83 @@
+.icon-48-profiles {
+	background-image: url(../images/l_profiles.png);
+	padding-left: 60px !important;
+}
+
+.icon-48-profile {
+	background-image: url(../images/l_profiles.png);
+	padding-left: 60px !important;
+}
+
+.color-box-profiles {
+	float: left;
+	width: 15px;
+	height: 15px;
+	margin-right: 5px;
+	border: 1px solid rgba(0, 0, 0, .2);
+}
+
+.other-filters {
+	padding: 0 14px;
+}
+
+.icon-48-designations {
+	background-image: url(../images/l_designations.png);
+	padding-left: 60px !important;
+}
+
+.icon-48-designation {
+	background-image: url(../images/l_designations.png);
+	padding-left: 60px !important;
+}
+
+.color-box-designations {
+	float: left;
+	width: 15px;
+	height: 15px;
+	margin-right: 5px;
+	border: 1px solid rgba(0, 0, 0, .2);
+}
+
+.icon-48-teams {
+	background-image: url(../images/l_teams.png);
+	padding-left: 60px !important;
+}
+
+.icon-48-team {
+	background-image: url(../images/l_teams.png);
+	padding-left: 60px !important;
+}
+
+.color-box-teams {
+	float: left;
+	width: 15px;
+	height: 15px;
+	margin-right: 5px;
+	border: 1px solid rgba(0, 0, 0, .2);
+}
+
+.other-filters {
+	padding: 0 14px;
+}
+
+.icon-48-skills {
+	background-image: url(../images/l_skills.png);
+	padding-left: 60px !important;
+}
+
+.icon-48-skill {
+	background-image: url(../images/l_skills.png);
+	padding-left: 60px !important;
+}
+
+.color-box-skills {
+	float: left;
+	width: 15px;
+	height: 15px;
+	margin-right: 5px;
+	border: 1px solid rgba(0, 0, 0, .2);
+}
+
+.other-filters {
+	padding: 0 14px;
+}

@@ -29,7 +29,7 @@ class N2SmartSliderItemsFactory {
 
             self::sortItems();
 
-            self::$itemGroups[n2_('Basic')] = array();
+            self::$itemGroups[n2_('Content')] = array();
 
             foreach (self::$items as $type => $item) {
                 $group = $item->getGroup();

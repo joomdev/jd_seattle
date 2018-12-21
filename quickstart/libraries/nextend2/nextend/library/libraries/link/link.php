@@ -32,11 +32,12 @@ class N2LinkScrollTo {
 
     private static function init() {
         static $inited = false;
+        $speed = N2SmartSliderSettings::get('smooth-scroll-speed', 400);
         if (!$inited) {
             N2JS::addInline('
             window.n2Scroll = {
                 to: function(top){
-                    $("html, body").animate({ scrollTop: top }, 400);
+                    $("html, body").animate({ scrollTop: top }, ' . $speed . ');
                 },
                 top: function(){
                     n2Scroll.to(0);

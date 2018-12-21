@@ -9,82 +9,86 @@ class N2Image extends N2CacheImage {
     }
 
     public static function resizeImage($group, $imageUrl, $targetWidth, $targetHeight, $mode = 'cover', $backgroundColor = false, $resizeRemote = false, $quality = 100, $optimize = false, $x = 50, $y = 50) {
+
+        if ($targetWidth <= 0 || $targetHeight <= 0 || !function_exists('imagecreatefrompng')) {
+            return $imageUrl;
+        }
+
+
         $quality          = max(0, min(100, $quality));
         $originalImageUrl = $imageUrl;
-        if ($targetWidth > 0 && $targetHeight > 0 && function_exists('imagecreatefrompng')) {
 
-            if (substr($imageUrl, 0, 2) == '//') {
-                $imageUrl = parse_url(N2Uri::getFullUri(), PHP_URL_SCHEME) . ':' . $imageUrl;
+        if (substr($imageUrl, 0, 2) == '//') {
+            $imageUrl = parse_url(N2Uri::getFullUri(), PHP_URL_SCHEME) . ':' . $imageUrl;
+        }
+
+        if (strpos($imageUrl, N2Filesystem::getBasePath()) !== 0) {
+            $imageUrl  = N2Uri::relativetoabsolute($imageUrl);
+            $imagePath = N2Filesystem::absoluteURLToPath($imageUrl);
+        } else {
+            $imagePath = $imageUrl;
+        }
+
+        $cache = new self($group);
+
+        if ($imagePath == $imageUrl) {
+            // The image is not local
+            if (!$resizeRemote) {
+                return $originalImageUrl;
             }
 
-            if (strpos($imageUrl, N2Filesystem::getBasePath()) !== 0) {
-                $imageUrl  = N2Uri::relativetoabsolute($imageUrl);
-                $imagePath = N2Filesystem::absoluteURLToPath($imageUrl);
-            } else {
-                $imagePath = $imageUrl;
+            $pathInfo  = pathinfo(parse_url($imageUrl, PHP_URL_PATH));
+            $extension = self::validateExtension($pathInfo['extension']);
+            if (!$extension) {
+                return $originalImageUrl;
             }
 
-            $cache = new self($group);
+            return N2Filesystem::pathToAbsoluteURL($cache->makeCache($extension, array(
+                $cache,
+                '_resizeRemoteImage'
+            ), array(
+                $extension,
+                $imageUrl,
+                $targetWidth,
+                $targetHeight,
+                $mode,
+                $backgroundColor,
+                $quality,
+                $optimize,
+                $x,
+                $y
+            )));
 
-            if ($imagePath == $imageUrl) {
-                // The image is not local
-                if (!$resizeRemote) {
-                    return $originalImageUrl;
-                }
-
-                $pathInfo  = pathinfo(parse_url($imageUrl, PHP_URL_PATH));
-                $extension = self::validateExtension($pathInfo['extension']);
-                if (!$extension) {
-                    return $originalImageUrl;
-                }
-
-                return N2Filesystem::pathToAbsoluteURL($cache->makeCache($extension, array(
-                    $cache,
-                    '_resizeRemoteImage'
-                ), array(
-                    $extension,
-                    $imageUrl,
-                    $targetWidth,
-                    $targetHeight,
-                    $mode,
-                    $backgroundColor,
-                    $quality,
-                    $optimize,
-                    $x,
-                    $y
-                )));
-
-            } else {
-                $extension = false;
-                $imageType = @N2Image::exif_imagetype($imagePath);
-                switch ($imageType) {
-                    case IMAGETYPE_JPEG:
-                        $extension = 'jpg';
-                        break;
-                    case IMAGETYPE_PNG:
-                        $extension = 'png';
-                        break;
-                }
-                if (!$extension) {
-                    return $originalImageUrl;
-                }
-
-                return N2Filesystem::pathToAbsoluteURL($cache->makeCache($extension, array(
-                    $cache,
-                    '_resizeImage'
-                ), array(
-                    $extension,
-                    $imagePath,
-                    $targetWidth,
-                    $targetHeight,
-                    $mode,
-                    $backgroundColor,
-                    $quality,
-                    $optimize,
-                    $x,
-                    $y
-                )));
+        } else {
+            $extension = false;
+            $imageType = @N2Image::exif_imagetype($imagePath);
+            switch ($imageType) {
+                case IMAGETYPE_JPEG:
+                    $extension = 'jpg';
+                    break;
+                case IMAGETYPE_PNG:
+                    $extension = 'png';
+                    break;
             }
+            if (!$extension) {
+                return $originalImageUrl;
+            }
+
+            return N2Filesystem::pathToAbsoluteURL($cache->makeCache($extension, array(
+                $cache,
+                '_resizeImage'
+            ), array(
+                $extension,
+                $imagePath,
+                $targetWidth,
+                $targetHeight,
+                $mode,
+                $backgroundColor,
+                $quality,
+                $optimize,
+                $x,
+                $y
+            )));
         }
     }
 

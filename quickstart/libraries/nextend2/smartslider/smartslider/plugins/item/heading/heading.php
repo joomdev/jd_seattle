@@ -15,7 +15,7 @@ class N2SSPluginItemFactoryHeading extends N2SSPluginItemFactoryAbstract {
 
     public function __construct() {
         $this->title = n2_x('Heading', 'Slide item');
-        $this->group = n2_('Basic');
+        $this->group = n2_x('Content', 'Layer group');
     }
 
     function getValues() {

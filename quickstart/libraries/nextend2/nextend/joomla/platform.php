@@ -11,7 +11,7 @@ class N2Platform {
     public static function init() {
         self::$isJoomla = JVERSION;
         if (JFactory::getApplication()
-            ->isAdmin()) {
+                    ->isAdmin()) {
             self::$isAdmin = true;
         }
     }
@@ -38,7 +38,7 @@ class N2Platform {
         $config = JFactory::getConfig();
 
         return JFactory::getDate('now', $config->get('offset'))
-            ->toSql(true);
+                       ->toSql(true);
     }
 
     public static function getTime() {
@@ -58,8 +58,12 @@ class N2Platform {
 
         $db    = JFactory::getDbo();
         $query = $db->getQuery(true);
-        $query->select($db->quoteName(array( 'template', 'title' )))
-            ->from($db->quoteName('#__template_styles'))->where('client_id = 0 AND home = 1');
+        $query->select($db->quoteName(array(
+            'template',
+            'title'
+        )))
+              ->from($db->quoteName('#__template_styles'))
+              ->where('client_id = 0 AND home = 1');
 
         $db->setQuery($query);
         $result = $db->loadObject();
@@ -69,8 +73,11 @@ class N2Platform {
         }
 
         $query = $db->getQuery(true);
-        $query->select($db->quoteName(array( 'name', 'manifest_cache' )))
-            ->from($db->quoteName('#__extensions'));
+        $query->select($db->quoteName(array(
+            'name',
+            'manifest_cache'
+        )))
+              ->from($db->quoteName('#__extensions'));
 
         $db->setQuery($query);
         $result = $db->loadObjectList();
@@ -178,6 +185,11 @@ class N2Platform {
         }
 
         return true;
+    }
+
+    public static function needStrongerCSS() {
+
+        return false;
     }
 
 }

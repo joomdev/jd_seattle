@@ -5,11 +5,11 @@ class N2SmartsliderLicenseModel {
     private $key;
 
     public function __construct() {
-		if(defined('SMART_SLIDER_LICENSE')){
-			$this->key = SMART_SLIDER_LICENSE;
-		} else {
-			$this->key = N2Base::getApplication('smartslider')->storage->get('license', 'key');
-		}
+        if (defined('SMART_SLIDER_LICENSE')) {
+            $this->key = SMART_SLIDER_LICENSE;
+        } else {
+            $this->key = N2Base::getApplication('smartslider')->storage->get('license', 'key');
+        }
     
     }
 
@@ -70,9 +70,8 @@ class N2SmartsliderLicenseModel {
 
     public function deAuthorize() {
         if ($this->hasKey()) {
-            $this->checkKey($this->key, 'licensedeauthorize');
             $this->setKey('');
-            N2Message::notice('Smart Slider deauthorized on this site!');
+            N2Message::notice(n2_('Smart Slider deactivated on this site!'));
 
             return 'OK';
         }

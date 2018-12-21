@@ -29,6 +29,11 @@ class N2TransferData {
             curl_close($ch);
 
             if ($curlErrorNumber) {
+                $href = N2Base::getApplication('smartslider')->router->createUrl(array( "help/index", array( 'curl' => 1 ) ));
+                N2Message::error(N2Html::tag('a', array(
+                    'href'  => $href . '#support-form'
+                ), n2_('Debug error')));
+
                 N2Message::error($curlErrorNumber . $error);
 
                 return false;

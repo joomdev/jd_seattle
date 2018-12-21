@@ -41,6 +41,9 @@ abstract class N2GeneratorAbstract {
     }
 
     public final function getData($slides, $startIndex, $group) {
+
+        $this->resetState();
+
         $data       = array();
         $linearData = $this->_getData($slides * $group, $startIndex - 1);
         $keys       = array();
@@ -69,6 +72,10 @@ abstract class N2GeneratorAbstract {
         }
 
         return $data;
+    }
+
+    protected function resetState() {
+
     }
 
     protected abstract function _getData($count, $startIndex);

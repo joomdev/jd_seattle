@@ -22,12 +22,20 @@ class N2JoomlaImageFallBack {
         return $protocol . $domainName;
     }
 
+    static public function checkHTTP($image, $root) {
+        if (substr($image, 0, 5) != 'http:' && substr($image, 0, 6) != 'https:') {
+            return $root . $image;
+        } else {
+            return $image;
+        }
+    }
+
     static public function fallback($root, $imageVars, $textVars = array()) {
         $return = '';
         if (is_array($imageVars)) {
             foreach ($imageVars as $image) {
                 if (!empty($image)) {
-                    $return = N2ImageHelper::dynamic($root . $image);
+                    $return = N2ImageHelper::dynamic(self::checkHTTP($image, $root));
                     break;
                 }
             }
@@ -45,7 +53,7 @@ class N2JoomlaImageFallBack {
                             );
                             if (in_array(substr(self::siteURL(), -1), $slashes) || in_array(substr($imageInText, 0, 1), $slashes)) {
                                 $return = N2ImageHelper::dynamic(self::siteURL() . $imageInText);
-                            } else if( strpos($imageInText, self::siteURL()) === 0 ) {
+                            } else if (strpos($imageInText, self::siteURL()) === 0) {
                                 $return = $imageInText;
                             } else {
                                 $return = N2ImageHelper::dynamic(self::siteURL() . '/' . $imageInText);

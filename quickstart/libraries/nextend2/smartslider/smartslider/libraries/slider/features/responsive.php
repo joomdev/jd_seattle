@@ -432,7 +432,6 @@ class N2SmartSliderFeatureResponsive {
             'basedOn'         => $this->basedOn,
             'orientationMode' => $this->orientationMode,
 
-            'scrollFix'          => intval($this->slider->params->get('scroll-fix', 0)),
             'overflowHiddenPage' => intval($this->slider->params->get('overflow-hidden-page', 0)),
 
             'desktopPortraitScreenWidth' => $this->desktopPortraitScreenWidth,

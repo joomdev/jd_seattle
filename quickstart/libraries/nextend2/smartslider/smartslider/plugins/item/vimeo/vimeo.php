@@ -17,7 +17,7 @@ class N2SSPluginItemFactoryVimeo extends N2SSPluginItemFactoryAbstract {
 
     public function __construct() {
         $this->title = n2_x('Vimeo', 'Slide item');
-        $this->group = n2_('Media');
+        $this->group = n2_x('Media', 'Layer group');
     }
 
     function getValues() {

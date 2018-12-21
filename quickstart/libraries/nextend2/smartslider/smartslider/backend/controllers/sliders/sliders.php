@@ -156,12 +156,15 @@ class N2SmartsliderBackendSlidersController extends N2SmartSliderController {
                                 array("sliderid" => $sliderId)
                             ));
                         } else {
-                            $extension = pathinfo($_FILES['slider']['name']['import-file'], PATHINFO_EXTENSION);
-                            if ($extension != 'ss3') {
-                                N2Message::error(n2_('Only .ss3 files can be uploaded!'));
-                            }
-                            N2Message::error(n2_('Import error!'));
-                            $this->refresh();
+							$extension = pathinfo($_FILES['slider']['name']['import-file'], PATHINFO_EXTENSION);
+							if(strpos($_FILES['slider']['name']['import-file'], 'sliders_unzip_to_import') !== false){
+								N2Message::error(n2_('You have to unzip your ' . $_FILES['slider']['name']['import-file'] . ' file to find the importable files!'));
+							}
+							if ($extension != 'ss3') {
+								N2Message::error(n2_('Only .ss3 files can be uploaded!'));
+							}
+							N2Message::error(n2_('Import error!'));
+							$this->refresh();
                         }
                     } else {
                         N2Message::error(n2_('The imported file is not readable!'));

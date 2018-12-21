@@ -1,5 +1,13 @@
 <?php
-
+N2Localization::addJS(array(
+    'Smart Slider 3 activated!',
+    'Create group',
+    'Group name',
+    'Group',
+    'Add to group',
+    'Move',
+    'Copy',
+));
 
 class N2SmartsliderBackendSlidersView extends N2ViewBase {
 

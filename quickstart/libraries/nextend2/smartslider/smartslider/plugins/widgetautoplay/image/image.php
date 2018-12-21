@@ -147,14 +147,12 @@ class N2SSPluginWidgetAutoplayImage extends N2SSPluginWidgetAbstract {
                     'role'       => 'button',
                     'aria-label' => 'Pause autoplay'
                 ), N2Html::image($play, 'Play', array(
-                    'class'        => 'nextend-autoplay-play n2-ow',
-                    'data-no-lazy' => '1',
-                    'tabindex'     => '0'
-                )) . N2Html::image($pause, 'Pause', array(
-                    'class'        => 'nextend-autoplay-pause n2-ow',
-                    'data-no-lazy' => '1',
-                    'tabindex'     => '0'
-                )));
+                        'class'    => 'nextend-autoplay-play n2-ow',
+                        'tabindex' => '0'
+                    ) + N2Html::getExcludeLazyLoadAttributes()) . N2Html::image($pause, 'Pause', array(
+                        'class'    => 'nextend-autoplay-pause n2-ow',
+                        'tabindex' => '0'
+                    ) + N2Html::getExcludeLazyLoadAttributes()));
         }
 
         return $html;

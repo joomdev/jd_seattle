@@ -1,294 +1,322 @@
+/**
+ * @package		Register Login Joomla Module
+ * @author		JoomDev
+ * @copyright	Copyright (C) 2018 Joomdev, Inc. All rights reserved.
+ * @license    GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
+ */
+
 .jd-register-login-wrapper * {
-    margin: 0;
-    padding: 0;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 .jd-register-login-wrapper .jd-error {
-    color: red;
-    font-size: 15px;
+	color: red;
+	font-size: 15px;
 }
 
 .jd-clearfix:before,
 .jd-clearfix:after {
-    content: "";
-    display: block;
-    clear: both;
+	content: "";
+	display: block;
+	clear: both;
 }
 
 .jd-register-login-wrapper {
-    position: relative;
-    width: 100%;
+	position: relative;
+	width: 100%;
 }
 
 .jd-register-login-wrapper .jd-register-login-container {
-    margin: 0 auto;
-    float: none;
-    max-width: 400px;
-    width: 95%;
+	margin: 0 auto;
+	float: none;
+	max-width: 400px;
+	width: 95%;
 }
 
 .jd-register-login-wrapper .jd-register-login-box {
-    border: 1px solid #efefef;
+	border: 1px solid #efefef;
 }
 
 .jd-register-login-wrapper .jd-register-login-box .jd-register-container,
 .jd-register-login-wrapper .jd-register-login-box .jd-login-container {
-    padding: 20px;
-    position: relative;
+	padding: 20px;
+	position: relative;
 }
 
 .jd-register-login-wrapper ul {
-    margin: 0;
-    padding: 0;
-    list-style: none;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	display: flex;
 }
 
 .jd-register-login-wrapper .jd-register-login-tab li {
-    margin-right: 5px;
-    display: inline-block;
+	display: inline-block;
+	width: 50%;
+	text-align: center;
 }
 
 .jd-register-login-wrapper .jd-register-login-tab li span {
-    cursor: pointer;
-    display: block;
-    padding: 15px 20px;
-    font-size: 16px;
-    line-height: 1.2;
-    text-decoration: none;
-    background: #fff;
-    border: 1px solid #efefef;
-    border-bottom: 0;
-    color: #212529;
-    background-color: #f8f9fa;
-    -webkit-transition: all 0.5s ease;
-    -moz-transition: all 0.5s ease;
-    -ms-transition: all 0.5s ease;
-    -o-transition: all 0.5s ease;
-    transition: all 0.5s ease;
+	cursor: pointer;
+	display: block;
+	padding: 15px 20px;
+	font-size: 16px;
+	line-height: 1.2;
+	text-decoration: none;
+	background: #fff;
+	border: 1px solid #efefef;
+	border-bottom: 0;
+	color: #212529;
+	background-color: #f8f9fa;
 }
 
 .jd-register-login-wrapper .jd-register-login-tab li span.active,
 .jd-register-login-wrapper .jd-register-login-tab li span:hover {
-    color: #fff;
-    background-color: #007bff;
-    border-color: #007bff;
+	color: #fff;
+	background-color: #007bff;
+	border-color: #007bff;
 }
 
 .jd-form-title {
-    font-size: 32px;
-    font-weight: normal;
-    line-height: 1.5;
-    text-transform: none;
-    margin: 0 0 15px;
+	font-size: 32px;
+	font-weight: normal;
+	line-height: 1.5;
+	text-transform: none;
+	margin: 0 0 15px;
 }
 
 .jd-register-login-wrapper .jd-register-login-box form {
-    margin: 0;
-    padding: 0;
-    background: transparent;
-    border: none;
-    box-shadow: none;
+	margin: 0;
+	padding: 0;
+	background: transparent;
+	border: none;
+	box-shadow: none;
 }
 
 .jd-register-login-wrapper .jd-register-login-box .jd-button-control,
 .jd-register-login-wrapper .jd-register-login-box .jd-inputbox-control {
-    display: block;
-    margin-bottom: 1rem;
+	display: block;
+	margin-bottom: 1rem;
+	position: relative;
 }
 
 .jd-register-login-wrapper .jd-register-login-box .jd-button-control:last-child,
 .jd-register-login-wrapper .jd-register-login-box .jd-inputbox-control:last-child {
-    margin-bottom: 0;
+	margin-bottom: 0;
 }
 
 .jd-register-login-wrapper .jd-control-check-raido {
-    position: relative;
-    display: block;
-    padding-left: 0;
+	position: relative;
+	display: flex;
+	padding-left: 0;
 }
 
 .jd-register-login-wrapper .jd-form-checkbox-radio {
-    margin: 0;
-    margin-right: 10px !important;
-    position: static !important;
+	margin: 0;
+	margin-right: 10px !important;
+	position: static !important;
 }
 
 .jd-register-login-wrapper .jd-inputbox-control label {
-    font-size: 16px;
-    font-weight: normal;
-    line-height: 24px;
-    display: block;
-    margin-bottom: .5rem;
+	font-size: 16px;
+	font-weight: normal;
+	line-height: 24px;
+	display: block;
+	margin-bottom: .5rem;
 }
 
 .jd-register-login-wrapper .jd-control-check-raido label {
-    margin-bottom: 0;
+	margin-bottom: 0;
 }
 
 .jd-register-login-wrapper .jd-required-icon {
-    color: red;
+	color: red;
 }
 
 .jd-register-login-wrapper .jd-register-login-tab .jd-inputbox-control.jd-control-check-raido {
-    margin-bottom: 0;
-    padding: 15px;
+	margin-bottom: 0;
+	padding: 15px;
+	width: 50%;
+	text-align: center;
 }
 
 .jd-register-login-wrapper .jd-register-login-box .jd-inputbox-control .jd-form-input {
-    width: 100%;
-    height: auto !important;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    text-transform: none;
-    font-family: inherit;
-    font-size: 16px;
-    font-weight: 500;
-    line-height: 40px;
-    padding: 0 19px;
-    background-color: #fff;
-    border: 1px solid #efefef;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    -ms-border-radius: 3px;
-    -o-border-radius: 3px;
-    border-radius: 3px;
-    -webkit-transition: all 0.5s ease;
-    -moz-transition: all 0.5s ease;
-    -ms-transition: all 0.5s ease;
-    -o-transition: all 0.5s ease;
-    transition: all 0.5s ease;
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
-    -ms-box-shadow: none;
-    -o-box-shadow: none;
-    box-shadow: none;
-    outline: none;
+	width: 100%;
+	height: auto !important;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	text-transform: none;
+	font-family: inherit;
+	font-size: 16px;
+	font-weight: 500;
+	line-height: 40px;
+	padding: 0 15px;
+	background-color: #fff;
+	border: 1px solid #efefef;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	-ms-border-radius: 3px;
+	-o-border-radius: 3px;
+	border-radius: 3px;
+	-webkit-transition: all 0.5s ease;
+	-moz-transition: all 0.5s ease;
+	-ms-transition: all 0.5s ease;
+	-o-transition: all 0.5s ease;
+	transition: all 0.5s ease;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	-ms-box-shadow: none;
+	-o-box-shadow: none;
+	box-shadow: none;
+	outline: none;
 }
 
 .jd-register-login-wrapper a {
-    color: inherit;
+	color: inherit;
 }
 
 .jd-register-login-wrapper .jd-register-login-box .jd-inputbox-control .jd-form-input:focus {
-    color: #495057;
-    background-color: #fff;
-    border-color: #80bdff;
-    outline: 0;
-    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, .25);
+	color: #495057;
+	background-color: #fff;
+	border-color: #80bdff;
+	outline: 0;
+	box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, .25);
 }
 
 .jd-register-login-wrapper .jd-register-login-box .jd-button-control .jd-form-button {
-    width: 100%;
-    height: auto !important;
-    cursor: pointer;
-    display: block;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    text-decoration: none;
-    text-transform: none;
-    outline: none;
-    font-size: 18px;
-    font-weight: 600;
-    font-family: inherit;
-    line-height: 1.2;
-    padding: 8px 30px;
-    margin: 0 auto;
-    color: #fff;
-    background-color: #007bff;
-    border: 1px solid #007bff;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    -ms-border-radius: 3px;
-    -o-border-radius: 3px;
-    border-radius: 3px;
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
-    -ms-box-shadow: none;
-    -o-box-shadow: none;
-    box-shadow: none;
-    -webkit-transition: all 0.3s ease-out 0s;
-    -moz-transition: all 0.3s ease-out 0s;
-    -ms-transition: all 0.3s ease-out 0s;
-    -o-transition: all 0.3s ease-out 0s;
-    transition: all 0.3s ease-out 0s;
-    opacity: 1;
+	width: 100%;
+	height: auto !important;
+	cursor: pointer;
+	display: block;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	text-decoration: none;
+	text-transform: none;
+	outline: none;
+	font-size: 18px;
+	font-weight: 600;
+	font-family: inherit;
+	line-height: 1.2;
+	padding: 8px 30px;
+	margin: 0 auto;
+	color: #fff;
+	background-color: #007bff;
+	border: 1px solid #007bff;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	-ms-border-radius: 3px;
+	-o-border-radius: 3px;
+	border-radius: 3px;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	-ms-box-shadow: none;
+	-o-box-shadow: none;
+	box-shadow: none;
+	-webkit-transition: all 0.3s ease-out 0s;
+	-moz-transition: all 0.3s ease-out 0s;
+	-ms-transition: all 0.3s ease-out 0s;
+	-o-transition: all 0.3s ease-out 0s;
+	transition: all 0.3s ease-out 0s;
+	opacity: 1;
 }
 
 .jd-register-login-wrapper .jd-register-login-box .jd-button-control .jd-form-button:hover,
 .jd-register-login-wrapper .jd-register-login-box .jd-button-control .jd-form-button:focus {
-    color: #fff;
-    background-color: #0069d9;
-    border-color: #0062cc;
+	color: #fff;
+	background-color: #0069d9;
+	border-color: #0062cc;
 }
 
 .jd-register-login-wrapper .jd-register-login-box .jd-list-wrapper {
-    margin: 30px 0;
-    display: block;
-    text-align: center;
+	margin: 30px 0;
+	display: block;
+	text-align: center;
 }
 
 .jd-register-login-wrapper .jd-register-login-box .jd-list-wrapper .jd-list-group .jd-list-block {
-    color: #212529;
-    background-color: #f8f9fa;
-    border-color: #f8f9fa;
-    display: block;
-    font-size: 16px;
-    line-height: 24px;
-    padding: 8px 15px;
-    text-align: center;
-    text-decoration: none;
-    -webkit-transition: all 0.3s ease-out 0s;
-    -moz-transition: all 0.3s ease-out 0s;
-    -ms-transition: all 0.3s ease-out 0s;
-    -o-transition: all 0.3s ease-out 0s;
-    transition: all 0.3s ease-out 0s;
-    border: 1px solid #efefef;
+	color: #212529;
+	background-color: #f8f9fa;
+	border-color: #f8f9fa;
+	display: block;
+	font-size: 16px;
+	line-height: 24px;
+	padding: 8px 15px;
+	margin-top: 10px;
+	text-align: center;
+	text-decoration: none;
+	-webkit-transition: all 0.3s ease-out 0s;
+	-moz-transition: all 0.3s ease-out 0s;
+	-ms-transition: all 0.3s ease-out 0s;
+	-o-transition: all 0.3s ease-out 0s;
+	transition: all 0.3s ease-out 0s;
+	border: 1px solid #efefef;
 }
 
 .jd-register-login-wrapper .jd-register-login-box .jd-list-wrapper .jd-list-group .jd-list-block:hover {
-    color: #0069d9;
-    background-color: #e2e6ea;
-    border-color: #dae0e5;
+	color: #0069d9;
+	background-color: #e2e6ea;
+	border-color: #dae0e5;
 }
 
 .jd-register-login-wrapper .jd-register-login-box .jd-list-wrapper .jd-list-group .jd-list-block.ForgotUser {
-    border-bottom: 0;
+	border-bottom: 0;
 }
 
 .jd-register-login-wrapper .regload {
-    max-width: 40px;
-    max-height: 40px;
-    display: inline-block;
+	max-width: 40px;
+	max-height: 40px;
+	display: inline-block;
 }
 
-.error {
-    color: red;
+.jd-register-login-wrapper .error {
+	color: red;
 }
 
-#error_message1 {
-    margin-bottom: 10px;
+.jd-register-login-wrapper #error_message1 {
+	margin-bottom: 10px;
 }
 
 .jd-modal-link {
-    display: inline !important;
-    position: relative !important;
-    top: auto !important;
-    left: auto !important;
-    right: auto !important;
-    bottom: auto !important;
-    overflow: auto !important;
-    z-index: auto !important;
+	display: inline !important;
+	position: relative !important;
+	top: auto !important;
+	left: auto !important;
+	right: auto !important;
+	bottom: auto !important;
+	overflow: auto !important;
+	z-index: auto !important;
 }
 
 .jd-register-login-wrapper .jd-inputbox-control label.error {
-    float: none !important;
+	float: none !important;
+}
+
+.jd-input-group-addon {
+	padding: 0 10px;
+	margin-bottom: 0;
+	font-size: 16px;
+	font-weight: 400;
+	line-height: 40px;
+	color: #495057;
+	text-align: center;
+	background-color: #e9ecef;
+	border: 1px solid #ced4da;
+	border-radius: 0;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+}
+
+.jd-register-login-wrapper .showpass {
+	cursor: pointer;
 }

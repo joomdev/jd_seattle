@@ -6,7 +6,7 @@ class N2SSPluginItemFactoryImage extends N2SSPluginItemFactoryAbstract {
 
     protected $type = 'image';
 
-    protected $priority = 4;
+    protected $priority = 3;
 
     protected $layerProperties = array("desktopportraitwidth" => "300");
 
@@ -16,7 +16,7 @@ class N2SSPluginItemFactoryImage extends N2SSPluginItemFactoryAbstract {
 
     public function __construct() {
         $this->title = n2_x('Image', 'Slide item');
-        $this->group = n2_('Basic');
+        $this->group = n2_x('Image', 'Layer group');
     }
 
     private function initDefaultStyle() {

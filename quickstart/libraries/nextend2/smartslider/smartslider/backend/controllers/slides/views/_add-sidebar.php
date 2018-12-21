@@ -32,7 +32,7 @@
                             'class'                => 'n2-h5 n2-ss-core-item n2-ss-core-item-' . $type,
                             'data-layerproperties' => json_encode((object)array_merge($item->getLayerProperties(), $itemDefaults)),
                             'data-item'            => $type
-                        ), $item->getTitle());
+                        ), N2Html::tag('div', array('class' => 'n2-ss-core-item-title'), $item->getTitle()));
                     }
                 }
 

@@ -48,7 +48,7 @@
                 notifyParentAboutChange(null, slider.responsive);
             }
 
-            var interval = setInterval(broadCastReady, 500);
+            var interval = setInterval(broadCastReady, 40);
 
             var eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";
             window[eventMethod](eventMethod == "attachEvent" ? "onmessage" : "message", function (e) {
@@ -58,15 +58,14 @@
                         window.n2ClientHeight = data.clientHeight;
                         clearInterval(interval);
                         notifyParentAboutChange = function (e, responsive) {
-                            setTimeout(function () {
-                                parent.postMessage({
-                                    key: 'resize',
-                                    width: $('body').width(),
-                                    height: $('body').height(),
-                                    forceFull: responsive.parameters.forceFull,
-                                    fullPage: responsive.parameters.type == 'fullpage'
-                                }, "*");
-                            }, 100);
+                            parent.postMessage({
+                                key: 'resize',
+                                width: $('body').width(),
+                                height: $('body').height(),
+                                forceFull: responsive.parameters.forceFull,
+                                fullPage: responsive.parameters.type == 'fullpage',
+                                verticalOffsetSelectors: responsive.parameters.verticalOffsetSelectors
+                            }, "*");
                         };
                         if (typeof tmpChange !== 'undefined') {
                             notifyParentAboutChange.apply(this, tmpChange);
@@ -74,7 +73,21 @@
                         break;
                     case 'update':
                         window.n2ClientHeight = data.clientHeight;
+                        $(window).trigger('resize');
                         break;
+                }
+            });
+
+            n2const.setLocation = function (l) {
+                parent.postMessage({
+                    key: 'setLocation',
+                    location: l
+                }, "*");
+            };
+
+            $('a').each(function () {
+                if ($(this).attr('target') !== '_blank') {
+                    $(this).attr('target', '_parent');
                 }
             });
         });

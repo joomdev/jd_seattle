@@ -1,0 +1,29 @@
+<div id="<?php echo $id; ?>" class="n2-ss-banner">
+    <div class="n2-ss-banner-inner">
+        <div class="n2-ss-banner-left">
+            <?php
+            if (!empty($imageLink)):
+                ?>
+                <a href="<?php echo $imageLink; ?>" target="_blank">
+                    <img src="<?php echo N2ImageHelper::fixed($image); ?>" style="width:400px;height:220px;max-width:none;"/>
+                </a>
+            <?php
+            else:
+                ?>
+                <img src="<?php echo N2ImageHelper::fixed($image); ?>" style="width:400px;height:220px;max-width:none;"/>
+            <?php
+            endif;
+            ?>
+        </div>
+        <div class="n2-ss-banner-right">
+            <div class="n2-h1"><?php echo $title; ?></div>
+            <p><?php echo $description; ?></p>
+
+            <?php
+            foreach ($buttons AS $button) {
+                echo $button;
+            }
+            ?>
+        </div>
+    </div>
+</div>

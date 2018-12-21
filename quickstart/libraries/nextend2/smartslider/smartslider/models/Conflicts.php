@@ -1,13 +1,20 @@
 <?php
 
-abstract class N2SmartsliderConflictsModelAbstract {
+abstract class N2SmartsliderConflictsModelAbstract extends N2Model {
 
     protected $conflicts = array();
 
     protected $debugConflicts = array();
 
+    public $curlLog = false;
+
+
     public function __construct() {
+        parent::__construct();
+
         $this->testPHPINIMaxInputVars();
+        $this->testApiConnection();
+        $this->testDatabaseTables();
     }
 
     private function testPHPINIMaxInputVars() {
@@ -19,12 +26,46 @@ abstract class N2SmartsliderConflictsModelAbstract {
         }
     }
 
+    private function testApiConnection() {
+        $log = N2Base::getApplication('smartslider')->storage->get('log', 'api');
+        if (!empty($log)) {
+            if (strpos($log, 'ACTION_MISSING') === false) {
+                $this->conflicts[] = $this->displayConflict(n2_('Unable to connect to the API'), n2_('See <b>Debug Information</b> for more details!'));
+
+                $this->curlLog = json_decode($log, true);
+            }
+        }
+    }
+
+    private function testDatabaseTables() {
+        $tables = array(
+            '#__nextend2_image_storage',
+            '#__nextend2_section_storage',
+            '#__nextend2_smartslider3_generators',
+            '#__nextend2_smartslider3_sliders',
+            '#__nextend2_smartslider3_sliders_xref',
+            '#__nextend2_smartslider3_slides'
+        );
+
+        foreach ($tables AS $table) {
+            $table = $this->db->parsePrefix($table);
+            $result = $this->db->queryRow('SHOW TABLES LIKE :table', array(
+                ":table" => $table
+            ));
+
+            if (empty($result)) {
+                $this->conflicts[]      = n2_('MySQL table missing') . ': ' . $table;
+                $this->debugConflicts[] = n2_('MySQL table missing') . ': ' . $table;
+            }
+        }
+    }
+
     public function getConflicts() {
         return $this->conflicts;
     }
 
-    protected function displayConflict($title, $description, $url) {
-        $this->conflicts[]      = '<b>' . $title . '</b> - ' . $description . ' <a href="' . $url . '" target="_blank">' . n2_('Learn more') . '</a>';
+    protected function displayConflict($title, $description, $url = '') {
+        $this->conflicts[]      = '<b>' . $title . '</b> - ' . $description . (!empty($url) ? ' <a href="' . $url . '" target="_blank">' . n2_('Learn more') . '</a>' : '');
         $this->debugConflicts[] = $title;
     }
 

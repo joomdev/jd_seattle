@@ -64,6 +64,8 @@ class N2SmartSliderTypeSimple extends N2SmartSliderType {
                     echo N2Html::tag('div', array('class' => 'n2-ss-slide-backgrounds'));
 
                     foreach ($this->slider->slides AS $i => $slide) {
+                        $slide->finalize();
+
                         echo N2Html::tag('div', N2HTML::mergeAttributes($slide->attributes, $slide->linkAttributes, array(
                             'class' => 'n2-ss-slide n2-ss-canvas n2-ow ' . $slide->classes,
                             'style' => $slide->style

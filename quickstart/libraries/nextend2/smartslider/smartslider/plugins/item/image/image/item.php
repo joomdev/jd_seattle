@@ -22,11 +22,10 @@ class N2SSItemImage extends N2SSItemAbstract {
         if (empty($size[1])) $size[1] = 'auto';
 
         $imageAttributes = $owner->optimizeImage($this->data->get('image', '')) + array(
-                "id"           => $this->id,
-                "alt"          => htmlspecialchars($owner->fill($this->data->get('alt', ''))),
-                "style"        => "display: inline-block; max-width: 100%; width: {$size[0]};height: {$size[1]};",
-                "class"        => $owner->fill($this->data->get('cssclass', '')) . ' n2-ow',
-                "data-no-lazy" => "1"
+                "id"    => $this->id,
+                "alt"   => htmlspecialchars($owner->fill($this->data->get('alt', ''))),
+                "style" => "display: inline-block; max-width: 100%; width: {$size[0]};height: {$size[1]};",
+                "class" => $owner->fill($this->data->get('cssclass', '')) . ' n2-ow'
             );
 
         $title = htmlspecialchars($owner->fill($this->data->get('title', '')));
@@ -34,7 +33,7 @@ class N2SSItemImage extends N2SSItemAbstract {
             $imageAttributes['title'] = $title;
         }
 
-        $html = N2Html::tag('img', $imageAttributes, false);
+        $html = N2Html::tag('img', $imageAttributes + N2Html::getExcludeLazyLoadAttributes(), false);
 
 
         $style = $owner->addStyle($this->data->get('style'), 'heading');

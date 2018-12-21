@@ -17,12 +17,28 @@ abstract class N2SmartSliderRenderableAbstract {
 
     private $styleCache = array();
 
+    public $initCallbacks = array();
+    public $addedScriptResources = array();
+
+    /**
+     * @var N2SmartSliderFeatures
+     */
+    public $features;
+
     public function addLess($file, $context) {
         $this->less[$file] = $context;
     }
 
     public function addCSS($css) {
         $this->css[] = $css;
+    }
+
+    public function getSelector() {
+        if (N2Platform::needStrongerCSS()) {
+            return 'div#' . $this->elementId . '.n2-ss-slider ';
+        }
+
+        return 'div#' . $this->elementId . ' ';
     }
 
     private function _addFontCache($font, $mode, $pre, $fontSize) {
@@ -43,7 +59,7 @@ abstract class N2SmartSliderRenderableAbstract {
 
     public function addFont($font, $mode, $pre = null) {
         if ($this->isAdmin) {
-            $fontData = N2FontRenderer::_render($font, $mode, $pre == null ? 'div#' . $this->elementId . ' ' : $pre, $this->fontSize);
+            $fontData = N2FontRenderer::_render($font, $mode, $pre == null ? $this->getSelector() : $pre, $this->fontSize);
             if ($fontData) {
                 $this->addCSS($fontData[1]);
 
@@ -53,7 +69,7 @@ abstract class N2SmartSliderRenderableAbstract {
             return '';
         }
 
-        return $this->_addFontCache($font, $mode, $pre == null ? 'div#' . $this->elementId . ' ' : $pre, $this->fontSize);
+        return $this->_addFontCache($font, $mode, $pre == null ? $this->getSelector() : $pre, $this->fontSize);
     }
 
 
@@ -75,7 +91,7 @@ abstract class N2SmartSliderRenderableAbstract {
 
     public function addStyle($style, $mode, $pre = null) {
         if ($this->isAdmin) {
-            $styleData = N2StyleRenderer::_render($style, $mode, $pre == null ? 'div#' . $this->elementId . ' ' : $pre);
+            $styleData = N2StyleRenderer::_render($style, $mode, $pre == null ? $this->getSelector() : $pre);
             if ($styleData) {
                 $this->addCSS($styleData[1]);
 
@@ -85,7 +101,19 @@ abstract class N2SmartSliderRenderableAbstract {
             return '';
         }
 
-        return $this->_addStyleCache($style, $mode, $pre == null ? 'div#' . $this->elementId . ' ' : $pre);
+        return $this->_addStyleCache($style, $mode, $pre == null ? $this->getSelector() : $pre);
+    }
+
+    public function addScript($script, $name = false) {
+        if ($name !== false) {
+            $this->addedScriptResources[] = $name;
+        }
+        $this->initCallbacks[] = $script;
+
+    }
+
+    public function isScriptAdded($name) {
+        return in_array($name, $this->addedScriptResources);
     }
 
     public function addImage($imageUrl) {

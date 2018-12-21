@@ -16,8 +16,8 @@ class N2SSPluginItemFactoryYouTube extends N2SSPluginItemFactoryAbstract {
     protected $class = 'N2SSItemYouTube';
 
     public function __construct() {
-        $this->title = 'YouTube';
-        $this->group = n2_('Media');
+        $this->title = n2_x('YouTube', 'Slide item');
+        $this->group = n2_x('Media', 'Layer group');
     }
 
     function getValues() {

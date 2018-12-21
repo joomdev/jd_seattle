@@ -63,7 +63,7 @@ class N2SmartsliderBackendSettingsView extends N2ViewBase {
 
         new N2ElementRadio($javascript, 'javascript-inline', n2_('Slider\'s inline JavaScript'), 'head', array(
             'options' => array(
-                'head' => 'Head',
+                'head' => n2_('Head'),
                 'body' => n2_('Into the slider')
             )
         ));
@@ -102,7 +102,7 @@ class N2SmartsliderBackendSettingsView extends N2ViewBase {
         $form = new N2Form($this->appType);
         $form->loadArray($values);
 
-        $aviary = new N2Tab($form, 'aviary', 'Adobe Creative SDK - Aviary');
+        $aviary = new N2Tab($form, 'aviary', n2_('Adobe Creative SDK - Aviary'));
         new N2ElementToken($aviary);
         new N2ElementText($aviary, 'public', n2_('API Key'), '', array(
             'style' => 'width: 250px;'

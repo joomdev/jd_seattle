@@ -1,182 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="module" version="3.1" client="site" method="upgrade">
-   <name>Jd Skillset</name>
-   <author>JoomDev Team</author>
-   <creationDate>July 2018</creationDate>
-   <copyright>Copyright (C) 2005 - 2017 Open Source Matters. All rights reserved.</copyright>
-   <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
-   <authorEmail>info@joomdev.com</authorEmail>
-   <authorUrl>www.joomdev.com</authorUrl>
-   <version>3.0.0</version>
-   <description>MOD_JD_SKILLSET_XML_DESCRIPTION</description>
-   <files>
-      <filename module="mod_jd_skillset">mod_jd_skillset.php</filename>
-      <folder>tmpl</folder>
-      <folder>forms</folder>
-      <folder>assets</folder>
-      <filename>helper.php</filename>
-   </files>
-   <languages folder="language">
-      <language tag="en-GB">en-GB/en-GB.mod_jd_skillset.ini</language>
-      <language tag="en-GB">en-GB/en-GB.mod_jd_skillset.sys.ini</language>
-   </languages>
-   <config>
-      <fields name="params">
-         <fieldset name="basic" addfieldpath="/modules/mod_jd_skillset/fields">
-            <fieldset name="basic" addfieldpath="/modules/mod_jd_skillset/fields">
-               <field name="skillsets"
-                      type="subform"
-                      formsource="/modules/mod_jd_skillset/forms/jd_skillset.xml"
-                      multiple="true"
-                      label="MOD_JD_SKILLSET_CREATE_LABEL"
-					  max="4"
-               />
-            </fieldset>
-         </fieldset>
-         <fieldset name="style">
-            <field
-                name="numberPosition" 
-                type="list"
-                label="MOD_JD_SKILLSET_NUMBER_POSITION_LABEL"
-                description="MOD_JD_SKILLSET_NUMBER_POSITION_DESC"
-                default="below"
-            >
-                <option value="above">Above Title</option>
-                <option value="below">Below Title</option>
-            </field>
-            <field
-                name="iconPosition" 
-                type="hidden"
-                label="MOD_JD_SKILLSET_ICON_POSITION_LABEL"
-                description="MOD_JD_SKILLSET_ICON_POSITION_DESC"
-                default="top"
-            >
-                <option value="top">Top</option>
-                <option value="right">Right</option>
-                <option value="bottom">Bottom</option>
-                <option value="left">Left</option>
-            </field>
-            <field
-                name="symbolPosition" 
-                type="list"
-                label="MOD_JD_SKILLSET_SYMBOL_POSITION_LABEL"
-                description="MOD_JD_SKILLSET_SYMBOL_POSITION_DESC"
-                default="sup"
-            >
-                <option value="default">Default</option>
-                <option value="sup">Sup</option>
-                <option value="sub">Sub</option>
-            </field>
-			<field 
-				name="customsColor"
-				type="radio" 
-				default="true" 
-				class="btn-group btn-group-yesno" 
-				label="Custom Colors">
-				<option value="true">JYES</option>
-				<option value="false">JNO</option>
-			</field>
-			<field name="note11"  showon="customsColor:true" type="note" label="Custom Colors" description="Here you can add custom color for below mention fields."  />
-			<field
-               name="titleColor"
-               type="color"
-               label="Title Color"
-               description=""
-			   showon="customsColor:true"
-               default="default"
-            />
-			<field
-               name="numberColor"
-               type="color"
-               label="Number Color"
-               description=""
-			   showon="customsColor:true"
-               default="default"
-            />	
-			<field
-               name="symbolColor"
-               type="color"
-               label="Symbol Color"
-               description=""
-			   showon="customsColor:true"
-               default="default"
-            />
-			<field
-               name="iconColor"
-               type="color"
-               label="Icon Color"
-               description=""
-			   showon="customsColor:true"
-               default="default"
-            />
-			<field 
-				name="customsSize"
-				type="radio" 
-				default="true" 
-				class="btn-group btn-group-yesno" 
-				label="Custom Size">
-				<option value="true">JYES</option>
-				<option value="false">JNO</option>
-			</field>
-			<field name="note12" showon="customsSize:true" type="note" label="Custom Size"  description="Here you can add custom size for below mention fields." />
-			<field
-               name="titleSize"
-               type="number"
-			   min="10"
-               label="Title Size"
-               description=""
-			   showon="customsSize:true"
-               default="default"
-            />
-			<field
-               name="numberSize"
-               type="number"
-			   min="10"
-               label="Number Size"
-               description=""
-			   showon="customsSize:true"
-               default="default"
-            />	
-			<field
-               name="symbolSize"
-               type="number"
-			   min="10"
-               label="Symbol Size"
-               description=""
-			   showon="customsSize:true"
-               default="default"
-            />
-			<field
-               name="iconSize"
-               type="number"
-			   min="10"
-               label="Icon Size"
-               description=""
-			   showon="customsSize:true"
-               default="default"
-            />
-         </fieldset>
-         <fieldset name="advanced">
-            <field
-               name="layout"
-               type="modulelayout"
-               label="JFIELD_ALT_LAYOUT_LABEL"
-               description="JFIELD_ALT_MODULE_LAYOUT_DESC"
-               default="default"
-            />
-            <field
-               name="load_bootstrap"
-               type="radio"
-               label="MOD_JD_SKILLSET_LOAD_BOOTSTRAP_LBL"
-               description="MOD_JD_SKILLSET_LOAD_BOOTSTRAP_DESC"
-               default="1"
-               class="btn-group btn-group-yesno"
-            >
-               <option value="1">JYES</option>
-               <option value="0">JNO</option>
-            </field>
-            <field name="moduleclass_sfx" type="textarea" label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL" description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC" rows="3"/>
-         </fieldset>
-      </fields>
-   </config>
+	<name>JD SkillSet</name>
+	<author>JoomDev</author>
+	<creationDate>Sept 2018</creationDate>
+	<version>1.0.0</version>
+	<authorEmail>info@joomdev.com</authorEmail>
+	<authorUrl>https://www.joomdev.com</authorUrl>
+	<description>MOD_JD_SKILLSET_XML_DESCRIPTION</description>
+	<copyright>Copyright (C) 2018 Joomdev, Inc. All rights reserved.</copyright>
+	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+	<files>
+		<filename module="mod_jd_skillset">mod_jd_skillset.php</filename>
+		<folder>tmpl</folder>
+		<folder>forms</folder>
+		<folder>fields</folder>
+		<filename>helper.php</filename>
+	</files>
+	<media folder="media" destination="mod_jd_skillset">
+		<folder>css</folder>
+	</media>
+	<languages folder="language">
+		<language tag="en-GB">en-GB/en-GB.mod_jd_skillset.ini</language>
+		<language tag="en-GB">en-GB/en-GB.mod_jd_skillset.sys.ini</language>
+	</languages>
+
+   <updateservers>
+		<server type="extension" name="mod_jd_skillset" priority="1">https://cdn.joomdev.com/extensionupdates/mod_jd_skillset.xml</server>
+	</updateservers>
+
+	<config>
+		<fields name="params">
+			<fieldset name="basic" addfieldpath="/modules/mod_jd_skillset/fields">
+				<field name="skillsets" type="subform" formsource="/modules/mod_jd_skillset/forms/jd_skillset.xml" multiple="true" label="MOD_JD_SKILLSET_CREATE_LABEL" max="4" />
+			</fieldset>
+			<fieldset name="options">
+				<field name="IconPosition" type="radio" class="btn-group btn-group-yesno" label="MOD_JD_SKILLSET_ICON_POSITION_LABEL" description="MOD_JD_SKILLSET_ICON_POSITION_DESC" default="top">
+					<option value="top">MOD_JD_SKILLSET_ICON_POSITION_TOP</option>
+					<option value="right">JGLOBAL_RIGHT</option>
+					<option value="bottom">MOD_JD_SKILLSET_ICON_POSITION_BOTTOM</option>
+					<option value="left">JGLOBAL_LEFT</option>
+				</field>
+				<field name="numberPosition" type="radio" class="btn-group btn-group-yesno" label="MOD_JD_SKILLSET_NUMBER_POSITION_LABEL" description="MOD_JD_SKILLSET_NUMBER_POSITION_DESC" default="below">
+					<option value="above">MOD_JD_SKILLSET_NUMBER_POSITION_ABOVE</option>
+					<option value="below">MOD_JD_SKILLSET_NUMBER_POSITION_BELOW</option>
+				</field>
+				<field name="symbolPosition" type="radio" label="MOD_JD_SKILLSET_SYMBOL_POSITION_LABEL" class="btn-group btn-group-yesno" description="MOD_JD_SKILLSET_SYMBOL_POSITION_DESC" default="default">
+					<option value="default">JDEFAULT</option>
+					<option value="sup">MOD_JD_SKILLSET_SUP_LABEL</option>
+				</field>
+				<field name="load_bootstrap" type="radio" label="MOD_JD_SKILLSET_LOAD_BOOTSTRAP_LABEL" description="MOD_JD_SKILLSET_LOAD_BOOTSTRAP_DESC" default="1" class="btn-group btn-group-yesno">
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+				<field name="load_fontawesome" type="radio" label="MOD_JD_SKILLSET_LOAD_FONT_AWESOME_LABEL" description="MOD_JD_SKILLSET_LOAD_FONT_AWESOME_DESC" default="1" class="btn-group btn-group-yesno">
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+				<field name="note11" type="note" label="MOD_JD_SKILLSET_CUSTOM_COLORS_HEADING_LABEL" description="MOD_JD_SKILLSET_CUSTOM_COLORS_HEADING_DESC" />
+				<field name="customsStyle" type="radio" default="1" class="btn-group btn-group-yesno" label="MOD_JD_SKILLSET_CUSTOM_STYLE_LABEL" description="MOD_JD_SKILLSET_CUSTOM_STYLE_DESC">
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+				<field name="titleColor" type="color" label="MOD_JD_SKILLSET_TITLE_COLOR_LABEL" showon="customsStyle:1" default="#42495b" />
+				<field name="numberColor" type="color" label="MOD_JD_SKILLSET_NUMBER_COLOR_LABEL" showon="customsStyle:1" default="#373738" />
+				<field name="symbolColor" type="color" label="MOD_JD_SKILLSET_SYMBOL_COLOR_LABEL" showon="customsStyle:1" default="#373738" />
+				<field name="iconColor" type="color" label="MOD_JD_SKILLSET_ICON_COLOR_LABEL" showon="customsStyle:1" default="#03a9f5" />
+				<field name="titleSize" type="number" min="10" label="MOD_JD_SKILLSET_TITLE_SIZE_LABEL" hint="20" showon="customsStyle:1" default="20" />
+				<field name="numberSize" type="number" min="10" label="MOD_JD_SKILLSET_NUMBER_SIZE_LABEL" hint="32" showon="customsStyle:1" default="32" />
+				<field name="symbolSize" type="number" min="10" label="MOD_JD_SKILLSET_SYMBOL_SIZE_LABEL" hint="28" showon="customsStyle:1" default="28" />
+				<field name="iconSize" type="number" min="10" label="MOD_JD_SKILLSET_ICON_SIZE_LABEL" hint="28" showon="customsStyle:1" default="28" />
+			</fieldset>
+			<fieldset name="advanced">
+				<field name="layout" type="modulelayout" label="JFIELD_ALT_LAYOUT_LABEL" description="JFIELD_ALT_MODULE_LAYOUT_DESC" default="default" />
+				<field name="moduleclass_sfx" type="textarea" label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL" description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC" rows="3"/>
+			</fieldset>
+		</fields>
+	</config>
 </extension>
