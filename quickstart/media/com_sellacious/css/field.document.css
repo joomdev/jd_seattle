@@ -1,0 +1,74 @@
+.jff-document-list {
+	margin: 0;
+}
+.jff-document-list li {
+	position: relative;
+	padding: 2px 15px 3px 0;
+	margin: 1px 1px 1px 2px;
+	white-space: nowrap;
+}
+.jff-document-list li:first-child {
+	margin-top: 5px;
+}
+.jff-document-list a.jff-document-disable,
+.jff-document-list a.jff-document-enable {
+	background: #B8D3A2;
+	border-radius: 2px;
+	padding: 2px 5px;
+	margin: 0 5px 0 0;
+}
+.jff-document-list a,
+.jff-document-list a:hover,
+.jff-document-list a:active,
+.jff-document-list a:focus {
+	text-decoration: none;
+}
+.jff-document-list li:hover {
+	background: #beddf7;
+	border-radius: 2px;
+	padding: 2px 2px 3px 0;
+}
+.jff-document-add {
+	margin:0 0 0 0 !important;
+	float: left;
+	height: 29px;
+}
+input.jff-document-add-ref {
+	margin: 0;
+	width: 185px !important;
+}
+.jff-document-preview.disabled {
+	opacity: 0;
+}
+.jff-document-inactive {
+	margin: 0 12px 6px 12px !important;
+	height: 32px !important;
+}
+.jff-document-progress {
+	float: left;
+	margin: 2px 2px -2px !important;
+	padding: 4px 26px !important;
+	height: 22px;
+	min-width: 22px;
+	background: url("../images/progress-bar.gif") no-repeat;
+	background-size: 22px;
+	-webkit-background-size: 22px;
+}
+.jff-document-list a.jff-document-404 {
+	text-decoration: line-through;
+}
+.jff-document-list .jff-document-preview {
+	display: none;
+}
+.jff-document-list .jff-document-download:hover .jff-document-preview {
+	display: block;
+	z-index: 100;
+	max-width: 200px;
+	max-height: 200px;
+	position: absolute;
+	border: 1px solid #999;
+	background: #fff;
+	margin: -2px;
+	bottom: 30px;
+	padding: 2px;
+}

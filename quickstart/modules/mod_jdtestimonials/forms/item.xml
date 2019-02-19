@@ -3,18 +3,22 @@
    <fieldset name="items_modal" label="Testimonials Items">
       <field name="author_name"
              label="MOD_JDTESTIMONIALS_PERSON_NAME"
+             description="MOD_JDTESTIMONIALS_PERSON_NAME_DESC"
              type="text">
       </field>
 	  <field name="author_thumbnail"
              type="media"
-             label="MOD_JDTESTIMONIALS_PERSON_IMAGE">
+             label="MOD_JDTESTIMONIALS_PERSON_IMAGE"
+             description="MOD_JDTESTIMONIALS_PERSON_IMAGE_DESC">
       </field>
 	  <field name="author_companyName"
              label="MOD_JDTESTIMONIALS_PERSON_COMPANY_NAME"
+             description="MOD_JDTESTIMONIALS_PERSON_COMPANY_NAME_DESC"
              type="text">
       </field>
 	  <field name="author_companyLink"
              label="MOD_JDTESTIMONIALS_PERSON_COMPANY_LINK"
+             description="MOD_JDTESTIMONIALS_PERSON_COMPANY_LINK_DESC"
              type="text">
       </field>
 	 <field
@@ -25,16 +29,17 @@
 		   default="MOD_JDTESTIMONIALS_NONE"
 		>
            <option value="none">MOD_JDTESTIMONIALS_NONE</option>
-		   <option value="MOD_JDTESTIMONIALS_ONE">MOD_JDTESTIMONIALS_ONE</option>
-		   <option value="MOD_JDTESTIMONIALS_TWO">MOD_JDTESTIMONIALS_TWO</option>	   
-		   <option value="MOD_JDTESTIMONIALS_THREE">MOD_JDTESTIMONIALS_THREE</option>
-		   <option value="MOD_JDTESTIMONIALS_FOUR">MOD_JDTESTIMONIALS_FOUR</option>	   
-		   <option value="MOD_JDTESTIMONIALS_FIVE">MOD_JDTESTIMONIALS_FIVE</option>
+		   <option value="1">J1</option>
+		   <option value="2">J2</option>	   
+		   <option value="3">J3</option>
+		   <option value="4">J4</option>	   
+		   <option value="5">J5</option>
        </field>
       <field
          name="author_companyReview"
          type="textarea"
-         label="MOD_JDTESTIMONIALS_PERSON_REVIEW">
+         label="MOD_JDTESTIMONIALS_PERSON_REVIEW"
+         description="MOD_JDTESTIMONIALS_PERSON_REVIEW_DESC">
       </field>
    </fieldset>
 </form>

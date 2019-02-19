@@ -1,0 +1,246 @@
+#address-items {
+	vertical-align: text-top;
+	margin: 0;
+	clear: both;
+	border-spacing: 5px;
+	padding: 0;
+	overflow-x: auto;
+}
+
+#addresses .address-item {
+	text-align: left;
+	display: table-cell;
+	position: relative;
+	min-width: 240px;
+	width: 240px;
+	min-height: 180px;
+	border: 2px solid #d1d1d1;
+	border-radius: 5px;
+	padding: 5px;
+	margin: 5px;
+	white-space: normal;
+	line-height: 1.6;
+	vertical-align: top;
+}
+
+.address-item .address-action {
+	display: none;
+	position: absolute;
+	z-index: 2;
+	text-align: right;
+}
+
+.address-item:hover .address-action {
+	display: block;
+}
+
+.address-item .address-action .btn:first-child {
+	padding: 0;
+}
+
+.address_name {
+	font-size: 14px;
+	font-weight: bold;
+	line-height: 1.4;
+	margin: 5px 0 8px;
+	max-width: 154px;
+	text-transform: uppercase;
+	display: block;
+	letter-spacing: 1px;
+}
+
+span.address_mobile,
+span.address_company,
+span.address_po_box,
+span.address_address,
+span.address_landmark,
+span.address_district,
+span.address_country {
+	display: block;
+}
+
+.cart_address_box {
+	display: none;
+}
+
+/*.address-form .address-residential.radio input[type="radio"] {*/
+	/*margin: 2px 0 0 -20px;*/
+/*}*/
+
+#address-editor .control-label {
+	text-align: left;
+	width: 130px;
+}
+
+#address-editor .controls {
+	padding-right: 6px;
+	margin-right: 6px;
+	width: calc(100% - 130px);
+}
+
+#address-editor .modal-body {
+	padding: 15px;
+}
+
+@media (max-width: 768px) {
+	#address-editor .control-group {
+		margin-bottom: 2px;
+	}
+
+	#address-editor .control-label {
+		text-align: left;
+		width: 100%;
+	}
+
+	#address-editor .controls {
+		margin-left: 0;
+		padding-right: 6px;
+		margin-right: 6px;
+	}
+}
+
+.address-content {
+	min-height: 160px;
+}
+
+#cart-aio-container .address-content,
+#cart-opc-container .address-content{
+	min-height: 180px;
+}
+
+div[id^="address-form"] table {
+	text-align: left;
+}
+
+div[id^="address-form"] table th,
+div[id^="address-form"] table td {
+	padding: 4px 0;
+}
+
+div[id^="address-form"] input[type="text"],
+div[id^="address-form"] input[type="email"],
+div[id^="address-form"] input[type="tel"],
+div[id^="address-form"] textarea,
+li.select2-search-field,
+li.select2-search-field > input {
+	width: 100%;
+}
+
+div[id^="address-form"] textarea {
+	min-height: 80px;
+}
+
+div[id^="address-form"] .control-label {
+	text-align: left;
+}
+
+.margin-top-10 {
+	margin-top: 10px;
+}
+
+.margin-5 {
+	margin: 5px;
+}
+
+.invalid {
+	color: #e40000 !important;
+}
+
+input.invalid, select.invalid, textarea.invalid {
+	border: 1px solid #e40000 !important;
+	color: #000000;
+}
+
+#address-viewer {
+	text-align: left;
+	padding: 0;
+}
+
+#address-billing-text, #address-shipping-text {
+	margin-bottom: 10px;
+	padding: 0;
+}
+
+#address-viewer .address_label {
+	font-size: 11px;
+	font-weight: bold;
+	text-transform: uppercase;
+	background: #efefef;
+	color: #000000;
+	padding: 3px;
+}
+
+#address-viewer .btn-edit {
+	margin-top: -30px;
+	z-index: 700;
+}
+
+.star, .tbd {
+	color: red !important;
+}
+
+div.select2-container .select2-choice span.select2-arrow {
+	border-left: 1px solid #dfdfdf;
+}
+
+div.select2-container .select2-choice {
+	border: 1px solid #dfdfdf;
+}
+
+div.select2-drop, div.select2-drop-active {
+	border: 1px solid #ddd;
+}
+
+fieldset.radio label {
+	float: left;
+	display: inline;
+	min-width: 120px;
+}
+#address-editor #address-modals .modal {
+	padding-right: 0 !important;
+}
+
+#address-editor .modal .modal-dialog{
+	margin: 0 auto;
+}
+
+#address-editor .modal .modal-content{
+	max-width: 800px;
+	margin: 0 auto;
+}
+
+#address-editor .modal-body {
+	padding: 25px;
+	max-height: 350px !important;
+	overflow-y: auto !important;
+}
+div.select2-container .select2-choice {
+	border: 1px solid #dfdfdf;
+	height: calc(2.25rem + 2px);
+}
+.select2-container .select2-choice > .select2-chosen {
+	padding: 6px;
+}
+.select2-container-multi .select2-choices {
+	background-image: none;
+	border-radius: 0.25rem;
+}
+.view-register.layout-edit .select2-container .select2-choice > .select2-chosen {
+	padding: 0px 6px;
+}
+
+.select2-container .select2-choice .select2-arrow b {
+	background-position: 0 5px;
+}
+.select2-container .select2-choice abbr {
+	top: 12px;
+}
+
+.control-group {
+	margin-bottom: 15px;
+	display: flex;
+}
+
+.control-group .controls fieldset label {
+	margin-right: 2px;
+}

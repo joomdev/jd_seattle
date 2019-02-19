@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<layout title="COM_SELLACIOUS_SYS_SELLER_VIEW_DEFAULT_TITLE">
+		<message>COM_SELLACIOUS_SYS_SELLER_VIEW_DEFAULT_DESC</message>
+	</layout>
+	<fields name="request">
+		<fieldset name="request" addfieldpath="components/com_sellacious/models/fields">
+			<field
+				name="catid"
+				type="categoryList"
+				label="COM_SELLACIOUS_FIELD_SELECT_CATEGORY_LABEL"
+				description="COM_SELLACIOUS_FIELD_SELECT_CATEGORY_DESC"
+				group="seller"
+				show_all="true"
+			>
+				<option vaue=""> </option>
+			</field>
+		</fieldset>
+	</fields>
+</metadata>

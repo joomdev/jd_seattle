@@ -69,7 +69,7 @@ class N2SmartsliderBackendSliderController extends N2SmartSliderController {
                         array('sliderid' => $groups[0]['group_id'])
                     )),
                     'class' => 'n2-h4'
-                ), $groups[0]['title']));
+                ), n2_esc_html($groups[0]['title'])));
             }
 
 
@@ -79,7 +79,7 @@ class N2SmartsliderBackendSliderController extends N2SmartSliderController {
                     array('sliderid' => $this->sliderId)
                 )),
                 'class' => 'n2-h4 n2-active'
-            ), $slider['title']));
+            ), n2_esc_html($slider['title'])));
 
             N2Loader::import('libraries.fonts.fontmanager');
             N2Loader::import('libraries.stylemanager.stylemanager');

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fields name="params">
+		<fieldset name="params" label="COM_SELLACIOUS_FIELDSET_ADDITIONAL">
+			<field
+				name="rows"
+				type="number"
+				label="PLG_SELLACIOUS_FIELDTYPEFORMS_ATTRIBUTE_ROWS_LABEL"
+				min="1"
+				max="200"
+				default="4"
+				description="PLG_SELLACIOUS_FIELDTYPEFORMS_ATTRIBUTE_ROWS_DESC"
+				message="PLG_SELLACIOUS_FIELDTYPEFORMS_ATTRIBUTE_ROWS_MSG"
+				class="inputbox"
+				required="true"
+			/>
+			<field
+				name="cols"
+				type="number"
+				label="PLG_SELLACIOUS_FIELDTYPEFORMS_ATTRIBUTE_COLUMNS_LABEL"
+				min="1"
+				max="200"
+				default="4"
+				description="PLG_SELLACIOUS_FIELDTYPEFORMS_ATTRIBUTE_COLUMNS_DESC"
+				message="PLG_SELLACIOUS_FIELDTYPEFORMS_ATTRIBUTE_COLUMNS_MSG"
+				class="inputbox"
+				required="true"
+			/>
+			<field
+				name="maxlength"
+				type="number"
+				label="PLG_SELLACIOUS_FIELDTYPEFORMS_ATTRIBUTE_MAXLENGTH_LABEL"
+				min="0"
+				description="PLG_SELLACIOUS_FIELDTYPEFORMS_ATTRIBUTE_MAXLENGTH_DESC"
+				message="PLG_SELLACIOUS_FIELDTYPEFORMS_ATTRIBUTE_MAXLENGTH_MSG"
+				class="inputbox"
+			/>
+			<field
+				name="readonly"
+				type="radio"
+				label="PLG_SELLACIOUS_FIELDTYPEFORMS_ATTRIBUTE_READ_ONLY_LABEL"
+				default="false"
+				description="PLG_SELLACIOUS_FIELDTYPEFORMS_ATTRIBUTE_READ_ONLY_DESC"
+				>
+				<option value="true">JYes</option>
+				<option value="false">JNo</option>
+			</field>
+			<field
+				name="disabled"
+				type="radio"
+				label="PLG_SELLACIOUS_FIELDTYPEFORMS_ATTRIBUTE_DISABLED_LABEL"
+				default="false"
+				description="PLG_SELLACIOUS_FIELDTYPEFORMS_ATTRIBUTE_DISABLED_DESC"
+				>
+				<option value="true">JYes</option>
+				<option value="false">JNo</option>
+			</field>
+			<field
+				name="default"
+				type="textarea"
+				label="PLG_SELLACIOUS_FIELDTYPEFORMS_ATTRIBUTE_DEFAULT_TEXT_LABEL"
+				rows="4"
+				cols="30"
+				default=""
+				description="PLG_SELLACIOUS_FIELDTYPEFORMS_ATTRIBUTE_DEFAULT_TEXT_DESC"
+				class="textarea"
+			/>
+			<field
+				name="filter"
+				type="formFilters"
+				label="PLG_SELLACIOUS_FIELDTYPEFORMS_ATTRIBUTE_CONTENT_FILTER_LABEL"
+				filters="ALNUM,STRING,HTML,BASE64,RAW"
+				description="PLG_SELLACIOUS_FIELDTYPEFORMS_ATTRIBUTE_CONTENT_FILTER_DESC"
+				class="w100p"
+			/>
+		</fieldset>
+	</fields>
+</form>

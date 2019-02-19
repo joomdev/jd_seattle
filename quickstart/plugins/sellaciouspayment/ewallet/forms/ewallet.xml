@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset name="payment">
+		<fields name="params">
+			<field
+				name="balance"
+				type="ewalletBalance"
+				label="PLG_SELLACIOUSPAYMENT_EWALLET_BALANCE_LABEL"
+				class="inputbox"
+				default="current"
+			/>
+		</fields>
+	</fieldset>
+</form>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="3.0" client="site" method="upgrade">
+	<name>mod_sellacious_ewallet</name>
+	<author>Mohd Kareemuddin</author>
+	<creationDate>December 26, 2018</creationDate>
+	<copyright>Copyright (C) 2012-2018 Bhartiy Web Technologies. All rights reserved.</copyright>
+	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+	<authorEmail>info@bhartiy.com</authorEmail>
+	<authorUrl>www.bhartiy.com</authorUrl>
+	<version>1.6.1-alpha0</version>
+	<description>MOD_SELLACIOUS_EWALLET_DESC</description>
+
+	<files>
+		<filename module="mod_sellacious_ewallet">mod_sellacious_ewallet.php</filename>
+		<folder>language</folder>
+		<folder>tmpl</folder>
+	</files>
+	<media folder="media" destination="mod_sellacious_ewallet">
+		<folder>css</folder>
+	</media>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="class_sfx"
+				       type="text"
+				       label="MOD_SELLACIOUS_EWALLET_SHOW_MODULE_CLASS_SUFFIX_LABEL"
+				       description="MOD_SELLACIOUS_EWALLET_SHOW_MODULE_CLASS_SUFFIX_DESC"
+				       default=""
+				/>
+			</fieldset>
+		</fields>
+	</config>
+	<updateservers>
+		<server type="extension" name="Sellacious Updates - mod_sellacious_ewallet">http://sellacious.com/release/updates/v1.6/mod_sellacious_ewallet.xml</server>
+	</updateservers>
+</extension>

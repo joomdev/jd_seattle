@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset name="basic" label="COM_SELLACIOUS_PRODUCTLISTING_FIELDSET_BASIC">
+		<field
+			name="category_id"
+			type="SplCategoryParent"
+			label="COM_SELLACIOUS_PRODUCTLISTING_FIELD_CATEGORY_LABEL"
+			description="COM_SELLACIOUS_PRODUCTLISTING_FIELD_CATEGORY_DESC"
+			onchange="Joomla.submitform('productListing.setCategory');"
+			default=""
+			class="medium-input"
+			required="true"
+			>
+			<option value="">COM_SELLACIOUS_PRODUCTLISTING_FIELD_CATEGORY_SELECT_OPTION</option>
+		</field>
+		<field
+			name="listing_days"
+			type="ProductsListing"
+			label="COM_SELLACIOUS_PRODUCTLISTING_FIELD_LISTING_DAYS_LABEL"
+			/>
+	</fieldset>
+</form>

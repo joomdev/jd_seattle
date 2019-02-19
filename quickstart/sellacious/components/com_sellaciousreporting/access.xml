@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<access component="com_sellaciousreporting">
+	<section name="component">
+		<actions name="report" title="COM_SELLACIOUSREPORTING_ACTIONS_CRUCIAL">
+			<action name="reports.manage" title="COM_SELLACIOUSREPORTING_ACTION_MANAGE_LABEL" description="COM_SELLACIOUSREPORTING_ACTION_MANAGE_DESC"/>
+		</actions>
+	</section>
+</access>

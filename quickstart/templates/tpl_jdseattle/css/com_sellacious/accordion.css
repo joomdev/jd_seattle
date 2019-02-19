@@ -1,0 +1,72 @@
+#profile_accordion {
+	width: 70%;
+	margin: 0 auto;
+}
+
+@media only screen and (max-width: 768px) {
+	#profile_accordion {
+		width: 95%;
+	}
+}
+
+.accordion-group {
+	position: relative;
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-direction: column;
+	flex-direction: column;
+	min-width: 0;
+	word-wrap: break-word;
+	background-color: #fff;
+	background-clip: border-box;
+	border: 1px solid rgba(0,0,0,.125);
+	border-radius: .25rem;
+}
+
+.accordion-heading:first-child {
+	border-radius: calc(.25rem - 1px) calc(.25rem - 1px) 0 0;
+}
+
+.accordion-heading {
+	margin-bottom: 0;
+	background-color: rgba(0,0,0,.03);
+	border-bottom: 1px solid rgba(0,0,0,.125);
+	font-size: 14px;
+}
+
+.accordion-inner {
+	-ms-flex: 1 1 auto;
+	flex: 1 1 auto;
+	padding: 1.25rem;
+}
+
+.accordion-toggle {
+	padding: 15px 16px;
+	display: table;
+	width: 100%;
+}
+
+.accordion-inner .control-group input[type="text"],
+.accordion-inner .control-group input[type="email"],
+.accordion-inner .control-group input[type="password"],
+.accordion-inner .control-group select,
+.accordion-inner .control-group .select2-container,
+.accordion-inner .control-group .select2-container .select2-choice {
+	width: 100%;
+	height: calc(2.25rem + 2px);
+}
+.accordion-inner .control-group .select2-container .select2-choice {
+	padding: 7px 0 7px 8px;
+}
+
+.accordion-inner .control-group .gl-input {
+	max-width: unset;
+}
+
+.accordion-inner .control-group input[type="radio"] {
+	margin: unset;
+}
+
+.accordion .captcha-fieldset .control-group input[type="checkbox"] {
+	display: inline !important;
+}

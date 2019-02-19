@@ -18,6 +18,11 @@ class N2SSItemImage extends N2SSItemAbstract {
         $owner = $this->layer->getOwner();
 
         $size = (array)N2Parse::parse($this->data->get('size', ''));
+        for ($i = 0; $i < 2; $i++) {
+            if (is_numeric($size[$i])) {
+                $size[$i] = $size[$i] . 'px';
+            }
+        }
         if (empty($size[0])) $size[0] = 'auto';
         if (empty($size[1])) $size[1] = 'auto';
 
@@ -33,13 +38,13 @@ class N2SSItemImage extends N2SSItemAbstract {
             $imageAttributes['title'] = $title;
         }
 
-        $html = N2Html::tag('img', $imageAttributes + N2Html::getExcludeLazyLoadAttributes(), false);
+        $html = N2Html::tag('img', N2HTML::addExcludeLazyLoadAttributes($imageAttributes), false);
 
 
         $style = $owner->addStyle($this->data->get('style'), 'heading');
 
         return N2Html::tag("div", array(
-            "class" => $style . ' n2-ss-img-wrapper n2-ow',
+            "class" => $style . ' n2-ss-img-wrapper n2-ss-item-content n2-ow',
             'style' => 'overflow:hidden;'
         ), $this->getLink($html, array('class' => 'n2-ow')));
     }

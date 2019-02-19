@@ -2,11 +2,13 @@
 
 class N2SmartsliderUpdateModel {
 
-    private $storage, $version;
+    private static $version = false;
+    private static $lastCheck = false;
+
+    private $storage;
 
     public function __construct() {
         $this->storage = N2Base::getApplication('smartslider')->storage;
-        $this->version = $this->storage->get('update', 'version');
     }
 
     public static function getInstance() {
@@ -14,30 +16,50 @@ class N2SmartsliderUpdateModel {
         if (!$ins) {
             $ins = new N2SmartsliderUpdateModel();
         }
+
         return $ins;
     }
 
     public function getVersion() {
-        return $this->version;
+        if (self::$version === false) {
+            self::$version = $this->storage->get('update', 'version');
+        }
+
+        return self::$version;
     }
 
     public function setVersion($version) {
         $this->storage->set('update', 'version', $version);
-        $this->storage->set('update', 'lastcheck', time());
-        $this->version = $version;
+        self::$version = $version;
+
+        $this->setLastCheck(time());
+    }
+
+    public function getLastCheck() {
+        if (self::$lastCheck === false) {
+            self::$lastCheck = $this->storage->get('update', 'lastcheck');
+        }
+
+        return self::$lastCheck;
+    }
+
+    public function setLastCheck($lastCheck) {
+        self::$lastCheck = $lastCheck;
+        $this->storage->set('update', 'lastcheck', $lastCheck);
     }
 
     public function hasUpdate() {
         $this->autoCheck();
-        if (version_compare(N2SS3::$version, $this->version) == -1) {
+        if (version_compare(N2SS3::$version, $this->getVersion()) == -1) {
             return true;
         }
+
         return false;
     }
 
     private function autoCheck() {
         if (intval(N2SmartSliderSettings::get('autoupdatecheck', 1))) {
-            $time = $this->storage->get('update', 'lastcheck');
+            $time = $this->getLastCheck();
             if (!$time || strtotime("+1 week", $time) < time()) {
                 $this->check();
             }
@@ -53,14 +75,16 @@ class N2SmartsliderUpdateModel {
         if ($response['status'] == 'OK') {
             $this->setVersion($response['data']['latestVersion']);
         }
+
         return $response['status'];
     }
 
     public function lastCheck() {
-        $time = $this->storage->get('update', 'lastcheck');
+        $time = $this->getLastCheck();
         if (empty($time)) {
             return n2_('never');
         }
+
         return date("Y-m-d H:i", $time);
     }
 
@@ -78,6 +102,7 @@ class N2SmartsliderUpdateModel {
             } else if ($updateStatus != false) {
                 return $updateStatus;
             }
+
             return 'UPDATE_ERROR';
         }
 

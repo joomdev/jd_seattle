@@ -83,7 +83,14 @@ class N2SmartSliderExport {
 
                     self::addImage($slide['params']->get('backgroundImage'));
                     self::addImage($slide['params']->get('ligthboxImage'));
-                    self::addLightbox($slide['params']->get('link'));
+
+                    if ($slide['params']->has('link')) {
+                        // Compatibility fix for the old SS3 import files
+                        self::addLightbox($slide['params']->get('link'));
+                    }
+                    if ($slide['params']->has('href')) {
+                        self::addLightbox($slide['params']->get('href'));
+                    }
 
                     $layers = json_decode($slide['slide'], true);
 
@@ -143,7 +150,7 @@ class N2SmartSliderExport {
                 echo $zip->file();
                 n2_exit(true);
             } else {
-                $file = $this->sliderId . '-' . preg_replace('/[^a-zA-Z0-9_-]/', '', $this->backup->slider['title']) . '.ss3';
+                $file   = $this->sliderId . '-' . preg_replace('/[^a-zA-Z0-9_-]/', '', $this->backup->slider['title']) . '.ss3';
                 $folder = N2Platform::getPublicDir();
                 $folder .= '/export/';
                 if (!N2Filesystem::existsFolder($folder)) {
@@ -246,7 +253,7 @@ class N2SmartSliderExport {
             $headHTML .= N2Html::script($js['inline']) . "\n";
         }
 
-        $sliderHTML = preg_replace_callback('/(src|data-desktop|data-tablet|data-mobile)=["|\'](.*?)["|\']/i', array(
+        $sliderHTML = preg_replace_callback('/(src|data-thumbnail|data-desktop|data-tablet|data-mobile)=["|\'](.*?)["|\']/i', array(
             $this,
             'replaceHTMLImage'
         ), $sliderHTML);
@@ -271,7 +278,7 @@ class N2SmartSliderExport {
             'replaceHTMLImageHrefLightbox'
         ), $sliderHTML);
 
-        $headHTML = preg_replace_callback('/"([^"]*?\.(jpg|png|gif|jpeg))"/i', array(
+        $headHTML = preg_replace_callback('/"([^"]*?\.(jpg|png|gif|jpeg|webp|svg))"/i', array(
             $this,
             'replaceJSON'
         ), $headHTML);

@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.1" type="plugin" group="system" method="upgrade">
+	<name>PLG_SYSTEM_SELLACIOUSHYPERLOCAL</name>
+	<author>Aditya Chakraborty</author>
+	<creationDate>December 26, 2018</creationDate>
+	<copyright>(C) 2012-2018 Bhartiy Web Technologies. All rights reserved.</copyright>
+	<license>GNU/GPL V2+</license>
+	<authorEmail>info@bhartiy.com</authorEmail>
+	<authorUrl>www.bhartiy.com</authorUrl>
+	<version>1.6.1-alpha0</version>
+	<description>PLG_SYSTEM_SELLACIOUSHYPERLOCAL_DESC</description>
+	<install>
+		<sql>
+			<file driver="mysqli" charset="utf8">sql/plg_system_sellacioushyperlocal.install.mysqli.sql</file>
+		</sql>
+	</install>
+	<uninstall>
+		<sql>
+			<file driver="mysqli" charset="utf8">sql/plg_system_sellacioushyperlocal.uninstall.mysqli.sql</file>
+		</sql>
+	</uninstall>
+	<files>
+		<filename plugin="sellacioushyperlocal">sellacioushyperlocal.php</filename>
+		<folder>language</folder>
+		<folder>forms</folder>
+		<folder>tables</folder>
+		<folder>libraries</folder>
+		<folder>tmpl</folder>
+		<folder>sql</folder>
+	</files>
+	<media folder="media" destination="plg_system_sellacioushyperlocal">
+		<folder>js</folder>
+		<folder>css</folder>
+	</media>
+	<config>
+		<fields name="plg_system_sellacioushyperlocal">
+			<fieldset name="plg_system_sellacioushyperlocal" label="PLG_SYSTEM_SELLACIOUSHYPERLOCAL_FIELDSET_CONFIG">
+				<field
+					type="note"
+					name="unit_note"
+					class="alert alert-info"
+					heading="h5"
+					label=""
+					description="PLG_SYSTEM_SELLACIOUSHYPERLOCAL_UNIT_NOTE_DESC"
+				/>
+				<field
+					type="note"
+					name="save_settings_note"
+					class="alert alert-info"
+					heading="h5"
+					label=""
+					description="PLG_SYSTEM_SELLACIOUSHYPERLOCAL_SAVE_SETTINGS_NOTE_DESC"
+				/>
+				<field
+					type="note"
+					name="unit_conversion_note"
+					class="alert alert-info"
+					heading="h5"
+					label=""
+					description="PLG_SYSTEM_SELLACIOUSHYPERLOCAL_UNIT_CONVERSION_NOTE_DESC"
+				/>
+				<field
+					name="google_api_key"
+					type="text"
+					label="PLG_SYSTEM_SELLACIOUSHYPERLOCAL_FIELD_GOOGLE_API_KEY_LABEL"
+			        description="PLG_SYSTEM_SELLACIOUSHYPERLOCAL_FIELD_GOOGLE_API_KEY_DESC"
+					class="inputbox medium-input form-control"
+				/>
+				<field
+					name="hyperlocal_type"
+					type="radio"
+					class="btn-group btn-group-yesno"
+					label="PLG_SYSTEM_SELLACIOUSHYPERLOCAL_FIELD_HYPERLOCAL_TYPE_LABEL"
+					description="PLG_SYSTEM_SELLACIOUSHYPERLOCAL_FIELD_HYPERLOCAL_TYPE_DESC"
+					default="1"
+				>
+					<option value="1">PLG_SYSTEM_SELLACIOUSHYPERLOCAL_TYPE_BY_RADIUS</option>
+					<option value="2">PLG_SYSTEM_SELLACIOUSHYPERLOCAL_TYPE_BY_SHIPPABLE_LOCATION</option>
+				</field>
+				<field
+					name="product_radius"
+					type="unitcombo"
+					label="PLG_SYSTEM_SELLACIOUSHYPERLOCAL_FIELD_PRODUCT_RADIUS_LABEL"
+					description="PLG_SYSTEM_SELLACIOUSHYPERLOCAL_FIELD_PRODUCT_RADIUS_DESC"
+					class="inputbox small-input"
+					unit_group="length"
+				/>
+				<field
+					type="note"
+					name="shippable_location_note"
+					class="padding-10 shippable_location_note"
+					heading="h5"
+					label=""
+					description="PLG_SYSTEM_SELLACIOUSHYPERLOCAL_SHIPPABLE_LOCATION_NOTE_DESC"
+				/>
+
+				<field
+					name="store_group"
+					type="fieldgroup"
+					label="PLG_SYSTEM_SELLACIOUSHYPERLOCAL_FIELD_STORE_GROUP_LABEL"
+					description="PLG_SYSTEM_SELLACIOUSHYPERLOCAL_FIELD_STORE_GROUP_DESC"
+				/>
+
+				<field
+					name="show_store_availability"
+					type="radio"
+					label="PLG_SYSTEM_SELLACIOUSHYPERLOCAL_FIELD_SHOW_STORE_AVAILABILITY_LABEL"
+					description="PLG_SYSTEM_SELLACIOUSHYPERLOCAL_FIELD_SHOW_STORE_AVAILABILITY_DESC"
+					class="btn-group btn-group-yesno"
+					default="1"
+				>
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+
+				<field
+					name="show_delivery_availability"
+					type="radio"
+					label="PLG_SYSTEM_SELLACIOUSHYPERLOCAL_FIELD_SHOW_DELIVERY_AVAILABILITY_LABEL"
+					description="PLG_SYSTEM_SELLACIOUSHYPERLOCAL_FIELD_SHOW_DELIVERY_AVAILABILITY_DESC"
+					class="btn-group btn-group-yesno"
+					default="1"
+				>
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+
+				<field
+					name="show_pickup_availability"
+					type="radio"
+					label="PLG_SYSTEM_SELLACIOUSHYPERLOCAL_FIELD_SHOW_PICKUP_AVAILABILITY_LABEL"
+					description="PLG_SYSTEM_SELLACIOUSHYPERLOCAL_FIELD_SHOW_PICKUP_AVAILABILITY_DESC"
+					class="btn-group btn-group-yesno"
+					default="1"
+				>
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+
+				<field
+					name="show_store_timings"
+					type="radio"
+					label="PLG_SYSTEM_SELLACIOUSHYPERLOCAL_FIELD_SHOW_STORE_TIMINGS_LABEL"
+					description="PLG_SYSTEM_SELLACIOUSHYPERLOCAL_FIELD_SHOW_STORE_TIMINGS_DESC"
+					class="btn-group btn-group-yesno"
+					default="1"
+				>
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+
+				<field
+					name="show_delivery_timings"
+					type="radio"
+					label="PLG_SYSTEM_SELLACIOUSHYPERLOCAL_FIELD_SHOW_DELIVERY_TIMINGS_LABEL"
+					description="PLG_SYSTEM_SELLACIOUSHYPERLOCAL_FIELD_SHOW_DELIVERY_TIMINGS_DESC"
+					class="btn-group btn-group-yesno"
+					default="1"
+				>
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+
+				<field
+					name="show_pickup_timings"
+					type="radio"
+					label="PLG_SYSTEM_SELLACIOUSHYPERLOCAL_FIELD_SHOW_PICKUP_TIMINGS_LABEL"
+					description="PLG_SYSTEM_SELLACIOUSHYPERLOCAL_FIELD_SHOW_PICKUP_TIMINGS_DESC"
+					class="btn-group btn-group-yesno"
+					default="1"
+				>
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+
+				<field
+					name="cache_group"
+					type="fieldgroup"
+					label="PLG_SYSTEM_SELLACIOUSHYPERLOCAL_FIELD_CACHE_GROUP_LABEL"
+					description="PLG_SYSTEM_SELLACIOUSHYPERLOCAL_FIELD_CACHE_GROUP_DESC"
+				/>
+				<field
+					name="cache_expiry"
+					type="number"
+					label="PLG_SYSTEM_SELLACIOUSHYPERLOCAL_FIELD_CACHE_EXPIRY_LABEL"
+					description="PLG_SYSTEM_SELLACIOUSHYPERLOCAL_FIELD_CACHE_EXPIRY_DESC"
+					default="360"
+					class="inputbox"
+				/>
+				<field type="spacer" name="cache_spacer" label="" />
+			</fieldset>
+		</fields>
+	</config>
+</extension>

@@ -110,7 +110,11 @@ class N2LinkScrollTo {
                     $onclick = 'n2Scroll.previous(this, ".n2-ss-slider");';
                     break;
                 default:
-                    $onclick = 'n2Scroll.element("' . $argument . '");';
+                    if (is_numeric($argument)) {
+                        $onclick = 'n2Scroll.element("#n2-ss-' . $argument . '");';
+                    } else {
+                        $onclick = 'n2Scroll.element("' . $argument . '");';
+                    }
                     break;
             }
             $attributes['onclick'] = $onclick . "return false;";

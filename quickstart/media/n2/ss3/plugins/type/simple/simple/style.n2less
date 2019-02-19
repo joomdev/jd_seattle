@@ -106,14 +106,11 @@
 
   .ssPerspective() when (@hasPerspective = 1) {
     .n2-ss-slide {
-      -webkit-perspective: @perspective;
       perspective: @perspective;
     }
 
     &[data-ie] .n2-ss-slide {
-      -webkit-perspective: none;
       perspective: none;
-      -webkit-transform: perspective(@perspective);
       transform: perspective(@perspective);
     }
   }

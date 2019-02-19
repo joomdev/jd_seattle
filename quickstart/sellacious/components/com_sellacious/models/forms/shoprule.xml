@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset name="basic" label="COM_SELLACIOUS_SHOPRULE_FIELDSET_BASIC">
+		<field
+			name="id"
+			type="hidden"
+			default="0"
+		/>
+		<field
+			name="seller_uid"
+			type="productsellers"
+			label="COM_SELLACIOUS_SHOPRULE_FIELD_SELLER_LABEL"
+			description="COM_SELLACIOUS_SHOPRULE_FIELD_SELLER_DESC"
+			onchange="Joomla.submitform('shoprule.setSeller');"
+			default=""
+			class="w100p"
+		>
+			<option value="0" class="red">COM_SELLACIOUS_SHOPRULE_FIELD_SELLER_OPTION_SITE_WIDE</option>
+		</field>
+		<field
+			name="type"
+			type="list"
+			label="COM_SELLACIOUS_SHOPRULE_FIELD_TYPE_LABEL"
+			description="COM_SELLACIOUS_SHOPRULE_FIELD_TYPE_DESC"
+			required="true"
+			class="w100p"
+			onchange="Joomla.submitbutton('shoprule.setType')"
+			default=""
+		>
+			<option value="">COM_SELLACIOUS_SHOPRULE_OPTION_CHOOSE</option>
+			<option value="tax">COM_SELLACIOUS_SHOPRULE_TYPE_TAX</option>
+			<option value="discount">COM_SELLACIOUS_SHOPRULE_TYPE_OFFER</option>
+			<!--<option value="shipping">Shipping</option>
+			<option value="packaging">Packaging</option>-->
+		</field>
+		<field
+			name="title"
+			type="text"
+			label="COM_SELLACIOUS_SHOPRULE_FIELD_TITLE_LABEL"
+			description="COM_SELLACIOUS_SHOPRULE_FIELD_TITLE_DESC"
+			class="inputbox"
+			size="40"
+			required="true"
+		 />
+		<field
+			name="alias"
+			type="text"
+			label="COM_SELLACIOUS_SHOPRULE_FIELD_ALIAS_LABEL"
+			description="COM_SELLACIOUS_SHOPRULE_FIELD_ALIAS_DESC"
+			class="inputbox"
+			size="40"
+		/>
+		<field
+			name="parent_id"
+			type="shopruleParent"
+			label="COM_SELLACIOUS_SHOPRULE_FIELD_PARENT_LABEL"
+			description="COM_SELLACIOUS_SHOPRULE_FIELD_PARENT_DESC"
+			class="w100p"
+		>
+			<option value="1">COM_SELLACIOUS_OPTION_NO_PARENT</option>
+		</field>
+		<field
+			name="state"
+			type="radio"
+			label="COM_SELLACIOUS_SHOPRULE_FIELD_STATUS_LABEL"
+			description="COM_SELLACIOUS_SHOPRULE_FIELD_STATUS_DESC"
+			required="true"
+			default="1"
+		>
+			<option value="1">COM_SELLACIOUS_SHOPRULE_OPTION_ACTIVE</option>
+			<option value="0">COM_SELLACIOUS_SHOPRULE_OPTION_INACTIVE</option>
+		</field>
+		<field
+			name="filterable"
+			type="radio"
+			label="COM_SELLACIOUS_SHOPRULE_FIELD_FILTERABLE_LABEL"
+			description="COM_SELLACIOUS_SHOPRULE_FIELD_FILTERABLE_DESC"
+			default="1"
+		>
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+<!--
+		<field
+			name="value_base"
+			type="radio"
+			label="COM_SELLACIOUS_SHOPRULE_FIELD_VALUE_BASE_LABEL"
+			description="COM_SELLACIOUS_SHOPRULE_FIELD_VALUE_BASE_DESC"
+			required="true"
+			default="1"
+		>
+			<option value="0">Base Price</option>
+			<option value="1">Aggregate Price</option>
+		</field>
+-->
+		<field
+			name="amount"
+			type="rates"
+			label="COM_SELLACIOUS_SHOPRULE_FIELD_AMOUNT_LABEL"
+			description="COM_SELLACIOUS_SHOPRULE_FIELD_AMOUNT_DESC"
+			size="16"
+			required="true"
+			validate="rates"
+			currency="global"
+			sign="GEZ"
+		 />
+		<field
+			name="sum_method"
+			type="radio"
+			label="COM_SELLACIOUS_SHOPRULE_FIELD_SUM_METHOD_LABEL"
+			description="COM_SELLACIOUS_SHOPRULE_FIELD_SUM_METHOD_DESC"
+			required="true"
+			default="1"
+			onchange="this.form.submit();"
+			>
+			<option value="1">COM_SELLACIOUS_SHOPRULE_FIELD_SUM_METHOD_CART</option>
+			<option value="2">COM_SELLACIOUS_SHOPRULE_FIELD_SUM_METHOD_ITEM</option>
+		</field>
+		<field
+			name="apply_rule_on_price_display"
+			type="radio"
+			label="COM_SELLACIOUS_SHOPRULE_FIELD_APPLY_RULE_ON_PRICE_DISPLAY_LABEL"
+			description="COM_SELLACIOUS_SHOPRULE_FIELD_APPLY_RULE_ON_PRICE_DISPLAY_DESC"
+			default="0"
+		>
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+		<field
+			name="publish_up"
+			type="calendar"
+			label="COM_SELLACIOUS_SHOPRULE_FIELD_STARTDATE_LABEL"
+			description="COM_SELLACIOUS_SHOPRULE_FIELD_STARTDATE_DESC"
+			class="inputbox calendar-input"
+			validate="datetime"
+			format="%Y-%m-%d"
+		 />
+		<field
+			name="publish_down"
+			type="calendar"
+			label="COM_SELLACIOUS_SHOPRULE_FIELD_ENDDATE_LABEL"
+			description="COM_SELLACIOUS_SHOPRULE_FIELD_ENDDATE_DESC"
+			class="inputbox calendar-input"
+			format="%Y-%m-%d"
+			validate="datetime"
+			after="publish_up"
+		 />
+		<!-- created by field is required for currency detection -->
+		<field
+			name="created_by"
+			type="hidden"
+			filter="unset"
+			/>
+	</fieldset>
+	<fieldset name="tip">
+		<field
+			type="note"
+			description="COM_SELLACIOUS_SHOPRULE_FIELD_FILTER_NOTE_DESC"
+			heading="h2"
+			class="pull-left"
+		/>
+	</fieldset>
+</form>

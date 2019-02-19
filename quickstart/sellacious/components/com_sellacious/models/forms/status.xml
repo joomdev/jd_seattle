@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset name="basic" label="COM_SELLACIOUS_STATUS_FIELDSET_BASIC">
+		<field
+			name="id"
+			type="hidden"
+			/>
+		<field
+			name="title"
+			type="text"
+			label="COM_SELLACIOUS_STATUS_FIELD_TITLE_LABEL"
+			description="COM_SELLACIOUS_STATUS_FIELD_TITLE_DESC"
+			class="inputbox"
+			size="40"
+			required="true"
+			/>
+		<field
+			name="context"
+			type="list"
+			label="COM_SELLACIOUS_STATUS_FIELD_CONTEXT_LABEL"
+			description="COM_SELLACIOUS_STATUS_FIELD_CONTEXT_DESC"
+			required="true"
+			onchange="Joomla.submitform('status.setContext');"
+			class="w100p"
+			>
+			<option value=""/>
+			<option value="order">COM_SELLACIOUS_STATUS_CONTEXT_ORDER</option>
+			<!--<option value="order.listing">COM_SELLACIOUS_STATUS_CONTEXT_ORDER_LISTING</option>-->
+			<option value="order.physical">COM_SELLACIOUS_STATUS_CONTEXT_ORDER_PHYSICAL</option>
+			<option value="order.electronic">COM_SELLACIOUS_STATUS_CONTEXT_ORDER_ELECTRONIC</option>
+			<option value="order.package">COM_SELLACIOUS_STATUS_CONTEXT_ORDER_PACKAGE</option>
+			<!--<option value="order.addfund">COM_SELLACIOUS_STATUS_CONTEXT_ORDER_ADDFUND</option>-->
+		</field>
+		<field
+			name="type"
+			type="OrderStatusTypes"
+			label="COM_SELLACIOUS_STATUS_FIELD_TYPE_LABEL"
+			description="COM_SELLACIOUS_STATUS_FIELD_TYPE_DESC"
+			required="true"
+			class="w100p"
+			>
+			<option value=""/>
+		</field>
+		<field
+			name="state"
+			type="radio"
+			label="COM_SELLACIOUS_STATUS_FIELD_STATUS_LABEL"
+			description="COM_SELLACIOUS_STATUS_FIELD_STATUS_DESC"
+			required="true"
+			default="1"
+			>
+			<option value="1">JPUBLISHED</option>
+			<option value="0">JUNPUBLISHED</option>
+		</field>
+<!--
+		<field
+			name="is_stable"
+			type="radio"
+			label="COM_SELLACIOUS_STATUS_FIELD_STABLE_LABEL"
+			description="COM_SELLACIOUS_STATUS_FIELD_STABLE_DESC"
+			required="true"
+			default="0"
+			>
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+-->
+		<field
+			name="notes_required"
+			type="radio"
+			label="COM_SELLACIOUS_STATUS_FIELD_NOTES_REQUIRED_LABEL"
+			description="COM_SELLACIOUS_STATUS_FIELD_NOTES_REQUIRED_DESC"
+			required="true"
+			default="0"
+			>
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+		<field
+			name="allow_change_to"
+			type="orderstatus"
+			label="COM_SELLACIOUS_STATUS_FIELD_ALLOW_CHANGE_TO_LABEL"
+			description="COM_SELLACIOUS_STATUS_FIELD_ALLOW_CHANGE_TO_DESC"
+			multiple="true"
+			context=""
+			class="w100p"
+			/>
+		<field
+			name="alert"
+			type="textarea"
+			label="COM_SELLACIOUS_STATUS_FIELD_ALERT_LABEL"
+			description="COM_SELLACIOUS_STATUS_FIELD_ALERT_DESC"
+			class="textarea"
+			rows="4"
+			/>
+	</fieldset>
+	<fieldset name="advanced" label="COM_SELLACIOUS_STATUS_FIELDSET_ADVANCED">
+		<field
+			name="usergroups"
+			type="SellaciousUserGroupList"
+			label="COM_SELLACIOUS_STATUS_FIELD_USERGROUPS_LABEL"
+			description="COM_SELLACIOUS_STATUS_FIELD_USERGROUPS_DESC"
+			multiple="true"
+			class="w100p"
+			>
+		</field>
+		<field
+			name="stock"
+			type="radio"
+			label="COM_SELLACIOUS_STATUS_FIELD_STOCK_LABEL"
+			description="COM_SELLACIOUS_STATUS_FIELD_STOCK_DESC"
+			>
+			<option value="" class="fa fa-circle">COM_SELLACIOUS_STATUS_FIELD_STOCK_NONE</option>
+			<option value="A" class="fa fa-plus">COM_SELLACIOUS_STATUS_FIELD_STOCK_AVAILABLE</option>
+			<option value="R" class="fa fa-lock">COM_SELLACIOUS_STATUS_FIELD_STOCK_RESERVED</option>
+			<option value="O" class="fa fa-minus">COM_SELLACIOUS_STATUS_FIELD_STOCK_OUT</option>
+		</field>
+		<field
+			name="color_code"
+			type="color"
+			label="COM_SELLACIOUS_STATUS_FIELD_COLOR_CODE_LABEL"
+			description="COM_SELLACIOUS_STATUS_FIELD_COLOR_CODE_DESC"
+		    class="inputbox"
+			/>
+	</fieldset>
+</form>

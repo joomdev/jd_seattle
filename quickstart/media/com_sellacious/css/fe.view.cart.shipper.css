@@ -1,0 +1,40 @@
+fieldset {
+	border: 1px solid #dedede !important;
+	border-radius: 6px !important;
+	padding: 8px !important;
+}
+fieldset > legend {
+	width: auto;
+	font-size: 12px;
+	line-height: 1.0;
+	padding: 2px 8px;
+	margin: 1px 6px;
+}
+
+.cart-table th, .cart-table td {
+	border: 1px solid #ededed;
+	padding: 4px !important;
+	text-decoration: none;
+	font-size: 12px;
+	line-height: 1.8;
+}
+.cart-table th {
+	background: #000000;
+	color: #ffffff;
+}
+
+.cart-table td > input.input {
+	padding: 0 !important;
+	margin: 0 !important;
+	height: 18px !important;
+	font-size: 10px;
+	width: 80%;
+}
+input[type="number"] {
+	text-align: center;
+}
+
+.cart-actions {
+	margin-top: 30px;
+	text-align: right;
+}

@@ -1,0 +1,56 @@
+fieldset {
+	border: 1px solid #dedede !important;
+	border-radius: 6px !important;
+	padding: 8px !important;
+}
+fieldset > legend {
+	width: auto;
+	font-size: 12px;
+	line-height: 1.0;
+	padding: 2px 8px;
+	margin: 1px 6px;
+}
+
+.cart-table th,
+.cart-table td {
+	padding: 2px;
+	text-decoration: none;
+	font-size: 12px;
+}
+.cart-table td > input.input,
+.cart-table td > select.input {
+	padding: 0 4px !important;
+	margin: 0 !important;
+	height: 22px !important;
+	font-size: 12px;
+	width: 300px;
+}
+.cart-table td > input.input-small,
+.cart-table td > select.input-small {
+	padding: 0 4px !important;
+	margin: 0 !important;
+	height: 22px !important;
+	font-size: 12px;
+	width: 100px;
+}
+.cart-table td > label {
+	display: inline;
+}
+
+input[type="number"] {
+	text-align: center;
+}
+
+td.note {
+	font-size: smaller;
+	color: red;
+	line-height: 1.3;
+	padding: 4px 2px;
+}
+.radio-inline label {
+	display: inline !important;
+	padding: 2px 20px 2px 2px !important;
+}
+input[type="radio"] {
+	margin-top: -2px !important;
+}

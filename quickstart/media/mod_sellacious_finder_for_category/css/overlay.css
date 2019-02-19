@@ -1,0 +1,106 @@
+/**
+ * @version     1.6.1
+ * @package     Sellacious Finder for category Module
+ *
+ * @copyright   Copyright (C) 2012-2018 Bhartiy Web Technologies. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
+ * @author      Aditya Chakraborty <info@bhartiy.com> - http://www.bhartiy.com
+ */
+
+.sella-search.finder-overlay {
+	position: relative;
+}
+
+.sella-search.finder-overlay .search-category-actionbtn {
+	position: relative;
+	line-height: 28px;
+	-moz-transition: 400ms;
+	-webkit-transition: 400ms;
+	-o-transition: 400ms;
+	transition: 400ms;
+	height: 100%;
+	width: 26px;
+	z-index: 9999;
+	font-size: 16px;
+	text-align: center;
+	cursor: pointer;
+	float: right;
+}
+
+.sella-search.finder-overlay .search-category-actionbtn .remove-search {
+	display: none;
+	font-size: 120%;
+	color: #fff;
+}
+
+.sella-search.finder-overlay .sella-category-searchwrapper {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	overflow: hidden;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.8);
+	z-index: 999;
+}
+
+.sella-search.finder-overlay .sella-category-searchwrapper .sella-searchbar {
+	position: absolute;
+	top: 42%;
+	left: 25%;
+	width: 50%;
+}
+
+.sella-search.finder-overlay .sellainputarea .inputbox {
+	width: 100%;
+	padding: 6px 12px;
+	height: 46px;
+	font-size: 18px;
+}
+
+.sella-search.finder-overlay .sellainputarea .inputbox:focus {
+	border-color: #d0d0d0;
+	background: #f9f9f9;
+}
+
+.sella-search.finder-overlay .sellainputarea .findersubmit {
+	background: none;
+	position: absolute;
+	top: 0;
+	right: 0;
+	color: #333;
+	font-size: 20px;
+	height: 46px;
+	width: 40px;
+	padding: 0;
+}
+
+.sella-search.finder-overlay .search-autocomplete-suggestions {
+	max-height: 300px;
+	overflow-y: auto;
+	border-right: 1px solid transparent;
+}
+
+.sella-search.finder-overlay .search-autocomplete-suggestions {
+	box-shadow: none;
+}
+
+@media (max-width: 991px) {
+	.sella-search.finder-overlay .sella-category-searchwrapper .sella-searchbar {
+		left: 15%;
+		width: 70%;
+		margin-top: -25px;
+	}
+}
+
+@media (max-width: 600px) {
+	.sella-search.finder-overlay .sella-category-searchwrapper .sella-searchbar {
+		left: 0;
+		right: 0;
+		width: 90%;
+		margin: -25px auto 0;
+	}
+}

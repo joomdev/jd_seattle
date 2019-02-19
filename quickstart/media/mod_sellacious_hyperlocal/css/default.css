@@ -1,0 +1,22 @@
+input#hyperlocation {
+	width: 100%;
+}
+
+.distance_filter {
+	margin-bottom: 10px;
+}
+
+.distance_filter .ui-slider {
+	margin: 5px;
+	width: 100%;
+}
+
+#update-radius {
+	margin-top: 5px;
+}
+
+.distance_filter .ui-slider .ui-slider-handle {
+	border-radius: 100%;
+	background: #004b8d;
+	border-color: #004b8d;
+}

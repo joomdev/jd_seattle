@@ -61,9 +61,13 @@ class N2ElementList extends N2ElementHidden {
     protected function renderOptgroup() {
         $html = '';
         foreach ($this->optgroup AS $label => $options) {
-            $html .= "<optgroup label='" . $label . "'>";
-            $html .= $this->renderOptions($options);
-            $html .= "</optgroup>";
+            if (is_array($options)) {
+                $html .= "<optgroup label='" . $label . "'>";
+                $html .= $this->renderOptions($options);
+                $html .= "</optgroup>";
+            } else {
+                $html .= $this->renderOption($label, $options);
+            }
         }
 
         return $html;
@@ -77,10 +81,15 @@ class N2ElementList extends N2ElementHidden {
     protected function renderOptions($options) {
         $html = '';
         foreach ($options AS $value => $label) {
-            $html .= '<option value="' . $value . '" ' . $this->isSelected($value) . '>' . $label . '</option>';
+            $html .= $this->renderOption($value, $label);
         }
 
         return $html;
+    }
+
+    protected function renderOption($value, $label) {
+
+        return '<option value="' . $value . '" ' . $this->isSelected($value) . '>' . $label . '</option>';
     }
 
     protected function isSelected($value) {
@@ -95,6 +104,7 @@ class N2ElementList extends N2ElementHidden {
      * @param array $options
      */
     public function setOptions($options) {
+
         $this->options = $options;
     }
 

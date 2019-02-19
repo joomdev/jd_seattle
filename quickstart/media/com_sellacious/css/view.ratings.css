@@ -1,0 +1,47 @@
+td.image-box {
+	position: relative;
+}
+td.image-box .image-large {
+	display: none;
+}
+td.image-box:hover .image-large {
+	position: absolute;
+	display: block;
+	max-width: 300px;
+	left: 54px;
+	top: auto;
+	z-index: 2001;
+	background: #fff;
+	border: 1px solid #050;
+	margin: -50px 0 0 0;
+}
+td.image-box .image-small,
+td.image-box:hover .image-small {
+	display: block;
+	width: 50px;
+}
+
+.static-modal {
+	z-index: 1002;
+	width: 70%;
+	height: 60%;
+	max-height: 500px;
+	position: fixed;
+	left: 15%;
+	top: 15%;
+	background: #fff;
+	border: 2px solid #666;
+	border-radius: 5px;
+	padding: 10px;
+	overflow-y: auto;
+	-webkit-box-shadow: 1px 1px 1px 1px #6c6c6c;
+	-moz-box-shadow: 1px 1px 1px 1px #6c6c6c;
+	box-shadow: 1px 1px 1px 1px #6c6c6c;
+}
+
+hr.standard {
+	margin-top: 5px;
+	margin-bottom: 5px;
+	width: 100%;
+	clear: both;
+}

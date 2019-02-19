@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset name="basic" label="COM_MENUS_VIEW_MENU_TITLE">
+		<field
+			name="id"
+			type="hidden"
+			default="0"
+			filter="int"
+			readonly="true"
+		/>
+		<field
+			name="asset_id"
+			type="hidden"
+			filter="unset"
+		/>
+		<field
+			name="menutype"
+			type="text"
+			label="COM_MENUS_MENU_MENUTYPE_LABEL"
+			description="COM_MENUS_MENU_MENUTYPE_DESC"
+			size="30"
+			maxlength="24"
+			required="true"
+			class="inputbox"
+		/>
+		<field
+			name="title"
+			type="text"
+			label="JGLOBAL_TITLE"
+			description="COM_MENUS_MENU_TITLE_DESC"
+			size="30"
+			maxlength="48"
+			required="true"
+			class="inputbox"
+		/>
+		<field
+			name="description"
+			type="text"
+			label="JGLOBAL_DESCRIPTION"
+			description="COM_MENUS_MENU_DESCRIPTION_DESC"
+			size="30"
+			maxlength="255"
+		    class="inputbox"
+		/>
+		<field
+			name="client_id"
+			type="hidden"
+			label="COM_MENUS_MENU_CLIENT_ID_LABEL"
+			description="COM_MENUS_MENU_CLIENT_ID_DESC"
+			default="2"
+			class="btn-group btn-group-yesno btn-group-reversed"
+			required="true"
+			>
+			<option value="0">JSITE</option>
+			<option value="2">APP_SELLACIOUS</option>
+		</field>
+	</fieldset>
+</form>

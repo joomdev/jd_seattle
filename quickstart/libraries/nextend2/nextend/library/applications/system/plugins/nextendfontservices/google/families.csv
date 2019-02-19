@@ -13,9 +13,10 @@ Aladin
 Aldrich
 Alef
 Alegreya
-Alegreya SC
 Alegreya Sans
 Alegreya Sans SC
+Alegreya SC
+Aleo
 Alex Brush
 Alfa Slab One
 Alice
@@ -81,6 +82,8 @@ Averia Gruesa Libre
 Averia Libre
 Averia Sans Libre
 Averia Serif Libre
+B612
+B612 Mono
 Bad Script
 Bahiana
 Bai Jamjuree
@@ -169,6 +172,7 @@ Chakra Petch
 Changa
 Changa One
 Chango
+Charm
 Charmonman
 Chathura
 Chau Philomene One
@@ -249,10 +253,10 @@ Droid Sans Mono
 Droid Serif
 Duru Sans
 Dynalight
-EB Garamond
 Eagle Lake
 East Sea Dokdo
 Eater
+EB Garamond
 Economica
 Eczar
 Ek Mukta
@@ -312,8 +316,6 @@ Fresca
 Frijole
 Fruktur
 Fugaz One
-GFS Didot
-GFS Neohellenic
 Gabriela
 Gaegu
 Gafata
@@ -327,6 +329,8 @@ Geo
 Geostar
 Geostar Fill
 Germania One
+GFS Didot
+GFS Neohellenic
 Gidugu
 Gilda Display
 Give You Glory
@@ -373,18 +377,18 @@ IBM Plex Mono
 IBM Plex Sans
 IBM Plex Sans Condensed
 IBM Plex Serif
-IM Fell DW Pica
-IM Fell DW Pica SC
+Iceberg
+Iceland
 IM Fell Double Pica
 IM Fell Double Pica SC
+IM Fell DW Pica
+IM Fell DW Pica SC
 IM Fell English
 IM Fell English SC
 IM Fell French Canon
 IM Fell French Canon SC
 IM Fell Great Primer
 IM Fell Great Primer SC
-Iceberg
-Iceland
 Imprima
 Inconsolata
 Inder
@@ -436,8 +440,8 @@ Khula
 Kirang Haerang
 Kite One
 Knewave
-KoHo
 Kodchasan
+KoHo
 Kosugi
 Kosugi Maru
 Kotta One
@@ -497,6 +501,7 @@ Mada
 Magra
 Maiden Orange
 Maitree
+Major Mono Display
 Mako
 Mali
 Mallanna
@@ -569,7 +574,6 @@ Mukta Malar
 Mukta Vaani
 Muli
 Mystery Quest
-NTR
 Nanum Brush Script
 Nanum Gothic
 Nanum Gothic Coding
@@ -592,9 +596,13 @@ Noticia Text
 Noto Sans
 Noto Sans JP
 Noto Sans KR
+Noto Sans SC
+Noto Sans TC
 Noto Serif
 Noto Serif JP
 Noto Serif KR
+Noto Serif SC
+Noto Serif TC
 Nova Cut
 Nova Flat
 Nova Mono
@@ -603,6 +611,7 @@ Nova Round
 Nova Script
 Nova Slim
 Nova Square
+NTR
 Numans
 Nunito
 Nunito Sans
@@ -628,12 +637,6 @@ Overpass Mono
 Ovo
 Oxygen
 Oxygen Mono
-PT Mono
-PT Sans
-PT Sans Caption
-PT Sans Narrow
-PT Serif
-PT Serif Caption
 Pacifico
 Padauk
 Palanquin
@@ -684,6 +687,12 @@ Prociono
 Prompt
 Prosto One
 Proza Libre
+PT Mono
+PT Sans
+PT Sans Caption
+PT Sans Narrow
+PT Serif
+PT Serif Caption
 Puritan
 Purple Purse
 Quando
@@ -756,6 +765,7 @@ Sanchez
 Sancreek
 Sansita
 Sansita One
+Sarabun
 Sarala
 Sarina
 Sarpanch
@@ -817,6 +827,7 @@ Squada One
 Sree Krushnadevaraya
 Sriracha
 Srisakdi
+Staatliches
 Stalemate
 Stalinist One
 Stardos Stencil
@@ -847,6 +858,7 @@ Telex
 Tenali Ramakrishna
 Tenor Sans
 Text Me One
+Thasadith
 The Girl Next Door
 Tienne
 Tillana
@@ -872,7 +884,6 @@ UnifrakturMaguntia
 Unkempt
 Unlock
 Unna
-VT323
 Vampiro One
 Varela
 Varela Round
@@ -886,6 +897,7 @@ Volkhov
 Vollkorn
 Vollkorn SC
 Voltaire
+VT323
 Waiting for the Sunrise
 Wallpoet
 Walter Turncoat
@@ -902,6 +914,9 @@ Yeon Sung
 Yeseva One
 Yesteryear
 Yrsa
+ZCOOL KuaiLe
+ZCOOL QingKe HuangYou
+ZCOOL XiaoWei
 Zeyad
 Zeyada
 Zilla Slab

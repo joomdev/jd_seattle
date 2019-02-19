@@ -22,7 +22,7 @@ class N2SSItemButton extends N2SSItemAbstract {
         $font = $owner->addFont($this->data->get('font'), 'link');
 
         $html = N2Html::openTag("div", array(
-            "class" => "n2-ss-button-container n2-ow " . $font . ($this->data->get('fullwidth', 0) ? ' n2-ss-fullwidth' : '') . ($this->data->get('nowrap', 1) ? ' n2-ss-nowrap' : '')
+            "class" => "n2-ss-button-container n2-ss-item-content n2-ow " . $font . ($this->data->get('fullwidth', 0) ? ' n2-ss-fullwidth' : '') . ($this->data->get('nowrap', 1) ? ' n2-ss-nowrap' : '')
         ));
 
         $content = '<div>' . $owner->fill($this->data->get("content")) . '</div>';

@@ -1,0 +1,73 @@
+.has-modal.modal-overlay {
+	z-index: 1050;
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: #191919;
+	opacity: 0.5;
+}
+
+.has-modal.modal-container {
+	position: absolute;
+	top: 20px;
+	width: 80%;
+	height: 570px;
+	z-index: 1051;
+	margin-top: 120px;
+	margin-left: 10%;
+	margin-bottom: -4px;
+	opacity: 1.0;
+	/*
+	background: #fff;
+	border: 2px solid #9c9c9c;
+	border-radius: 4px;
+	box-shadow: 2px 2px #ccc;
+	*/
+	padding: 0 5px 5px 2px;
+}
+
+.has-modal.modal-container.full {
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	width: 102%;
+	margin-left: 2%;
+}
+
+.has-modal .modal-contents {
+	margin-top: 5px;
+	margin-bottom: -4px;
+	height: 99%;
+	overflow: auto;
+}
+.has-modal .modal-contents > iframe {
+	width: 99%;
+	height: 98%;
+	overflow: scroll;
+	margin-left: 4px;
+	background: transparent;
+	border: 0;
+}
+
+.has-modal .modal-close {
+	margin-top: -20px;
+	margin-right: 10px;
+}
+
+.has-modal {
+	display: none;
+}
+
+.has-modal.active {
+	display: block;
+}
+.modal-close {
+	background: #fff;
+	border-radius: 12px;
+	width: 24px;
+	height: 24px;
+	padding: 5px 6px;
+}

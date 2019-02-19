@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<layout title="COM_SELLACIOUS_REVIEWS_VIEW_DEFAULT_TITLE">
+		<message>
+			<![CDATA[COM_SELLACIOUS_REVIEWS_VIEW_DEFAULT_DESC]]>
+		</message>
+	</layout>
+	<fields name="request">
+		<fieldset name="request" addfieldpath="components/com_sellacious/models/fields">
+			<field
+				name="product_category_id" type="categoryList"
+				label="COM_SELLACIOUS_FIELD_REVIEWS_SELECT_PRODUCT_CATEGORY_LABEL"
+				description="COM_SELLACIOUS_FIELD_REVIEWS_SELECT_PRODUCT_CATEGORY_DESC"
+				group="product/physical"
+				show_all="true"
+			>
+				<option value="">JSELECT</option>
+			</field>
+			<field
+				name="seller_category_id" type="categoryList"
+				label="COM_SELLACIOUS_FIELD_REVIEWS_SELECT_SELLER_CATEGORY_LABEL"
+				description="COM_SELLACIOUS_FIELD_REVIEWS_SELECT_SELLER_CATEGORY_DESC"
+				group="seller"
+				show_all="true"
+			>
+				<option value="">JSELECT</option>
+			</field>
+			<field
+				name="seller_uid"
+				type="productSellers"
+				label="COM_SELLACIOUS_FIELD_REVIEWS_SELECT_SELLER_LABEL"
+			    class="inputbox w100p"
+			>
+				<option value="">JSELECT</option>
+			</field>
+			<field
+			    name="product_id"
+		        type="sql"
+		        label="COM_SELLACIOUS_FIELD_REVIEWS_SELECT_PRODUCT_LABEL"
+		        description="COM_SELLACIOUS_FIELD_REVIEWS_SELECT_PRODUCT_DESC"
+		        query="SELECT id, title FROM #__sellacious_products WHERE state = 1"
+		        key_field="id"
+		        value_field="title">
+				<option value="">JSELECT</option>
+			</field>
+		</fieldset>
+	</fields>
+</metadata>

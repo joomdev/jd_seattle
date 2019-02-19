@@ -1,0 +1,73 @@
+.rating-stars {
+	font-size: 16px;
+	line-height: 1.8;
+	float: left;
+	margin: auto 4px;
+}
+
+.rating-stars.rating-stars-lg {
+	font-size: 20px;
+}
+
+.rating-stars.rating-stars-md {
+	font-size: 13px;
+}
+
+.rating-stars.rating-stars-sm {
+	font-size: 10px;
+}
+
+.rating-stars.rating-stars-xs {
+	font-size: 7px;
+}
+
+.rating-stars:before {
+	letter-spacing: 4px;
+	color: #f49a1f;
+	font-family: FontAwesome, serif;
+}
+
+.rating-stars.star-0:before {
+	content: '\f006 \f006 \f006 \f006 \f006'
+}
+
+.rating-stars.star-1:before {
+	content: '\f123 \f006 \f006 \f006 \f006'
+}
+
+.rating-stars.star-2:before {
+	content: '\f005 \f006 \f006 \f006 \f006'
+}
+
+.rating-stars.star-3:before {
+	content: '\f005 \f123 \f006 \f006 \f006'
+}
+
+.rating-stars.star-4:before {
+	content: '\f005 \f005 \f006 \f006 \f006'
+}
+
+.rating-stars.star-5:before {
+	content: '\f005 \f005 \f123 \f006 \f006'
+}
+
+.rating-stars.star-6:before {
+	content: '\f005 \f005 \f005 \f006 \f006'
+}
+
+.rating-stars.star-7:before {
+	content: '\f005 \f005 \f005 \f123 \f006'
+}
+
+.rating-stars.star-8:before {
+	content: '\f005 \f005 \f005 \f005 \f006'
+}
+
+.rating-stars.star-9:before {
+	content: '\f005 \f005 \f005 \f005 \f123'
+}
+
+.rating-stars.star-10:before {
+	content: '\f005 \f005 \f005 \f005 \f005'
+}
+

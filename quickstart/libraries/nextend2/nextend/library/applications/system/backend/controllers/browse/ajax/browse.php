@@ -23,7 +23,8 @@ class N2SystemBackendBrowseControllerAjax extends N2BackendControllerAjax {
             'gif',
             'mp4',
             'mp3',
-            'svg'
+            'svg',
+            'webp'
         );
         $_files     = scandir($path);
         $files      = array();
@@ -107,7 +108,7 @@ class N2SystemBackendBrowseControllerAjax extends N2BackendControllerAjax {
 
                 $upload           = new N2BulletProof();
                 $file             = $upload->uploadDir($path)
-                                           ->upload($_FILES['image'], $fileName);
+                    ->upload($_FILES['image'], $fileName);
                 $response['name'] = basename($file);
                 $response['url']  = N2ImageHelper::dynamic(N2Filesystem::pathToAbsoluteURL($file));
 
@@ -164,7 +165,9 @@ class N2BulletProof {
         "jpg",
         "jpeg",
         "png",
-        "gif"
+        "gif",
+        "webp",
+        "svg"
     );
 
     /**
@@ -275,7 +278,9 @@ class N2BulletProof {
             "iff",
             "wbmp",
             "xmb",
-            "ico"
+            "ico",
+            "webp",
+            "svg"
         );
 
         $imageType = N2Image::exif_imagetype($imageName);
@@ -320,7 +325,7 @@ class N2BulletProof {
     /**
      * Get the specified upload dir, if it does not exist, create a new one.
      *
-     * @param $directoryName   - directory name where you want your files to be uploaded
+     * @param $directoryName - directory name where you want your files to be uploaded
      * @param $filePermissions - octal representation of file permissions in linux environment
      *
      * @return $this
@@ -423,6 +428,14 @@ class N2BulletProof {
             // First get the real file extension
             $this->getMimeType = $this->getMimeType($fileToUpload["tmp_name"]);
 
+            $specialImage = false;
+            if ($this->getMimeType === false) {
+                if (isset($fileToUpload["type"]) && strpos($fileToUpload["type"], 'image/') !== false) {
+                    $this->getMimeType = str_replace(array( 'image/', 'svg+xml' ), array( '', 'svg' ), $fileToUpload["type"]);
+                    $specialImage      = true;
+                }
+            }
+
             // Check if this file type is allowed for upload
             if (!in_array($this->getMimeType, $this->imageType)) {
                 throw new N2ImageUploaderException(" This is not allowed file type!
@@ -435,14 +448,16 @@ class N2BulletProof {
             }
 
             // check if image is valid pixel-wise.
-            $pixel = $this->getPixels($fileToUpload["tmp_name"]);
+            if (!$specialImage) {
+                $pixel = $this->getPixels($fileToUpload["tmp_name"]);
 
-            if ($pixel["width"] < 4 || $pixel["height"] < 4) {
-                throw new N2ImageUploaderException("This file is either too small or corrupted to be an image");
-            }
+                if ($pixel["width"] < 4 || $pixel["height"] < 4) {
+                    throw new N2ImageUploaderException("This file is either too small or corrupted to be an image");
+                }
 
-            if ($pixel["height"] > $this->imageDimension["height"] || $pixel["width"] > $this->imageDimension["width"]) {
-                throw new N2ImageUploaderException("Image pixels/size must be below " . implode(", ", $this->imageDimension) . " pixels");
+                if ($pixel["height"] > $this->imageDimension["height"] || $pixel["width"] > $this->imageDimension["width"]) {
+                    throw new N2ImageUploaderException("Image pixels/size must be below " . implode(", ", $this->imageDimension) . " pixels");
+                }
             }
         }
 

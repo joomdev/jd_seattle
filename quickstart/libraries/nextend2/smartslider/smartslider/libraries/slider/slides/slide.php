@@ -6,7 +6,7 @@ class N2SmartSliderSlide extends N2SmartSliderComponentOwnerAbstract {
      * @var N2SmartSliderAbstract
      */
     protected $sliderObject;
-    public $id = 0, $slider = 0, $publish_up, $publish_down, $published = 1, $first = 0, $slide = '', $ordering = 0, $generator_id = 0;
+    public    $id = 0, $slider = 0, $publish_up, $publish_down, $published = 1, $first = 0, $slide = '', $ordering = 0, $generator_id = 0;
 
     protected $title = '', $description = '', $thumbnail = '';
 
@@ -97,7 +97,7 @@ class N2SmartSliderSlide extends N2SmartSliderComponentOwnerAbstract {
     }
 
     protected function onCreate() {
-        N2Pluggable::doAction('ssSlide', array($this));
+        N2Pluggable::doAction('ssSlide', array( $this ));
     }
 
     public function initGenerator($extend = array()) {
@@ -172,7 +172,7 @@ class N2SmartSliderSlide extends N2SmartSliderComponentOwnerAbstract {
 
         $this->addSlideLink();
 
-        $this->attributes['data-slide-duration'] = n2_floatval($this->parameters->get('slide-duration', 0) / 1000);
+        $this->attributes['data-slide-duration'] = n2_floatval(max(0, $this->parameters->get('slide-duration', 0) ) / 1000);
         $this->attributes['data-id']             = $this->id;
 
         $this->classes .= ' n2-ss-slide-' . $this->id;
@@ -183,7 +183,17 @@ class N2SmartSliderSlide extends N2SmartSliderComponentOwnerAbstract {
     }
 
     protected function addSlideLink() {
-        list($url, $target) = (array)N2Parse::parse($this->parameters->getIfEmpty('link', '|*|'));
+
+        $linkV1 = $this->parameters->getIfEmpty('link', '');
+        if (!empty($linkV1)) {
+            list($link, $target) = array_pad((array)N2Parse::parse($linkV1), 2, '');
+            $this->parameters->un_set('link');
+            $this->parameters->set('href', $link);
+            $this->parameters->set('href-target', $target);
+        }
+
+        $url    = $this->parameters->get('href');
+        $target = $this->parameters->get('href-target');
 
         if (!empty($url) && $url != '#') {
             $url = $this->fill($url);
@@ -632,9 +642,16 @@ class N2SmartSliderSlide extends N2SmartSliderComponentOwnerAbstract {
 
         $imagePath = N2ImageHelper::fixed($image, true);
         if (isset($imagePath[0]) && $imagePath[0] == '/' && $imagePath[1] != '/' && $lazyLoad->layerImageSizeBase64 && $lazyLoad->layerImageSizeBase64Size && filesize($imagePath) < $lazyLoad->layerImageSizeBase64Size) {
-            return array(
-                'src' => N2Image::base64($imagePath, $image)
-            );
+            $extension = pathinfo($image, PATHINFO_EXTENSION);
+            if ($extension != 'svg') {
+                return array(
+                    'src' => N2Image::base64($imagePath, $image)
+                );
+            } else {
+                return array(
+                    'src' => N2ImageHelperAbstract::SVGToBase64($image)
+                );
+            }
         }
 
         $fixedImageUrl = N2ImageHelper::fixed($image);

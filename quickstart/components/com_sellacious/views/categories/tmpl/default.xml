@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<layout title="COM_SELLACIOUS_SYS_CATEGORIES_VIEW_DEFAULT_TITLE">
+		<message><![CDATA[COM_SELLACIOUS_SYS_CATEGORIES_VIEW_DEFAULT_DESC]]></message>
+	</layout>
+	<fields name="request">
+		<fieldset name="request" addfieldpath="components/com_sellacious/models/fields">
+			<field name="category_id"
+			       type="categoryList"
+			       label="COM_SELLACIOUS_SYS_PRODUCTS_VIEW_DEFAULT_PARAM_FILTER_CATEGORY_TITLE"
+			       group="product/physical;product/electronic"
+			       show_all="true"
+			>
+				<option value="1">COM_SELLACIOUS_SYS_PRODUCTS_VIEW_DEFAULT_PARAM_FILTER_CATEGORY_OPTION_ALL</option>
+			</field>
+			<field name="store_id"
+			       type="productSellers"
+			       label="COM_SELLACIOUS_SYS_PRODUCTS_VIEW_DEFAULT_PARAM_FILTER_STORE_TITLE"
+			       class="inputbox w100p"
+			>
+				<option value="">JSELECT</option>
+			</field>
+			<field name="manufacturer_id"
+			       type="manufacturer"
+			       label="COM_SELLACIOUS_SYS_PRODUCTS_VIEW_DEFAULT_PARAM_FILTER_MANUFACTURER_TITLE"
+			       class="inputbox w100p"
+			>
+				<option value="">JSELECT</option>
+			</field>
+		</fieldset>
+	</fields>
+	<fields name="params">
+		<fieldset name="image_priority_options" label="Image Priority Options">
+			<field
+				name="image_priority"
+				label="COM_SELLACIOUS_SYS_PRODUCTS_VIEW_DEFAULT_PARAM_FILTER_IMAGE_PRIORITY_TITLE"
+				description="COM_SELLACIOUS_SYS_PRODUCTS_VIEW_DEFAULT_PARAM_FILTER_IMAGE_PRIORITY_DESC"
+				type="radio"
+				default="none"
+				class="inputbox btn-group">
+				<option value="none">JNONE</option>
+				<option value="store">COM_SELLACIOUS_SYS_PRODUCTS_VIEW_DEFAULT_PARAM_FILTER_IMAGE_PRIORITY_OPTION_STORE</option>
+				<option value="mfg">COM_SELLACIOUS_SYS_PRODUCTS_VIEW_DEFAULT_PARAM_FILTER_IMAGE_PRIORITY_OPTION_MANUFACTURER</option>
+			</field>
+			<field
+				name="allow_fallback"
+				label="COM_SELLACIOUS_SYS_PRODUCTS_VIEW_DEFAULT_PARAM_FILTER_IMAGE_FALLBACK_TITLE"
+				description="COM_SELLACIOUS_SYS_PRODUCTS_VIEW_DEFAULT_PARAM_FILTER_IMAGE_FALLBACK_DESC"
+				type="radio"
+				default="0"
+				class="inputbox btn-group">
+				<option value="0">JNO</option>
+				<option value="1">JYES</option>
+			</field>
+		</fieldset>
+	</fields>
+</metadata>

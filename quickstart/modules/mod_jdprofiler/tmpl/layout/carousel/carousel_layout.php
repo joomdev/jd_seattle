@@ -5,9 +5,9 @@ defined('_JEXEC') or die;
 //print_r($profiles);
 ?>
 <div class="jd-profiler-wrapper jd-carousel-layout-view jd-carousel-simple-layout">
-  <div class="row <?php echo ($params->get('gutter_space')=='nomargin') ? 'no-gutters' : '' ?>">
+  <div class="row <?php echo ($params->get('gutter_space')=='nomargin') ? 'jd-nogutters' : '' ?>">
     <div class="col-12">
-      <div class="row jd-team-carousel">
+      <div class="jd-row jd-team-carousel">
         <!-- Team Item wrapper start -->
         <?php foreach($profiles as $profile) { ?>
             <div class="jd-team-columns <?php echo ($params->get('gutter_space')=='') ? 'col' : '' ?>" <?php if($params->get('gutter_space')=='custom') { ?> style="padding-right:<?php echo $params->get('margin');?>px; padding-left:<?php echo $params->get('margin');?>px;" <?php } ?>>
@@ -69,12 +69,12 @@ defined('_JEXEC') or die;
 (function ($) {
     // Slick Js start
     var intislickSlider = function () {
-        $('.jd-team-carousel, .jd-team-carousel-hover').slick({
+        $('.jd-team-carousel').slick({
             arrows: <?php if($params->get('DisplayArrow')){ echo "true"; }else{ echo 'false'; } ?>,
             dots: <?php if($params->get('DisplayBullit')){ echo "true"; }else{ echo 'false'; } ?>,
             infinite: true,
             speed: 300,
-            slidesToShow: 4,
+            slidesToShow: <?php echo  $params->get('grid_coloumns_carosuel',3); ?>,
             adaptiveHeight: true,
             responsive: [{
                     breakpoint: 1200,

@@ -1,0 +1,17 @@
+tr.row10 td {
+    background-color: #faf8dC !important;
+    font-style: italic;
+}
+
+tr.row10:hover td {
+    background-color: #fdeef4 !important;
+}
+
+tr.row11 td {
+    background-color: #fff8ee !important;
+    font-style: italic;
+}
+
+tr.row11:hover td {
+    background-color: #fdeef4 !important;
+}

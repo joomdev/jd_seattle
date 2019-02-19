@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset name="basic" label="COM_SELLACIOUS_TRANSACTION_FIELDSET_ADDFUND">
+		<field
+			name="mode"
+			type="radio"
+			label="COM_SELLACIOUS_TRANSACTION_FIELD_MODE_LABEL"
+			description="COM_SELLACIOUS_TRANSACTION_FIELD_MODE_DESC"
+			required="true"
+			rows="3"
+			>
+			<option value="gateway" onchange="Joomla.submitform('transaction.setType');">COM_SELLACIOUS_TRANSACTION_FIELD_MODE_OPTION_PAYMENT_METHODS</option>
+			<option value="direct" onchange="Joomla.submitform('transaction.setType');">COM_SELLACIOUS_TRANSACTION_FIELD_MODE_OPTION_DIRECT</option>
+		</field>
+		<field
+			name="payment_method_id"
+			type="paymentMethod"
+			label="COM_SELLACIOUS_TRANSACTION_FIELD_GATEWAY_LABEL"
+			description="COM_SELLACIOUS_TRANSACTION_FIELD_GATEWAY_DESC"
+			required="true"
+			onchange="Joomla.submitform('transaction.setType');"
+			rows="3"
+			class="inputbox w100p"
+		    context="addfund"
+		>
+			<option value="">COM_SELLACIOUS_TRANSACTION_FIELD_CHOOSE_OPTION</option>
+		</field>
+		<field
+			name="user_id"
+			type="ajaxUser"
+			label="COM_SELLACIOUS_TRANSACTION_FIELD_USERID_LABEL"
+			description="COM_SELLACIOUS_TRANSACTION_FIELD_USERID_DESC"
+			class="inputbox"
+			required="true"
+			/>
+		<field
+			name="amount"
+			type="money"
+			label="COM_SELLACIOUS_TRANSACTION_FIELD_AMOUNT_LABEL"
+			description="COM_SELLACIOUS_TRANSACTION_FIELD_AMOUNT_DESC"
+			class="inputbox"
+			required="true"
+			validate="money"
+			filter="float"
+			currency="global"
+			sign="GTZ"
+			/>
+		<field
+			name="user_notes"
+			type="textarea"
+			label="COM_SELLACIOUS_TRANSACTION_FIELD_USER_NOTES_LABEL"
+			description="COM_SELLACIOUS_TRANSACTION_FIELD_USER_NOTES_DESC"
+			class="textarea"
+			required="true"
+			rows="3"
+			/>
+	</fieldset>
+	<fieldset name="payment" label="COM_SELLACIOUS_TRANSACTION_FIELDSET_PAYMENT">
+
+	</fieldset>
+</form>

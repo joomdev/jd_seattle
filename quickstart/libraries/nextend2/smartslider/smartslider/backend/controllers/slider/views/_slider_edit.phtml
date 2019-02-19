@@ -43,7 +43,7 @@ N2Html::topBar(array(
     )
 ));
 N2HTML::heading(array(
-    'title'     => $slider['title'] . ' <span>ID: ' . $slider['id'] . '</span>',
+    'title'     => n2_esc_html($slider['title']) . ' <span>ID: ' . $slider['id'] . '</span>',
     'snapClass' => 'n2-slider-name',
     'actions'   => $_class->getDashboardButtons($slider)
 ));
@@ -97,8 +97,11 @@ N2SSBackendFragments::tutorialFree();
                     data: $('#n2-ss-edit-slider-form').serialize(),
                     dataType: 'json'
                 }).done(function (response) {
-                    var $heading = $('.n2-heading-bar .n2-heading');
-                    $heading.html($('#slidertitle').val() + '<span>' + $heading.find('span').html() + '</span>');
+                    var $heading = $('.n2-heading-bar .n2-heading'),
+                        id = $heading.find('span').html();
+                    $heading
+                        .text($('#slidertitle').val())
+                        .append('<span>' + id + '</span>');
                     nextend.askToSave = true;
                     $('#n2-ss-edit-slider-form').trigger('saved');
 

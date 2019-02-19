@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset name="short_codes" label="PLG_SELLACIOUS_USER_FIELDSET_TAB_SHORTCODES_LABEL">
+		<field
+			type="note"
+			class="padding-10"
+			heading="h5"
+			label="PLG_SELLACIOUS_USER_FIELDSET_USER_REGISTRATION_SHORTCODES_LABEL"
+			description="PLG_SELLACIOUS_USER_FIELDSET_USER_REGISTRATION_SHORTCODES_NOTE"
+		/>
+	</fieldset>
+</form>

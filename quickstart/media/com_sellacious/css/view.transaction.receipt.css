@@ -1,0 +1,90 @@
+#receipt-head {
+	float: right;
+	min-width: 500px;
+	display: block;
+	clear: left;
+}
+
+#receipt-head a {
+	margin: 2px 4px;
+}
+
+#receipt-page {
+	margin: auto;
+	width: 500px;
+	min-height: 200px;
+	border: 1px solid #e9e9e9;
+	-webkit-box-shadow: 1px 1px 2px #dedede;
+	-moz-box-shadow: 1px 1px 2px #dedede;
+	box-shadow: 1px 1px 2px #dedede;
+}
+
+#receipt-logo {
+	width: 100%;
+	text-align: center;
+	clear: both;
+	padding: 15px;
+}
+
+#receipt-logo img {
+	max-height: 135px;
+}
+
+#receipt-page .title {
+	font-size: 21px;
+	font-weight: bold;
+}
+
+#receipt-page .sub-title {
+	font-size: 16px;
+	color: #777777;
+	line-height: 1.6;
+}
+
+#receipt-page .sub-title > strong {
+	font-size: 18px;
+}
+
+#receipt-page .datetime {
+	font-size: 12px;
+	font-weight: bold;
+}
+
+#receipt-page .address {
+	font-size: 13px;
+	line-height: 1.6;
+	color: #999999;
+}
+
+#receipt-page .company {
+	font-size: 18px;
+	font-weight: bold;
+	color: #555;
+}
+
+#receipt-page .txn-amount {
+	font-size: 22px;
+	font-weight: bold;
+	line-height: 1.6;
+	color: #333333;
+	text-align: center;
+	width: 60%;
+	white-space: nowrap;
+	border-style: solid;
+	border-color: #dddddd;
+	border-width: 1px 0;
+	margin: 8px auto;
+	padding: 5px;
+}
+
+#receipt-page .txn-amount > span {
+	color: #999999;
+}
+
+#receipt-page .footer {
+	background: #efefef;
+	min-height: 20px;
+	text-align: center;
+	font-size: 13px;
+	padding: 10px 35px;
+}

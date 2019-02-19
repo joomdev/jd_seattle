@@ -31,6 +31,10 @@ abstract class N2SSPluginSliderType {
      * @return N2SSPluginSliderType
      */
     public static function getSliderType($name) {
+        if (!isset(self::$types[$name])) {
+            throw new Exception('Slider type is not available: ' . $name);
+        }
+
         return self::$types[$name];
     }
 

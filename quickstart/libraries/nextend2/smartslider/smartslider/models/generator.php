@@ -53,7 +53,7 @@ class N2SmartsliderGeneratorModel extends N2Model {
                 $slideBuilder->set(array(
                     'title'           => "{title}",
                     'description'     => '{description}',
-                    'link'            => '{url}|*|_self',
+                    'href'            => '{url}',
                     'thumbnail'       => "{thumbnail}",
                     'backgroundImage' => "{image}",
                     'background-type' => 'image'
@@ -85,7 +85,7 @@ class N2SmartsliderGeneratorModel extends N2Model {
                 $slideBuilder->set(array(
                     'title'           => "{title}",
                     'description'     => '{description}',
-                    'link'            => '{url}|*|_self',
+                    'href'            => '{url}',
                     'thumbnail'       => "{thumbnail}",
                     'backgroundImage' => "{image}",
                     'background-type' => 'image'
@@ -130,7 +130,7 @@ class N2SmartsliderGeneratorModel extends N2Model {
                 $slideBuilder->set(array(
                     'title'           => "{title}",
                     'description'     => '{description}',
-                    'link'            => '{url}|*|_self',
+                    'href'            => '{url}',
                     'thumbnail'       => "{thumbnail}",
                     'backgroundImage' => "{image}",
                     'background-type' => 'image'
@@ -174,7 +174,7 @@ class N2SmartsliderGeneratorModel extends N2Model {
                 $slideBuilder->set(array(
                     'title'           => "{title}",
                     'description'     => '{description}',
-                    'link'            => '{url}|*|_self',
+                    'href'            => '{url}',
                     'thumbnail'       => "{thumbnail}",
                     'backgroundColor' => "ffffff00",
                     'background-type' => 'color',
@@ -196,7 +196,7 @@ class N2SmartsliderGeneratorModel extends N2Model {
                 $slideBuilder->set(array(
                     'title'           => "{title}",
                     'description'     => '{description}',
-                    'link'            => '{url}|*|_self',
+                    'href'            => '{url}',
                     'thumbnail'       => "{image200x150/1}",
                     'backgroundColor' => "ffffff00",
                     'background-type' => 'color',
@@ -220,7 +220,7 @@ class N2SmartsliderGeneratorModel extends N2Model {
                 $slideBuilder->set(array(
                     'title'           => "{title}",
                     'description'     => '{description}',
-                    'link'            => '{url}|*|_self',
+                    'href'            => '{url}',
                     'thumbnail'       => "{author_image}",
                     'backgroundColor' => "ffffff00",
                     'background-type' => 'color',

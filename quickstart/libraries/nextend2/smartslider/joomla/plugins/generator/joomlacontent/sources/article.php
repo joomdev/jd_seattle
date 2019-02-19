@@ -81,7 +81,7 @@ class N2GeneratorJoomlaContentArticle extends N2GeneratorAbstract {
         $timezone = new DateTimeZone($config->get('offset'));
         $offset   = $timezone->getOffset(new DateTime);
 
-        $result = date($format, strtotime($date)+$offset);
+        $result = date($format, strtotime($date) + $offset);
 
         return $result;
     }
@@ -254,19 +254,19 @@ class N2GeneratorJoomlaContentArticle extends N2GeneratorAbstract {
             ));
 
             $r += array(
-                'url'                   => ContentHelperRoute::getArticleRoute($result[$i]['id'] . ':' . $result[$i]['alias'], $result[$i]['catid'] . ':' . $result[$i]['cat_alias']),
-                'url_label'             => sprintf(n2_('View %s'), n2_('article')),
-                'category_list_url'     => 'index.php?option=com_content&view=category&id=' . $result[$i]['catid'],
-                'category_blog_url'     => 'index.php?option=com_content&view=category&layout=blog&id=' . $result[$i]['catid'],
-                'fulltext_image'        => !empty($images['image_fulltext']) ? N2ImageHelper::dynamic($uri . "/" . $images['image_fulltext']) : '',
-                'category_title'        => $result[$i]['cat_title'],
-                'created_by'            => $result[$i]['created_by_alias'],
-                'id'                    => $result[$i]['id'],
-                'created_date'          => $this->translate($this->datify($result[$i]['created'], $this->data->get('sourcedateformat', n2_('m-d-Y'))), $translate),
-                'created_time'          => $this->translate($this->datify($result[$i]['created'], $this->data->get('sourcetimeformat', 'G:i')), $translate),
-                'id'                    => $result[$i]['id'],
-                'publish_up_date'       => $this->translate($this->datify($result[$i]['publish_up'], $this->data->get('sourcedateformat', n2_('m-d-Y'))), $translate),
-                'publish_up_time'       => $this->translate($this->datify($result[$i]['publish_up'], $this->data->get('sourcetimeformat', 'G:i')), $translate),
+                'url'               => ContentHelperRoute::getArticleRoute($result[$i]['id'] . ':' . $result[$i]['alias'], $result[$i]['catid'] . ':' . $result[$i]['cat_alias']),
+                'url_label'         => sprintf(n2_('View %s'), n2_('article')),
+                'category_list_url' => 'index.php?option=com_content&view=category&id=' . $result[$i]['catid'],
+                'category_blog_url' => 'index.php?option=com_content&view=category&layout=blog&id=' . $result[$i]['catid'],
+                'fulltext_image'    => !empty($images['image_fulltext']) ? N2ImageHelper::dynamic($uri . "/" . $images['image_fulltext']) : '',
+                'category_title'    => $result[$i]['cat_title'],
+                'created_by'        => $result[$i]['created_by_alias'],
+                'id'                => $result[$i]['id'],
+                'created_date'      => $this->translate($this->datify($result[$i]['created'], $this->data->get('sourcedateformat', n2_('m-d-Y'))), $translate),
+                'created_time'      => $this->translate($this->datify($result[$i]['created'], $this->data->get('sourcetimeformat', 'G:i')), $translate),
+                'id'                => $result[$i]['id'],
+                'publish_up_date'   => $this->translate($this->datify($result[$i]['publish_up'], $this->data->get('sourcedateformat', n2_('m-d-Y'))), $translate),
+                'publish_up_time'   => $this->translate($this->datify($result[$i]['publish_up'], $this->data->get('sourcetimeformat', 'G:i')), $translate),
             );
 
             if (!empty($images)) {
@@ -287,74 +287,81 @@ class N2GeneratorJoomlaContentArticle extends N2GeneratorAbstract {
                 $r['urlctext'] = $urls['urlctext'];
             }
 
-            $attribs               = (array)json_decode($result[$i]['attribs'], true);
-            $r['spfeatured_image'] = '';
-            if (array_key_exists("spfeatured_image", $attribs) && !empty($attribs['spfeatured_image'])) {
-                $r['spfeatured_image'] = N2ImageHelper::dynamic($uri . "/" . $attribs['spfeatured_image']);
-            }
-            if (array_key_exists("gallery", $attribs) && !empty($attribs['gallery'])) {
-                $gallery = (array)json_decode($attribs['gallery'], true);
-                for ($g = 0; $g < count($gallery["gallery_images"]); $g++) {
-                    $r['spgallery_' . $g] = N2ImageHelper::dynamic($uri . "/" . $gallery["gallery_images"][$g]);
+            $attribs = (array)json_decode($result[$i]['attribs'], true);
+            foreach ($attribs AS $attrib => $value) {
+                if (!empty($value) && is_string($value)) {
+                    $r[$attrib] = $value;
                 }
+            }
+
+            if (isset($r['helix_ultimate_image'])) {
+                $r['spfeatured_image'] = $r['helix_ultimate_image'] = '$/' . $r['helix_ultimate_image'];
+            }
+
+            if (isset($r['helix_ultimate_gallery'])) {
+                $gallery = (array)json_decode($r['helix_ultimate_gallery'], true);
+                for ($j = 0; $j < count($gallery["helix_ultimate_gallery_images"]); $j++) {
+                    $r['helix_ultimate_gallery_images_' . $j] = $r['spgallery_' . $j] = '$/' . $gallery["helix_ultimate_gallery_images"][$j];
+                }
+
             }
 
             $data[] = $r;
         }
-		
-		if(!empty($idArray)){
-			if ($this->data->get('sourcetagvariables', 0)) {
-				$query = 'SELECT t.title, c.content_item_id  FROM #__tags AS t
+
+        if (!empty($idArray)) {
+            if ($this->data->get('sourcetagvariables', 0)) {
+                $query = 'SELECT t.title, c.content_item_id  FROM #__tags AS t
 				  LEFT JOIN #__contentitem_tag_map AS c ON t.id = c.tag_id
 				  WHERE t.id IN (SELECT tag_id FROM #__contentitem_tag_map WHERE type_alias = \'com_content.article\' AND content_item_id IN (' . implode(',', $idArray) . '))';
-				$db->setQuery($query);
-				$result   = $db->loadAssocList();
-				$tags     = array();
-				$articles = array();
-				foreach ($result AS $r) {
-					$tags[$r['content_item_id']][] = $r['title'];
-					$articles[]                    = $r['content_item_id'];
+                $db->setQuery($query);
+                $result   = $db->loadAssocList();
+                $tags     = array();
+                $articles = array();
+                foreach ($result AS $r) {
+                    $tags[$r['content_item_id']][] = $r['title'];
+                    $articles[]                    = $r['content_item_id'];
 
-				}
-				for ($i = 0; $i < count($data); $i++) {
-					if (in_array($data[$i]['id'], $articles)) {
-						$j = 1;
-						foreach ($tags[$data[$i]['id']] AS $tag) {
-							$data[$i]['tag' . $j] = $tag;
-							$j++;
-						}
-					}
-				}
-			}
+                }
+                for ($i = 0; $i < count($data); $i++) {
+                    if (in_array($data[$i]['id'], $articles)) {
+                        $j = 1;
+                        foreach ($tags[$data[$i]['id']] AS $tag) {
+                            $data[$i]['tag' . $j] = $tag;
+                            $j++;
+                        }
+                    }
+                }
+            }
 
-			if ($this->data->get('sourcefields', 0)) {
-				$query = "SELECT fv.value, fv.item_id, f.title, f.type FROM #__fields_values AS fv LEFT JOIN #__fields AS f ON fv.field_id = f.id WHERE fv.item_id IN (" . implode(',', $idArray) . ")";
-				$db->setQuery($query);
-				$result    = $db->loadAssocList();
-				$AllResult = array();
-				foreach ($result AS $r) {
-					if ($r['type'] == 'media') {
-						$r['value'] = N2ImageHelper::dynamic($uri . "/" . $r["value"]);
-					}
-					$r['title'] = htmlentities($r['title']);
-					$keynum     = 2;
-					while (isset($AllResult[$r['item_id']][$r['title']])) {
-						$r['title'] = $r['title'] . $keynum;
-						$keynum++;
-					}
-					$AllResult[$r['item_id']][$r['title']] = $r['value'];
-				}
+            if ($this->data->get('sourcefields', 0)) {
+                $query = "SELECT fv.value, fv.item_id, f.title, f.type FROM #__fields_values AS fv LEFT JOIN #__fields AS f ON fv.field_id = f.id WHERE fv.item_id IN (" . implode(',', $idArray) . ")";
+                $db->setQuery($query);
+                $result    = $db->loadAssocList();
+                $AllResult = array();
+                foreach ($result AS $r) {
+                    if ($r['type'] == 'media') {
+                        $r['value'] = N2ImageHelper::dynamic($uri . "/" . $r["value"]);
+                    }
+                    $r['title'] = htmlentities($r['title']);
+                    $keynum     = 2;
+                    while (isset($AllResult[$r['item_id']][$r['title']])) {
+                        $r['title'] = $r['title'] . $keynum;
+                        $keynum++;
+                    }
+                    $AllResult[$r['item_id']][$r['title']] = $r['value'];
+                }
 
-				for ($i = 0; $i < count($data); $i++) {
-					if (isset($AllResult[$data[$i]['id']])) {
-						foreach ($AllResult[$data[$i]['id']] as $key => $value) {
-							$key            = preg_replace('/[^a-zA-Z0-9_\x7f-\xff]*/', '', $key);
-							$data[$i][$key] = $value;
-						}
-					}
-				}
-			}
-		}
+                for ($i = 0; $i < count($data); $i++) {
+                    if (isset($AllResult[$data[$i]['id']])) {
+                        foreach ($AllResult[$data[$i]['id']] as $key => $value) {
+                            $key            = preg_replace('/[^a-zA-Z0-9_\x7f-\xff]*/', '', $key);
+                            $data[$i][$key] = $value;
+                        }
+                    }
+                }
+            }
+        }
 
         return $data;
     }

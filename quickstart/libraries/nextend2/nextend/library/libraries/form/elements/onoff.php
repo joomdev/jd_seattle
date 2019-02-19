@@ -12,7 +12,7 @@ class N2ElementOnOff extends N2ElementHidden {
     protected $isEnable = true;
 
     protected function fetchElement() {
-        $html = "<div class='n2-form-element-onoff " . $this->isOn() . "' style='" . $this->style . "'>";
+        $html = "<div class='n2-form-element-onoff n2-unselectable" . $this->isOn() . "' style='" . $this->style . "'>";
         $html .= N2Html::tag('div', array(
             'class' => 'n2-onoff-slider'
         ), N2Html::tag('div', array(
@@ -36,7 +36,7 @@ class N2ElementOnOff extends N2ElementHidden {
 
     private function isOn() {
         if ($this->getValue()) {
-            return 'n2-onoff-on';
+            return ' n2-onoff-on';
         }
 
         return '';

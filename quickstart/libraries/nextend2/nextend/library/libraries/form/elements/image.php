@@ -59,7 +59,7 @@ class N2ElementImage extends N2ElementText {
             return '';
         }
 
-        return 'background-image:URL(' . N2ImageHelper::fixed($image) . ');';
+        return 'background-image:URL(' . n2_esc_attr(N2ImageHelper::fixed($image)) . ');';
     }
 
     protected function post() {

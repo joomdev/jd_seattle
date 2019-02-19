@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fields name="filter">
+		<field
+			name="search"
+			type="textListCombo"
+			hint="JSEARCH_FILTER"
+			class="js-stools-search-string calendar-input"
+		    listclass="w130px pull-left"
+		>
+			<option value="all">COM_SELLACIOUS_OPTION_EVERYWHERE</option>
+			<option value="userid">COM_SELLACIOUS_OPTION_USER_ID</option>
+			<option value="name">COM_SELLACIOUS_OPTION_NAME</option>
+			<option value="username">COM_SELLACIOUS_OPTION_USERNAME</option>
+			<option value="email">COM_SELLACIOUS_OPTION_EMAIL</option>
+			<option value="notes">COM_SELLACIOUS_OPTION_NOTES</option>
+			<option value="created_by">COM_SELLACIOUS_OPTION_CREATED_BY</option>
+			<option value="order_id">COM_SELLACIOUS_OPTION_ORDER_ID</option>
+			<option value="order_number">COM_SELLACIOUS_OPTION_ORDER_NUMBER</option>
+		</field>
+		<field
+			name="crdr"
+			type="list"
+			onchange="this.form.submit();"
+			class="inputbox w100px"
+			>
+			<option value="">COM_SELLACIOUS_TRANSACTION_HEADING_AMOUNT_CRDR_BOTH_LABEL</option>
+			<option value="cr">COM_SELLACIOUS_TRANSACTION_HEADING_AMOUNT_CR_LABEL</option>
+			<option value="dr">COM_SELLACIOUS_TRANSACTION_HEADING_AMOUNT_DR_LABEL</option>
+		</field>
+		<field
+			name="reason"
+			type="list"
+			onchange="this.form.submit();"
+			class="inputbox"
+			>
+			<option value="">COM_SELLACIOUS_OPTION_SELECT_TYPE</option>
+			<option value="withdraw">COM_SELLACIOUS_OPTION_WITHDRAWAL</option>
+			<option value="addfund">COM_SELLACIOUS_OPTION_ADD_FUND</option>
+			<option value="listing">COM_SELLACIOUS_OPTION_LISTING_FEE</option>
+			<option value="forex">COM_SELLACIOUS_OPTION_CURRENCY_EXCHANGE</option>
+			<option value="tax">COM_SELLACIOUS_OPTION_TAXES</option>
+			<option value="discount">COM_SELLACIOUS_OPTION_DISCOUNT</option>
+			<option value="shipping">COM_SELLACIOUS_OPTION_SHIPPING</option>
+			<option value="commission">COM_SELLACIOUS_OPTION_COMMISSION</option>
+			<option value="other">COM_SELLACIOUS_OPTION_ALL_OTHER</option>
+		</field>
+
+		<field
+			name="state"
+			type="list"
+			onchange="this.form.submit();"
+			class="inputbox"
+			>
+			<option value="">COM_SELLACIOUS_OPTION_SELECT_STATUS</option>
+			<option value="0">COM_SELLACIOUS_TRANSACTION_LABEL_STATE_X_0</option>
+			<option value="1">COM_SELLACIOUS_TRANSACTION_LABEL_STATE_X_1</option>
+			<option value="2">COM_SELLACIOUS_TRANSACTION_LABEL_STATE_X_2</option>
+			<option value="-1">COM_SELLACIOUS_TRANSACTION_LABEL_STATE_X_-1</option>
+			<option value="-2">COM_SELLACIOUS_TRANSACTION_LABEL_STATE_X_-2</option>
+		</field>
+		<field
+			name="date_from"
+		    type="calendar"
+		    format="%Y-%m-%d"
+			onchange="this.form.submit();"
+		    class="calendar-input"
+			hint="COM_SELLACIOUS_TRANSACTIONS_DATE_FROM"
+			/>
+		<field
+			name="date_to"
+		    type="calendar"
+		    format="%Y-%m-%d"
+			onchange="this.form.submit();"
+		    class="calendar-input"
+		    hint="COM_SELLACIOUS_TRANSACTIONS_DATE_TO"
+			/>
+		<field
+			name="date_within"
+		    type="list"
+			onchange="this.form.submit();"
+		    class="inputbox"
+		    default="1m"
+			>
+			<option value="1d">COM_SELLACIOUS_DATE_WITHIN_OPTION_1_DAY</option>
+			<option value="1w">COM_SELLACIOUS_DATE_WITHIN_OPTION_1_WEEK</option>
+			<option value="1m">COM_SELLACIOUS_DATE_WITHIN_OPTION_1_MONTH</option>
+			<option value="3m">COM_SELLACIOUS_DATE_WITHIN_OPTION_3_MONTH</option>
+			<option value="6m">COM_SELLACIOUS_DATE_WITHIN_OPTION_6_MONTH</option>
+			<option value="1y">COM_SELLACIOUS_DATE_WITHIN_OPTION_1_YEAR</option>
+		</field>
+		<field
+			name="amount"
+			type="MoneyRange"
+			onchange="this.form.submit();"
+			class="inputbox"
+			key_field="currency"
+			value_field="currency"
+			>
+			<option value="">COM_SELLACIOUS_OPTION_ANY</option>
+		</field>
+	</fields>
+
+	<fields name="list">
+		<field
+			name="fullordering"
+			type="groupedlist"
+			label="JGLOBAL_SORT_BY"
+			statuses="*,0,1,2,-2"
+			description="JGLOBAL_SORT_BY"
+			onchange="this.form.submit();"
+			default="a.txn_date DESC"
+			class="inputbox"
+			>
+			<option value="">JGLOBAL_SORT_BY</option>
+			<group name="ASC" label="COM_SELLACIOUS_SORT_ASCENDING">
+				<option value="a.id ASC">JGRID_HEADING_ID_ASC</option>
+				<option value="context_title ASC">COM_SELLACIOUS_TRANSACTION_CONTEXT_ASC</option>
+				<option value="a.order_id ASC">COM_SELLACIOUS_TRANSACTION_ORDER_ID_ASC</option>
+				<option value="a.reason ASC">COM_SELLACIOUS_TRANSACTION_REASON_ASC</option>
+				<option value="cr_amount ASC">COM_SELLACIOUS_TRANSACTION_AMOUNT_CR_ASC</option>
+				<option value="dr_amount ASC">COM_SELLACIOUS_TRANSACTION_AMOUNT_DR_ASC</option>
+				<option value="a.txn_date ASC">COM_SELLACIOUS_TRANSACTION_TXN_DATE_ASC</option>
+				<option value="a.status ASC">COM_SELLACIOUS_TRANSACTION_STATUS_ASC</option>
+				<option value="a.notes ASC">COM_SELLACIOUS_TRANSACTION_NOTES_ASC</option>
+			</group>
+			<group name="DESC" label="COM_SELLACIOUS_SORT_DESCENDING">
+				<option value="a.id DESC">JGRID_HEADING_ID_DESC</option>
+				<option value="context_title DESC">COM_SELLACIOUS_TRANSACTION_CONTEXT_DESC</option>
+				<option value="a.order_id DESC">COM_SELLACIOUS_TRANSACTION_ORDER_ID_DESC</option>
+				<option value="a.reason DESC">COM_SELLACIOUS_TRANSACTION_REASON_DESC</option>
+				<option value="cr_amount DESC">COM_SELLACIOUS_TRANSACTION_AMOUNT_CR_DESC</option>
+				<option value="dr_amount DESC">COM_SELLACIOUS_TRANSACTION_AMOUNT_DR_DESC</option>
+				<option value="a.txn_date DESC">COM_SELLACIOUS_TRANSACTION_TXN_DATE_DESC</option>
+				<option value="a.status DESC">COM_SELLACIOUS_TRANSACTION_STATUS_DESC</option>
+				<option value="a.notes DESC">COM_SELLACIOUS_TRANSACTION_NOTES_DESC</option>
+			</group>
+		</field>
+		<field
+			name="limit"
+			type="limitbox"
+			class="inputbox input-mini inputbox"
+			default="20"
+			label="JGLOBAL_LIST_LIMIT"
+			description="JGLOBAL_LIST_LIMIT_DESC"
+			onchange="this.form.submit();"
+		/>
+	</fields>
+</form>

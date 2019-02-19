@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset name="basic" label="COM_SELLACIOUS_CURRENCY_FIELDSET_BASIC">
+		<field
+			name="id"
+			type="hidden"
+			default="0"
+			readonly="true"
+		/>
+		<field
+			name="title"
+			type="text"
+			label="COM_SELLACIOUS_CURRENCY_FIELD_TITLE_LABEL"
+			description="COM_SELLACIOUS_CURRENCY_FIELD_TITLE_DESC"
+			class="inputbox"
+			size="40"
+			required="true"
+		 />
+		<field
+			name="code_3"
+			type="text"
+			label="COM_SELLACIOUS_CURRENCY_FIELD_CODE_3_LABEL"
+			description="COM_SELLACIOUS_CURRENCY_FIELD_CODE_3_DESC"
+			class="inputbox"
+			size="20"
+			maxlength="3"
+			required="true"
+		 />
+		<field
+			name="code_2"
+			type="text"
+			label="COM_SELLACIOUS_CURRENCY_FIELD_CODE_2_LABEL"
+			description="COM_SELLACIOUS_CURRENCY_FIELD_CODE_2_DESC"
+			class="inputbox"
+			size="20"
+			maxlength="2"
+		 />
+		<field
+			name="code_n"
+			type="text"
+			label="COM_SELLACIOUS_CURRENCY_FIELD_CODE_N_LABEL"
+			description="COM_SELLACIOUS_CURRENCY_FIELD_CODE_N_DESC"
+			class="inputbox"
+			size="20"
+			maxlength="4"
+			filter="uint"
+		 />
+		<field
+			name="symbol"
+			type="text"
+			label="COM_SELLACIOUS_CURRENCY_FIELD_SYMBOL_LABEL"
+			description="COM_SELLACIOUS_CURRENCY_FIELD_SYMBOL_DESC"
+			class="inputbox"
+			size="20"
+			filter="string"
+			default="$"
+		/>
+		<field
+			type="note"
+			label="COM_SELLACIOUS_CURRENCY_FIELD_SYMBOL_TIP"
+			class="label"
+			heading="label"
+		/>
+		<field
+			name="decimal_sep"
+			type="text"
+			label="COM_SELLACIOUS_CURRENCY_FIELD_DECIMAL_SEP_LABEL"
+			description="COM_SELLACIOUS_CURRENCY_FIELD_DECIMAL_SEP_DESC"
+			class="inputbox"
+			size="20"
+			default="."
+			maxlength="1"
+		/>
+		<field
+			name="thousand_sep"
+			type="text"
+			label="COM_SELLACIOUS_CURRENCY_FIELD_THOUSAND_SEP_LABEL"
+			description="COM_SELLACIOUS_CURRENCY_FIELD_THOUSAND_SEP_DESC"
+			class="inputbox"
+			size="20"
+			default=","
+			maxlength="1"
+		/>
+		<field
+			name="decimal_places"
+			type="integer"
+			first="0"
+			last="6"
+			step="1"
+			label="COM_SELLACIOUS_CURRENCY_FIELD_DECIMAL_PLACES_LABEL"
+			description="COM_SELLACIOUS_CURRENCY_FIELD_DECIMAL_PLACES_DESC"
+			class="w100p"
+			default="2"
+		/>
+		<field
+			name="format_pos"
+			type="list"
+			label="COM_SELLACIOUS_CURRENCY_FIELD_FORMAT_POS_LABEL"
+			description="COM_SELLACIOUS_CURRENCY_FIELD_FORMAT_POS_DESC"
+			class="inputbox w100p"
+			default="{symbol}{number}"
+		>
+			<option value="{number}{symbol}">COM_SELLACIOUS_CURRENCY_FIELD_FORMAT_NUMBER_SYMBOL</option>
+			<option value="{symbol}{number}">COM_SELLACIOUS_CURRENCY_FIELD_FORMAT_SYMBOL_NUMBER</option>
+			<option value="{symbol} {number}">COM_SELLACIOUS_CURRENCY_FIELD_FORMAT_SYMBOL_SPACE_NUMBER</option>
+			<option value="{number} {symbol}">COM_SELLACIOUS_CURRENCY_FIELD_FORMAT_NUMBER_SPACE_SYMBOL</option>
+
+			<option value="{sign}{symbol}{number}">COM_SELLACIOUS_CURRENCY_FIELD_FORMAT_SIGN_SYMBOL_NUMBER</option>
+			<option value="{symbol}{sign}{number}">COM_SELLACIOUS_CURRENCY_FIELD_FORMAT_SYMBOL_SIGN_NUMBER</option>
+			<option value="{sign}{number}{symbol}">COM_SELLACIOUS_CURRENCY_FIELD_FORMAT_SIGN_NUMBER_SYMBOL</option>
+			<option value="({sign}){symbol}{number}">COM_SELLACIOUS_CURRENCY_FIELD_FORMAT_B_SIGN_SYMBOL_NUMBER</option>
+			<option value="{symbol}({sign}){number}">COM_SELLACIOUS_CURRENCY_FIELD_FORMAT_SYMBOL_B_SIGN_NUMBER</option>
+			<option value="({sign}){number}{symbol}">COM_SELLACIOUS_CURRENCY_FIELD_FORMAT_B_SIGN_NUMBER_SYMBOL</option>
+
+			<option value="{sign}{symbol} {number}">COM_SELLACIOUS_CURRENCY_FIELD_FORMAT_SIGN_SYMBOL_SPACE_NUMBER</option>
+			<option value="{symbol} {sign}{number}">COM_SELLACIOUS_CURRENCY_FIELD_FORMAT_SYMBOL_SPACE_SIGN_NUMBER</option>
+			<option value="{sign}{number} {symbol}">COM_SELLACIOUS_CURRENCY_FIELD_FORMAT_SIGN_NUMBER_SPACE_SYMBOL</option>
+			<option value="({sign}){symbol} {number}">COM_SELLACIOUS_CURRENCY_FIELD_FORMAT_B_SIGN_SYMBOL_SPACE_NUMBER</option>
+			<option value="{symbol} ({sign}){number}">COM_SELLACIOUS_CURRENCY_FIELD_FORMAT_SYMBOL_SPACE_B_SIGN_NUMBER</option>
+			<option value="({sign}){number} {symbol}">COM_SELLACIOUS_CURRENCY_FIELD_FORMAT_B_SIGN_NUMBER_SPACE_SYMBOL</option>
+		</field>
+		<field
+			name="format_neg"
+			type="list"
+			label="COM_SELLACIOUS_CURRENCY_FIELD_FORMAT_NEG_LABEL"
+			description="COM_SELLACIOUS_CURRENCY_FIELD_FORMAT_NEG_DESC"
+			class="inputbox w100p"
+			default="{symbol} ({sign}){number}"
+			filter="string"
+		>
+			<option value="{sign}{symbol}{number}">COM_SELLACIOUS_CURRENCY_FIELD_FORMAT_SIGN_SYMBOL_NUMBER</option>
+			<option value="{symbol}{sign}{number}">COM_SELLACIOUS_CURRENCY_FIELD_FORMAT_SYMBOL_SIGN_NUMBER</option>
+			<option value="{sign}{number}{symbol}">COM_SELLACIOUS_CURRENCY_FIELD_FORMAT_SIGN_NUMBER_SYMBOL</option>
+			<option value="({sign}){symbol}{number}">COM_SELLACIOUS_CURRENCY_FIELD_FORMAT_B_SIGN_SYMBOL_NUMBER</option>
+			<option value="{symbol}({sign}){number}">COM_SELLACIOUS_CURRENCY_FIELD_FORMAT_SYMBOL_B_SIGN_NUMBER</option>
+			<option value="({sign}){number}{symbol}">COM_SELLACIOUS_CURRENCY_FIELD_FORMAT_B_SIGN_NUMBER_SYMBOL</option>
+
+			<option value="{sign}{symbol} {number}">COM_SELLACIOUS_CURRENCY_FIELD_FORMAT_SIGN_SYMBOL_SPACE_NUMBER</option>
+			<option value="{symbol} {sign}{number}">COM_SELLACIOUS_CURRENCY_FIELD_FORMAT_SYMBOL_SPACE_SIGN_NUMBER</option>
+			<option value="{sign}{number} {symbol}">COM_SELLACIOUS_CURRENCY_FIELD_FORMAT_SIGN_NUMBER_SPACE_SYMBOL</option>
+			<option value="({sign}){symbol} {number}">COM_SELLACIOUS_CURRENCY_FIELD_FORMAT_B_SIGN_SYMBOL_SPACE_NUMBER</option>
+			<option value="{symbol} ({sign}){number}">COM_SELLACIOUS_CURRENCY_FIELD_FORMAT_SYMBOL_SPACE_B_SIGN_NUMBER</option>
+			<option value="({sign}){number} {symbol}">COM_SELLACIOUS_CURRENCY_FIELD_FORMAT_B_SIGN_NUMBER_SPACE_SYMBOL</option>
+		</field>
+		<field
+			name="state"
+			type="radio"
+			label="COM_SELLACIOUS_CURRENCY_FIELD_STATUS_LABEL"
+			description="COM_SELLACIOUS_CURRENCY_FIELD_STATUS_DESC"
+			class="inputbox"
+			required="true"
+			default="1"
+		>
+			<option value="1">JENABLED</option>
+			<option value="0">JDISABLED</option>
+		</field>
+	</fieldset>
+</form>

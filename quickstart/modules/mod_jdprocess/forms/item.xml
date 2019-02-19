@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form>
-   <fieldset name="items_modal" label="Process Items">
-      <field name="icon" label="Icon" type="text">
+   <fieldset name="items_modal" label="JDPROCESS_PROCESS_ITEMS" description="JDPROCESS_PROCESS_ITEMS_DESC">
+      <field name="icon" label="JDPROCESS_ICON" description="JDPROCESS_ICON_DESC" type="text">
       </field>
-      <field name="title" type="text" label="Title">
+      <field name="title" type="text" label="JDPROCESS_TITLE" description="JDPROCESS_TITLE_DESC">
       </field>
+    <field name="short_description" type="textarea" label="JDPROCESS_SHORT_DESCRIPTION" description="JDPROCESS_SHORT_DESCRIPTION_DESC" width="50%" height="50%" filter="safehtml" />
    </fieldset>
 </form>

@@ -1,0 +1,54 @@
+.jff-uploader-wrapper input[type="file"] {
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+.jff-uploader-wrapper .jff-uploader-remove {
+  display: none;
+}
+.jff-uploader-wrapper .btn-remove {
+  padding: 4px 10px;
+}
+.jff-uploader-wrapper .jff-uploader-list {
+  margin: 0;
+  list-style: none;
+  max-width: 360px;
+  width: 100%;
+}
+.jff-uploader-wrapper .jff-uploader-list .jff-uploader-row td {
+  padding-top: 5px;
+}
+.jff-uploader-wrapper .jff-uploader-list .jff-uploader-filename.readonly {
+  border: 1px solid #eeeeee;
+  background-color: #ffffff;
+}
+.jff-uploader-wrapper .jff-uploader-preview-box {
+  position: relative;
+  padding-left: 3px;
+  padding-right: 3px;
+  height: 30px;
+}
+.jff-uploader-wrapper .jff-uploader-preview-sm {
+  max-height: 28px;
+  max-width: 32px;
+  border: 1px solid #eeeeee;
+  height: 32px;
+  float: right;
+}
+.jff-uploader-wrapper .jff-uploader-preview-lg {
+  position: absolute;
+  display: none;
+}
+.jff-uploader-wrapper .jff-uploader-preview-sm:hover ~ .jff-uploader-preview-lg {
+  width: 320px;
+  position: absolute;
+  display: block;
+  z-index: 1999;
+  right: 0;
+  bottom: 30px;
+  border: 1px solid #cccccc;
+}
+.jff-uploader-premium > .premium-input-pre:after {
+  margin-left: -15px;
+  line-height: 2.3;
+}

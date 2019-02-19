@@ -1,0 +1,47 @@
+table.table > tbody > tr > td[data-col="lang-key"] {
+	padding: 2px;
+}
+
+td[data-col] input:disabled {
+	border: none;
+	background: transparent;
+}
+
+#stringList td {
+	background-color: #ffffff;
+	border: 2px solid #e9e9e9;
+	padding: 4px 6px 4px 4px;
+}
+
+#stringList td label {
+	margin-bottom: 0;
+}
+
+#stringList .lang-editor {
+	padding-bottom: 0;
+}
+
+.lang-textarea {
+	width: 100%;
+	resize: vertical;
+	height: auto;
+	min-height: 11px;
+	word-break: break-all;
+	border: 1px solid #cecece;
+	background: #ffffff;
+	padding: 6px;
+}
+
+div.lang-textarea {
+	margin-bottom: 4px;
+}
+
+.lang-table-container {
+	overflow-x: scroll;
+	overflow-y: visible;
+	padding-bottom: 20px;
+}
+
+#list_language, #s2id_list_language {
+	min-width: 180px;
+}

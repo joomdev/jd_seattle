@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset name="basic"
+	          label="COM_SELLACIOUS_PRODUCT_FIELDSET_BASIC">
+		<field
+			name="id"
+			type="text"
+			label="JGLOBAL_FIELD_ID_LABEL"
+			description="JGLOBAL_FIELD_ID_DESC"
+			default="0"
+			readonly="true"
+			class="input-disabled"
+		/>
+		<fields name="basic">
+			<field
+				name="type"
+				type="productType"
+				label="COM_SELLACIOUS_PRODUCT_FIELD_TYPE_LABEL"
+				description="COM_SELLACIOUS_PRODUCT_FIELD_TYPE_DESC"
+				required="true"
+				onchange="this.form.submit();"
+				default="physical"
+				class="w75p"
+			>
+				<option value="">COM_SELLACIOUS_OPTION_PRODUCT_LISTING_SELECT_TYPE</option>
+			</field>
+			<field
+				name="owned_by"
+				type="hidden"
+				filter="unset"
+			/>
+		</fields>
+	</fieldset>
+
+	<fieldset name="sellers"
+	          label="COM_SELLACIOUS_PRODUCT_FIELDSET_SELLERS">
+		<field
+			name="seller_uid"
+			type="productSellersGrid"
+			label="COM_SELLACIOUS_PRODUCT_FIELD_SELLER_LABEL"
+			description="COM_SELLACIOUS_PRODUCT_FIELD_SELLER_DESC"
+			default="0"
+		/>
+	</fieldset>
+	<fields name="no_seller">
+		<fieldset name="prices" label="COM_SELLACIOUS_PRODUCT_FIELDSET_PRICES">
+			<field
+				name="prices_note"
+				type="note"
+				label="COM_SELLACIOUS_PRODUCT_FIELD_PRICE_DISPLAY_SELECT_SELLER_NOTE"
+				heading="p"
+				class="alert alert-info"
+			/>
+		</fieldset>
+		<fieldset name="shipping" label="COM_SELLACIOUS_PRODUCT_FIELDSET_SHIPPING">
+			<field
+				name="shipping_note"
+				type="note"
+				label="COM_SELLACIOUS_PRODUCT_FIELD_SHIPPING_SELECT_SELLER_NOTE"
+				heading="p"
+				class="alert alert-info"
+			/>
+		</fieldset>
+	</fields>
+	<field
+		name="language"
+		type="ProductLanguages"
+		label="COM_SELLACIOUS_PRODUCT_FIELD_LANGUAGE_LABEL"
+		description="COM_SELLACIOUS_PRODUCT_FIELD_LANGUAGE_DESC"
+		onchange="Joomla.submitbutton('product.setLanguage');"
+		default="*"
+		class="small-input combobox-list-md"
+	/>
+</form>

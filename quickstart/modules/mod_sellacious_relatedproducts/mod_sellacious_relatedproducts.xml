@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="3.0" method="upgrade">
+	<name>mod_sellacious_relatedproducts</name>
+	<author>Bhavika Matariya</author>
+	<creationDate>December 26, 2018</creationDate>
+	<copyright>Copyright (C) 2012-2018 Bhartiy Web Technologies. All rights reserved.</copyright>
+	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+	<authorEmail>info@bhartiy.com</authorEmail>
+	<authorUrl>www.bhartiy.com</authorUrl>
+	<version>1.6.1-alpha0</version>
+	<description>MOD_SELLACIOUS_RELATEDPRODUCTS_DESC</description>
+
+	<files>
+		<filename module="mod_sellacious_relatedproducts">mod_sellacious_relatedproducts.php</filename>
+		<filename>helper.php</filename>
+		<folder>language</folder>
+		<folder>tmpl</folder>
+		<folder>assets</folder>
+	</files>
+	<media folder="media" destination="mod_sellacious_relatedproducts">
+		<folder>css</folder>
+	</media>
+	<config>
+		<fields name="params">
+			<fieldset name="basic" addfieldpath="components/com_sellacious/models/fields">
+				<field name="total_products"
+				       type="text"
+				       label="MOD_SELLACIOUS_RELATEDPRODUCTS_TOTAL_PRODUCTS_LABEL"
+				       description="MOD_SELLACIOUS_RELATEDPRODUCTS_TOTAL_PRODUCTS_DESC"
+				       default="50" />
+
+				<field name="products"
+				       multiple="true"
+				       type="sql"
+				       label="MOD_SELLACIOUS_RELATEDPRODUCTS_PRODUCTS_LABEL"
+				       description="MOD_SELLACIOUS_RELATEDPRODUCTS_PRODUCTS_DESC"
+				       query="SELECT product_id, product_title FROM #__sellacious_cache_products WHERE product_active = 1 GROUP BY product_id"
+				       key_field="product_id"
+				       value_field="product_title"/>
+
+				<field name="related_for"
+				       type="list"
+				       label="MOD_SELLACIOUS_RELATEDPRODUCTS_PRODUCTS_FOR_LABEL"
+				       description="MOD_SELLACIOUS_RELATEDPRODUCTS_PRODUCTS_FOR_DESC">
+					<option value="">MOD_SELLACIOUS_RELATEDPRODUCTS_OPTION_SELECT</option>
+					<option value="1">MOD_SELLACIOUS_RELATEDPRODUCTS_PRODUCTS_FOR_PAGE</option>
+					<option value="2">MOD_SELLACIOUS_RELATEDPRODUCTS_PRODUCTS_FOR_MODULE</option>
+					<option value="3">MOD_SELLACIOUS_RELATEDPRODUCTS_PRODUCTS_FOR_BOTH</option>
+				</field>
+				<field name="splcategory"
+				       type="sql"
+				       label="MOD_SELLACIOUS_RELATEDPRODUCTS_SPLCATEGORY_LABEL"
+				       description="MOD_SELLACIOUS_RELATEDPRODUCTS_SPLCATEGORY_DESC"
+				       query="SELECT id, title FROM #__sellacious_splcategories WHERE state = 1 AND level > 0"
+				       key_field="id"
+				       value_field="title">
+					<option value="">MOD_SELLACIOUS_RELATEDPRODUCTS_OPTION_SELECT</option>
+				</field>
+
+				<field name="spacer1"
+				       type="spacer"
+				       label="&lt;hr/&gt; &lt;b&gt;Options&lt;/b&gt;" />
+
+				<field name="standout_special_category"
+				       type="radio"
+				       class="btn-group btn-group-yesno"
+				       label="MOD_SELLACIOUS_RELATEDPRODUCTS_STANDOUT_SPECIAL_CATEGORY"
+				       description="MOD_SELLACIOUS_RELATEDPRODUCTS_STANDOUT_SPECIAL_CATEGORY_DESC"
+				       default="0">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+
+				<field name="featurelist"
+				       type="radio"
+				       class="btn-group btn-group-yesno"
+				       label="MOD_SELLACIOUS_RELATEDPRODUCTS_FEATURELIST"
+				       description="MOD_SELLACIOUS_RELATEDPRODUCTS_FEATURELIST_DESC"
+				       default="1">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+
+				<field name="displayratings"
+				       type="radio"
+				       class="btn-group btn-group-yesno"
+				       label="MOD_SELLACIOUS_RELATEDPRODUCTS_DISPLAY_RATINGS"
+				       description="MOD_SELLACIOUS_RELATEDPRODUCTS_DISPLAY_RATINGS_DESC"
+				       default="1">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+
+				<field name="displaycomparebtn"
+				       type="radio"
+				       class="btn-group btn-group-yesno"
+				       label="MOD_SELLACIOUS_RELATEDPRODUCTS_DISPLAY_COMPARE_BUTTON"
+				       description="MOD_SELLACIOUS_RELATEDPRODUCTS_DISPLAY_COMPARE_BUTTON_DESC"
+				       default="1">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+
+				<field name="displayaddtocartbtn"
+				       type="radio"
+				       class="btn-group btn-group-yesno"
+				       label="MOD_SELLACIOUS_RELATEDPRODUCTS_DISPLAY_ADD_TO_CART_BUTTON"
+				       description="MOD_SELLACIOUS_RELATEDPRODUCTS_DISPLAY_ADD_TO_CART_BUTTON_DESC"
+				       default="1">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+
+				<field name="displaybuynowbtn"
+				       type="radio"
+				       class="btn-group btn-group-yesno"
+				       label="MOD_SELLACIOUS_RELATEDPRODUCTS_DISPLAY_BUY_NOW_BUTTON"
+				       description="MOD_SELLACIOUS_RELATEDPRODUCTS_DISPLAY_BUY_NOW_BUTTON_DESC"
+				       default="1">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+
+				<field name="displayquickviewbtn"
+				       type="radio"
+				       class="btn-group btn-group-yesno"
+				       label="MOD_SELLACIOUS_RELATEDPRODUCTS_DISPLAY_QUICK_VIEW_BUTTON"
+				       description="MOD_SELLACIOUS_RELATEDPRODUCTS_DISPLAY_QUICK_VIEW_BUTTON_DESC"
+				       showon="layout:grid,list"
+				       default="1">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+
+				<field name="spacer2"
+				       type="spacer"
+				       hr="true"/>
+
+				<field name="layout"
+				       type="list"
+				       label="MOD_SELLACIOUS_RELATEDPRODUCTS_LAYOUT_LABEL"
+				       description="MOD_SELLACIOUS_RELATEDPRODUCTS_LAYOUT_DESC"
+				       default="grid">
+					<option value="grid">MOD_SELLACIOUS_RELATEDPRODUCTS_LAYOUT_OPTION_GRID</option>
+					<option value="list">MOD_SELLACIOUS_RELATEDPRODUCTS_LAYOUT_OPTION_LIST</option>
+					<option value="carousel">MOD_SELLACIOUS_RELATEDPRODUCTS_LAYOUT_OPTION_CAROUSEL</option>
+				</field>
+
+				<field name="autoplay"
+				       type="radio"
+				       class="btn-group btn-group-yesno"
+				       label="MOD_SELLACIOUS_RELATEDPRODUCTS_AUTOPLAY_LABEL"
+				       description="MOD_SELLACIOUS_RELATEDPRODUCTS_AUTOPLAY_DESC"
+				       showon="layout:carousel"
+				       default="0">
+			        <option value="1">JYES</option>
+			        <option value="0">JNO</option>
+		        </field>
+
+				<field name="autoplayspeed"
+				       type="text"
+				       label="MOD_SELLACIOUS_RELATEDPRODUCTS_AUTOPLAY_SPEED_LABEL"
+				       description="MOD_SELLACIOUS_RELATEDPRODUCTS_AUTOPLAY_SPEED_DESC"
+				       showon="layout:carousel[AND]autoplay:1"
+				       default="3000" />
+
+				<field name="gutter"
+				       type="number"
+				       label="MOD_SELLACIOUS_RELATEDPRODUCTS_GUTTER_LABEL"
+				       description="MOD_SELLACIOUS_RELATEDPRODUCTS_GUTTER_DESC"
+				       showon="layout:carousel"
+				       default="8" />
+
+				<field name="spacer3"
+				       type="spacer"
+				       label="&lt;hr/&gt; &lt;b&gt;Responsive&lt;/b&gt;"
+				       showon="layout:carousel" />
+
+				<field name="responsive0to500"
+				       type="list"
+				       label="MOD_SELLACIOUS_RELATEDPRODUCTS_RESPONSIVE0TO500_LABEL"
+				       description="MOD_SELLACIOUS_RELATEDPRODUCTS_RESPONSIVE0TO500_DESC"
+				       showon="layout:carousel"
+				       default="1">
+					<option value="1">MOD_SELLACIOUS_RELATEDPRODUCTS_RESPONSIVE_OPTION_ONE</option>
+					<option value="2">MOD_SELLACIOUS_RELATEDPRODUCTS_RESPONSIVE_OPTION_TWO</option>
+					<option value="3">MOD_SELLACIOUS_RELATEDPRODUCTS_RESPONSIVE_OPTION_THREE</option>
+					<option value="4">MOD_SELLACIOUS_RELATEDPRODUCTS_RESPONSIVE_OPTION_FOUR</option>
+					<option value="5">MOD_SELLACIOUS_RELATEDPRODUCTS_RESPONSIVE_OPTION_FIVE</option>
+					<option value="6">MOD_SELLACIOUS_RELATEDPRODUCTS_RESPONSIVE_OPTION_SIX</option>
+				</field>
+
+				<field name="responsive500"
+				       type="list"
+				       label="MOD_SELLACIOUS_RELATEDPRODUCTS_RESPONSIVE500_LABEL"
+				       description="MOD_SELLACIOUS_RELATEDPRODUCTS_RESPONSIVE500_DESC"
+				       showon="layout:carousel"
+				       default="2">
+					<option value="1">MOD_SELLACIOUS_RELATEDPRODUCTS_RESPONSIVE_OPTION_ONE</option>
+					<option value="2">MOD_SELLACIOUS_RELATEDPRODUCTS_RESPONSIVE_OPTION_TWO</option>
+					<option value="3">MOD_SELLACIOUS_RELATEDPRODUCTS_RESPONSIVE_OPTION_THREE</option>
+					<option value="4">MOD_SELLACIOUS_RELATEDPRODUCTS_RESPONSIVE_OPTION_FOUR</option>
+					<option value="5">MOD_SELLACIOUS_RELATEDPRODUCTS_RESPONSIVE_OPTION_FIVE</option>
+					<option value="6">MOD_SELLACIOUS_RELATEDPRODUCTS_RESPONSIVE_OPTION_SIX</option>
+				</field>
+				<field name="responsive992"
+				       type="list"
+				       label="MOD_SELLACIOUS_RELATEDPRODUCTS_RESPONSIVE992_LABEL"
+				       description="MOD_SELLACIOUS_RELATEDPRODUCTS_RESPONSIVE992_DESC"
+				       showon="layout:carousel"
+				       default="3">
+					<option value="1">MOD_SELLACIOUS_RELATEDPRODUCTS_RESPONSIVE_OPTION_ONE</option>
+					<option value="2">MOD_SELLACIOUS_RELATEDPRODUCTS_RESPONSIVE_OPTION_TWO</option>
+					<option value="3">MOD_SELLACIOUS_RELATEDPRODUCTS_RESPONSIVE_OPTION_THREE</option>
+					<option value="4">MOD_SELLACIOUS_RELATEDPRODUCTS_RESPONSIVE_OPTION_FOUR</option>
+					<option value="5">MOD_SELLACIOUS_RELATEDPRODUCTS_RESPONSIVE_OPTION_FIVE</option>
+					<option value="6">MOD_SELLACIOUS_RELATEDPRODUCTS_RESPONSIVE_OPTION_SIX</option>
+				</field>
+				<field name="responsive1200"
+				       type="list"
+				       label="MOD_SELLACIOUS_RELATEDPRODUCTS_RESPONSIVE1200_LABEL"
+				       description="MOD_SELLACIOUS_RELATEDPRODUCTS_RESPONSIVE1200_DESC"
+				       showon="layout:carousel"
+				       default="4">
+					<option value="1">MOD_SELLACIOUS_RELATEDPRODUCTS_RESPONSIVE_OPTION_ONE</option>
+					<option value="2">MOD_SELLACIOUS_RELATEDPRODUCTS_RESPONSIVE_OPTION_TWO</option>
+					<option value="3">MOD_SELLACIOUS_RELATEDPRODUCTS_RESPONSIVE_OPTION_THREE</option>
+					<option value="4">MOD_SELLACIOUS_RELATEDPRODUCTS_RESPONSIVE_OPTION_FOUR</option>
+					<option value="5">MOD_SELLACIOUS_RELATEDPRODUCTS_RESPONSIVE_OPTION_FIVE</option>
+					<option value="6">MOD_SELLACIOUS_RELATEDPRODUCTS_RESPONSIVE_OPTION_SIX</option>
+				</field>
+				<field name="responsive1400"
+				       type="list"
+				       label="MOD_SELLACIOUS_RELATEDPRODUCTS_RESPONSIVE1400_LABEL"
+				       description="MOD_SELLACIOUS_RELATEDPRODUCTS_RESPONSIVE1400_DESC"
+				       showon="layout:carousel"
+				       default="4">
+					<option value="1">MOD_SELLACIOUS_RELATEDPRODUCTS_RESPONSIVE_OPTION_ONE</option>
+					<option value="2">MOD_SELLACIOUS_RELATEDPRODUCTS_RESPONSIVE_OPTION_TWO</option>
+					<option value="3">MOD_SELLACIOUS_RELATEDPRODUCTS_RESPONSIVE_OPTION_THREE</option>
+					<option value="4">MOD_SELLACIOUS_RELATEDPRODUCTS_RESPONSIVE_OPTION_FOUR</option>
+					<option value="5">MOD_SELLACIOUS_RELATEDPRODUCTS_RESPONSIVE_OPTION_FIVE</option>
+					<option value="6">MOD_SELLACIOUS_RELATEDPRODUCTS_RESPONSIVE_OPTION_SIX</option>
+				</field>
+
+				<field name="class_sfx"
+				       type="text"
+				       label="MOD_SELLACIOUS_RELATEDPRODUCTS_SHOW_MODULE_CLASS_SUFFIX_LABEL"
+				       description="MOD_SELLACIOUS_RELATEDPRODUCTS_SHOW_MODULE_CLASS_SUFFIX_DESC"
+				       default="" />
+			</fieldset>
+		</fields>
+	</config>
+	<updateservers>
+		<server type="extension" name="Sellacious Updates - mod_sellacious_relatedproducts">http://sellacious.com/release/updates/v1.6/mod_sellacious_relatedproducts.xml</server>
+	</updateservers>
+</extension>

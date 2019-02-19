@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset name="seller" label="COM_SELLACIOUS_PRODUCT_FIELDSET_SELLER">
+		<fields name="seller">
+			<field
+				name="return_days"
+				type="ReturnDays"
+				label="COM_SELLACIOUS_PRODUCT_FIELD_RETURN_DAYS_LABEL"
+				description="COM_SELLACIOUS_PRODUCT_FIELD_RETURN_DAYS_DESC"
+				required="true"
+				default="0"
+				class="inputbox medium-input"
+				>
+				<option value="0">COM_SELLACIOUS_PRODUCT_FIELD_RETURN_DAYS_NONE</option>
+			</field>
+			<field
+				name="return_tnc"
+				type="editor"
+				label="COM_SELLACIOUS_PRODUCT_FIELD_RETURN_TNC_LABEL"
+				description="COM_SELLACIOUS_PRODUCT_FIELD_RETURN_TNC_DESC"
+				class="textarea"
+				/>
+			<field
+				name="exchange_days"
+				type="ExchangeDays"
+				label="COM_SELLACIOUS_PRODUCT_FIELD_EXCHANGE_DAYS_LABEL"
+				description="COM_SELLACIOUS_PRODUCT_FIELD_EXCHANGE_DAYS_DESC"
+				required="true"
+				default="0"
+				class="inputbox medium-input"
+				>
+				<option value="0">COM_SELLACIOUS_PRODUCT_FIELD_EXCHANGE_DAYS_NONE</option>
+			</field>
+			<field
+				name="exchange_tnc"
+				type="editor"
+				label="COM_SELLACIOUS_PRODUCT_FIELD_EXCHANGE_TNC_LABEL"
+				description="COM_SELLACIOUS_PRODUCT_FIELD_EXCHANGE_TNC_DESC"
+				class="textarea"
+				/>
+		</fields>
+	</fieldset>
+</form>

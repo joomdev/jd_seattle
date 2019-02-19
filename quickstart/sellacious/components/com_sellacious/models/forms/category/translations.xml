@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset name="translations" label="COM_SELLACIOUS_CATEGORY_FIELDSET_TRANSLATIONS">
+		<fields name="translations">
+		</fields>
+	</fieldset>
+</form>

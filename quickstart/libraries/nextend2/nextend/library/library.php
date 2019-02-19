@@ -39,6 +39,7 @@ N2Loader::import('libraries.base64');
 N2Loader::import('libraries.data.data');
 N2Loader::import("libraries.router.router");
 N2Loader::import('libraries.request');
+N2Loader::import('libraries.formatting');
 N2Loader::import('libraries.transferdata');
 N2Loader::import('libraries.ajax.ajax');
 N2Loader::import("libraries.mvc.model");

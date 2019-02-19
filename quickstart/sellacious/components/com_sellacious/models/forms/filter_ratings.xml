@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fields name="filter">
+		<field
+			name="search"
+			type="text"
+			label="COM_SELLACIOUS_SEARCH_IN_CATEGORIES"
+			hint="JSEARCH_FILTER"
+			class="js-stools-search-string inputbox"
+		/>
+		<field
+			name="type"
+			type="list"
+			onchange="this.form.submit();"
+			class="inputbox"
+		>
+			<option>COM_SELLACIOUS_OPTION_RATING_FOR</option>
+			<option value="product">COM_SELLACIOUS_OPTION_RATING_FOR_PRODUCT</option>
+			<option value="seller">COM_SELLACIOUS_OPTION_RATING_FOR_SELLER</option>
+			<option value="shipment">COM_SELLACIOUS_OPTION_RATING_FOR_SHIPMENT</option>
+			<option value="packaging">COM_SELLACIOUS_OPTION_RATING_FOR_PACKAGE</option>
+		</field>
+		<field
+				name="category"
+				type="categoryList"
+				group="product/physical;product/electronic"
+				onchange="this.form.submit();"
+				class="inputbox"
+		>
+			<option value="">COM_SELLACIOUS_OPTION_SELECT_CATEGORY</option>
+		</field>
+		<field
+			name="seller_uid"
+			type="productSellers"
+			onchange="this.form.submit();"
+			class="inputbox"
+		>
+			<option>COM_SELLACIOUS_COUPON_OPTION_SELECT_SELLER</option>
+		</field>
+		<field
+			name="rating"
+			type="list"
+			onchange="this.form.submit();"
+			class="inputbox"
+		>
+			<option>COM_SELLACIOUS_OPTION_RATING</option>
+			<option value="1">&#9733;&#9734;&#9734;&#9734;&#9734; (1)</option>
+			<option value="2">&#9733;&#9733;&#9734;&#9734;&#9734; (2)</option>
+			<option value="3">&#9733;&#9733;&#9733;&#9734;&#9734; (3)</option>
+			<option value="4">&#9733;&#9733;&#9733;&#9733;&#9734; (4)</option>
+			<option value="5">&#9733;&#9733;&#9733;&#9733;&#9733; (5)</option>
+		</field>
+	</fields>
+
+	<fields name="list">
+		<field
+			name="fullordering"
+			type="groupedlist"
+			label="JGLOBAL_SORT_BY"
+			statuses="*,0,1,2,-2"
+			description="JGLOBAL_SORT_BY"
+			onchange="this.form.submit();"
+			default="a.created DESC"
+			class="inputbox"
+		>
+			<option value="">JGLOBAL_SORT_BY</option>
+			<group name="ASC" label="COM_SELLACIOUS_SORT_ASCENDING">
+				<option value="a.id ASC">JGRID_HEADING_ID_ASC</option>
+				<option value="a.state ASC">JSTATUS_ASC</option>
+				<option value="a.author_name ASC">COM_SELLACIOUS_RATING_SORT_AUTHOR_NAME_ASC</option>
+				<option value="a.type ASC">COM_SELLACIOUS_RATING_SORT_TYPE_ASC</option>
+				<option value="a.title ASC">COM_SELLACIOUS_RATING_SORT_TITLE_ASC</option>
+				<option value="a.rating ASC">COM_SELLACIOUS_RATING_SORT_RATING_ASC</option>
+				<option value="a.created ASC">COM_SELLACIOUS_RATING_SORT_CREATED_ASC</option>
+				<option value="product_title ASC">COM_SELLACIOUS_RATING_SORT_PRODUCT_TITLE_ASC</option>
+				<option value="seller_company ASC">COM_SELLACIOUS_RATING_SORT_SELLER_COMPANY_ASC</option>
+			</group>
+			<group name="DESC" label="COM_SELLACIOUS_SORT_DESCENDING">
+				<option value="a.id DESC">JGRID_HEADING_ID_DESC</option>
+				<option value="a.state DESC">JSTATUS_DESC</option>
+				<option value="a.author_name DESC">COM_SELLACIOUS_RATING_SORT_AUTHOR_NAME_DESC</option>
+				<option value="a.type DESC">COM_SELLACIOUS_RATING_SORT_TYPE_DESC</option>
+				<option value="a.title DESC">COM_SELLACIOUS_RATING_SORT_TITLE_DESC</option>
+				<option value="a.rating DESC">COM_SELLACIOUS_RATING_SORT_RATING_DESC</option>
+				<option value="a.created DESC">COM_SELLACIOUS_RATING_SORT_CREATED_DESC</option>
+				<option value="product_title DESC">COM_SELLACIOUS_RATING_SORT_PRODUCT_TITLE_DESC</option>
+				<option value="seller_company DESC">COM_SELLACIOUS_RATING_SORT_SELLER_COMPANY_DESC</option>
+			</group>
+		</field>
+		<field
+			name="limit"
+			type="limitbox"
+			class="inputbox input-mini inputbox"
+			default="20"
+			label="JGLOBAL_LIST_LIMIT"
+			description="JGLOBAL_LIST_LIMIT_DESC"
+			onchange="this.form.submit();"
+		/>
+	</fields>
+</form>

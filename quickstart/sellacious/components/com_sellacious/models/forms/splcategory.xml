@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset name="basic" label="COM_SELLACIOUS_SPLCATEGORY_FIELDSET_BASIC">
+		<field
+			name="id"
+			type="hidden"
+			default="0"
+			readonly="true"
+		/>
+		<field
+			name="title"
+			type="text"
+			label="COM_SELLACIOUS_SPLCATEGORY_FIELD_TITLE_LABEL"
+			description="COM_SELLACIOUS_SPLCATEGORY_FIELD_TITLE_DESC"
+			class="inputbox"
+			size="40"
+			required="true"
+		/>
+		<field
+			name="alias"
+			type="text"
+			label="COM_SELLACIOUS_SPLCATEGORY_FIELD_ALIAS_LABEL"
+			description="COM_SELLACIOUS_SPLCATEGORY_FIELD_ALIAS_DESC"
+			class="inputbox"
+			size="40"
+		/>
+		<!--<field
+			name="parent_id"
+			type="splCategoryParent"
+			label="COM_SELLACIOUS_SPLCATEGORY_FIELD_PARENT_LABEL"
+			description="COM_SELLACIOUS_SPLCATEGORY_FIELD_PARENT_DESC"
+			required="true"
+			class="w100p"
+		>
+			<option value="1">JNONE</option>
+		</field>-->
+		<!-- Nested structure is for future version -->
+		<field
+			name="parent_id"
+			type="hidden"
+			required="true"
+			default="1"
+			/>
+		<field
+			name="state"
+			type="radio"
+			label="COM_SELLACIOUS_SPLCATEGORY_FIELD_STATUS_LABEL"
+			description="COM_SELLACIOUS_SPLCATEGORY_FIELD_STATUS_DESC"
+			required="true"
+			default="1"
+		>
+			<option value="1">JPUBLISHED</option>
+			<option value="0">JUNPUBLISHED</option>
+			<option value="2">JARCHIVED</option>
+			<option value="-2">JTRASHED</option>
+		</field>
+		<field
+			name="recurrence"
+			type="number"
+			label="COM_SELLACIOUS_SPLCATEGORY_FIELD_RECURRENCE_PERIOD_LABEL"
+			description="COM_SELLACIOUS_SPLCATEGORY_FIELD_RECURRENCE_PERIOD_DESC"
+			class="inputbox"
+			required="true"
+			default="0"
+			min="0"
+			max="3653"
+			filter="int"
+		/>
+		<field
+			name="fee_amount"
+			type="money"
+			label="COM_SELLACIOUS_SPLCATEGORY_FIELD_FEEAMOUNT_LABEL"
+			description="COM_SELLACIOUS_SPLCATEGORY_FIELD_FEEAMOUNT_DESC"
+			class="inputbox"
+			default="0"
+			validate="money"
+			sign="GEZ"
+			filter="float"
+		/>
+		<!--<field
+			name="access"
+			type="accesslevel"
+			label="COM_SELLACIOUS_SPLCATEGORY_FIELD_ACCESS_LABEL"
+			description="COM_SELLACIOUS_SPLCATEGORY_FIELD_ACCESS_DESC"
+			required="true"
+			class="w100p"
+		/>-->
+		<field
+			name="images"
+			type="uploader"
+			label="COM_SELLACIOUS_SPLCATEGORY_FIELD_IMAGES_LABEL"
+			description="COM_SELLACIOUS_SPLCATEGORY_FIELD_IMAGES_DESC"
+			tableName="splcategories"
+			context="images"
+			recordId="0"
+			uploadLimit=""
+			maxSize="5 MB"
+			extensions="jpg,png,jpeg,gif"
+			showPublish="false"
+			showRename="true"
+			showRemove="true"
+		/>
+		<field
+			name="description"
+			type="editor"
+			label="COM_SELLACIOUS_SPLCATEGORY_FIELD_DESCRIPTION_LABEL"
+			description="COM_SELLACIOUS_SPLCATEGORY_FIELD_DESCRIPTION_DESC"
+			width="580"
+			height="20"
+			filter="safehtml"
+			class="inputbox"
+		/>
+		<field
+			name="created_by"
+			type="hidden"
+			filter="unset"
+			/>
+		<field
+			name="is_core"
+			type="hidden"
+			filter="unset"
+			/>
+	</fieldset>
+
+	<fields name="params">
+		<fieldset name="badge" label="COM_SELLACIOUS_SPLCATEGORY_FIELDSET_BADGE">
+			<fields name="badge">
+				<field
+					name="options"
+					type="radio"
+					label="COM_SELLACIOUS_SPLCATEGORY_FIELD_BADGE_OPTION_LABEL"
+					description="COM_SELLACIOUS_SPLCATEGORY_FIELD_BADGE_OPTION_DESC"
+					default="icon">
+					<option value="icon">COM_SELLACIOUS_SPLCATEGORY_BADGE_OPTION_ICON</option>
+					<option value="text">COM_SELLACIOUS_SPLCATEGORY_BADGE_OPTION_TEXT</option>
+				</field>
+				<field
+					name="icon"
+					type="uploader"
+					label="COM_SELLACIOUS_SPLCATEGORY_FIELD_BADGE_ICON_LABEL"
+					description="COM_SELLACIOUS_SPLCATEGORY_FIELD_BADGE_ICON_DESC"
+					tableName="splcategories"
+					context="badge"
+					recordId="0"
+					uploadLimit="1"
+					maxSize="1 MB"
+					extensions="jpg,png,jpeg,gif"
+					showPublish="false"
+					showRename="true"
+					showRemove="true"
+				/>
+				<field
+					name="text"
+					type="text"
+					label="COM_SELLACIOUS_SPLCATEGORY_FIELD_BADGE_TEXT_LABEL"
+					description="COM_SELLACIOUS_SPLCATEGORY_FIELD_BADGE_TEXT_DESC"
+					class="inputbox"
+				/>
+				<fields name="styles">
+					<field
+						name="color"
+						type="color"
+						label="COM_SELLACIOUS_SPLCATEGORY_FIELD_TEXT_COLOR_LABEL"
+						description="COM_SELLACIOUS_SPLCATEGORY_FIELD_TEXT_COLOR_DESC"
+						class="inputbox"
+					/>
+					<field
+						name="border-width"
+						type="list"
+						label="COM_SELLACIOUS_SPLCATEGORY_FIELD_BORDER_WIDTH_LABEL"
+						description="COM_SELLACIOUS_SPLCATEGORY_FIELD_BORDER_STYLE_DESC"
+						class="w100p medium-input"
+					>
+						<option value="0">JNONE</option>
+						<option value="1px">1</option>
+						<option value="2px">2</option>
+						<option value="3px">3</option>
+						<option value="4px">4</option>
+						<option value="5px">5</option>
+						<option value="6px">6</option>
+						<option value="7px">7</option>
+						<option value="8px">8</option>
+						<option value="9px">9</option>
+						<option value="10px">10</option>
+					</field>
+					<field
+						name="border-style"
+						type="list"
+						label="COM_SELLACIOUS_SPLCATEGORY_FIELD_BORDER_STYLE_LABEL"
+						description="COM_SELLACIOUS_SPLCATEGORY_FIELD_BORDER_STYLE_DESC"
+						class="w100p medium-input"
+					>
+						<option value="dotted">COM_SELLACIOUS_SPLCATEGORY_OPTION_DOTTED</option>
+						<option value="dashed">COM_SELLACIOUS_SPLCATEGORY_OPTION_DASHED</option>
+						<option value="solid">COM_SELLACIOUS_SPLCATEGORY_OPTION_SOLID</option>
+						<option value="Double">COM_SELLACIOUS_SPLCATEGORY_OPTION_DOUBLE</option>
+						<option value="groove">COM_SELLACIOUS_SPLCATEGORY_OPTION_GROOVE</option>
+						<option value="ridge">COM_SELLACIOUS_SPLCATEGORY_OPTION_RIDGE</option>
+						<option value="inset">COM_SELLACIOUS_SPLCATEGORY_OPTION_INSET</option>
+						<option value="outset">COM_SELLACIOUS_SPLCATEGORY_OPTION_OUTSET</option>
+					</field>
+					<field
+						name="border-color"
+						type="color"
+						label="COM_SELLACIOUS_SPLCATEGORY_FIELD_BORDER_COLOR_LABEL"
+						description="COM_SELLACIOUS_SPLCATEGORY_FIELD_BORDER_COLOR_DESC"
+						class="inputbox"
+					/>
+					<field
+						name="background-color"
+						type="color"
+						label="COM_SELLACIOUS_SPLCATEGORY_FIELD_BG_COLOR_LABEL"
+						description="COM_SELLACIOUS_SPLCATEGORY_FIELD_BG_COLOR_DESC"
+						class="inputbox"
+					/>
+				</fields>
+			</fields>
+		</fieldset>
+
+		<fieldset name="box" label="COM_SELLACIOUS_SPLCATEGORY_FIELDSET_STYLES">
+			<fields name="styles">
+				<field
+					name="border-width"
+					type="list"
+					label="COM_SELLACIOUS_SPLCATEGORY_FIELD_BORDER_WIDTH_LABEL"
+					description="COM_SELLACIOUS_SPLCATEGORY_FIELD_BORDER_STYLE_DESC"
+					class="w100p medium-input"
+				>
+					<option value="0">JNONE</option>
+					<option value="1px">1</option>
+					<option value="2px">2</option>
+					<option value="3px">3</option>
+					<option value="4px">4</option>
+					<option value="5px">5</option>
+					<option value="6px">6</option>
+					<option value="7px">7</option>
+					<option value="8px">8</option>
+					<option value="9px">9</option>
+					<option value="10px">10</option>
+				</field>
+				<field
+					name="border-style"
+					type="list"
+					label="COM_SELLACIOUS_SPLCATEGORY_FIELD_BORDER_STYLE_LABEL"
+					description="COM_SELLACIOUS_SPLCATEGORY_FIELD_BORDER_STYLE_DESC"
+					class="w100p medium-input"
+				>
+					<option value="dotted">COM_SELLACIOUS_SPLCATEGORY_OPTION_DOTTED</option>
+					<option value="dashed">COM_SELLACIOUS_SPLCATEGORY_OPTION_DASHED</option>
+					<option value="solid">COM_SELLACIOUS_SPLCATEGORY_OPTION_SOLID</option>
+					<option value="Double">COM_SELLACIOUS_SPLCATEGORY_OPTION_DOUBLE</option>
+					<option value="groove">COM_SELLACIOUS_SPLCATEGORY_OPTION_GROOVE</option>
+					<option value="ridge">COM_SELLACIOUS_SPLCATEGORY_OPTION_RIDGE</option>
+					<option value="inset">COM_SELLACIOUS_SPLCATEGORY_OPTION_INSET</option>
+					<option value="outset">COM_SELLACIOUS_SPLCATEGORY_OPTION_OUTSET</option>
+				</field>
+				<field
+					name="border-color"
+					type="color"
+					label="COM_SELLACIOUS_SPLCATEGORY_FIELD_BORDER_COLOR_LABEL"
+					description="COM_SELLACIOUS_SPLCATEGORY_FIELD_BORDER_COLOR_DESC"
+					class="inputbox"
+				/>
+				<field
+					name="background-color"
+					type="color"
+					label="COM_SELLACIOUS_SPLCATEGORY_FIELD_BG_COLOR_LABEL"
+					description="COM_SELLACIOUS_SPLCATEGORY_FIELD_BG_COLOR_DESC"
+					class="inputbox"
+				/>
+			</fields>
+		</fieldset>
+	</fields>
+</form>

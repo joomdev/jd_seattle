@@ -1,12 +1,12 @@
 <?php
 
-class N2SmartSliderStorage {
+N2Loader::importAll('libraries.storage', 'smartslider');
 
+class N2SmartSliderStorage {
 
     public static function init() {
         N2Pluggable::addAction('fontStorage', 'N2SmartSliderStorage::fontStorage');
         N2Pluggable::addAction('styleStorage', 'N2SmartSliderStorage::styleStorage');
-        N2Pluggable::addAction('animationStorage', 'N2SmartSliderStorage::animationStorage');
         N2Pluggable::addAction('splitTextAnimationStorage', 'N2SmartSliderStorage::splitTextAnimationStorage');
         N2Pluggable::addAction('backgroundAnimationStorage', 'N2SmartSliderStorage::backgroundAnimationStorage');
         N2Pluggable::addAction('postBackgroundAnimationStorage', 'N2SmartSliderStorage::postBackgroundAnimationStorage');
@@ -885,20 +885,6 @@ class N2SmartSliderStorage {
         ));
     }
 
-    public static function animationStorage(&$sets, &$animations) {
-        N2Base::getApplicationInfo('smartslider')
-              ->loadLocale();
-
-
-        array_push($sets, array(
-            'id'           => 1000,
-            'referencekey' => '',
-            'value'        => n2_('Simple')
-        ));
-
-        $c = 1001;
-    }
-
     public static function splitTextAnimationStorage(&$sets, &$animations) {
         N2Base::getApplicationInfo('smartslider')
               ->loadLocale();
@@ -1039,7 +1025,7 @@ class N2SmartSliderStorage {
                 'data' => array(
                     'transformOrigin' => '100|*|100|*|0',
                     'animation'       => array(
-                        'ease'      => 'easeInOutBack',
+                        'ease'      => 'easeInBack',
                         'opacity'   => 0,
                         'scale'     => 5,
                         'rotationX' => 360,
@@ -1073,7 +1059,7 @@ class N2SmartSliderStorage {
                 'data' => array(
                     'transformOrigin' => '100|*|100|*|0',
                     'animation'       => array(
-                        'ease'      => 'easeInOutBack',
+                        'ease'      => 'easeInBack',
                         'opacity'   => 0,
                         'rotationZ' => 90
                     )
@@ -1304,7 +1290,7 @@ class N2SmartSliderStorage {
                         'type'     => 'next',
                         'duration' => .35,
                         'next'     => array(
-                            'ease'    => 'easeInOutQuart',
+                            'ease'    => 'easeInQuart',
                             'opacity' => "0",
                             'left'    => '-100%'
                         )
@@ -1338,7 +1324,7 @@ class N2SmartSliderStorage {
                         'type'     => 'next',
                         'duration' => 0.8,
                         'next'     => array(
-                            'ease'    => 'easeInOutQuart',
+                            'ease'    => 'easeInQuart',
                             'opacity' => 0
                         )
                     )
@@ -1447,7 +1433,7 @@ class N2SmartSliderStorage {
                         'type'     => 'next',
                         'duration' => .35,
                         'next'     => array(
-                            'ease'    => 'easeInOutQuart',
+                            'ease'    => 'easeInQuart',
                             'opacity' => "0",
                             'top'     => '100%'
                         )
@@ -1481,7 +1467,7 @@ class N2SmartSliderStorage {
                         'type'     => 'next',
                         'duration' => .35,
                         'next'     => array(
-                            'ease'    => 'easeInOutQuart',
+                            'ease'    => 'easeInQuart',
                             'opacity' => "0",
                             'top'     => '-100%'
                         )
@@ -1560,7 +1546,7 @@ class N2SmartSliderStorage {
                         'type'     => 'next',
                         'duration' => .35,
                         'next'     => array(
-                            'ease'    => 'easeInOutQuart',
+                            'ease'    => 'easeInQuart',
                             'opacity' => "0",
                             'left'    => '100%'
                         )

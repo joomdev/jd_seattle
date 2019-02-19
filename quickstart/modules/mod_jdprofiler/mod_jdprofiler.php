@@ -28,6 +28,8 @@ $display_all = $params->get('display_all');
 $team = $params->get('team');
 $gutter_space = $params->get('gutter_space'); 
 $margin = $params->get('margin'); 
+$order = $params->get('order'); 
+$sort = $params->get('sort'); 
 if($display_all){
     $limit = 100;
 }else{
@@ -36,6 +38,6 @@ if($display_all){
 }
 
 $profilesClass  = new modJdprofilerHelper();
-$profiles = $profilesClass->profiles($team,$limit);
+$profiles = $profilesClass->profiles($team,$limit,$sort,$order);
          
 require JModuleHelper::getLayoutPath('mod_jdprofiler', $layout);

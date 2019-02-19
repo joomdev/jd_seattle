@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<access component="com_importer">
+	<section name="component">
+		<actions name="importer" title="COM_IMPORTER_ACTIONS_CRUCIAL">
+			<action name="importer.manage" title="COM_IMPORTER_ACTION_MANAGE_LABEL" description="COM_IMPORTER_ACTION_MANAGE_DESC"/>
+		</actions>
+	</section>
+</access>

@@ -4,7 +4,7 @@ $pricingtables = $params->get('pricingtables', []);
 $itemsInRow = $params->get('itemsInRow');
 ?>
 
-<div class="container py-5">
+<div class="container">
 	<div class="row">
 	  <?php foreach ($pricingtables as $pricingtable) { ?>
 		  <div class="col-12 col-md-6 col-lg-<?php echo $itemsInRow;  ?> d-flex pricing-card mt-3 <?php if($pricingtable->hightlight) {echo 'hightlight';}?>">

@@ -7,7 +7,7 @@
     <creationDate>2015-11-01</creationDate>
     <license>http://www.gnu.org/licenses/gpl-3.0.txt GNU/GPL</license>
     <releaseDate>2017-08-03</releaseDate>
-    <version>3.3.9</version>
+    <version>3.3.15</version>
     <description>Component for Smart Slider 3.</description>
     <files folder="site">
         <filename>index.html</filename>

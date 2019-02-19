@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fields name="filter">
+		<field
+			name="search"
+			type="text"
+			label="COM_SELLACIOUS_SEARCH_IN_PAYMENTMETHODS"
+			hint="JSEARCH_FILTER"
+			class="js-stools-search-string inputbox"
+		/>
+		<field
+			name="state"
+			type="status"
+			label="JOPTION_SELECT_PUBLISHED"
+			filter="*,0,1,-2"
+			onchange="this.form.submit();"
+			class="inputbox"
+		>
+			<option value="">JOPTION_SELECT_PUBLISHED</option>
+		</field>
+	</fields>
+
+	<fields name="list">
+		<field
+			name="fullordering"
+			type="groupedlist"
+			label="JGLOBAL_SORT_BY"
+			description="JGLOBAL_SORT_BY"
+			onchange="this.form.submit();"
+			default="a.ordering ASC"
+			class="inputbox"
+		>
+			<option value="">JGLOBAL_SORT_BY</option>
+			<group name="ASC" label="COM_SELLACIOUS_SORT_ASCENDING">
+				<option value="a.id ASC">JGRID_HEADING_ID_ASC</option>
+				<option value="a.title ASC">JGLOBAL_TITLE_ASC</option>
+				<option value="a.state ASC">JSTATUS_ASC</option>
+				<option value="a.type ASC">COM_SELLACIOUS_PAYMENTMETHOD_FIELD_ORDERING_TYPE_ASC</option>
+				<option value="a.handler ASC">COM_SELLACIOUS_PAYMENTMETHOD_FIELD_ORDERING_HANDLER_ASC</option>
+				<option value="a.success_status ASC">COM_SELLACIOUS_PAYMENTMETHOD_FIELD_ORDERING_SUCCESS_STATUS_ASC</option>
+				<option value="a.percent_fee ASC">COM_SELLACIOUS_PAYMENTMETHOD_FIELD_ORDERING_PERCENT_FEE_ASC</option>
+				<option value="a.flat_fee ASC">COM_SELLACIOUS_PAYMENTMETHOD_FIELD_ORDERING_FLAT_FEE_ASC</option>
+				<option value="a.ordering ASC">JGRID_HEADING_ORDERING_ASC</option>
+			</group>
+			<group name="DESC" label="COM_SELLACIOUS_SORT_DESCENDING">
+				<option value="a.id DESC">JGRID_HEADING_ID_DESC</option>
+				<option value="a.title DESC">JGLOBAL_TITLE_DESC</option>
+				<option value="a.state DESC">JSTATUS_DESC</option>
+				<option value="a.type DESC">COM_SELLACIOUS_PAYMENTMETHOD_FIELD_ORDERING_TYPE_DESC</option>
+				<option value="a.handler DESC">COM_SELLACIOUS_PAYMENTMETHOD_FIELD_ORDERING_HANDLER_DESC</option>
+				<option value="a.success_status DESC">COM_SELLACIOUS_PAYMENTMETHOD_FIELD_ORDERING_SUCCESS_STATUS_DESC</option>
+				<option value="a.percent_fee DESC">COM_SELLACIOUS_PAYMENTMETHOD_FIELD_ORDERING_PERCENT_FEE_DESC</option>
+				<option value="a.flat_fee DESC">COM_SELLACIOUS_PAYMENTMETHOD_FIELD_ORDERING_FLAT_FEE_DESC</option>
+				<option value="a.ordering DESC">JGRID_HEADING_ORDERING_DESC</option>
+			</group>
+		</field>
+		<field
+			name="limit"
+			type="limitbox"
+			class="inputbox input-mini inputbox"
+			default="20"
+			label="JGLOBAL_LIST_LIMIT"
+			description="JGLOBAL_LIST_LIMIT_DESC"
+			onchange="this.form.submit();"
+		/>
+	</fields>
+</form>

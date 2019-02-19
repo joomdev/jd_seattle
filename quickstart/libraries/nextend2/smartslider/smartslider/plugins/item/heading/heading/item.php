@@ -34,8 +34,8 @@ class N2SSItemHeading extends N2SSItemAbstract {
             $attributes['title'] = $title;
         }
 
-        list($link) = (array)N2Parse::parse($this->data->get('link', '#|*|'));
-        if (!empty($link) && $link != '#') {
+        $href = $this->data->get('href', '');
+        if (!empty($href) && $href != '#') {
             $linkAttributes['class'] .= ' ' . $font . $style;
 
             $font  = '';
@@ -46,7 +46,7 @@ class N2SSItemHeading extends N2SSItemAbstract {
 
         return $this->heading($this->data->get('priority', 'div'), $attributes + array(
                 "id"    => $this->id,
-                "class" => $font . $style . " " . $owner->fill($this->data->get('class', '')) . ' n2-ow',
+                "class" => $font . $style . " " . $owner->fill($this->data->get('class', '')) . ' n2-ss-item-content n2-ow',
                 "style" => "display:" . ($this->data->get('fullwidth', 1) ? 'block' : 'inline-block') . ";" . ($this->data->get('nowrap', 0) ? 'white-space:nowrap;' : '')
             ), $this->getLink(str_replace("\n", '<br />', strip_tags($owner->fill($this->data->get('heading', '')))), $linkAttributes));
     }

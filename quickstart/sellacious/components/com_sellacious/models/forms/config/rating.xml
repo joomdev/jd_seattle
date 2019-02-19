@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fields name="com_sellacious">
+		<fieldset name="com_sellacious_ratings"
+		          label="COM_SELLACIOUS_CONFIG_FIELDSET_RATINGS_LABEL">
+			<field
+				name="allow_guest_ratings"
+				type="radio"
+				label="COM_SELLACIOUS_CONFIG_ALLOW_GUEST_RATINGS_LABEL"
+				description="COM_SELLACIOUS_CONFIG_ALLOW_GUEST_RATINGS_DESC"
+				default="1"
+			>
+				<option value="1">JYES</option>
+				<option value="0">JNO</option>
+			</field>
+			<field
+				name="allow_non_buyer_ratings"
+				type="radio"
+				label="COM_SELLACIOUS_CONFIG_ALLOW_NON_BUYER_RATINGS_LABEL"
+				description="COM_SELLACIOUS_CONFIG_ALLOW_NON_BUYER_RATINGS_DESC"
+				default="1"
+			>
+				<option value="1">JYES</option>
+				<option value="0">JNO</option>
+			</field>
+			<field name="allowed_status"
+			       type="orderstatus"
+			       label="COM_SELLACIOUS_CONFIG_ALLOWED_STATUS_FOR_RATINGS_LABEL"
+			       description="COM_SELLACIOUS_CONFIG_ALLOWED_STATUS_FOR_RATINGS_DESC"
+			       multiple="true"
+			       context=""
+			       show_context="true"
+			/>
+			<field
+				name="show_reviewer_badge"
+				type="radio"
+				label="COM_SELLACIOUS_CONFIG_SHOW_REVIEWER_BADGE_LABEL"
+				description="COM_SELLACIOUS_CONFIG_SHOW_REVIEWER_BADGE_DESC"
+				default="1"
+			>
+				<option value="1">JYES</option>
+				<option value="0">JNO</option>
+			</field>
+			<field
+				name="allow_ratings_for"
+				type="checkboxes"
+				label="COM_SELLACIOUS_CONFIG_ALLOW_RATINGS_FOR_LABEL"
+				description="COM_SELLACIOUS_CONFIG_ALLOW_RATINGS_FOR_DESC"
+				default="1"
+			>
+				<option value="product">COM_SELLACIOUS_CONFIG_ALLOW_RATINGS_FOR_PRODUCT</option>
+				<option value="seller">COM_SELLACIOUS_CONFIG_ALLOW_RATINGS_FOR_SELLER</option>
+				<option value="packaging">COM_SELLACIOUS_CONFIG_ALLOW_RATINGS_FOR_PACKAGING</option>
+				<option value="shipment">COM_SELLACIOUS_CONFIG_ALLOW_RATINGS_FOR_SHIPMENT</option>
+			</field>
+			<field
+				name="allow_review_for"
+				type="checkboxes"
+				label="COM_SELLACIOUS_CONFIG_ALLOW_REVIEW_FOR_LABEL"
+				description="COM_SELLACIOUS_CONFIG_ALLOW_REVIEW_FOR_DESC"
+				default="1"
+			>
+				<option value="product">COM_SELLACIOUS_CONFIG_ALLOW_RATINGS_FOR_PRODUCT</option>
+				<option value="seller">COM_SELLACIOUS_CONFIG_ALLOW_RATINGS_FOR_SELLER</option>
+				<!--<option value="packaging">COM_SELLACIOUS_CONFIG_ALLOW_RATINGS_FOR_PACKAGING</option>
+				<option value="shipment">COM_SELLACIOUS_CONFIG_ALLOW_RATINGS_FOR_SHIPMENT</option>-->
+			</field>
+		</fieldset>
+	</fields>
+</form>

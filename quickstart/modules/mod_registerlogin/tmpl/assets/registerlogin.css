@@ -313,7 +313,7 @@
 	border: 1px solid #ced4da;
 	border-radius: 0;
 	position: absolute;
-	bottom: 0;
+	top: 31px;
 	right: 0;
 }
 

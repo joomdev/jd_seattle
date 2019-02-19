@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.0" type="plugin" group="system" method="upgrade">
+	<name>PLG_SYSTEM_SELLACIOUSRECENT</name>
+	<author>Izhar Aazmi</author>
+	<creationDate>December 26, 2018</creationDate>
+	<copyright>Copyright (C) 2012-2018 Bhartiy Web Technologies. All rights reserved.</copyright>
+	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+	<authorEmail>info@bhartiy.com</authorEmail>
+	<authorUrl>www.bhartiy.com</authorUrl>
+	<version>1.6.1-alpha0</version>
+	<description>PLG_SYSTEM_SELLACIOUSRECENT_XML_DESCRIPTION</description>
+	<files>
+		<folder>language</folder>
+		<filename plugin="sellaciousrecent">sellaciousrecent.php</filename>
+	</files>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+			</fieldset>
+		</fields>
+	</config>
+	<updateservers>
+		<server type="extension" name="Sellacious Updates - plg_system_sellaciousrecent">http://sellacious.com/release/updates/v1.6/plg_system_sellaciousrecent.xml</server>
+	</updateservers>
+</extension>
+

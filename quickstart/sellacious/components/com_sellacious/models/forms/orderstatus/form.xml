@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset>
+		<field
+			type="note"
+			name="alert"
+			heading="p"
+			class="alert alert-info"
+			label="ABC XYZ"
+			filter="unset"
+			/>
+		<field
+			type="textarea"
+			name="customer_notes"
+			label="COM_SELLACIOUS_ORDERSTATUS_FIELD_CUSTOMER_NOTES_LBL"
+			class="textarea"
+			rows="4"
+			hint="COM_SELLACIOUS_ORDERSTATUS_FIELD_CUSTOMER_NOTES_HINT"
+			/>
+		<field
+			type="textarea"
+			name="notes"
+			label="COM_SELLACIOUS_ORDERSTATUS_FIELD_NOTES_LBL"
+			class="textarea"
+			rows="4"
+			hint="COM_SELLACIOUS_ORDERSTATUS_FIELD_NOTES_HINT"
+			/>
+	</fieldset>
+</form>

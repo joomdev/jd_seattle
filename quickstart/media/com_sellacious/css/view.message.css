@@ -1,0 +1,55 @@
+h4.panel-title {
+	background: #f9f9f9;
+}
+
+.thread-subject {
+	font-size: 22px;
+	font-weight: bold;
+	margin: 2px 5px 12px 2px;
+}
+
+.thread-subject .label {
+	vertical-align: middle;
+	font-size: 11px;
+}
+
+.message-date {
+	font-size: 11px;
+	padding: 2px 10px;
+	float: right;
+}
+
+.message-summary {
+	font-size: 11px;
+	color: #666666;
+	line-height: 1.1;
+	-ms-text-overflow: ellipsis;
+	text-overflow: ellipsis;
+	height: 12px;
+	white-space: nowrap;
+	float: left;
+	width: 50%;
+	max-width: 350px;
+	margin-left: 400px;
+	margin-right: 400px;
+}
+
+.message-toolbar {
+	border: 1px solid #cecece;
+	border-radius: 2px;
+	background: #ded9d0;
+	line-height: 1.8;
+	padding: 8px;
+	margin: 3px 0 0 0;
+}
+
+.message-toolbar button {
+	float: right;
+	margin: 0 4px;
+}
+
+.message-toolbar .title {
+	float: left;
+	font-size: 18px;
+	font-weight: bold;
+}

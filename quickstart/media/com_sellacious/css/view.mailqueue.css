@@ -1,0 +1,55 @@
+.btn-modal {
+	position: relative;
+	display: inline-block;
+	float: left;
+	overflow: visible;
+	margin: auto 10px;
+	color: #000;
+	cursor: pointer;
+}
+
+.mail-content {
+	display: none;
+}
+
+.mail-modal-container {
+	z-index: 1003;
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+}
+
+.modal-shadow {
+	position: absolute;
+	background: #9c9c9c;
+	opacity: 0.6;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+}
+
+.mail-body-modal {
+	margin: 0 auto;
+	text-align: left;
+	position: relative;
+	white-space: normal;
+	cursor: default;
+	top: 60px;
+	width: 80%;
+	padding: 5px;
+	max-width: 800px;
+	max-height: 500px;
+	border: 1px solid #000;
+	background: #fff;
+}
+
+.mail-body-modal > div {
+	clear: both;
+	margin: -4px;
+	padding: 10px;
+	overflow-y: auto;
+	max-height: 460px;
+}

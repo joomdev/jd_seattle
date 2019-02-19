@@ -15,6 +15,9 @@
 // No direct access
 defined('_JEXEC') or die;
 // Include the syndicate functions only once
+// Style Sheet
+$doc = JFactory::getDocument();
+$doc->addStyleSheet(JURI::root().'media/mod_jdprocess/assets/css/jd-process.css');
 require_once dirname(__FILE__) . '/helper.php';
 $layout = $params->get('layout', 'default');
 require JModuleHelper::getLayoutPath('mod_jdprocess', $layout);

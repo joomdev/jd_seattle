@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset name="basic"
+			label="COM_SELLACIOUS_QUESTION_FIELDSET_BASIC">
+		<field
+			name="id"
+			type="hidden"
+			default="0"
+			readonly="true"
+			/>
+		<field
+			name="question"
+			type="textarea"
+			label="COM_SELLACIOUS_QUESTION_FIELD_QUESTION_LABEL"
+			description="COM_SELLACIOUS_QUESTION_FIELD_QUESTION_DESC"
+			class="textarea w100p"
+			rows="3"
+			readonly="true"
+		    filter="unset"
+		/>
+		<field
+			name="answer"
+			type="textarea"
+			label="COM_SELLACIOUS_QUESTION_FIELD_ANSWER_LABEL"
+			description="COM_SELLACIOUS_QUESTION_FIELD_ANSWER_DESC"
+			class="textarea w100p"
+			rows="3"
+			required="true"
+		/>
+	</fieldset>
+</form>

@@ -78,7 +78,7 @@ N2HTML::heading(array(
                     data: $('#n2-ss-edit-group-form').serialize(),
                     dataType: 'json'
                 }).done(function (response) {
-                    $('.n2-heading-bar .n2-heading').html($('#slidertitle').val());
+                    $('.n2-heading-bar .n2-heading').text($('#slidertitle').val());
                     nextend.askToSave = true;
                     $('#n2-ss-edit-group-form').trigger('saved');
 

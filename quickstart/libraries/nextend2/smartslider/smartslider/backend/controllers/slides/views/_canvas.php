@@ -1,4 +1,4 @@
-<div id='n2-ss-slide-canvas-container' class='unselectable'>
+<div id='n2-ss-slide-canvas-container' class='n2-unselectable'>
     <?php
     include dirname(__FILE__) . '/_toolbar.php';
     ?>

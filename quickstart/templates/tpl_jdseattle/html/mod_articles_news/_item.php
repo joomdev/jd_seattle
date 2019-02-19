@@ -12,9 +12,10 @@ $images	=	json_decode($item->images);
 $image_intro	=	($images->image_intro);
 $created	=	date_format(date_create($item->created),"d M Y");
 ?>
-<div class="card card-blog shadow-lg mb-5 mb-lg-0">
+
+<div class="card card-blog">
 	<div class="image-wrap position-relative">
-		<img class="card-img-top" src="<?php echo $image_intro; ?>" alt="<?php echo $item->title; ?>">
+		<img class="card-img-top" src="<?php echo $image_intro; ?>" alt="Card image cap">
 		<a href="<?php echo $item->link; ?>" class="overly position-absolute text-center d-flex justify-content-center align-items-center text-white">
 			<i class="fab fa-telegram-plane"></i>
 		</a>

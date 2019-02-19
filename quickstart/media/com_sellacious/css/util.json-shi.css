@@ -1,0 +1,7 @@
+/** JSON SHI */
+pre.jsonshi {outline: 1px solid #ccc; padding: 5px; margin: 5px; }
+.jsonshi .string { color: green; }
+.jsonshi .number { color: darkorange; }
+.jsonshi .boolean { color: blue; }
+.jsonshi .null { color: magenta; }
+.jsonshi .key { color: red; }

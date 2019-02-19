@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fields name="filter">
+		<field
+			name="search"
+			type="text"
+			hint="COM_SELLACIOUS_SEARCH_IN_MAILQUEUE_HINT"
+			class="js-stools-search-string inputbox"
+		/>
+		<field
+			name="state"
+			type="list"
+			onchange="this.form.submit();"
+			class="inputbox"
+		>
+			<option value="">COM_SELLACIOUS_MAILQUEUE_FILTER_SELECT_STATE</option>
+			<option value="1">COM_SELLACIOUS_MAILQUEUE_FILTER_STATE_QUEUED</option>
+			<option value="2">COM_SELLACIOUS_MAILQUEUE_FILTER_STATE_SENT</option>
+			<option value="0">COM_SELLACIOUS_MAILQUEUE_FILTER_STATE_IGNORED</option>
+			<option value="-2">COM_SELLACIOUS_MAILQUEUE_FILTER_STATE_TRASHED</option>
+		</field>
+		<field
+			name="context"
+			type="EmailContext"
+			onchange="this.form.submit();"
+			class="inputbox medium-input"
+		    key_field="context"
+		    value_field="context"
+			default=""
+		>
+			<option value="">COM_SELLACIOUS_MAILQUEUE_FILTER_SELECT_CONTEXT</option>
+		</field>
+		<field
+			name="created"
+			type="calendar"
+		    class="inputbox calendar-input"
+			onchange="this.form.submit();"
+		/>
+	</fields>
+
+	<fields name="list">
+		<field
+			name="fullordering"
+			type="groupedlist"
+			label="JGLOBAL_SORT_BY"
+			description="JGLOBAL_SORT_BY"
+			onchange="this.form.submit();"
+			default="a.created DESC"
+			class="inputbox"
+		>
+			<option value="">JGLOBAL_SORT_BY</option>
+			<group name="ASC" label="COM_SELLACIOUS_SORT_ASCENDING">
+				<option value="a.id ASC">JGRID_HEADING_ID</option>
+				<option value="a.context ASC">COM_SELLACIOUS_MAILQUEUE_HEADING_CONTEXT</option>
+				<option value="a.subject ASC">COM_SELLACIOUS_MAILQUEUE_HEADING_SUBJECT</option>
+				<option value="a.created ASC">COM_SELLACIOUS_MAILQUEUE_HEADING_CREATED</option>
+				<option value="a.sent_date ASC">COM_SELLACIOUS_MAILQUEUE_HEADING_SENT_DATE</option>
+				<option value="a.retries ASC">COM_SELLACIOUS_MAILQUEUE_HEADING_RETRIES</option>
+				<option value="a.state ASC">COM_SELLACIOUS_MAILQUEUE_HEADING_STATUS</option>
+			</group>
+			<group name="DESC" label="COM_SELLACIOUS_SORT_DESCENDING">
+				<option value="a.id DESC">JGRID_HEADING_ID</option>
+				<option value="a.context DESC">COM_SELLACIOUS_MAILQUEUE_HEADING_CONTEXT</option>
+				<option value="a.subject DESC">COM_SELLACIOUS_MAILQUEUE_HEADING_SUBJECT</option>
+				<option value="a.created DESC">COM_SELLACIOUS_MAILQUEUE_HEADING_CREATED</option>
+				<option value="a.sent_date DESC">COM_SELLACIOUS_MAILQUEUE_HEADING_SENT_DATE</option>
+				<option value="a.retries DESC">COM_SELLACIOUS_MAILQUEUE_HEADING_RETRIES</option>
+				<option value="a.state DESC">COM_SELLACIOUS_MAILQUEUE_HEADING_STATUS</option>
+			</group>
+		</field>
+		<field
+			name="limit"
+			type="limitbox"
+			class="inputbox input-mini inputbox"
+			default="20"
+			label="JGLOBAL_LIST_LIMIT"
+			description="JGLOBAL_LIST_LIMIT_DESC"
+			onchange="this.form.submit();"
+		/>
+	</fields>
+</form>

@@ -2,6 +2,9 @@
 
 abstract class N2SSItemAbstract {
 
+    /** @var N2SSPluginItemFactoryAbstract */
+    protected $factory;
+
     protected $id;
 
     /** @var N2SSSlideComponentLayer */
@@ -17,14 +20,19 @@ abstract class N2SSItemAbstract {
     /**
      * N2SSItemAbstract constructor.
      *
-     * @param string                  $id
-     * @param array                   $itemData
-     * @param N2SSSlideComponentLayer $layer
+     * @param N2SSPluginItemFactoryAbstract $factory
+     * @param string                        $id
+     * @param array                         $itemData
+     * @param N2SSSlideComponentLayer       $layer
      */
-    public function __construct($id, $itemData, $layer) {
-        $this->id    = $id;
-        $this->data  = new N2Data($itemData);
-        $this->layer = $layer;
+    public function __construct($factory, $id, $itemData, $layer) {
+        $this->factory = $factory;
+        $this->id      = $id;
+        $this->data    = new N2Data($itemData);
+        $this->layer   = $layer;
+
+        $this->fillDefault($factory->getValues());
+        $factory->upgradeData($this->data);
     }
 
     public function fillDefault($defaults) {
@@ -36,13 +44,15 @@ abstract class N2SSItemAbstract {
     public function renderAdmin() {
         $this->isEditor = true;
 
+        $rendered = $this->_renderAdmin();
+
         $json = $this->data->toJson();
 
         return N2Html::tag("div", array(
             "class"           => "n2-ss-item n2-ss-item-" . $this->type,
             "data-item"       => $this->type,
             "data-itemvalues" => $json
-        ), $this->_renderAdmin());
+        ), $rendered);
     }
 
     protected abstract function _renderAdmin();
@@ -51,11 +61,23 @@ abstract class N2SSItemAbstract {
         return false;
     }
 
+    protected function hasLink() {
+        $link = $this->data->get('href', '#');
+        if (($link != '#' && !empty($link))) {
+            return true;
+        }
+
+        return false;
+    }
+
     protected function getLink($content, $attributes = array(), $renderEmpty = false) {
 
         N2Loader::import('libraries.link.link');
 
-        list($link, $target, $rel) = array_pad((array)N2Parse::parse($this->data->get('link', '#|*||*|')), 3, '');
+        $link   = $this->data->get('href', '#');
+        $target = $this->data->get('href-target', '#');
+        $rel    = $this->data->get('href-rel', '#');
+        $class  = $this->data->get('href-class', '');
 
         if (($link != '#' && !empty($link)) || $renderEmpty === true) {
 
@@ -66,6 +88,9 @@ abstract class N2SSItemAbstract {
             }
             if (!empty($rel)) {
                 $attributes['rel'] = $rel;
+            }
+            if (!empty($class)) {
+                $attributes['class'] = $class;
             }
 
             return N2Html::link($content, $link, $attributes);

@@ -1,0 +1,201 @@
+.invalid {
+	color: #f00;
+}
+
+.invalid:not(label) {
+	border: 1px solid red;
+	display: block;
+}
+
+.address_name {
+	font-size: 15px;
+	font-weight: bold;
+	color: #000000;
+	line-height: 1.8;
+	margin-bottom: 10px;
+	width: 230px;
+}
+
+#address-text > span {
+	padding-left: 4px;
+}
+
+.address-row button {
+	margin: 2px;
+}
+
+.gl-input {
+	max-width: 800px;
+	min-width: 350px;
+}
+
+#jform_avatar_wrapper #jform_avatar.inputbox.hidden {
+	display: none !important;
+}
+
+#jform_avatar_wrapper #jform_avatar ~ ul.jff-fileplus-list {
+	margin-top: -28px;
+	list-style: none;
+}
+
+.users_profile_basic .control-label {
+	padding: 0;
+}
+
+#profile_accordion a.jff-fileplus-add {
+	height: auto;
+}
+
+#profile_accordion input[type="file"].hidden {
+	display: none;
+}
+form.form-horizontal div.control-label {
+	padding-top: 5px;
+	color: #777777;
+}
+
+#jform_seller_hyperlocal_shipping_distance input  {
+	max-width: 50px;
+	margin-right: 5px !important;
+}
+
+#jform_seller_hyperlocal_shipping_distance #jformsellerhyperlocalshipping_distanceu {
+	max-width: 130px;
+}
+
+.hyper-settings > label {
+	display: inline-block;
+	font-weight: bold;
+	font-size: 115%;
+}
+
+table.timings-table select, table.timings-table input[type='text'] {
+	width: 100%;
+	max-width: 100px;
+}
+
+table.timings-table label.checkbox {
+	margin: 0;
+	vertical-align: middle;
+}
+
+ul.media-list.media-list-generic > li {
+	clear: left;
+	margin: 4px;
+	border: 1px solid #bbe4bf;
+	border-radius: 4px;
+	padding: 2px 14px 2px 2px;
+	background: #eef9e7;
+	cursor: auto;
+	font-weight: bold;
+}
+
+ul.media-list.media-list-generic a:hover {
+	text-decoration: none;
+}
+
+.media-list.media-list-image img {
+	float: left;
+	margin: 2px;
+	border: 1px solid #aaaaaa;
+	padding: 2px;
+	height: 38px;
+}
+
+.profile .control-label {
+	margin-top: -5px;
+	color: #888888;
+}
+
+.profile .control-label label {
+	text-align: left;
+}
+
+@media only screen and (max-width: 370px) {
+
+	#jform_seller_hyperlocal_shipping_location_type label {
+		display: block;
+		margin-bottom: 5px;
+		border-radius: 4px;
+	}
+}
+
+small {
+	font-size: 65%;
+}
+
+.control-group {
+	margin-bottom: 15px;
+}
+
+.control-group legend {
+	margin-top:20px;
+}
+
+.control-group .col-md-12 {
+	padding: 0;
+}
+
+#profile_accordion .accordion-group .accordion-inner table.timings-table select {
+	font-size: 14px;
+	width: 46%;
+	display: inline-block;
+	padding: 0px;
+	margin: 0px 1%;
+	max-width: unset;
+}
+@media (max-width: 767px) {
+	#profile_accordion .accordion-group .accordion-inner table.timings-table select {
+		width: 96% !important;
+		display: block;
+		padding: 0px;
+		margin: 0px 1%;
+		max-width: unset;
+	}
+}
+
+.table.timings-table th,
+.table.timings-table td {
+	min-width: 100px;
+}
+
+
+.control-group .controls .btn-group-toggle .btn:last-child {
+	margin-left: 1px;
+}
+.control-group .controls .btn-group-toggle .btn.active {
+	background: #00B233;
+	border-color: #04a933;
+	color: #fff;
+}
+.control-group .controls .btn-group-toggle .btn {
+	float: left;
+	padding: 5px 35px;
+}
+
+.view-profile .profile fieldset legend {
+	margin-bottom: 25px;
+	padding-bottom: 5px;
+	border-bottom: 1px solid #ddd;
+}
+
+@media only screen and (min-width: 992px) {
+	.view-profile .profile fieldset .control-group {
+		margin-bottom: 25px;
+		width: 50%;
+		float: left;
+	}
+}
+
+.view-profile .profile .btn-group {
+	margin-left: 5px;
+}
+
+.view-profile .profile .control-label label {
+	margin-bottom: 0;
+}
+
+.select2-container-multi .select2-choices {
+	border-radius: 0.25rem;
+	background-image: none !important;
+}

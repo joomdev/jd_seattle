@@ -13,7 +13,7 @@ JHtml::_('behavior.keepalive');
 JHtml::_('bootstrap.tooltip');
 ?>
 <div class="row justify-content-center">
-<div class="col-12 col-lg-8 p-4 p-sm-5 p-lg-6 shadow-lg">
+<div class="col-12 col-lg-8">
 <form action="<?php echo JRoute::_('index.php', true, $params->get('usesecure')); ?>" method="post" id="login-form" class="form-signin">
    <?php if ($params->get('pretext')) : ?>
       <div class="pretext">

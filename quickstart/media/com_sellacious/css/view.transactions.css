@@ -1,0 +1,13 @@
+.w130px {
+	width: 130px;
+}
+#filter_amount_min, #filter_amount_max {
+	width: 70px;
+}
+.transaction-summary {
+	cursor: pointer;
+}
+.currency-toggle > .fa {
+	font-size: 28px;
+	color: #800;
+}

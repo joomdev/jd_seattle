@@ -1,0 +1,51 @@
+td.image-box {
+	position: relative;
+}
+td.image-box .image-large {
+	display: none;
+}
+td.image-box:hover .image-large {
+	position: absolute;
+	display: block;
+	max-width: 300px;
+	left: 54px;
+	top: auto;
+	z-index: 2001;
+	background: #fff;
+	border: 1px solid #050;
+	margin: -50px 0 0 0;
+}
+td.image-box .image-small,
+td.image-box:hover .image-small {
+	display: block;
+	width: 50px;
+}
+.variant-info-toggle {
+	float: right;
+	color: #19a8e8;
+}
+.variant-info-toggle.disabled {
+	float: right;
+	color: #a6b5b1;
+	cursor: auto;
+}
+.variant-info-toggle,
+.variant-info-toggle:active,
+.variant-info-toggle:hover,
+.variant-info-toggle:focus {
+	text-decoration: none;
+}
+[data-float] {
+	text-align: right;
+}
+.form-horizontal label.checkbox {
+	padding-top: 1px;
+}
+#productlisting_wallet-info {
+	font-size: 18px;
+}
+#productlisting_wallet-info .wallet-amounts td {
+	text-align: right;
+	color: #dd0000;
+	padding: 2px;
+}

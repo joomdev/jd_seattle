@@ -1,0 +1,7 @@
+[data-toggle="buttons"]>.btn>input[type="radio"], [data-toggle="buttons"]>.btn>input[type="checkbox"] {
+	display: none;
+}
+
+.select2-container-multi .select2-choices .select2-search-field input {
+	min-width: 200px;
+}

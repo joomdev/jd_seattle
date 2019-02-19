@@ -1,0 +1,64 @@
+.jff-sortablelist-table {
+	counter-reset: sortablelist;
+	background: #ffffff;
+	float: left;
+}
+
+.jff-sortablelist-table.sortablelist-inline {
+	float: none;
+}
+
+.jff-sortablelist-table .sortable-group {
+	width: 100%;
+	position: relative;
+	list-style: none;
+	padding: 2px;
+	min-height: 24px;
+	margin-bottom: 0;
+	min-width: 180px;
+	display: table;
+}
+
+.jff-sortablelist-table .sortable-item {
+	background-color: #ffffff;
+	cursor: move;
+	display: block;
+	padding: 2px 5px 2px 5px;
+	text-align: left;
+	min-width: 180px;
+	border: 1px solid #aaaaaa;
+	margin: 3px;
+}
+
+.jff-sortablelist-table .sortable-item:before {
+	counter-increment: sortablelist;
+	content: counter(sortablelist) ".";
+	float: left;
+	font-weight: normal;
+	margin-right: 10px;
+	color: #666666;
+}
+
+.jff-sortablelist-table .sortable-item:after {
+	content: '\f0c9';
+	float: right;
+	font-weight: normal;
+	margin-left: 10px;
+	font-family: FontAwesome, serif;
+	color: #666666;
+}
+
+.jff-sortablelist-table .placeholder {
+	background-color: rgba(155, 155, 155, 0.25);
+	border: 1px dashed #777777;
+	min-width: 180px;
+	height: 24px;
+	display: block;
+	margin: 3px;
+}
+
+.jff-sortablelist-table.sortablelist-inline .sortable-item,
+.jff-sortablelist-table.sortablelist-inline .placeholder {
+	float: left;
+	display: table-cell;
+}

@@ -29,6 +29,10 @@ class N2Platform {
         return JVERSION;
     }
 
+    public static function getCharset() {
+        return JDocument::getInstance()->getCharset();
+    }
+
     public static function getSiteUrl() {
 
         return JURI::root();
@@ -47,10 +51,10 @@ class N2Platform {
 
     public static function getPublicDir() {
         if (defined('JPATH_MEDIA')) {
-            return JPATH_SITE . JPATH_MEDIA;
+            return rtrim(JPATH_SITE, '\\/') . JPATH_MEDIA;
         }
 
-        return JPATH_SITE . '/media';
+        return rtrim(JPATH_SITE, '\\/') . '/media';
     }
 
     public static function getDebug() {

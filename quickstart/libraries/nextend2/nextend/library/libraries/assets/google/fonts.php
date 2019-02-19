@@ -22,10 +22,14 @@ class N2AssetsGoogleFonts extends N2AssetsAbstract {
 
     public function loadFonts() {
         $familyQuery = array();
+        $names       = array();
         if (count($this->files)) {
             foreach ($this->files AS $family => $styles) {
                 if (count($styles)) {
                     $familyQuery[] = $family . ':' . implode(',', $styles);
+                    foreach ($styles AS $style) {
+                        $names[] = $family . ':' . (substr($style, -6) == 'italic' ? 'i' : 'n') . $style[0];
+                    }
                 }
             }
         }
@@ -42,20 +46,36 @@ class N2AssetsGoogleFonts extends N2AssetsAbstract {
         N2JS::addGlobalInline("
         nextend.fontsLoaded = false;
         nextend.fontsLoadedActive = function () {nextend.fontsLoaded = true;};
-        var fontData = {
-            google: {
-                families: " . json_encode($familyQuery) . "
-            },
-            active: function(){nextend.fontsLoadedActive()},
-            inactive: function(){nextend.fontsLoadedActive()}
-        };
-        if(typeof WebFontConfig !== 'undefined'){
+        var requiredFonts = " . json_encode($names) . ",
+            fontData = {
+                google: {
+                    families: " . json_encode($familyQuery) . "
+                },
+                active: function(){nextend.fontsLoadedActive()},
+                inactive: function(){nextend.fontsLoadedActive()},
+                fontactive: function(f,s){fontData.resolveFont(f+':'+s);},
+                fontinactive: function(f,s){fontData.resolveFont(f+':'+s);},
+                resolveFont: function(n){
+                    for(var i = requiredFonts.length - 1; i >= 0; i--) {
+                        if(requiredFonts[i] === n) {
+                           requiredFonts.splice(i, 1);
+                           break;
+                        }
+                    }
+                    if(!requiredFonts.length) nextend.fontsLoadedActive();
+                }
+            };
+        if(typeof WebFontConfig !== 'undefined' && typeof WebFont === 'undefined'){
             var _WebFontConfig = WebFontConfig;
             for(var k in WebFontConfig){
                 if(k == 'active'){
                   fontData.active = function(){nextend.fontsLoadedActive();_WebFontConfig.active();}
                 }else if(k == 'inactive'){
                   fontData.inactive = function(){nextend.fontsLoadedActive();_WebFontConfig.inactive();}
+                }else if(k == 'fontactive'){
+                  fontData.fontactive = function(f,s){fontData.resolveFont(f+':'+s);_WebFontConfig.fontactive.apply(this,arguments);}
+                }else if(k == 'fontinactive'){
+                  fontData.fontinactive = function(f,s){fontData.resolveFont(f+':'+s);_WebFontConfig.fontinactive.apply(this,arguments);}
                 }else if(k == 'google'){
                     if(typeof WebFontConfig.google.families !== 'undefined'){
                         for(var i = 0; i < WebFontConfig.google.families.length; i++){
@@ -67,6 +87,9 @@ class N2AssetsGoogleFonts extends N2AssetsAbstract {
                 }
             }
         }
+        fontData.classes=true;
+        fontData.events=true;
+        
         if(typeof WebFont === 'undefined'){
             window.WebFontConfig = fontData;
         }else{

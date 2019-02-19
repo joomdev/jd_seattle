@@ -1,0 +1,137 @@
+div.component {
+	border: none;
+}
+
+.jarviswidget {
+	margin: 4px 6px;
+}
+
+#activation-plans .panel.pricing-big {
+	border-radius: 6px;
+	-webkit-box-shadow: 0 0 0 2px #b7dcff;
+	-moz-box-shadow: 0 0 0 2px #b7dcff;
+	box-shadow: 0 0 0 2px #b7dcff;
+}
+
+#activation-plans .panel > .ribbon {
+	position: absolute;
+	right: 3px;
+	top: -4px;
+}
+
+#activation-plans .panel > .panel-heading {
+	min-height: 110px;
+}
+
+#activation-plans .panel > .panel-footer > a.btn {
+	height: 50px;
+}
+
+#activation-plans .panel > .panel-body > .price-features {
+	padding: 15px 20px;
+	min-height: 120px;
+}
+
+@media (min-width: 990px) and (max-width: 1210px) {
+	.panel > .panel-body > .price-features {
+		min-height: 155px;
+	}
+}
+
+div#activation-wizard {
+	background-color: #cce8ff;
+	border-color: #b7dcff;
+	border-width: 1px 0;
+	border-style: solid;
+	padding: 10px 5px 10px 5px;
+	margin: -5px -5px 20px;
+}
+
+div#activation-wizard .form-group {
+	margin-bottom: 10px;
+}
+
+#activation-wizard label.form-label {
+	padding: 2px;
+	background-color: #ecf8ff;
+	color: #000000;
+}
+
+#activation-wizard input {
+	height: 34px;
+	font-size: 14px;
+	text-transform: uppercase;
+}
+
+#activation-wizard .input-group .btn {
+	height: 34px;
+	font-size: 14px;
+}
+
+.or-separator {
+	font-size: 18px;
+	font-weight: bold;
+	color: #000000;
+	background-color: rgba(107, 212, 115, 0.47);
+	border-color: #666666;
+	border-radius: 18px;
+	width: auto;
+	height: 36px;
+	padding: 5px;
+	margin-bottom: 18px;
+	margin-left: -10px;
+	margin-right: -10px;
+}
+
+.or-separator .or-marker {
+	position: absolute;
+	border-radius: 25px;
+	background: #000000;
+	color: #ffffff;
+	margin: -10px -5px;
+	padding: 10px;
+}
+
+div.msgbox {
+	margin: 0 -20px 4px -20px;
+	padding: 7px;
+	border: 0 solid #5fbf60;
+	border-left-width: 3px;
+	background: #cdffcf;
+	color: #000000;
+}
+
+div.msgbox.invalid {
+	border-color: #800000;
+	background: #ffe1d0;
+	color: #ff0000;
+}
+
+.wait-activation .auto-check {
+	display: block;
+}
+
+.wait-activation .manual-check {
+	display: none;
+}
+
+.wait-activation.manual .auto-check {
+	display: none;
+}
+
+.wait-activation.manual .manual-check {
+	display: block;
+}
+
+.activation-register {
+	max-width: 1180px;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: rgba(204, 232, 255, 0.44);
+}
+
+@media (max-width: 567px) {
+	div.col-xxs-12 {
+		width: 100%;
+	}
+}

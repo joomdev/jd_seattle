@@ -1,0 +1,155 @@
+.tile-box {
+	border: 1px solid #fafafa;
+	-webkit-box-shadow: 1px 1px 1px 2px #dfdfdf;
+	-moz-box-shadow: 1px 1px 1px 2px #dfdfdf;
+	box-shadow: 1px 1px 1px 2px #dfdfdf;
+	margin-bottom: 20px;
+}
+
+.tile-head {
+	padding: 4px;
+	background: #f5f5f5;
+}
+
+.tile-body {
+	padding: 5px;
+	border-top: 1px solid #dedede;
+}
+
+.tile-foot {
+	padding: 6px 6px 0 6px;
+	border-top: 1px solid #dedede;
+	height: 26px;
+	background: #f9f9f9;
+}
+
+.btn-toggle {
+	width: 30px;
+	height: 26px;
+	text-align: center;
+	font-size: 18px;
+	color: #494851;
+	line-height: 25px;
+}
+
+.order-number {
+	padding: 2px 24px 2px 0;
+	font-weight: bold;
+	white-space: nowrap;
+}
+
+td.order-number {
+	width: 150px;
+}
+
+.order-total {
+	float: right;
+	margin-right: 10px;
+	padding-top: 8px;
+	vertical-align: middle;
+}
+
+.order-total span {
+	font-weight: bold;
+	font-size: 14px;
+}
+
+.tile-foot .order-total {
+	float: right;
+	padding-top: 2px;
+	margin-right: 5px;
+	vertical-align: middle;
+}
+
+.tile-foot .order-total span {
+	font-weight: bold;
+	font-size: 16px;
+}
+
+.order-item-csv {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	vertical-align: middle;
+	padding: 0 auto;
+	max-height: 24px;
+	margin: 0 10px;
+}
+
+.order-item-csv:after {
+	content: '...';
+}
+
+.order-item-count {
+	padding-top: 8px;
+	float: right;
+	font-size: 12px;
+	white-space: nowrap;
+	vertical-align: middle;
+	font-weight: bold;
+}
+
+.order-item-count span {
+	font-weight: normal;
+}
+
+.tile-head table {
+	margin-top: -3px;
+}
+
+.order-items tr + tr {
+	border-top: 1px solid #dedede;
+}
+
+.order-items td {
+	padding: 5px;
+	line-height: 1.6;
+}
+
+.item-total {
+	font-weight: bold;
+	font-size: 14px;
+}
+
+.order-number a,
+.order-number a:hover,
+.order-number a:focus,
+.order-number a:visited,
+.order-number a:active {
+	color: #000000;
+	text-decoration: none;
+}
+
+.dark-link,
+.dark-link:hover,
+.dark-link:active,
+.dark-link:focus,
+.dark-link:visited {
+	color: #333333;
+}
+
+.btn-return-order, .btn-exchange-order {
+	/*width: 120px;*/
+	margin-top: 5px;
+	clear: both;
+	white-space: nowrap;
+}
+
+div[id^="return-form"],
+div[id^="exchange-form"] {
+	text-align: left !important;
+	width: 660px !important;
+	margin-left: -330px !important;
+}
+
+div[id^="return-form"] textarea,
+div[id^="exchange-form"] textarea {
+	width: 630px;
+}
+
+div.fieldset {
+	border: 1px solid #dedede;
+	padding: 8px;
+	margin-top: 16px;
+	margin-bottom: 6px;
+}
+

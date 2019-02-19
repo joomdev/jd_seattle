@@ -1,0 +1,25 @@
+.invalid {
+	color: #f00;
+}
+.invalid:not(label) {
+	border: 1px solid red;
+	display: block;
+}
+.address_name {
+	font-size: 15px;
+	font-weight: bold;
+	color: #000000;
+	line-height: 1.8;
+	margin-bottom: 10px;
+	width: 230px;
+}
+#address-text > span {
+	padding-left: 4px;
+}
+.address-row button {
+	margin: 2px;
+}
+.gl-input {
+	max-width: 800px;
+	min-width: 350px;
+}

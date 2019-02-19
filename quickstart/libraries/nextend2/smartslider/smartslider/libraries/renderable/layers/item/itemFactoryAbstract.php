@@ -72,12 +72,21 @@ abstract class N2SSPluginItemFactoryAbstract {
     }
 
     /**
+     * @param N2Data $data
+     */
+    public function upgradeData($data) {
+
+    }
+
+    /**
      * @param $slide N2SmartSliderSlide
      * @param $data  N2Data
      *
      * @return N2Data
      */
-    public static function getFilled($slide, $data) {
+    public function getFilled($slide, $data) {
+        $this->upgradeData($data);
+
         return $data;
     }
 
@@ -86,6 +95,7 @@ abstract class N2SSPluginItemFactoryAbstract {
      * @param                          $data
      */
     public function prepareExport($export, $data) {
+        $this->upgradeData($data);
     }
 
     /**
@@ -95,10 +105,14 @@ abstract class N2SSPluginItemFactoryAbstract {
      * @return N2Data
      */
     public function prepareImport($import, $data) {
+        $this->upgradeData($data);
+
         return $data;
     }
 
     public function prepareSample($data) {
+        $this->upgradeData($data);
+
         return $data;
     }
 

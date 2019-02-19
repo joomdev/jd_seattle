@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fields name="com_sellacious">
+		<fieldset
+				name="mod_sellacious_filters"
+				label="MOD_SELLACIOUS_FILTERS_CONFIG_FIELDSET_FILTER_OPTIONS_LABEL">
+			<field
+				name="hide_shippable_filter"
+				type="radio"
+				default="0"
+				label="MOD_SELLACIOUS_FILTERS_CONFIG_FIELD_HIDE_SHIPPABLE_FILTER_LABEL"
+				description="MOD_SELLACIOUS_FILTERS_CONFIG_FIELD_HIDE_SHIPPABLE_FILTER_DESC">
+				<option value="1">JYES</option>
+				<option value="0">JNO</option>
+			</field>
+			<field
+				name="hide_category_filter"
+				type="radio"
+				default="0"
+				label="MOD_SELLACIOUS_FILTERS_CONFIG_FIELD_HIDE_CATEGORY_FILTER_LABEL"
+				description="MOD_SELLACIOUS_FILTERS_CONFIG_FIELD_HIDE_CATEGORY_FILTER_DESC">
+				<option value="1">JYES</option>
+				<option value="0">JNO</option>
+			</field>
+			<field
+				name="hide_attribute_filter"
+				type="radio"
+				default="0"
+				label="MOD_SELLACIOUS_FILTERS_CONFIG_FIELD_HIDE_ATTRIBUTE_FILTER_LABEL"
+				description="MOD_SELLACIOUS_FILTERS_CONFIG_FIELD_HIDE_ATTRIBUTE_FILTER_DESC">
+				<option value="1">JYES</option>
+				<option value="0">JNO</option>
+			</field>
+			<field
+				name="hide_listing_type_filter"
+				type="radio"
+				default="0"
+				label="MOD_SELLACIOUS_FILTERS_CONFIG_FIELD_HIDE_LISTING_TYPE_FILTER_LABEL"
+				description="MOD_SELLACIOUS_FILTERS_CONFIG_FIELD_HIDE_LISTING_TYPE_FILTER_DESC">
+				<option value="1">JYES</option>
+				<option value="0">JNO</option>
+			</field>
+			<field
+				name="hide_item_condition_filter"
+				type="radio"
+				default="0"
+				label="MOD_SELLACIOUS_FILTERS_CONFIG_FIELD_HIDE_ITEM_CONDITION_FILTER_LABEL"
+				description="MOD_SELLACIOUS_FILTERS_CONFIG_FIELD_HIDE_ITEM_CONDITION_FILTER_DESC">
+				<option value="1">JYES</option>
+				<option value="0">JNO</option>
+			</field>
+			<field
+				name="hide_special_offer_filter"
+				type="radio"
+				default="0"
+				label="MOD_SELLACIOUS_FILTERS_CONFIG_FIELD_HIDE_SPECIAL_OFFER_FILTER_LABEL"
+				description="MOD_SELLACIOUS_FILTERS_CONFIG_FIELD_HIDE_SPECIAL_OFFER_FILTER_DESC">
+				<option value="1">JYES</option>
+				<option value="0">JNO</option>
+			</field>
+			<field
+				name="hide_shipping_filter"
+				type="radio"
+				default="0"
+				label="MOD_SELLACIOUS_FILTERS_CONFIG_FIELD_HIDE_SHIPPING_FILTER_LABEL"
+				description="MOD_SELLACIOUS_FILTERS_CONFIG_FIELD_HIDE_SHIPPING_FILTER_DESC">
+				<option value="1">JYES</option>
+				<option value="0">JNO</option>
+			</field>
+			<field
+				name="hide_store_location_filter"
+				type="radio"
+				default="0"
+				label="MOD_SELLACIOUS_FILTERS_CONFIG_FIELD_HIDE_STORE_LOCATION_FILTER_LABEL"
+				description="MOD_SELLACIOUS_FILTERS_CONFIG_FIELD_HIDE_STORE_LOCATION_FILTER_DESC">
+				<option value="1">JYES</option>
+				<option value="0">JNO</option>
+			</field>
+			<field
+				name="hide_price_filter"
+				type="radio"
+				default="0"
+				label="MOD_SELLACIOUS_FILTERS_CONFIG_FIELD_HIDE_PRICE_FILTER_LABEL"
+				description="MOD_SELLACIOUS_FILTERS_CONFIG_FIELD_HIDE_PRICE_FILTER_DESC">
+				<option value="1">JYES</option>
+				<option value="0">JNO</option>
+			</field>
+			<field
+				name="hide_shop_name_filter"
+				type="radio"
+				default="0"
+				note="Test"
+				label="MOD_SELLACIOUS_FILTERS_CONFIG_FIELD_HIDE_SHOP_NAME_FILTER_LABEL"
+				description="MOD_SELLACIOUS_FILTERS_CONFIG_FIELD_HIDE_SHOP_NAME_FILTER_DESC">
+				<option value="1">JYES</option>
+				<option value="0">JNO</option>
+			</field>
+			<field
+				name="hide_special_category_filter"
+				type="radio"
+				default="0"
+				label="MOD_SELLACIOUS_FILTERS_CONFIG_FIELD_HIDE_SPECIAL_CATEGORY_FILTER_LABEL"
+				description="MOD_SELLACIOUS_FILTERS_CONFIG_FIELD_HIDE_SPECIAL_CATEGORY_FILTER_DESC">
+				<option value="1">JYES</option>
+				<option value="0">JNO</option>
+			</field>
+			<field
+				name="hide_stock_filter"
+				type="radio"
+				default="0"
+				label="MOD_SELLACIOUS_FILTERS_CONFIG_FIELD_HIDE_STOCK_FILTER_LABEL"
+				description="MOD_SELLACIOUS_FILTERS_CONFIG_FIELD_HIDE_STOCK_FILTER_DESC">
+				<option value="1">JYES</option>
+				<option value="0">JNO</option>
+			</field>
+			<field
+				name="hide_store_availability_filter"
+				type="radio"
+				default="0"
+				label="MOD_SELLACIOUS_FILTERS_CONFIG_FIELD_HIDE_STORE_AVAILABILITY_FILTER_LABEL"
+				description="MOD_SELLACIOUS_FILTERS_CONFIG_FIELD_HIDE_STORE_AVAILABILITY_FILTER_DESC">
+				<option value="1">JYES</option>
+				<option value="0">JNO</option>
+			</field>
+			<field
+				name="filter_options_ordering"
+				type="text"
+				label="MOD_SELLACIOUS_FILTERS_CONFIG_FIELD_FILTER_OPTIONS_ORDERING_LABEL"
+				description="MOD_SELLACIOUS_FILTERS_CONFIG_FIELD_FILTER_OPTIONS_ORDERING_DESC"
+				default="SHIPPABLE, CATEGORY, PRODUCT_ATTRIBUTE, LISTING_TYPE, ITEM_CONDITION, SPECIAL_OFFER, SHIPPING, STORE_LOCATION, SHOP_NAME, SPECIAL_CATEGORY, STOCK, STORE_AVAILABILITY, PRICE"
+				hint="SHIPPABLE, CATEGORY, PRODUCT_ATTRIBUTE, LISTING_TYPE, ITEM_CONDITION, SPECIAL_OFFER, SHIPPING, STORE_LOCATION, SHOP_NAME, SPECIAL_CATEGORY, STOCK, STORE_AVAILABILITY, PRICE"
+				class="inputbox"/>
+			<field
+				name="shippable_location_search_in"
+				type="checkboxes"
+				label="MOD_SELLACIOUS_FILTERS_CONFIG_FIELD_SHIPPABLE_LOCATION_SEARCH_IN_LABEL"
+				description="MOD_SELLACIOUS_FILTERS_CONFIG_FIELD_SHIPPABLE_LOCATION_SEARCH_IN_DESC"
+				default="country">
+				<option value="country">MOD_SELLACIOUS_FILTERS_CONFIG_FIELD_STORE_LOCATION_CUSTOM_SEARCH_IN_COUNTRY</option>
+				<option value="state">MOD_SELLACIOUS_FILTERS_CONFIG_FIELD_STORE_LOCATION_CUSTOM_SEARCH_IN_STATE</option>
+				<option value="city">MOD_SELLACIOUS_FILTERS_CONFIG_FIELD_STORE_LOCATION_CUSTOM_SEARCH_IN_CITY</option>
+				<option value="zip">MOD_SELLACIOUS_FILTERS_CONFIG_FIELD_STORE_LOCATION_CUSTOM_SEARCH_IN_ZIP</option>
+			</field>
+			<field
+				name="store_location_custom_search_in"
+				type="checkboxes"
+				label="MOD_SELLACIOUS_FILTERS_CONFIG_FIELD_STORE_LOCATION_CUSTOM_SEARCH_IN_LABEL"
+				description="MOD_SELLACIOUS_FILTERS_CONFIG_FIELD_STORE_LOCATION_CUSTOM_SEARCH_IN_DESC"
+				default="country">
+				<option value="country">MOD_SELLACIOUS_FILTERS_CONFIG_FIELD_STORE_LOCATION_CUSTOM_SEARCH_IN_COUNTRY</option>
+				<option value="state">MOD_SELLACIOUS_FILTERS_CONFIG_FIELD_STORE_LOCATION_CUSTOM_SEARCH_IN_STATE</option>
+				<option value="city">MOD_SELLACIOUS_FILTERS_CONFIG_FIELD_STORE_LOCATION_CUSTOM_SEARCH_IN_CITY</option>
+				<option value="zip">MOD_SELLACIOUS_FILTERS_CONFIG_FIELD_STORE_LOCATION_CUSTOM_SEARCH_IN_ZIP</option>
+			</field>
+			<!--<field
+				name="show_more_for"
+				type="checkboxes"
+				label="MOD_SELLACIOUS_FILTERS_CONFIG_FIELD_SHOW_MORE_FOR_LABEL"
+				description="MOD_SELLACIOUS_FILTERS_CONFIG_FIELD_SHOW_MORE_FOR_DESC">
+				<option value="category">MOD_SELLACIOUS_FILTERS_CONFIG_FIELD_SHOW_OPTIONS_FOR_CATEGORY</option>
+				<option value="special_offer">MOD_SELLACIOUS_FILTERS_CONFIG_FIELD_SHOW_OPTIONS_FOR_SPECIAL_OFFER</option>
+				<option value="shop_name">MOD_SELLACIOUS_FILTERS_CONFIG_FIELD_SHOW_OPTIONS_FOR_SHOP_NAME</option>
+				<option value="spl_category">MOD_SELLACIOUS_FILTERS_CONFIG_FIELD_SHOW_OPTIONS_FOR_SPECIAL_CATEGORY</option>
+			</field>-->
+			<field
+				name="show_all_for"
+				type="checkboxes"
+				label="MOD_SELLACIOUS_FILTERS_CONFIG_FIELD_SHOW_ALL_FOR_LABEL"
+				description="MOD_SELLACIOUS_FILTERS_CONFIG_FIELD_SHOW_ALL_FOR_DESC">
+				<option value="category">MOD_SELLACIOUS_FILTERS_CONFIG_FIELD_SHOW_OPTIONS_FOR_CATEGORY</option>
+				<option value="special_offer">MOD_SELLACIOUS_FILTERS_CONFIG_FIELD_SHOW_OPTIONS_FOR_SPECIAL_OFFER</option>
+				<option value="shop_name">MOD_SELLACIOUS_FILTERS_CONFIG_FIELD_SHOW_OPTIONS_FOR_SHOP_NAME</option>
+				<option value="spl_category">MOD_SELLACIOUS_FILTERS_CONFIG_FIELD_SHOW_OPTIONS_FOR_SPECIAL_CATEGORY</option>
+			</field>
+			<field
+				name="categories_limit"
+				type="number"
+				label="MOD_SELLACIOUS_FILTERS_CONFIG_FIELD_CATEGORIES_LIMIT_LABEL"
+				description="MOD_SELLACIOUS_FILTERS_CONFIG_FIELD_CATEGORIES_LIMIT_DESC"
+				min="1"
+				default="10"
+				class="inputbox"/>
+			<field
+				name="special_offer_limit"
+				type="number"
+				label="MOD_SELLACIOUS_FILTERS_CONFIG_FIELD_SPECIAL_OFFER_LIMIT_LABEL"
+				description="MOD_SELLACIOUS_FILTERS_CONFIG_FIELD_SPECIAL_OFFER_LIMIT_DESC"
+				min="1"
+				default="10"
+				class="inputbox"/>
+			<field
+				name="shop_name_limit"
+				type="number"
+				label="MOD_SELLACIOUS_FILTERS_CONFIG_FIELD_SHOP_NAME_LIMIT_LABEL"
+				description="MOD_SELLACIOUS_FILTERS_CONFIG_FIELD_SHOP_NAME_LIMIT_DESC"
+				min="1"
+				default="10"
+				class="inputbox"/>
+			<field
+				name="special_categories_limit"
+				type="number"
+				label="MOD_SELLACIOUS_FILTERS_CONFIG_FIELD_SPECIAL_CATEGORIES_LIMIT_LABEL"
+				description="MOD_SELLACIOUS_FILTERS_CONFIG_FIELD_SPECIAL_CATEGORIES_LIMIT_DESC"
+				min="1"
+				default="10"
+				class="inputbox"/>
+		</fieldset>
+	</fields>
+</form>

@@ -1,0 +1,25 @@
+#products-box > .modal {
+	width: 70%;
+	margin-left: -35%;
+}
+
+.modal-body {
+	padding: 2px;
+	max-height: 500px;
+}
+
+.modal-body iframe {
+	width: 100%;
+	bottom: 10px;
+	border: 0 solid red;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	max-height: none;
+}
+
+#modal-cart.modal {
+	width: 70%;
+	margin-left: -35%;
+	left: 50%;
+}

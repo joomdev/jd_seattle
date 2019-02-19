@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="3.0" client="site" method="upgrade">
+	<name>mod_sellacious_finder_for_store</name>
+	<author>Aditya Chakraborty</author>
+	<creationDate>December 26, 2018</creationDate>
+	<copyright>Copyright (C) 2012-2018 Bhartiy Web Technologies. All rights reserved.</copyright>
+	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+	<authorEmail>info@bhartiy.com</authorEmail>
+	<authorUrl>www.bhartiy.com</authorUrl>
+	<version>1.6.1-alpha0</version>
+	<description>MOD_SELLACIOUS_FINDER_FOR_STORE_DESC</description>
+	<files>
+		<filename module="mod_sellacious_finder_for_store">mod_sellacious_finder_for_store.php</filename>
+		<folder>language</folder>
+		<folder>tmpl</folder>
+		<filename>helper.php</filename>
+	</files>
+	<media folder="media" destination="mod_sellacious_finder_for_store">
+		<folder>css</folder>
+	</media>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field
+					name="integration"
+					type="radio"
+					class="btn-group"
+					label="MOD_SELLACIOUS_FINDER_FOR_STORE_INTEGRATION_LABEL"
+					description="MOD_SELLACIOUS_FINDER_FOR_STORE_INTEGRATION_DESC"
+					default="sellacious"
+				>
+					<option value="sellacious">MOD_SELLACIOUS_FINDER_FOR_STORE_INTEGRATION_SELLACIOUS</option>
+					<option value="finder">MOD_SELLACIOUS_FINDER_FOR_STORE_INTEGRATION_JOOMLA_FINDER</option>
+				</field>
+
+				<field
+					name="search_layout"
+					type="radio"
+					class="btn-group"
+					label="MOD_SELLACIOUS_FINDER_FOR_STORE_STYLE_LABEL"
+					description="MOD_SELLACIOUS_FINDER_FOR_STORE_STYLE_DESC"
+					default="default"
+				>
+					<option value="default">MOD_SELLACIOUS_FINDER_FOR_STORE_DEFAULT</option>
+					<option value="dropdown">MOD_SELLACIOUS_FINDER_FOR_STORE_DROPDOWN</option>
+					<option value="overlay">MOD_SELLACIOUS_FINDER_FOR_STORE_OVERLAY</option>
+				</field>
+
+				<field
+					name="full_width"
+					type="radio"
+					class="btn-group btn-yes-no"
+					label="MOD_SELLACIOUS_FINDER_FOR_STORE_FULL_WIDTH"
+					description="MOD_SELLACIOUS_FINDER_FOR_STORE_FULL_WIDTH_DESC"
+					showon="search_layout:default"
+					default="1"
+				>
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+
+				<field
+					name="input_width"
+					type="number"
+					label="MOD_SELLACIOUS_FINDER_FOR_STORE_INPUT_WIDTH"
+					description="MOD_SELLACIOUS_FINDER_FOR_STORE_INPUT_WIDTH_DESC"
+					showon="search_layout:default[AND]full_width:0"
+					default="200"
+				/>
+
+				<field
+					name="spacer0"
+					type="spacer"
+					label="&lt;hr/&gt; &lt;b&gt;Input And Button Options&lt;/b&gt;"
+				/>
+
+				<field
+					name="display_label"
+					type="radio"
+					class="btn-group btn-yes-no"
+					label="MOD_SELLACIOUS_FINDER_FOR_STORE_DISPLAY_LABEL"
+					description="MOD_SELLACIOUS_FINDER_FOR_STORE_DISPLAY_LABEL_DESC"
+					showon="search_layout!:overlay"
+					default="1"
+				>
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+				<field
+					name="label_value"
+					type="text"
+					label="MOD_SELLACIOUS_FINDER_FOR_STORE_INPUT_LABEL"
+					description="MOD_SELLACIOUS_FINDER_FOR_STORE_INPUT_LABEL_DESC"
+					hint="MOD_SELLACIOUS_FINDER_FOR_STORE_INPUT_LABEL_HINT"
+					showon="display_label:1[AND]search_layout!:overlay"
+					default="Search"
+				/>
+
+				<field
+					name="finder_placeholder"
+					type="text"
+					label="MOD_SELLACIOUS_FINDER_FOR_STORE_INPUT_PLACEHOLDER"
+					description="MOD_SELLACIOUS_FINDER_FOR_STORE_INPUT_PLACEHOLDER_DESC"
+					hint="MOD_SELLACIOUS_FINDER_FOR_STORE_INPUT_PLACEHOLDER_HINT"
+					default="Search.."
+				/>
+
+				<field
+					name="button_type"
+					type="list"
+					label="MOD_SELLACIOUS_FINDER_FOR_STORE_BUTTON_TYPE"
+					description="MOD_SELLACIOUS_FINDER_FOR_STORE_BUTTON_TYPE_DESC"
+					showon="search_layout!:overlay"
+					default="icon"
+				>
+					<option value="icon">MOD_SELLACIOUS_FINDER_FOR_STORE_ICON</option>
+					<option value="text">MOD_SELLACIOUS_FINDER_FOR_STORE_TEXT</option>
+					<option value="both">MOD_SELLACIOUS_FINDER_FOR_STORE_BOTH</option>
+				</field>
+
+				<field
+					name="button_text"
+					type="text"
+					label="MOD_SELLACIOUS_FINDER_FOR_STORE_BUTTON_TEXT"
+					description="MOD_SELLACIOUS_FINDER_FOR_STORE_BUTTON_TEXT_DESC"
+					showon="search_layout!:overlay[AND]button_type!:icon"
+					default="Search"
+				/>
+
+				<field
+					name="button_position"
+					type="list"
+					label="MOD_SELLACIOUS_FINDER_FOR_STORE_BUTTON_POSITION"
+					description="MOD_SELLACIOUS_FINDER_FOR_STORE_BUTTON_POSITION_DESC"
+					showon="search_layout!:overlay"
+					default="right"
+				>
+					<option value="bottom">MOD_SELLACIOUS_FINDER_FOR_STORE_BTN_BOTTOM</option>
+					<option value="right">MOD_SELLACIOUS_FINDER_FOR_STORE_BTN_RIGHT</option>
+				</field>
+
+				<field
+					name="category_spacer"
+					type="spacer"
+					label="&lt;hr/&gt; &lt;b&gt;Products in Category Options&lt;/b&gt;"
+				/>
+
+				<field
+					name="show_category_results"
+					type="radio"
+					class="btn-group"
+					label="MOD_SELLACIOUS_FINDER_FOR_STORE_SHOW_CATEGORY_RESULTS_LABEL"
+					description="MOD_SELLACIOUS_FINDER_FOR_STORE_SHOW_CATEGORY_RESULTS_DESC"
+					default="1"
+				>
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+
+				<field
+					name="category_result_redirect"
+					type="radio"
+					class="btn-group"
+					label="MOD_SELLACIOUS_FINDER_FOR_STORE_CATEGORY_RESULT_REDIRECT_LABEL"
+					description="MOD_SELLACIOUS_FINDER_FOR_STORE_CATEGORY_RESULT_REDIRECT_DESC"
+					default="1"
+				>
+					<option value="1">MOD_SELLACIOUS_FINDER_FOR_STORE_SEARCH_RESULTS_PAGE</option>
+					<option value="2">MOD_SELLACIOUS_FINDER_FOR_STORE_PRODUCTS_PAGE</option>
+					<option value="3">MOD_SELLACIOUS_FINDER_FOR_STORE_CATEGORIES_PAGE</option>
+				</field>
+
+				<field
+					name="show_category_image"
+					type="radio"
+					class="btn-group"
+					label="MOD_SELLACIOUS_FINDER_FOR_STORE_SHOW_CATEGORY_IMAGE_LABEL"
+					description="MOD_SELLACIOUS_FINDER_FOR_STORE_SHOW_CATEGORY_IMAGE_DESC"
+					default="1"
+				>
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+
+				<field
+					name="categories_spacer"
+					type="spacer"
+					label="&lt;hr/&gt; &lt;b&gt;Category Results Options&lt;/b&gt;"
+				/>
+
+				<field
+					name="show_categories_results"
+					type="radio"
+					class="btn-group"
+					label="MOD_SELLACIOUS_FINDER_FOR_STORE_SHOW_CATEGORIES_RESULTS_LABEL"
+					description="MOD_SELLACIOUS_FINDER_FOR_STORE_SHOW_CATEGORIES_RESULTS_DESC"
+					default="1"
+				>
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+
+				<field
+					name="categories_result_redirect"
+					type="radio"
+					class="btn-group"
+					label="MOD_SELLACIOUS_FINDER_FOR_STORE_CATEGORIES_RESULT_REDIRECT_LABEL"
+					description="MOD_SELLACIOUS_FINDER_FOR_STORE_CATEGORIES_RESULT_REDIRECT_DESC"
+					default="1"
+				>
+					<option value="1">MOD_SELLACIOUS_FINDER_FOR_STORE_CATEGORIES_PAGE</option>
+					<option value="2">MOD_SELLACIOUS_FINDER_FOR_STORE_PRODUCTS_PAGE</option>
+				</field>
+
+				<field
+					name="show_categories_image"
+					type="radio"
+					class="btn-group"
+					label="MOD_SELLACIOUS_FINDER_FOR_STORE_SHOW_CATEGORIES_IMAGE_LABEL"
+					description="MOD_SELLACIOUS_FINDER_FOR_STORE_SHOW_CATEGORIES_IMAGE_DESC"
+					default="1"
+				>
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+
+				<field
+					name="spacer1"
+					type="spacer"
+					label="&lt;hr/&gt; &lt;b&gt;Product Options&lt;/b&gt;"
+				/>
+
+				<field
+					name="show_product_image"
+					type="radio"
+					class="btn-group"
+					label="MOD_SELLACIOUS_FINDER_FOR_STORE_SHOW_PRODUCT_IMAGE_LABEL"
+					description="MOD_SELLACIOUS_FINDER_FOR_STORE_SHOW_PRODUCT_IMAGE_DESC"
+					default="1"
+				>
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+
+				<field
+					name="show_product_category"
+					type="radio"
+					class="btn-group"
+					label="MOD_SELLACIOUS_FINDER_FOR_STORE_SHOW_PRODUCT_CATEGORY_LABEL"
+					description="MOD_SELLACIOUS_FINDER_FOR_STORE_SHOW_PRODUCT_CATEGORY_DESC"
+					default="1"
+				>
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+
+				<field
+					name="show_product_price"
+					type="radio"
+					class="btn-group"
+					label="MOD_SELLACIOUS_FINDER_FOR_STORE_SHOW_PRODUCT_PRICE_LABEL"
+					description="MOD_SELLACIOUS_FINDER_FOR_STORE_SHOW_PRODUCT_PRICE_DESC"
+					default="1"
+				>
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+
+				<field
+					name="order_spacer"
+					type="spacer"
+					label="&lt;hr/&gt; &lt;b&gt;Ordering Options&lt;/b&gt;"
+				/>
+
+				<fields name="ordering">
+					<field name="product"
+				        type="number"
+				        default="1"
+				        min="1"
+				        max="3"
+				        label="MOD_SELLACIOUS_FINDER_FOR_STORE_PRODUCT_ORDER_LABEL"
+				        description="MOD_SELLACIOUS_FINDER_FOR_STORE_PRODUCT_ORDER_DESC"
+					/>
+
+					<field name="category"
+				        type="number"
+				        default="2"
+			            min="1"
+			            max="3"
+				        label="MOD_SELLACIOUS_FINDER_FOR_STORE_CATEGORY_ORDER_LABEL"
+				        description="MOD_SELLACIOUS_FINDER_FOR_STORE_CATEGORY_ORDER_DESC"
+					/>
+
+					<field name="categories"
+				        type="number"
+				        default="3"
+				        min="1"
+			            max="3"
+				        label="MOD_SELLACIOUS_FINDER_FOR_STORE_CATEGORIES_ORDER_LABEL"
+				        description="MOD_SELLACIOUS_FINDER_FOR_STORE_CATEGORIES_ORDER_DESC"
+					/>
+				</fields>
+			</fieldset>
+
+			<fieldset name="advanced">
+
+				<field name="moduleclass_sfx"
+				       type="input" rows="3"
+				       label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL"
+				       description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC"/>
+
+				<field name="cache"
+				       type="list"
+				       default="1"
+				       label="COM_MODULES_FIELD_CACHING_LABEL"
+				       description="COM_MODULES_FIELD_CACHING_DESC">
+					<option value="1">JGLOBAL_USE_GLOBAL</option>
+					<option value="0">COM_MODULES_FIELD_VALUE_NOCACHING</option>
+				</field>
+
+				<field name="cache_time"
+				       type="text"
+				       default="900"
+				       label="COM_MODULES_FIELD_CACHE_TIME_LABEL"
+				       description="COM_MODULES_FIELD_CACHE_TIME_DESC"/>
+
+				<field name="cachemode"
+				       type="hidden"
+				       default="static">
+					<option value="static"></option>
+				</field>
+
+			</fieldset>
+		</fields>
+	</config>
+</extension>

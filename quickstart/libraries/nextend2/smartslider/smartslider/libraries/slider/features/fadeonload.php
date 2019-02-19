@@ -73,7 +73,7 @@ class N2SmartSliderFeatureFadeOnLoad {
                 return N2Html::tag("div", array(
                     "id"     => $this->slider->elementId . "-placeholder",
                     "encode" => false,
-                    "style"  => 'position: relative;z-index:2;background-color:RGBA(0,0,0,0);max-height:' . $maxHeight . 'px;' . $style . ' background-color:' . $this->placeholderColor . ';'
+                    "style"  => 'position: relative;z-index:2;background-color:RGBA(0,0,0,0);max-height:' . $maxHeight . 'px;' . n2_esc_attr($style) . ' background-color:' . $this->placeholderColor . ';'
                 ), $this->makeImage($sizes));
             } else {
                 $this->slider->addCSS("#{$this->slider->elementId} .n2-ss-load-fade{position: relative !important;}");
@@ -97,13 +97,13 @@ class N2SmartSliderFeatureFadeOnLoad {
 
     private function makeImage($sizes) {
         $html = N2Html::image("data:image/svg+xml;base64," . $this->transparentImage($sizes['width'] + $sizes['marginHorizontal'], $sizes['height']), 'Slider', array(
-            'style' => 'width: 100%; max-width:' . ($this->slider->features->responsive->maximumSlideWidth + $sizes['marginHorizontal']) . 'px; display: block;opacity:0;',
+            'style' => 'width: 100%; max-width:' . ($this->slider->features->responsive->maximumSlideWidth + $sizes['marginHorizontal']) . 'px; display: block;opacity:0;margin:0px;',
             'class' => 'n2-ow'
         ));
 
         if ($sizes['marginVertical'] > 0) {
             $html .= N2Html::image("data:image/svg+xml;base64," . $this->transparentImage($sizes['width'] + $sizes['marginHorizontal'], $sizes['marginVertical']), 'Slider', array(
-                'style' => 'width: 100%;',
+                'style' => 'width: 100%;margin:0px;',
                 'class' => 'n2-ow'
             ));
         }

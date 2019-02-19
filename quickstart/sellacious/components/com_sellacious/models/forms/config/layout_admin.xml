@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fields name="com_sellacious">
+		<fieldset
+			name="com_sellacious_layout_admin"
+			label="COM_SELLACIOUS_CONFIG_FIELDSET_LAYOUT_ADMIN_LABEL">
+			<field
+				name="main_menutype"
+				type="menu"
+				label="COM_SELLACIOUS_CONFIG_MAIN_MENUTYPE_LABEL"
+				description="COM_SELLACIOUS_CONFIG_MAIN_MENUTYPE_DESC"
+				default="*"
+				clientid="2"
+				class="medium-input"
+			>
+				<option value="*">COM_SELLACIOUS_CONFIG_MAIN_MENUTYPE_PRESET</option>
+			</field>
+			<field
+				name="show_ratings_in_catalogue"
+				type="radio"
+				default="1"
+				label="COM_SELLACIOUS_CONFIG_FIELD_CATALOGUE_SHOW_RATINGS_LABEL"
+				description="COM_SELLACIOUS_CONFIG_FIELD_CATALOGUE_SHOW_RATINGS_DESC">
+				<option value="1">JYES</option>
+				<option value="0">JNO</option>
+			</field>
+			<field
+				name="show_orders_in_catalogue"
+				type="radio"
+				default="1"
+				label="COM_SELLACIOUS_CONFIG_FIELD_CATALOGUE_SHOW_ORDERS_LABEL"
+				description="COM_SELLACIOUS_CONFIG_FIELD_CATALOGUE_SHOW_ORDERS_DESC">
+				<option value="1">JYES</option>
+				<option value="0">JNO</option>
+			</field>
+			<field
+				name="show_stock_in_catalogue"
+				type="radio"
+				default="1"
+				label="COM_SELLACIOUS_CONFIG_FIELD_CATALOGUE_SHOW_STOCK_LABEL"
+				description="COM_SELLACIOUS_CONFIG_FIELD_CATALOGUE_SHOW_STOCK_DESC">
+				<option value="1">JYES</option>
+				<option value="0">JNO</option>
+			</field>
+			<field
+				name="product_fields"
+				type="CheckMatrix"
+				label="COM_SELLACIOUS_CONFIG_FIELD_PRODUCT_FIELDS_LABEL"
+				description="COM_SELLACIOUS_CONFIG_FIELD_PRODUCT_FIELDS_DESC"
+				pivot="column"
+			>
+				<column value="physical">COM_SELLACIOUS_CONFIG_PRODUCT_EDIT_SHOW_OPTION_PHYSICAL</column>
+				<column value="electronic">COM_SELLACIOUS_CONFIG_PRODUCT_EDIT_SHOW_OPTION_ELECTRONIC</column>
+				<column value="package">COM_SELLACIOUS_CONFIG_PRODUCT_EDIT_SHOW_OPTION_PACKAGE</column>
+
+				<row value="parent_product">COM_SELLACIOUS_CONFIG_PRODUCT_FIELDS_OPTION_PARENT_PRODUCT</row>
+				<row value="manufacturer">COM_SELLACIOUS_CONFIG_PRODUCT_FIELDS_OPTION_MANUFACTURER</row>
+				<row value="manufacturer_sku">COM_SELLACIOUS_CONFIG_PRODUCT_FIELDS_OPTION_MANUFACTURER_SKU</row>
+				<row value="min_quantity">COM_SELLACIOUS_CONFIG_PRODUCT_FIELDS_OPTION_MIN_QUANTITY</row>
+				<row value="max_quantity">COM_SELLACIOUS_CONFIG_PRODUCT_FIELDS_OPTION_MAX_QUANTITY</row>
+				<row value="over_stock">COM_SELLACIOUS_CONFIG_PRODUCT_FIELDS_OPTION_OVER_STOCK</row>
+				<row value="whats_in_box">COM_SELLACIOUS_CONFIG_PRODUCT_FIELDS_OPTION_WHATS_IN_BOX</row>
+				<row value="product_features">COM_SELLACIOUS_CONFIG_PRODUCT_FIELDS_OPTION_PRODUCT_FEATURES</row>
+				<row value="short_description">COM_SELLACIOUS_CONFIG_PRODUCT_FIELDS_OPTION_SHORT_DESCRIPTION</row>
+				<row value="product_attachments">COM_SELLACIOUS_CONFIG_PRODUCT_FIELDS_OPTION_PRODUCT_ATTACHMENTS</row>
+				<row value="seller_attachments">COM_SELLACIOUS_CONFIG_PRODUCT_FIELDS_OPTION_SELLER_ATTACHMENTS</row>
+				<row value="eproduct_delivery" columns="electronic">COM_SELLACIOUS_CONFIG_PRODUCT_FIELDS_OPTION_EPRODUCT_DELIVERY</row>
+				<row value="location">COM_SELLACIOUS_CONFIG_PRODUCT_FIELDS_OPTION_LOCATION</row>
+			</field>
+		</fieldset>
+	</fields>
+</form>

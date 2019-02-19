@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset name="basic" label="COM_SELLACIOUS_SHIPPINGRULE_FIELDSET_BASIC">
+		<field
+			name="id"
+			type="hidden"
+			default="0"
+			readonly="true"
+		/>
+		<field
+			name="title"
+			type="text"
+			label="COM_SELLACIOUS_SHIPPINGRULE_FIELD_TITLE_LABEL"
+			description="COM_SELLACIOUS_SHIPPINGRULE_FIELD_TITLE_DESC"
+			class="inputbox"
+			required="true"
+		/>
+		<field
+			name="state"
+			type="radio"
+			label="COM_SELLACIOUS_SHIPPINGRULE_FIELD_STATUS_LABEL"
+			description="COM_SELLACIOUS_SHIPPINGRULE_FIELD_STATUS_DESC"
+			required="true"
+			default="1"
+		>
+			<option value="1">JENABLED</option>
+			<option value="0">JDISABLED</option>
+		</field>
+		<field
+			name="method_name"
+			type="shippingMethod"
+			label="COM_SELLACIOUS_SHIPPINGRULE_FIELD_METHOD_LABEL"
+			description="COM_SELLACIOUS_SHIPPINGRULE_FIELD_METHOD_DESC"
+			onchange="this.form.submit();"
+			required="true"
+			class="w100p"
+			default="*"
+		>
+			<option value="*">COM_SELLACIOUS_SHIPPINGRULE_METHOD_BASIC</option>
+		</field>
+		<field
+			name="amount"
+			type="money"
+			label="COM_SELLACIOUS_SHIPPINGRULE_FIELD_AMOUNT_LABEL"
+			description="COM_SELLACIOUS_SHIPPINGRULE_FIELD_AMOUNT_DESC"
+			default="0.00"
+			validate="money"
+			sign="GEZ"
+		/>
+		<field
+			name="amount_additional"
+			type="money"
+			label="COM_SELLACIOUS_SHIPPINGRULE_FIELD_AMOUNT_ADDITIONAL_LABEL"
+			description="COM_SELLACIOUS_SHIPPINGRULE_FIELD_AMOUNT_ADDITIONAL_DESC"
+			default="0.00"
+			validate="money"
+			sign="GEZ"
+		/>
+		<fields name="params">
+			<field
+				name="weight_unit"
+				type="unit"
+				label="COM_SELLACIOUS_SHIPPINGRULE_FIELD_WEIGHT_UNIT_LABEL"
+				description="COM_SELLACIOUS_SHIPPINGRULE_FIELD_WEIGHT_UNIT_DESC"
+				unit_group="Weight"
+				class="medium-input"
+			/>
+			<field
+				name="packaging_weight"
+				type="number"
+				label="COM_SELLACIOUS_SHIPPINGRULE_FIELD_PACKAGING_WEIGHT_LABEL"
+				description="COM_SELLACIOUS_SHIPPINGRULE_FIELD_PACKAGING_WEIGHT_DESC"
+				class="inputbox medium-input"
+				default="0"
+				min="0"
+			/>
+			<field
+				name="form_fields"
+				type="formFields"
+				label="COM_SELLACIOUS_SHIPPINGRULE_FIELD_FORM_LABEL"
+				description="COM_SELLACIOUS_SHIPPINGRULE_FIELD_FORM_DESC"
+				class="inputbox w100p"
+				context="shippingmethod"
+				multiple="true"
+			/>
+		</fields>
+		<fields name="slabs">
+			<field
+				name="weight_slabs"
+				type="shippingSlabs"
+				label="COM_SELLACIOUS_SHIPPINGRULE_FIELD_WEIGHT_SLABS_LABEL"
+				description="COM_SELLACIOUS_SHIPPINGRULE_FIELD_WEIGHT_SLABS_DESC"
+				unit_toggle="false"
+				precision="3"
+			/>
+			<field
+				name="quantity_slabs"
+				type="shippingSlabs"
+				label="COM_SELLACIOUS_SHIPPINGRULE_FIELD_QUANTITY_SLABS_LABEL"
+				description="COM_SELLACIOUS_SHIPPINGRULE_FIELD_QUANTITY_SLABS_DESC"
+				unit_toggle="true"
+				precision="0"
+			/>
+			<field
+				name="price_slabs"
+				type="shippingSlabs"
+				label="COM_SELLACIOUS_SHIPPINGRULE_FIELD_PRICE_SLABS_LABEL"
+				description="COM_SELLACIOUS_SHIPPINGRULE_FIELD_PRICE_SLABS_DESC"
+				unit_toggle="true"
+				precision="2"
+			/>
+		</fields>
+	</fieldset>
+	<fieldset name="method" label="COM_SELLACIOUS_SHIPPINGRULE_FIELDSET_METHOD">
+	</fieldset>
+</form>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fields name="filter">
+		<field
+			name="search"
+			type="text"
+			hint="JSEARCH_FILTER"
+			class="inputbox"
+		/>
+		<field
+			name="extension"
+			type="extensionGroups"
+			onchange="this.form.submit();"
+			class=""
+		>
+			<option value="">JOPTION_SELECT</option>
+		</field>
+		<field
+			name="filename"
+			type="sql"
+			key_field="filename"
+			value_field="filename"
+			sql_select="DISTINCT filename"
+			sql_from="#__languages_strings"
+			sql_order="filename"
+			onchange="this.form.submit();"
+			class=""
+		>
+			<option value="">JOPTION_SELECT</option>
+		</field>
+	</fields>
+	<fields name="list">
+		<field
+			name="client"
+			type="radio"
+			onchange="this.form.submit();"
+		>
+			<option value="">JALL</option>
+			<option value="sellacious">LIB_SELLACIOUS_APP_TITLE_BACKOFFICE</option>
+			<option value="site">LIB_SELLACIOUS_APP_TITLE_SITE</option>
+		</field>
+		<field
+			name="columns"
+			type="choice"
+			label="COM_LANGUAGES_STRINGS_TOOLBAR_HEADING_SHOW_OPTIONS"
+			onchange="this.form.submit()"
+			class="inputbox"
+			multiple="true"
+		>
+			<option value="lang-key">COM_LANGUAGES_HEADING_LANG_KEY</option>
+			<option value="lang-string">COM_LANGUAGES_HEADING_LANG_TEXT</option>
+			<option value="lang-override">COM_LANGUAGES_HEADING_LANG_OVERRIDE</option>
+		</field>
+		<field
+			name="language"
+			type="ClientLanguage"
+			onchange="this.form.submit();"
+			class="gl-input-md"
+		>
+			<option value="">JOPTION_SELECT</option>
+		</field>
+		<field
+			name="fullordering"
+			type="groupedList"
+			label="JGLOBAL_SORT_BY"
+			description="JGLOBAL_SORT_BY"
+			onchange="this.form.submit();"
+			default="a.ordering ASC"
+			class="gl-input-md"
+		>
+			<option value="">JGLOBAL_SORT_BY</option>
+			<group name="ASC" label="COM_SELLACIOUS_SORT_ASCENDING">
+				<option value="a.lang_constant ASC">COM_LANGUAGES_HEADING_LANG_CONSTANT</option>
+				<option value="a.orig_text ASC">COM_LANGUAGES_HEADING_ORIG_TEXT</option>
+				<option value="a.extension ASC">COM_LANGUAGES_HEADING_EXTENSION</option>
+				<option value="a.filename ASC">COM_LANGUAGES_HEADING_FILENAME</option>
+				<option value="a.id ASC">JGRID_HEADING_ID</option>
+			</group>
+			<group name="DESC" label="COM_SELLACIOUS_SORT_DESCENDING">
+				<option value="a.lang_constant DESC">COM_LANGUAGES_HEADING_LANG_CONSTANT</option>
+				<option value="a.orig_text DESC">COM_LANGUAGES_HEADING_ORIG_TEXT</option>
+				<option value="a.extension DESC">COM_LANGUAGES_HEADING_EXTENSION</option>
+				<option value="a.filename DESC">COM_LANGUAGES_HEADING_FILENAME</option>
+				<option value="a.id DESC">JGRID_HEADING_ID</option>
+			</group>
+		</field>
+		<field
+			name="limit"
+			type="limitbox"
+			label="JGLOBAL_LIMIT"
+			description="JGLOBAL_LIMIT"
+			class="input-mini"
+			default="25"
+			onchange="this.form.submit();"
+		/>
+	</fields>
+</form>

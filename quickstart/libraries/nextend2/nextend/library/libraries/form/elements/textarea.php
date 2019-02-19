@@ -17,7 +17,7 @@ class N2ElementTextarea extends N2Element {
             'class'        => 'n2-h5',
             'autocomplete' => 'off',
             'style'        => $this->fieldStyle
-        ), $this->getValue()));
+        ), n2_esc_textarea($this->getValue())));
     }
 
     protected function setFieldStyle($fieldStyle) {

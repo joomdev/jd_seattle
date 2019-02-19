@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="3.1" client="administrator" method="upgrade">
+	<name>mod_smartymenu</name>
+	<author>Bhavika Matariya</author>
+	<creationDate>December 26, 2018</creationDate>
+	<copyright>2012 (c) Bhartiy Web Technologies. All rights reserved.</copyright>
+	<license>SPL Sellacious Private License; see http://www.sellacious.com/spl.html</license>
+	<authorEmail>info@bhartiy.com</authorEmail>
+	<authorUrl>http://bhartiy.com/</authorUrl>
+	<version>1.6.1-alpha0</version>
+	<description>MOD_SMARTYMENU_XML_DESCRIPTION</description>
+	<files>
+		<filename module="mod_smartymenu">mod_smartymenu.php</filename>
+		<filename>smartymenu.php</filename>
+		<filename>helper.php</filename>
+		<folder>tmpl</folder>
+		<folder>language</folder>
+	</files>
+	<help key="JHELP_EXTENSIONS_MODULE_MANAGER_ADMIN_MENU" />
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field
+					name="menutype"
+					type="menu"
+					label="Select Menu"
+					description="Select Menu" />
+			</fieldset>
+			<fieldset name="advanced">
+				<field
+					name="layout"
+					type="modulelayout"
+					label="JFIELD_ALT_LAYOUT_LABEL"
+					description="JFIELD_ALT_MODULE_LAYOUT_DESC" />
+				<field
+					name="moduleclass_sfx"
+					type="textarea" rows="3"
+					label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL"
+					description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC" />
+				<field
+					name="cache"
+					type="list"
+					default="0"
+					label="COM_MODULES_FIELD_CACHING_LABEL"
+					description="COM_MODULES_FIELD_CACHING_DESC">
+					<option
+						value="0">COM_MODULES_FIELD_VALUE_NOCACHING</option>
+				</field>
+			</fieldset>
+		</fields>
+	</config>
+</extension>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset name="variants" label="COM_SELLACIOUS_PRODUCT_FIELDSET_VARIANTS">
+		<fields name="variant">
+			<field
+				name="id"
+				type="text"
+				label="COM_SELLACIOUS_VARIANT_FIELD_ID_LABEL"
+				description="COM_SELLACIOUS_VARIANT_FIELD_ID_DESC"
+				default="0"
+				readonly="true"
+				class="input-disabled"
+				/>
+			<field
+				name="product_id"
+				type="hidden"
+				default="0"
+				readonly="true"
+				/>
+			<field
+				name="title"
+				type="text"
+				label="COM_SELLACIOUS_VARIANT_FIELD_TITLE_LABEL"
+				description="COM_SELLACIOUS_VARIANT_FIELD_TITLE_DESC"
+				class="inputbox w50p"
+				required="true"
+				autocomplete="off"
+				/>
+			<field
+				name="alias"
+				type="text"
+				label="COM_SELLACIOUS_VARIANT_FIELD_ALIAS_LABEL"
+				description="COM_SELLACIOUS_VARIANT_FIELD_ALIAS_DESC"
+				class="inputbox w50p"
+				autocomplete="off"
+				/>
+			<field
+				name="local_sku"
+				type="text"
+				label="COM_SELLACIOUS_VARIANT_FIELD_SKU_LABEL"
+				description="COM_SELLACIOUS_VARIANT_FIELD_SKU_DESC"
+				class="inputbox w50p"
+				required="true"
+				validate="sku"
+				/>
+			<field
+				name="features"
+				type="textboxes"
+				label="COM_SELLACIOUS_VARIANT_FIELD_FEATURES_LABEL"
+				description="COM_SELLACIOUS_VARIANT_FIELD_FEATURES_DESC"
+				rows="5"
+				class="inputbox w50p"
+				/>
+			<field
+				name="images"
+				type="fileplus"
+				label="COM_SELLACIOUS_PRODUCT_FIELD_IMAGES_LABEL"
+				description="COM_SELLACIOUS_PRODUCT_FIELD_IMAGES_DESC"
+				class="inputbox"
+				context="variants.images"
+				record_id=""
+				filetype="image"
+				rename="true"
+				/>
+			<field
+				name="eproduct"
+				type="eproductmedia"
+				label="COM_SELLACIOUS_PRODUCT_FIELD_EPRODUCT_LABEL"
+				description="COM_SELLACIOUS_PRODUCT_FIELD_EPRODUCT_DESC"
+				class="inputbox"
+				context="products.eproduct"
+				record_id=""
+			/>
+		</fields>
+	</fieldset>
+</form>

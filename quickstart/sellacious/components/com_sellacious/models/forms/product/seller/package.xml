@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset name="seller" label="COM_SELLACIOUS_PRODUCT_FIELDSET_SELLER">
+		<fields name="seller">
+			<field
+				name="disable_stock"
+				type="radio"
+				label="COM_SELLACIOUS_PRODUCT_FIELD_DISABLE_STOCK_LABEL"
+				description="COM_SELLACIOUS_PRODUCT_FIELD_DISABLE_STOCK_DESC"
+				class="inputbox"
+				default="0"
+			>
+				<option value="0">JENABLED</option>
+				<option value="1">JDISABLED</option>
+			</field>
+			<field
+				name="stock"
+				type="number"
+				min="0"
+				default="10"
+				label="COM_SELLACIOUS_PRODUCT_FIELD_STOCK_LABEL"
+				description="COM_SELLACIOUS_PRODUCT_FIELD_STOCK_DESC"
+				class="inputbox tiny-input"
+				/>
+			<field
+				name="over_stock"
+				type="number"
+				min="0"
+				default="0"
+				label="COM_SELLACIOUS_PRODUCT_FIELD_OVER_STOCK_LABEL"
+				description="COM_SELLACIOUS_PRODUCT_FIELD_OVER_STOCK_DESC"
+				class="inputbox tiny-input"
+				/>
+			<field
+				name="listing_type"
+				type="ListingType"
+				label="COM_SELLACIOUS_PRODUCT_FIELD_LISTING_TYPE_LABEL"
+				description="COM_SELLACIOUS_PRODUCT_FIELD_LISTING_TYPE_DESC"
+				required="true"
+				default="1"
+			/>
+			<field
+				name="item_condition"
+				type="radio"
+				label="COM_SELLACIOUS_PRODUCT_FIELD_ITEM_CONDITION_LABEL"
+				description="COM_SELLACIOUS_PRODUCT_FIELD_ITEM_CONDITION_DESC"
+				default="1"
+				>
+				<option value="1">COM_SELLACIOUS_PRODUCT_FIELD_ITEM_CONDITION_LIKE_NEW</option>
+				<option value="2">COM_SELLACIOUS_PRODUCT_FIELD_ITEM_CONDITION_AVERAGE</option>
+				<option value="3">COM_SELLACIOUS_PRODUCT_FIELD_ITEM_CONDITION_GOOD</option>
+				<option value="4">COM_SELLACIOUS_PRODUCT_FIELD_ITEM_CONDITION_POOR</option>
+			</field>
+			<field
+				name="whats_in_box"
+				type="textarea"
+				label="COM_SELLACIOUS_PRODUCT_FIELD_WHATS_IN_BOX_LABEL"
+				description="COM_SELLACIOUS_PRODUCT_FIELD_WHATS_IN_BOX_SELLER_DESC"
+				class="textarea medium-input"
+				filter="string"
+				rows="5"
+				/>
+		</fields>
+	</fieldset>
+</form>

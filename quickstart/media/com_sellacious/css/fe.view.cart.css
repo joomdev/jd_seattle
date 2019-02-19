@@ -1,0 +1,48 @@
+#cart-wrapper .ajax-overlay,
+#cart-wrapper .ajax-overlay:after {
+	position: absolute;
+	top: 1px;
+	right: 1px;
+	bottom: 1px;
+	left: 1px;
+	border-radius: 5px;
+}
+
+#cart-wrapper .ajax-overlay {
+	z-index: 100;
+	display: none;
+}
+
+#cart-wrapper .ajax-overlay:after {
+	z-index: 101;
+	content: ' ';
+	background: #cccccc;
+	opacity: 0.5;
+}
+
+#cart-wrapper .ajax-overlay:before {
+	z-index: 102;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	-ms-transform: translateX(-50%) translateY(-50%);
+	-moz-transform: translateX(-50%) translateY(-50%);
+	-webkit-transform: translateX(-50%) translateY(-50%);
+	transform: translateX(-50%) translateY(-50%);
+	font-family: FontAwesome, serif;
+	content: "\f110";
+	font-size: 4em;
+	animation: fa-spin 1.5s infinite linear;
+}
+
+#cart-wrapper .ajax-running {
+	position: relative;
+}
+
+#cart-wrapper .ajax-running .ajax-overlay {
+	display: block;
+}
+
+#cart-items {
+	margin: 0;
+}

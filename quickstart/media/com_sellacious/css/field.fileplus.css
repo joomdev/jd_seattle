@@ -1,0 +1,85 @@
+.jff-fileplus-list {
+	margin: 0;
+}
+.jff-fileplus-list li {
+	position: relative;
+	padding: 2px 15px 3px 0;
+	margin: 1px 1px 1px 2px;
+	white-space: nowrap;
+}
+.jff-fileplus-list li:first-child {
+	margin-top: 5px;
+}
+.jff-fileplus-list a.jff-fileplus-disable,
+.jff-fileplus-list a.jff-fileplus-enable {
+	background: #B8D3A2;
+	border-radius: 2px;
+	padding: 2px 5px;
+	margin: 0 5px 0 0;
+}
+.jff-fileplus-list a,
+.jff-fileplus-list a:hover,
+.jff-fileplus-list a:active,
+.jff-fileplus-list a:focus {
+	text-decoration: none;
+}
+.jff-fileplus-list li:hover {
+	background: #beddf7;
+	border-radius: 2px;
+	padding: 2px 2px 3px 0;
+}
+.jff-fileplus-add {
+	margin:0 0 0 0 !important;
+	float: left;
+	height: 29px;
+}
+.jff-fileplus-add-ref {
+	margin: 0;
+}
+.jff-fileplus-preview.disabled {
+	opacity: 0;
+}
+.jff-fileplus-inactive {
+	margin: 0 0 5px 0 !important;
+	height: 32px !important;
+}
+.jff-fileplus-progress {
+	float: left;
+	margin: 2px 2px -2px !important;
+	padding: 4px 26px !important;
+	height: 22px;
+	min-width: 22px;
+	background: url("../images/progress-bar.gif") no-repeat;
+	background-size: 22px;
+	-webkit-background-size: 22px;
+}
+.jff-fileplus-list a.jff-fileplus-404 {
+	text-decoration: line-through;
+}
+.jff-fileplus-list .jff-fileplus-preview {
+	display: none;
+}
+.jff-fileplus-list .jff-fileplus-download:hover .jff-fileplus-preview {
+	display: block;
+	z-index: 100;
+	max-width: 200px;
+	max-height: 200px;
+	position: absolute;
+	border: 1px solid #000;
+	margin: -2px;
+	bottom: 30px;
+	padding: 2px;
+	background: #fff;
+}
+.jff-fileplus-enable + .jff-fileplus-download:hover .jff-fileplus-preview {
+	filter: gray; /* IE6-9 */
+	-webkit-filter: grayscale(1); /* Google Chrome, Safari 6+ & Opera 15+ */
+	filter: grayscale(1); /* Microsoft Edge and Firefox 35+ */
+}
+.jff-fileplus-premium {
+	margin-left: 15px;
+}
+.jff-fileplus-wrapper > .premium-input-pre:after {
+	margin-left: -15px;
+	line-height: 2.3;
+}

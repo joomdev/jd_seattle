@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset name="address" label="COM_SELLACIOUS_USER_FIELDSET_ADDRESSES">
+		<fields name="address">
+			<field
+				name="id"
+				type="hidden"
+				class="address-id"
+			/>
+			<field
+				name="name"
+				type="text"
+				label="COM_SELLACIOUS_ADDRESS_FORM_FIELD_NAME_LABEL"
+				class="gl-input address-name"
+				required="true"
+			/>
+			<field
+				name="company"
+				type="text"
+				label="COM_SELLACIOUS_ADDRESS_FORM_FIELD_COMPANY_LABEL"
+				class="gl-input address-company"
+			/>
+			<field
+				name="po_box"
+				type="text"
+				label="COM_SELLACIOUS_ADDRESS_FORM_FIELD_PO_BOX_LABEL"
+				class="gl-input address-po_box"
+			/>
+			<field
+				name="address"
+				type="textarea"
+				label="COM_SELLACIOUS_ADDRESS_FORM_FIELD_ADDRESS_LABEL"
+				class="gl-input address-address"
+				required="true"
+			/>
+			<field
+				name="landmark"
+				type="text"
+				label="COM_SELLACIOUS_ADDRESS_FORM_FIELD_LANDMARK_LABEL"
+				class="gl-input address-landmark"
+				autocomplete="off"
+			/>
+			<field
+				name="country"
+				type="location"
+				label="COM_SELLACIOUS_ADDRESS_FORM_FIELD_COUNTRY_LABEL"
+				class="gl-input address-country"
+				autocomplete="off"
+				gl_type="country"
+				address_type="any"
+				default="shop_country"
+				rel=""
+			/>
+			<field
+				name="state_loc"
+				type="location"
+				label="COM_SELLACIOUS_ADDRESS_FORM_FIELD_STATE_LOC_LABEL"
+				class="gl-input address-state_loc"
+				autocomplete="off"
+				gl_type="state"
+				address_type="any"
+				rel="address.country"
+			/>
+			<field
+				name="district"
+				type="location"
+				label="COM_SELLACIOUS_ADDRESS_FORM_FIELD_DISTRICT_LABEL"
+				class="gl-input address-district"
+				autocomplete="off"
+				gl_type="district"
+				address_type="any"
+				rel="address.state_loc|address.country"
+			/>
+			<field
+				name="zip"
+				type="text"
+				label="COM_SELLACIOUS_ADDRESS_FORM_FIELD_ZIP_LABEL"
+				class="gl-input address-zip"
+				autocomplete="off"
+			/>
+			<field
+				name="mobile"
+				type="text"
+				label="COM_SELLACIOUS_ADDRESS_FORM_FIELD_MOBILE_LABEL"
+				class="gl-input address-mobile"
+				required="true"
+			/>
+			<field
+				name="residential"
+				type="radio"
+				label="COM_SELLACIOUS_ADDRESS_FORM_FIELD_RESIDENTIAL_LABEL"
+				class="address-residential"
+				required="true"
+			>
+				<option value="0">COM_SELLACIOUS_ADDRESS_FORM_FIELD_TYPE_OPTION_OFFICE</option>
+				<option value="1">COM_SELLACIOUS_ADDRESS_FORM_FIELD_TYPE_OPTION_RESIDENTIAL</option>
+			</field>
+		</fields>
+	</fieldset>
+</form>

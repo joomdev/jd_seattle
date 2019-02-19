@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fields name="seller">
+		<fieldset name="shipping" label="COM_SELLACIOUS_PRODUCT_FIELDSET_SHIPPING">
+			<!--<field
+				name="flat_shipping"
+				type="hidden"
+				default="1"
+				/>-->
+			<field
+				name="flat_shipping"
+				type="radio"
+				label="COM_SELLACIOUS_PRODUCT_FIELD_SHIPPING_TYPE_LABEL"
+				description="COM_SELLACIOUS_PRODUCT_FIELD_SHIPPING_TYPE_DESC"
+				class="inputbox"
+				required="true"
+				default="1"
+				>
+				<option value="1">COM_SELLACIOUS_PRODUCT_FIELD_SHIPPING_TYPE_FLAT</option>
+				<option value="0">COM_SELLACIOUS_PRODUCT_FIELD_SHIPPING_TYPE_RULES</option>
+			</field>
+			<field
+				name="shipping_flat_fee"
+				type="money"
+				label="COM_SELLACIOUS_PRODUCT_FIELD_SHIPPING_FLAT_FEE_LABEL"
+				description="COM_SELLACIOUS_PRODUCT_FIELD_SHIPPING_FLAT_FEE_DESC"
+				default="0.00"
+				class="inputbox"
+				validate="money"
+				sign="GEZ"
+				/>
+			<field
+				type="fieldgroup"
+				label=""
+				description="COM_SELLACIOUS_PRODUCT_FIELD_PACKAGED_DIMENSION_TIP"
+			/>
+			<field
+				name="length"
+				type="unitcombo"
+				label="COM_SELLACIOUS_PRODUCT_FIELD_PACKAGED_LENGTH_LABEL"
+				description="COM_SELLACIOUS_PRODUCT_PACKAGED_FIELD_LENGTH_DESC"
+				class="inputbox small-input"
+				unit_group="length"
+			/>
+			<field
+				name="width"
+				type="unitcombo"
+				label="COM_SELLACIOUS_PRODUCT_FIELD_PACKAGED_WIDTH_LABEL"
+				description="COM_SELLACIOUS_PRODUCT_FIELD_PACKAGED_WIDTH_DESC"
+				class="inputbox small-input"
+				unit_group="length"
+			/>
+			<field
+				name="height"
+				type="unitcombo"
+				label="COM_SELLACIOUS_PRODUCT_FIELD_PACKAGED_HEIGHT_LABEL"
+				description="COM_SELLACIOUS_PRODUCT_FIELD_PACKAGED_HEIGHT_DESC"
+				class="inputbox small-input"
+				unit_group="length"
+			/>
+			<field
+				name="weight"
+				type="unitcombo"
+				label="COM_SELLACIOUS_PRODUCT_FIELD_PACKAGED_WEIGHT_LABEL"
+				description="COM_SELLACIOUS_PRODUCT_FIELD_PACKAGED_WEIGHT_DESC"
+				class="inputbox small-input"
+				unit_group="weight"
+			/>
+			<field
+				name="vol_weight"
+				type="unitcombo"
+				label="COM_SELLACIOUS_PRODUCT_FIELD_PACKAGED_VOL_WEIGHT_LABEL"
+				description="COM_SELLACIOUS_PRODUCT_FIELD_PACKAGED_VOL_WEIGHT_DESC"
+				class="inputbox small-input"
+				unit_group="volume-weight"
+			/>
+		</fieldset>
+	</fields>
+</form>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fields name="seller">
+		<fieldset name="prices" label="COM_SELLACIOUS_PRODUCT_FIELDSET_PRICES">
+			<field
+				name="price_display"
+				type="priceDisplay"
+				label="COM_SELLACIOUS_PRODUCT_FIELD_PRICE_DISPLAY_LABEL"
+				description="COM_SELLACIOUS_PRODUCT_FIELD_PRICE_DISPLAY_DESC"
+				class="inputbox"
+				required="true"
+				default="0"
+				/>
+			<field
+				name="query_form"
+				type="formFields"
+				label="COM_SELLACIOUS_PRODUCT_FIELD_QUERY_FORM_LABEL"
+				description="COM_SELLACIOUS_PRODUCT_FIELD_QUERY_FORM_DESC"
+				class="inputbox w100p"
+				context="queryform"
+				multiple="true"
+				/>
+			<field
+				name="email"
+				type="text"
+				label="COM_SELLACIOUS_PRODUCT_FIELD_SELLER_EMAIL_US_EMAIL_LABEL"
+				description="COM_SELLACIOUS_PRODUCT_FIELD_SELLER_EMAIL_US_EMAIL_DESC"
+				class="input-disabled"
+				disabled="true"
+				/>
+			<field
+				name="phone"
+				type="text"
+				label="COM_SELLACIOUS_PRODUCT_FIELD_SELLER_CALL_US_PHONE_LABEL"
+				description="COM_SELLACIOUS_PRODUCT_FIELD_SELLER_CALL_US_PHONE_DESC"
+				class="input-disabled"
+				disabled="true"
+				/>
+		</fieldset>
+	</fields>
+	<fields name="prices">
+		<fieldset name="prices" label="COM_SELLACIOUS_PRODUCT_FIELDSET_PRICES">
+			<field
+				name="fallback"
+				type="productPrice"
+				label="COM_SELLACIOUS_PRODUCT_FIELD_PRICE_FALLBACK_LABEL"
+				description="COM_SELLACIOUS_PRODUCT_FIELD_PRICE_FALLBACK_DESC"
+				required="true"
+			/>
+			<field
+				name="variants"
+				type="variantPrices"
+				label="COM_SELLACIOUS_PRODUCT_FIELD_VARIANT_PRICES_LABEL"
+				description="COM_SELLACIOUS_PRODUCT_FIELD_VARIANT_PRICES_DESC"
+				/>
+			<field
+				name="product"
+				type="productPrices"
+				label="COM_SELLACIOUS_PRODUCT_FIELD_PRICES_LABEL"
+				description="COM_SELLACIOUS_PRODUCT_FIELD_PRICES_DESC"
+			/>
+		</fieldset>
+	</fields>
+</form>

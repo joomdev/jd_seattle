@@ -63,8 +63,8 @@ abstract class N2GeneratorAbstract {
 
         if (count($data) && count($data[count($data) - 1]) != $group) {
             if (count($data) - 1 == 0 && count($data[count($data) - 1]) > 0) {
-                for ($i = 0; count($data[0]) < $group; $i++) {
-                    $data[0][] = $data[0][$i];
+                while (count($data[0]) < $group) {
+                    $data[0][] = $columns;
                 }
             } else {
                 array_pop($data);

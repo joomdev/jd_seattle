@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset name="basic" label="COM_SELLACIOUS_LOCATION_FIELDSET_BASIC">
+		<field
+			name="id"
+			type="hidden"
+			default="0"
+			readonly="true"
+		/>
+		<field
+			name="type"
+			type="list"
+			label="COM_SELLACIOUS_LOCATION_FIELD_TYPE_LABEL"
+			required="true"
+			class="w50p"
+			onchange="Joomla.submitform('', this.form);"
+		>
+			<option value="">COM_SELLACIOUS_LOCATIONS_SELECT_TYPE</option>
+			<option value="continent">COM_SELLACIOUS_LOCATIONS_TITLE_CONTINENT</option>
+			<option value="country">COM_SELLACIOUS_LOCATIONS_TITLE_COUNTRY</option>
+			<option value="state">COM_SELLACIOUS_LOCATIONS_TITLE_STATE</option>
+			<option value="district">COM_SELLACIOUS_LOCATIONS_TITLE_DISTRICT</option>
+			<option value="area">COM_SELLACIOUS_LOCATIONS_TITLE_AREA</option>
+			<option value="zip">COM_SELLACIOUS_LOCATIONS_TITLE_ZIP</option>
+		</field>
+		<field
+			name="title"
+			type="text"
+			label="COM_SELLACIOUS_LOCATION_FIELD_TITLE_LABEL"
+			description="COM_SELLACIOUS_LOCATION_FIELD_TITLE_DESC"
+			class="inputbox"
+			required="true"
+		/>
+		<field
+			name="iso_code"
+			type="text"
+			label="COM_SELLACIOUS_LOCATION_FIELD_ISO_CODE_LABEL"
+			description="COM_SELLACIOUS_LOCATION_FIELD_ISO_CODE_DESC"
+			class="inputbox"
+		/>
+		<field
+			name="parent_id"
+			type="locationParent"
+			label="COM_SELLACIOUS_LOCATION_FIELD_PARENT_LABEL"
+			description="COM_SELLACIOUS_LOCATION_FIELD_PARENT_DESC"
+			required="true"
+		    class="w100p"
+		>
+		</field>
+		<field
+			name="state"
+			type="radio"
+			label="COM_SELLACIOUS_LOCATION_FIELD_STATUS_LABEL"
+			description="COM_SELLACIOUS_LOCATION_FIELD_STATUS_DESC"
+			required="true"
+			default="1"
+		>
+			<option value="1">JENABLED</option>
+			<option value="0">JDISABLED</option>
+		</field>
+	</fieldset>
+</form>

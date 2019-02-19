@@ -9,6 +9,8 @@
 
 defined('_JEXEC') or die;
 ?>
-<ul class="categories-module list-group list-group-flush">
-   <?php require JModuleHelper::getLayoutPath('mod_articles_categories', $params->get('layout', 'default') . '_items'); ?>
-</ul>
+<div class="categories-wrapper">
+  <ul class="categories-module<?php echo $moduleclass_sfx; ?> list-inline">
+  <?php require JModuleHelper::getLayoutPath('mod_articles_categories', $params->get('layout', 'default') . '_items'); ?>
+  </ul>
+</div>

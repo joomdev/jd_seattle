@@ -170,9 +170,18 @@ class N2SSSlideComponentCol extends N2SSSlideComponent {
 
         N2Loader::import('libraries.link.link');
 
-        list($link, $target) = array_pad((array)N2Parse::parse($this->data->get('link', '#|*|')), 2, '');
+        $linkV1 = $this->data->get('link', '');
+        if (!empty($linkV1)) {
+            list($link, $target) = array_pad((array)N2Parse::parse($linkV1), 2, '');
+            $this->data->un_set('link');
+            $this->data->set('href', $link);
+            $this->data->set('href-target', $target);
+        }
+
+        $link = $this->data->get('href');
 
         if (($link != '#' && !empty($link))) {
+            $target = $this->data->get('href-target');
 
             $link                          = N2LinkParser::parse($this->owner->fill($link), $this->attributes);
             $this->attributes['data-href'] = $link;
@@ -214,8 +223,18 @@ class N2SSSlideComponentCol extends N2SSSlideComponent {
 
     protected function admin() {
 
+        $linkV1 = $this->data->get('link', '');
+        if (!empty($linkV1)) {
+            list($link, $target) = array_pad((array)N2Parse::parse($linkV1), 2, '');
+            $this->data->un_set('link');
+            $this->data->set('href', $link);
+            $this->data->set('href-target', $target);
+        }
+
+        $this->createProperty('href', '');
+        $this->createProperty('href-target', '_self');
+
         $this->createProperty('colwidth');
-        $this->createProperty('link', '#|*|_self');
 
         $this->createProperty('verticalalign', 'flex-start');
 

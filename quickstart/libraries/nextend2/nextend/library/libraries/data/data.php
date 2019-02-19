@@ -56,6 +56,11 @@ class N2Data {
         return (array)$this->_data;
     }
 
+    public function has($key) {
+
+        return isset($this->_data[$key]);
+    }
+
     /**
      * @param string $key
      * @param string $default

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fields name="params">
+		<fieldset name="params" label="COM_SELLACIOUS_FIELDSET_ADDITIONAL">
+			<field
+				name="default"
+				type="text"
+				label="PLG_SELLACIOUS_FIELDTYPEFORMS_ATTRIBUTE_DEFAULT_LABEL"
+				description="PLG_SELLACIOUS_FIELDTYPEFORMS_ATTRIBUTE_DEFAULT_DESC"
+				class="inputbox"
+			/>
+		</fieldset>
+	</fields>
+</form>

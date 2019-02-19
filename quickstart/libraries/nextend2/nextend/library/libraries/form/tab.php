@@ -135,7 +135,7 @@ class N2Tab implements N2FormTabContainer, N2FormElementContainer {
     }
 
     protected function decorateTitle() {
-        echo "<div id='n2-tab-" . $this->name . "' class='n2-form-tab " . $this->class . "'>";
+        echo "<div id='n2-tab-" . $this->name . "' data-field='tab-" . $this->getName() . "' class='n2-form-tab " . $this->class . "'>";
         $this->renderTitle();
     }
 
@@ -207,7 +207,7 @@ class N2Tab implements N2FormTabContainer, N2FormElementContainer {
 class N2TabDark extends N2Tab {
 
     protected function decorateTitle() {
-        echo "<div id='n2-tab-" . $this->name . "' class='n2-form-tab " . $this->class . "'>";
+        echo "<div id='n2-tab-" . $this->name . "' data-field='tab-" . $this->getName() . "' class='n2-form-tab " . $this->class . "'>";
         if ($this->hideTitle != 1) {
             echo N2Html::tag('div', array(
                 'class' => 'n2-h3 n2-sidebar-header-bg n2-uc'

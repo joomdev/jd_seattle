@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.0" type="plugin" method="upgrade" group="system">
+	<name>PLG_SYSTEM_SELLACIOUSPRODUCTNOTIFICATION</name>
+	<author>Mohd Kareemuddin</author>
+	<creationDate>December 26, 2018</creationDate>
+	<copyright>(C) 2012-2018 Bhartiy Web Technologies. All rights reserved.</copyright>
+	<license>GNU/GPL V2+</license>
+	<authorEmail>info@bhartiy.com</authorEmail>
+	<authorUrl>www.bhartiy.com</authorUrl>
+	<version>1.6.1-alpha0</version>
+	<description>PLG_SYSTEM_SELLACIOUSPRODUCTNOTIFICATION_DESCRIPTION</description>
+	<files>
+		<folder>forms</folder>
+		<folder>language</folder>
+		<filename plugin="sellaciousproductnotification">sellaciousproductnotification.php</filename>
+	</files>
+	<config>
+		<fields name="plg_system_sellaciousproductnotification">
+			<fieldset name="plg_system_sellaciousproductnotification" label="PLG_SYSTEM_SELLACIOUSPRODUCTNOTIFICATION_FIELDSET_CONFIG">
+				<field
+					name="cron"
+					type="radio"
+					class="btn-group btn-group-yesno"
+					label="PLG_SYSTEM_SELLACIOUSPRODUCTNOTIFICATION_FIELD_CRON_LABEL"
+					description="PLG_SYSTEM_SELLACIOUSPRODUCTNOTIFICATION_FIELD_CRON_DESC"
+					default="0"
+				>
+					<option value="1">JENABLED</option>
+					<option value="0">JDISABLED</option>
+				</field>
+				<field
+					type="note"
+					heading="p"
+					class="alert alert-info"
+					label="PLG_SYSTEM_SELLACIOUSPRODUCTNOTIFICATION_FIELD_CRON_KEY_MESSAGE"
+				/>
+				<field
+					name="cron_key"
+					type="text"
+					label="PLG_SYSTEM_SELLACIOUSPRODUCTNOTIFICATION_FIELD_CRON_KEY_LABEL"
+					description="PLG_SYSTEM_SELLACIOUSPRODUCTNOTIFICATION_FIELD_CRON_KEY_DESC"
+					default=""
+					class="inputbox"
+				/>
+			</fieldset>
+		</fields>
+	</config>
+	<updateservers>
+		<server type="extension" name="Sellacious Updates - plg_system_sellaciousproductnotification">http://sellacious.com/release/updates/v1.6/plg_system_sellaciousproductnotification.xml</server>
+	</updateservers>
+</extension>

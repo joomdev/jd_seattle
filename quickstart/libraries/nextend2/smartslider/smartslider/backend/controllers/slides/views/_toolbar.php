@@ -58,6 +58,10 @@
             <?php n2_e("Responsive tricks"); ?>
         </a>
 
+        <a data-placement="normal" href="https://smartslider3.helpscoutdocs.com/article/1430-tutorial-video-content-mode" class="n2-ss-tool n2-button n2-button-normal n2-button-s n2-button-grey n2-radius-s" target="_blank">
+            <?php n2_e("Responsive tips"); ?>
+        </a>
+
     </div>
 
     <div class="n2-ss-editor-group-mode-only">

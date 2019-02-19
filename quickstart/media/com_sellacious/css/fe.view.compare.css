@@ -1,0 +1,268 @@
+.margin-center {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#product-info {
+	float: left;
+	margin: -5px 10px;
+}
+
+hr.isolate {
+	border-top: 1px solid #dddddd;
+	margin: 1px 0;
+}
+
+.product-stars {
+	font-size: 16px;
+	line-height: 2.8;
+	float: left;
+}
+
+.product-stars .fa {
+	color: #f49a1f;
+}
+
+.btn-review, .btn-wishlist, .btn-compare {
+	float: right;
+	background: transparent;
+	white-space: nowrap;
+	width: 100px;
+	margin: 5px 0 5px 5px;
+	border: 1px solid #c9c9c9;
+	border-radius: 4px;
+	padding: 3px 3px 3px 6px;
+}
+
+.btn-review span, .btn-wishlist span, .btn-compare span {
+	line-height: 1.3;
+}
+
+.btn-review:before, .btn-wishlist:before, .btn-compare:before {
+	font-size: 20px;
+	float: left;
+	line-height: 1.6;
+	margin-right: 5px;
+}
+
+ul.product-features {
+	float: left;
+	margin-left: 15px;
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+ul.product-features li {
+	font-size: 11px;
+	color: #000000;
+	line-height: 1.5;
+	margin-left: 0;
+}
+
+.product-warranty {
+	text-align: right;
+	float: right;
+	line-height: 1.1;
+}
+
+.variant-picker {
+	margin: 0;
+	padding: 3px;
+}
+
+.variant-choice {
+	margin: 3px 10px;
+}
+
+.product-sellers {
+	border: solid #aeaeae;
+	border-width: 1px 0;
+	background: #fcfcfc;
+	color: #000000;
+	font-size: 16px;
+	font-weight: bold;
+	text-align: center;
+	margin: 10px 0;
+	line-height: 2.5;
+}
+
+.product-price {
+	font-size: 28px;
+	font-weight: normal;
+	color: #008000;
+	line-height: 1.6;
+}
+
+.product-offer {
+	margin-left: 10px;
+	float: left;
+	width: 46px;
+	height: 46px;
+	border: 1px solid #cccccc;
+	background: #ffffff;
+	color: #008800;
+	border-radius: 23px;
+	font-size: 11px;
+	font-weight: bold;
+	line-height: 44px;
+	text-align: center;
+}
+
+.btn-cart {
+	font-size: 22px !important;
+	font-weight: bold !important;
+	line-height: 1.3 !important;
+	width: 85%;
+	margin: 10px 0;
+}
+
+.product-actions {
+	max-width: 720px;
+}
+
+.product-actions > div:first-child {
+	border-right: 1px solid #333333;
+}
+
+.product-actions > div + div {
+	margin-left: -1px;
+	padding-left: 20px;
+	border-left: 1px solid #333333;
+}
+
+.seller-info {
+	line-height: 1.1;
+}
+
+.seller-info h4 {
+	margin: 3px 3px 3px 0;
+}
+
+.seller-rating {
+	background: #008000;
+	border-radius: 4px;
+	color: #ffffff;
+	line-height: 1.3;
+	font-weight: bold;
+	padding: 2px 4px;
+	margin-left: 5px;
+}
+
+.offer-info div {
+	max-width: 300px;
+	margin-top: 10px;
+	padding: 5px;
+}
+
+.offer-info div + div {
+	margin-top: -1px;
+}
+
+.offer-info div.offer-info-header {
+	color: #008000;
+	font-size: 12px;
+	font-weight: bold;
+	text-align: left;
+}
+
+.offer-info div, table.offer-info div.offer-info-header {
+	border: 1px dashed #008000;
+}
+
+.delivery-info {
+	line-height: 1.1;
+}
+
+.delivery-info h4 {
+	margin: 3px 3px 3px 0;
+}
+
+.replacement-info {
+	line-height: 1.1;
+}
+
+.semi-transparent {
+	opacity: 0.35;
+}
+
+.btn-full-view, .btn-full-view:hover {
+	background: transparent;
+	white-space: nowrap;
+	width: 130px;
+	margin: 15px auto 5px auto;
+	border: 1px solid #c9c9c9;
+	border-radius: 4px;
+	padding: 6px 12px;
+	color: #333333;
+	text-decoration: none;
+}
+
+.table-responsive {
+	min-height: 0.01%;
+	overflow-x: scroll;
+}
+
+.tbl-specifications {
+	border: 0;
+	border-collapse: collapse;
+}
+
+.tbl-specifications a,
+.tbl-specifications a:focus,
+.tbl-specifications a:hover,
+.tbl-specifications a:active {
+	color: #000;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+.tbl-specifications tr th,
+.tbl-specifications tr td {
+	line-height: 1.4;
+	padding: 5px;
+}
+
+.tbl-specifications tbody .separator,
+.tbl-specifications tbody .separator td:hover,
+.tbl-specifications tbody .separator td {
+	background: #fff;
+	border-left: 0 !important;
+	border-right: 0 !important;
+}
+
+.tbl-specifications thead th,
+.tbl-specifications .group-header {
+	background: #efefef;
+	border: 1px solid #efefef;
+	color: #000;
+}
+
+.tbl-specifications thead td {
+	border: 1px solid #eee;
+}
+
+.tbl-specifications tbody th {
+	background: #fefefe;
+}
+
+.tbl-specifications tbody tr:hover th,
+.tbl-specifications tbody tr:hover td {
+	background: #efefef;
+}
+
+.remove-compare {
+	background: transparent;
+	border: none;
+	color: #000000;
+	font-size: 105%;
+	float: right;
+}
+.item-price {
+	font-size: 18px;
+}
+.product-image {
+	max-width: 200px;
+	max-height: 300px;
+	margin-left: auto;
+	margin-right: auto;
+}

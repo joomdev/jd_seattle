@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<layout title="COM_SELLACIOUS_SYS_STORE_VIEW_STORE_TITLE">
+		<message><![CDATA[COM_SELLACIOUS_SYS_STORE_VIEW_STORE_DESC]]></message>
+	</layout>
+	<fields name="request" addfieldpath="/components/com_sellacious/models/fields">
+		<fieldset name="request">
+			<field
+				name="id"
+				type="productSellers"
+				label="COM_SELLACIOUS_PRODUCT_FIELD_SELLER_LABEL"
+				description="COM_SELLACIOUS_PRODUCT_FIELD_SELLER_DESC"
+				default="0"
+				class="medium-input"
+			>
+				<option value="0">COM_SELLACIOUS_PRODUCT_FIELD_SELLER_OPTION_SELECT</option>
+			</field>
+		</fieldset>
+	</fields>
+</metadata>

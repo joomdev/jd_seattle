@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extension version="3.0" type="file" method="upgrade">
+	<name>files_sellacious</name>
+	<author>Izhar Aazmi</author>
+	<creationDate>December 26, 2018</creationDate>
+	<copyright>Copyright (C) 2012-2018 Bhartiy Web Technologies. All rights reserved.</copyright>
+	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+	<authorEmail>info@bhartiy.com</authorEmail>
+	<authorUrl>www.bhartiy.com</authorUrl>
+	<version>1.6.1-alpha0</version>
+	<description><![CDATA[
+		<div class='alert alert-info'><h1>Sellacious Backoffice</h1>
+			<p style='font-weight: normal;'>
+			The sellacious backoffice is where you can manage the shop, products, sellers and all related settings.<br/>
+			By default the <b>Backoffice</b> is installed at http://example.com<b>/sellacious</b>.
+			However, you can always rename this directory under your Joomla site root. <br/>
+			<b>Important:</b> After you rename the backoffice directory you must open and login to the backoffice using the new name.
+			Unless you do this, all other parts of the website may be non-functional.<br/>
+			For more help write us at: <em>support@sellacious.com</em>
+			</p>
+		</div>
+	]]></description>
+	<scriptfile>installer.php</scriptfile>
+	<fileset>
+		<files folder="sellacious" target="sellacious">
+			<folder>cache</folder>
+			<folder>cli</folder>
+			<folder>components/com_ajax</folder>
+			<folder>components/com_login</folder>
+			<folder>components/com_menus</folder>
+			<folder>components/com_sellacious</folder>
+			<folder>components/com_languages</folder>
+			<folder>includes</folder>
+			<folder>language</folder>
+			<folder>modules</folder>
+			<folder>templates</folder>
+			<filename>index.php</filename>
+			<filename>menu.xml</filename>
+			<filename>sellacious.xml</filename>
+		</files>
+		<files folder="images" target="images/com_sellacious">
+			<folder>config</folder>
+			<filename>index.html</filename>
+		</files>
+		<files folder="media" target="media">
+			<folder>com_languages</folder>
+			<folder>sellacious</folder>
+		</files>
+		<files folder="layouts" target="layouts">
+			<folder>sellacious</folder>
+		</files>
+	</fileset>
+	<languages folder="language">
+		<language tag="en-GB">en-GB/en-GB.files_sellacious.ini</language>
+		<language tag="en-GB">en-GB/en-GB.files_sellacious.sys.ini</language>
+	</languages>
+	<updateservers>
+		<server type="extension" name="Sellacious Updates - files_sellacious">http://sellacious.com/release/updates/v1.6/files_sellacious.xml</server>
+	</updateservers>
+</extension>

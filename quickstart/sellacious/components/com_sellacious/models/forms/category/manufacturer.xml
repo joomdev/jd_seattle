@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset name="manufacturer" label="COM_SELLACIOUS_CATEGORY_FIELDSET_MANUFACTURER">
+		<field
+			name="usergroups"
+			type="sellaciousUsergroup"
+			label="COM_SELLACIOUS_CATEGORY_FIELD_USERGROUPS_LABEL"
+			description="COM_SELLACIOUS_CATEGORY_FIELD_USERGROUPS_DESC"
+			multiple="true"
+			group="manufacturer"
+			size="10"
+		/>
+	</fieldset>
+</form>

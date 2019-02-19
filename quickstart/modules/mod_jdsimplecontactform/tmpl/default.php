@@ -11,6 +11,7 @@ $title = $params->get('title', '');
 $description = $params->get('description', '');
 $session = JFactory::getSession();
 $message = $session->get('jdscf-message-' . $module->id, '');
+$captcha = $params->get('captcha', 0);
 ?>
 <?php
 if (!empty($message)) {
@@ -18,7 +19,7 @@ if (!empty($message)) {
    $session->set('jdscf-message-' . $module->id, '');
 } else {
    ?>
-   <div class="jd-simple-contact-form">
+   <div class="jd-simple-contact-form <?php echo $moduleclass_sfx; ?>">
       <div id="jdscf-message-<?php echo $module->id; ?>"></div>
       <div class="simple-contact-form-loader module-<?php echo $module->id; ?> d-none">
          <div class="loading"></div>
@@ -35,6 +36,35 @@ if (!empty($message)) {
             ModJDSimpleContactFormHelper::renderForm($params);
             ?>
          </div>
+
+         <?php
+         if ($captcha) {
+            JPluginHelper::importPlugin('captcha');
+            $dispatcher = JEventDispatcher::getInstance();
+            $dispatcher->trigger('onInit', 'jdscf_recaptcha_' . $module->id);
+            $plugin = JPluginHelper::getPlugin('captcha', 'recaptcha');
+            if (!empty($plugin)) {
+               $plugin_params = new JRegistry($plugin->params);
+               $attributes = [];
+               $attributes['data-theme'] = $plugin_params->get('theme2', '');
+               $attributes['data-size'] = $plugin_params->get('size', '');
+               $attributeArray = [];
+               foreach ($attributes as $attributeKey => $attributeValue) {
+                  $attributeArray[] = $attributeKey . '="' . $attributeValue . '"';
+               }
+               ?>
+               <div class="jdscf-row">
+                  <div class="jdscf-col">
+                     <div class="form-group">
+                        <div id="jdscf_recaptcha_<?php echo $module->id; ?>" class="g-recaptcha" data-sitekey="<?php echo $plugin_params->get('public_key', ''); ?>" <?php echo implode(' ', $attributeArray); ?>></div>
+                     </div>
+                  </div>
+               </div>
+               <?php
+            }
+         }
+         ?>
+
          <div class="jdscf-row">
             <?php
             $submit = new JLayoutFile('fields.submit', JPATH_SITE . '/modules/mod_jdsimplecontactform/layouts');

@@ -1,0 +1,122 @@
+td.image-box {
+	position: relative;
+}
+
+td.image-box .image-large {
+	display: none;
+}
+
+td.image-box:hover .image-large {
+	position: absolute;
+	display: block;
+	max-width: 300px;
+	left: 54px;
+	top: auto;
+	z-index: 2001;
+	background: #fff;
+	border: 1px solid #050;
+	margin: -50px 0 0 0;
+	padding: 5px;
+}
+
+td.image-box .image-small,
+td.image-box:hover .image-small {
+	display: block;
+	max-width: 60px;
+	max-height: 60px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+[data-float] {
+	text-align: right;
+}
+
+.form-horizontal label.checkbox {
+	padding-top: 1px;
+}
+
+input[disabled].inputbox {
+	background: transparent;
+	border: #eee;
+	cursor: default;
+}
+
+input.tiny-input {
+	width: 70px;
+}
+
+tr.separator > td,
+tr.separator:nth-child(odd) > td:nth-child(1),
+tr.separator:hover > td:hover {
+	height: 0;
+	border-top: 1px solid #6c6c6c;
+	background: #cbcbcb;
+}
+
+.keyboard-hint.overlay {
+	z-index: 100;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: #d3d3d3;
+	opacity: 0.5;
+}
+
+.keyboard-hint.content {
+	position: absolute;
+	top: 20px;
+	width: 600px;
+	left: 50%;
+	z-index: 200;
+	margin-left: -300px;
+	background: #fff;
+	opacity: 1.0;
+	border: 2px solid #9c9c9c;
+	border-radius: 4px;
+	box-shadow: 2px 2px #ccc;
+	padding: 15px;
+}
+
+.keyboard-hint {
+	display: none;
+}
+
+.keyboard-hint.active {
+	display: block;
+}
+
+.keyboard-hint th {
+	white-space: nowrap;
+}
+
+.keyboard-hint kbd {
+	padding: .1em .6em;
+	border: 1px solid #ccc;
+	font-size: 11px;
+	font-weight: normal;
+	font-family: Arial, Helvetica, sans-serif;
+	background-color: #f7f7f7;
+	color: #333;
+	-moz-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2), 0 0 0 2px #FFFFFF inset;
+	-webkit-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2), 0 0 0 2px #FFFFFF inset;
+	box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2), 0 0 0 2px #FFFFFF inset;
+	border-radius: 3px;
+	display: inline-block;
+	margin: 0 .1em;
+	text-shadow: 0 1px 0 #fff;
+	line-height: 1.4;
+	white-space: nowrap;
+}
+
+table#productList > tbody > tr.row-modified td,
+table#productList > tbody > tr.row-modified:hover td {
+	background: #d9dbff;
+	border: 1px solid #fff;
+}
+
+input.input-modified {
+	background: #fffebe;
+}

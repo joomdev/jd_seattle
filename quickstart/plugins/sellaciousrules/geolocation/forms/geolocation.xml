@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fields name="params">
+		<fieldset name="filters" label="COM_SELLACIOUS_FIELDSET_FILTERS">
+			<fields name="geolocation">
+				<field
+					name="address_type"
+					type="radio"
+					label="PLG_SELLACIOUSRULES_GEOLOCATION_ADDRESS_TYPE_LABEL"
+					description="PLG_SELLACIOUSRULES_GEOLOCATION_ADDRESS_TYPE_DESC"
+					default="billing"
+					onchange="this.form.submit();"
+				>
+					<option value="billing">PLG_SELLACIOUSRULES_GEOLOCATION_ADDRESS_TYPE_OPTION_BILLING</option>
+					<option value="shipping">PLG_SELLACIOUSRULES_GEOLOCATION_ADDRESS_TYPE_OPTION_SHIPPING</option>
+					<option value="any">PLG_SELLACIOUSRULES_GEOLOCATION_ADDRESS_TYPE_OPTION_ANY</option>
+					<option value="both">PLG_SELLACIOUSRULES_GEOLOCATION_ADDRESS_TYPE_OPTION_BOTH</option>
+				</field>
+				<field
+					name="country"
+					type="location"
+					label="PLG_SELLACIOUSRULES_GEOLOCATION_COUNTRY_LABEL"
+					description="PLG_SELLACIOUSRULES_GEOLOCATION_COUNTRY_DESC"
+					autocomplete="off"
+					class="w100p"
+					gl_type="country"
+					multiple="true"
+					default=""
+					rel=""
+				/>
+				<field
+					name="state"
+					type="location"
+					label="PLG_SELLACIOUSRULES_GEOLOCATION_STATE_LABEL"
+					description="PLG_SELLACIOUSRULES_GEOLOCATION_STATE_DESC"
+					autocomplete="off"
+					class="w100p"
+					gl_type="state"
+					multiple="true"
+					default=""
+					rel=""
+				/>
+				<field
+					name="district"
+					type="location"
+					label="PLG_SELLACIOUSRULES_GEOLOCATION_DISTRICT_LABEL"
+					description="PLG_SELLACIOUSRULES_GEOLOCATION_DISTRICT_DESC"
+					autocomplete="off"
+					class="w100p"
+					gl_type="district"
+					multiple="true"
+					default=""
+					rel=""
+				/>
+				<field
+					name="zip"
+					type="location"
+					label="PLG_SELLACIOUSRULES_GEOLOCATION_ZIP_LABEL"
+					description="PLG_SELLACIOUSRULES_GEOLOCATION_ZIP_DESC"
+					autocomplete="false"
+					class="w100p"
+					gl_type="zip"
+					multiple="true"
+					default=""
+					rel=""
+				/>
+			</fields>
+		</fieldset>
+	</fields>
+</form>

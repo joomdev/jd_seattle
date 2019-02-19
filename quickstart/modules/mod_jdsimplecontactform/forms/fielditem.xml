@@ -81,6 +81,14 @@
          <option value="2">2</option>
       </field>
       <field
+         showon="type:textarea"
+         name="textarearows"
+         type="number"
+         default="5"
+         label="MOD_JDSCF_TEXTAREA_ROWS_LBL"
+         description="MOD_JDSCF_TEXTAREA_ROWS_DESC"
+      />
+      <field
          showon="type:text[OR]type:number"
          name="min_length"
          type="number"
@@ -108,5 +116,17 @@
          label="MOD_JDSCF_MAX_LBL"
          description="MOD_JDSCF_MAX_DESC"
       />
+      <field
+         showon="type:checkboxes[OR]type:radio"
+         name="optionslayout"
+         type="radio"
+         label="MOD_JDSCF_OPTIONS_LAYOUT_LBL"
+         description="MOD_JDSCF_OPTIONS_LAYOUT_DESC"
+         class="btn-group"
+         default="inline"
+      >
+         <option value="inline">JGLOBAL_INLINE</option>
+         <option value="vertical">JGLOBAL_VERTICAL</option>
+      </field>
    </fieldset>
 </form>

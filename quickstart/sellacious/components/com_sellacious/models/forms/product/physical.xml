@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset name="physical" label="COM_SELLACIOUS_PRODUCT_FIELDSET_PHYSICAL">
+		<fields name="physical">
+			<field
+				name="length"
+				type="unitcombo"
+				label="COM_SELLACIOUS_PRODUCT_FIELD_LENGTH_LABEL"
+				description="COM_SELLACIOUS_PRODUCT_FIELD_LENGTH_DESC"
+				class="inputbox small-input"
+				unit_group="length"
+			/>
+			<field
+				name="width"
+				type="unitcombo"
+				label="COM_SELLACIOUS_PRODUCT_FIELD_WIDTH_LABEL"
+				description="COM_SELLACIOUS_PRODUCT_FIELD_WIDTH_DESC"
+				class="inputbox small-input"
+				unit_group="length"
+			/>
+			<field
+				name="height"
+				type="unitcombo"
+				label="COM_SELLACIOUS_PRODUCT_FIELD_HEIGHT_LABEL"
+				description="COM_SELLACIOUS_PRODUCT_FIELD_HEIGHT_DESC"
+				class="inputbox small-input"
+				unit_group="length"
+			/>
+			<field
+				name="weight"
+				type="unitcombo"
+				label="COM_SELLACIOUS_PRODUCT_FIELD_WEIGHT_LABEL"
+				description="COM_SELLACIOUS_PRODUCT_FIELD_WEIGHT_DESC"
+				class="inputbox small-input"
+				unit_group="weight"
+			/>
+			<field
+				name="vol_weight"
+				type="hidden"
+				label="COM_SELLACIOUS_PRODUCT_FIELD_VOL_WEIGHT_LABEL"
+				description="COM_SELLACIOUS_PRODUCT_FIELD_VOL_WEIGHT_DESC"
+				class="inputbox small-input deprecated"
+				unit_group="volume-weight"
+				filter="unset"
+				/>
+		</fields>
+	</fieldset>
+</form>

@@ -1,0 +1,44 @@
+#sample-data-install {
+	margin-top: 20px;
+}
+
+#sample-data-install ul {
+	list-style: none;
+	max-width: 600px;
+	background: #fff;
+	border-radius: 5px;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 4px 12px;
+	text-align: left;
+}
+
+#sample-data-install ul li {
+	line-height: 2.2;
+}
+
+#sample-data-install ul li input[type='radio'] {
+	display: none;
+}
+
+#sample-data-install ul li input[type='radio'] ~ span {
+	margin-left: 20px;
+	display: block;
+}
+
+#sample-data-install ul li input[type='radio']:checked ~ span {
+	font-weight: bold;
+}
+
+#sample-data-install ul li input[type='radio'] ~ span:before {
+	font-family: 'IcoMoon', fantasy;
+	margin-right: 8px;
+	padding-top: 4px;
+	margin-left: -25px;
+	border-radius: 4px;
+	content: '\e227';
+}
+
+#sample-data-install ul li input[type='radio']:checked ~ span:before {
+	content: "\47";
+}

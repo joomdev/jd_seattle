@@ -52,6 +52,7 @@ class N2SystemFontModel extends N2SystemVisualModel {
                 '600' => '600 - ' . n2_('Semi bold'),
                 '700' => '700 - ' . n2_('Bold'),
                 '800' => '800 - ' . n2_('Extra bold'),
+                '900' => '900'
             )
         ));
         new N2ElementDecoration($firstRow, 'decoration', n2_('Decoration'));

@@ -30,7 +30,7 @@ class N2SmartSliderFeatureOptimize {
             try {
                 $sizes = $this->slider->assets->sizes;
 
-                return N2Image::resizeImage('resized', N2ImageHelper::fixed($image, true), ($this->backgroundImageCustom ? $this->backgroundImageWidth : $sizes['canvasWidth']), ($this->backgroundImageCustom ? $this->backgroundImageHeight : $sizes['canvasHeight']), 'normal', 'ffffff', true, $this->quality, true, $x, $y);
+                return N2Image::resizeImage('resized', N2ImageHelper::fixed($image, true), ($this->backgroundImageCustom ? $this->backgroundImageWidth : $sizes['canvasWidth']), ($this->backgroundImageCustom ? $this->backgroundImageHeight : $sizes['canvasHeight']), false, 'normal', 'ffffff', true, $this->quality, true, $x, $y);
             } catch (Exception $e) {
                 return $image;
             }
@@ -42,7 +42,19 @@ class N2SmartSliderFeatureOptimize {
     public function optimizeThumbnail($image) {
         if ($this->optimize) {
             try {
-                return N2Image::resizeImage('resized', N2ImageHelper::fixed($image, true), $this->thumbnailWidth, $this->thumbnailHeight, 'normal', 'ffffff', true, $this->quality, true);
+                return N2Image::resizeImage('resized', N2ImageHelper::fixed($image, true), $this->thumbnailWidth, $this->thumbnailHeight, false, 'normal', 'ffffff', true, $this->quality, true);
+            } catch (Exception $e) {
+                return $image;
+            }
+        }
+
+        return $image;
+    }
+
+    public function adminOptimizeThumbnail($image) {
+        if ($this->optimize) {
+            try {
+                return N2Image::resizeImage('resized', N2ImageHelper::fixed($image, true), $this->thumbnailWidth, $this->thumbnailHeight, true, 'normal', 'ffffff', true, $this->quality, true);
             } catch (Exception $e) {
                 return $image;
             }

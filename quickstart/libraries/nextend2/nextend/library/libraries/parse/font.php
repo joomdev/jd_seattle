@@ -155,11 +155,6 @@ class N2ParseFont {
      * @return string
      */
     public function parsePaddingleft($v) {
-        /*$transition = '-moz-transition: padding-left 0.4s ease;';
-        $transition .= '-webkit-transition: padding-left 0.4s ease;';
-        $transition .= '-o-transition: padding-left 0.4s ease;';
-        $transition .= 'transition: padding-left 0.4s ease;';
-        return $transition . 'padding-left: ' . $v . 'px;';*/
         return '';
     }
 

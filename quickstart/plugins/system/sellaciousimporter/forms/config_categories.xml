@@ -1,0 +1,41 @@
+<form>
+	<fieldset name="params" title="PLG_SYSTEM_SELLACIOUSIMPORTER_FIELDSET_IMPORT_CONFIG">
+		<fields name="params">
+			<fields name="reset">
+				<field
+					name="categories"
+					type="radio"
+					label="PLG_SYSTEM_SELLACIOUSIMPORTER_FIELD_RESET_CATEGORIES_LABEL"
+					description="PLG_SYSTEM_SELLACIOUSIMPORTER_FIELD_RESET_CATEGORIES_DESC"
+				>
+					<option value="">PLG_SYSTEM_SELLACIOUSIMPORTER_FIELD_RESET_OPTION_NONE</option>
+					<option value="all">PLG_SYSTEM_SELLACIOUSIMPORTER_FIELD_RESET_OPTION_ALL</option>
+				</field>
+			</fields>
+			<fields name="create">
+				<field
+					name="categories"
+					type="radio"
+					label="PLG_SYSTEM_SELLACIOUSIMPORTER_FIELD_CREATE_CATEGORIES_LABEL"
+					description="PLG_SYSTEM_SELLACIOUSIMPORTER_FIELD_CREATE_CATEGORIES_DESC"
+					default="0"
+				>
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+			</fields>
+			<fields name="update">
+				<field
+					name="categories"
+					type="radio"
+					label="PLG_SYSTEM_SELLACIOUSIMPORTER_FIELD_UPDATE_CATEGORIES_LABEL"
+					description="PLG_SYSTEM_SELLACIOUSIMPORTER_FIELD_UPDATE_CATEGORIES_DESC"
+					default="0"
+				>
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+			</fields>
+		</fields>
+	</fieldset>
+</form>

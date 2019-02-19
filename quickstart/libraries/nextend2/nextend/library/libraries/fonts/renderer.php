@@ -399,7 +399,7 @@ class N2FontStyle {
      * @return string
      */
     public function parseAfont($v) {
-        return 'font-family: ' . $this->loadFont($v) . ';';
+        return 'font-family: ' . n2_esc_css_value($this->loadFont($v)) . ';';
     }
 
     /**
@@ -484,7 +484,7 @@ class N2FontStyle {
     public function loadFont($families) {
         $families = explode(',', $families);
         for ($i = 0; $i < count($families); $i++) {
-            if($families[$i] != "inherit"){
+            if ($families[$i] != "inherit") {
                 $families[$i] = $this->getFamily(trim(trim($families[$i]), '\'"'));
             }
         }

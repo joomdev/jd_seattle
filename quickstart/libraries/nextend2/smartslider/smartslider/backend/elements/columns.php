@@ -9,7 +9,7 @@ class N2ElementColumns extends N2ElementHidden {
         return N2Html::tag('div', array(
             'class' => 'n2-ss-columns-element'
         ), N2Html::tag('div', array(
-                'class' => 'n2-ss-columns-element-container'
+                'class' => 'n2-ss-columns-element-container n2-unselectable'
             ), '') . N2Html::tag('div', array(
                 'class' => 'n2-ss-columns-element-add-col'
             ), '<div class="n2-i n2-i-addlayer2"></div>') . parent::fetchElement());

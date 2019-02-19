@@ -1,0 +1,89 @@
+/** Slate boxes */
+div.chart-area {
+	position: relative;
+}
+
+.chart-large canvas {
+	padding-right: 10px;
+}
+
+.slate-legend {
+	float: left;
+	margin: 1px 5px 1px 0;
+	white-space: nowrap;
+}
+
+.axis-label-y {
+	position: absolute;
+	left: 80px;
+	top: 60px;
+	line-height: 1.6;
+	background: rgba(211, 225, 233, 0.7);
+	border: 1px solid #beccd4;
+	min-width: 150px;
+	text-align: center;
+	font-weight: bold;
+	font-size: 12px;
+}
+
+.quick-links-area {
+	min-height: 275px;
+}
+
+ul.quick-links {
+    padding: 0;
+    margin: 0;
+}
+
+ul.quick-links li {
+	float: left;
+	width: 33.3%;
+	list-style: none;
+}
+
+ul.quick-links li a {
+    font-size: 16px;
+    display: block;
+    padding: 15px 12px;
+    color: #333;
+    text-decoration: none;
+}
+
+ul.quick-links li a,
+ul.quick-links li a span {
+    transition: all 0.25s linear 0s;
+    -webkit-transition: all 0.25s linear 0s;
+    -moz-transition: all 0.25s linear 0s;
+    -ms-transition: all 0.25s linear 0s;
+    -o-transition: all 0.25s linear 0s;
+}
+
+ul.quick-links li a:hover {
+    transform: translateY(-3px);
+}
+
+ul.quick-links li a:hover span {
+    filter: contrast(40%);
+}
+
+span.quick-link-image {
+	display: inline-block;
+	margin-right: 12px;
+}
+
+span.quick-link-image img {
+	width: 50px;
+	height: 50px;
+}
+
+@media (max-width: 1199px) {
+	ul.quick-links li {
+		width: 50%;
+	}
+}
+
+@media (max-width: 560px) {
+	ul.quick-links li {
+		width: 100%;
+	}
+}

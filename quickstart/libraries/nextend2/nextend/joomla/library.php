@@ -11,7 +11,7 @@ if (!defined('N2PRO')) {
 
 }
 
-if (!defined('N2LIBRARYASSETS')) define('N2LIBRARYASSETS', JPATH_SITE . '/media/n2/n');
+if (!defined('N2LIBRARYASSETS')) define('N2LIBRARYASSETS', rtrim(JPATH_SITE, '\\/') . '/media/n2/n');
 
 
 // Load required UTF-8 config from Joomla

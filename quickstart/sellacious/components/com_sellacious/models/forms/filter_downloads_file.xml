@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fields name="filter">
+		<field
+			name="search"
+			type="textListCombo"
+			hint="JSEARCH_FILTER"
+			class="js-stools-search-string calendar-input"
+			listclass="search-in pull-left"
+		>
+			<option value="">JALL</option>
+			<option value="file_name">COM_SELLACIOUS_DOWNLOADS_HEADING_FILE_NAME_LABEL</option>
+			<option value="file_id">COM_SELLACIOUS_DOWNLOADS_HEADING_FILE_ID_LABEL</option>
+			<option value="seller">COM_SELLACIOUS_DOWNLOADS_HEADING_SELLER_LABEL</option>
+			<option value="item_uid">COM_SELLACIOUS_DOWNLOADS_HEADING_ITEM_UID_LABEL</option>
+			<option value="product_title">COM_SELLACIOUS_DOWNLOADS_HEADING_PRODUCT_TITLE_LABEL</option>
+		</field>
+		<field
+			name="state"
+			type="list"
+			onchange="this.form.submit();"
+			class="inputbox"
+		>
+			<option value="">JOPTION_SELECT_PUBLISHED</option>
+			<option value="1">COM_SELLACIOUS_DOWNLOADS_FILTER_STATE_PUBLISHED</option>
+			<option value="0">COM_SELLACIOUS_DOWNLOADS_FILTER_STATE_UNPUBLISHED</option>
+			<option value="-1">COM_SELLACIOUS_DOWNLOADS_FILTER_STATE_DELETED</option>
+		</field>
+		<field
+			name="seller_uid"
+			type="productsellers"
+			onchange="this.form.submit();"
+			class="inputbox"
+			default="-"
+		>
+			<option value="">COM_SELLACIOUS_OPTION_ALL_SELLERS</option>
+			<!--<option value="">(All Sellers Separately)</option>-->
+			<!--<option value="*">(All Sellers Combined)</option>-->
+		</field>
+	</fields>
+	<fields name="list">
+		<field
+			name="fullordering"
+			type="groupedlist"
+			label="JGLOBAL_SORT_BY"
+			statuses="*,0,1,2,-2"
+			description="JGLOBAL_SORT_BY"
+			onchange="this.form.submit();"
+			default="a.ordering ASC"
+			class="inputbox"
+		>
+			<option value="">JGLOBAL_SORT_BY</option>
+			<group name="ASC" label="COM_SELLACIOUS_SORT_ASCENDING">
+				<option value="file_name ASC">COM_SELLACIOUS_DOWNLOADS_HEADING_FILE_NAME_LABEL</option>
+				<option value="license ASC">COM_SELLACIOUS_DOWNLOADS_HEADING_LICENSE_LABEL</option>
+				<option value="seller_company ASC">COM_SELLACIOUS_DOWNLOADS_HEADING_SELLER_LABEL</option>
+				<option value="item_uid ASC">COM_SELLACIOUS_DOWNLOADS_HEADING_ITEM_UID_LABEL</option>
+				<option value="product_title ASC">COM_SELLACIOUS_DOWNLOADS_HEADING_PRODUCT_TITLE_LABEL</option>
+				<option value="order_number ASC">COM_SELLACIOUS_DOWNLOADS_HEADING_ORDER_NUMBER_LABEL</option>
+				<option value="user_name ASC">COM_SELLACIOUS_DOWNLOADS_HEADING_USER_NAME_LABEL</option>
+				<option value="ip ASC">COM_SELLACIOUS_DOWNLOADS_HEADING_IP_LABEL</option>
+				<option value="dl_date ASC">COM_SELLACIOUS_DOWNLOADS_HEADING_DL_DATE_LABEL</option>
+				<option value="file_id ASC">COM_SELLACIOUS_DOWNLOADS_HEADING_FILE_ID_LABEL</option>
+			</group>
+			<group name="DESC" label="COM_SELLACIOUS_SORT_DESCENDING">
+				<option value="file_name DESC">COM_SELLACIOUS_DOWNLOADS_HEADING_FILE_NAME_LABEL</option>
+				<option value="license DESC">COM_SELLACIOUS_DOWNLOADS_HEADING_LICENSE_LABEL</option>
+				<option value="seller DESC">COM_SELLACIOUS_DOWNLOADS_HEADING_SELLER_LABEL</option>
+				<option value="item_uid DESC">COM_SELLACIOUS_DOWNLOADS_HEADING_ITEM_UID_LABEL</option>
+				<option value="product_title DESC">COM_SELLACIOUS_DOWNLOADS_HEADING_PRODUCT_TITLE_LABEL</option>
+				<option value="order_number DESC">COM_SELLACIOUS_DOWNLOADS_HEADING_ORDER_NUMBER_LABEL</option>
+				<option value="user_name DESC">COM_SELLACIOUS_DOWNLOADS_HEADING_USER_NAME_LABEL</option>
+				<option value="ip DESC">COM_SELLACIOUS_DOWNLOADS_HEADING_IP_LABEL</option>
+				<option value="dl_date DESC">COM_SELLACIOUS_DOWNLOADS_HEADING_DL_DATE_LABEL</option>
+				<option value="file_id DESC">COM_SELLACIOUS_DOWNLOADS_HEADING_FILE_ID_LABEL</option>
+			</group>
+		</field>
+		<field
+			name="limit"
+			type="limitbox"
+			class="inputbox input-mini inputbox"
+			default="20"
+			label="JGLOBAL_LIST_LIMIT"
+			description="JGLOBAL_LIST_LIMIT_DESC"
+			onchange="this.form.submit();"
+		/>
+	</fields>
+</form>

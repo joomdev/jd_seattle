@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset
+		name="report_details">
+		<fields name="filter">
+			<field
+				name="seller_categories"
+				type="GroupedCategoryList"
+				label="PLG_SYSTEM_SELLACIOUSREPORTSCART_SELLER_CATEGORY"
+				description="PLG_SYSTEM_SELLACIOUSREPORTSCART_SELLER_CATEGORY_DESC"
+				class="inputbox w25p"
+				multiple="true"
+				types="seller"
+			/>
+
+			<field
+				name="seller_registered"
+				type="number"
+				label="PLG_SYSTEM_SELLACIOUSREPORTSCART_SELLER_REGISTERED"
+				description="PLG_SYSTEM_SELLACIOUSREPORTSCART_SELLER_REGISTERED_DESC"
+			    default=""
+				min="0"
+				max="10000000"
+				validate="number"
+			/>
+
+			<field
+				name="last_sales_made"
+				type="number"
+				label="PLG_SYSTEM_SELLACIOUSREPORTSCART_LAST_SALES_MADE"
+				description="PLG_SYSTEM_SELLACIOUSREPORTSCART_LAST_SALES_MADE_DESC"
+			    default=""
+				min="0"
+				max="10000000"
+				validate="number"
+			/>
+
+			<field
+				name="completed_statuses"
+				type="PaymentStatusTypes"
+				label="PLG_SYSTEM_SELLACIOUSREPORTSCART_COMPLETED_STATUSES"
+				description="PLG_SYSTEM_SELLACIOUSREPORTSCART_COMPLETED_STATUSES_DESC"
+				class="w25p"
+				multiple="true"
+				default="approved;completed;delivered;shipped"
+				group="all"
+			/>
+
+			<field
+				name="exchanged_statuses"
+				type="PaymentStatusTypes"
+				label="PLG_SYSTEM_SELLACIOUSREPORTSCART_EXCHANGED_STATUSES"
+				description="PLG_SYSTEM_SELLACIOUSREPORTSCART_EXCHANGED_STATUSES_DESC"
+				class="w25p"
+				multiple="true"
+				default="exchanged;exchange_placed"
+				group="all"
+			/>
+
+			<field
+				name="cancelled_statuses"
+				type="PaymentStatusTypes"
+				label="PLG_SYSTEM_SELLACIOUSREPORTSCART_CANCELLED_STATUSES"
+				description="PLG_SYSTEM_SELLACIOUSREPORTSCART_CANCELLED_STATUSES_DESC"
+				class="w25p"
+				multiple="true"
+				default="cancellation"
+				group="all"
+			/>
+
+			<field
+				name="lifetime_statuses"
+				type="PaymentStatusTypes"
+				label="PLG_SYSTEM_SELLACIOUSREPORTSCART_LIFETIME_ORDERS_STATUSES"
+				description="PLG_SYSTEM_SELLACIOUSREPORTSCART_LIFETIME_ORDERS_STATUSES_DESC"
+				class="w25p"
+				multiple="true"
+				default="approved;completed;delivered;shipped"
+				group="all"
+			/>
+		</fields>
+	</fieldset>
+</form>

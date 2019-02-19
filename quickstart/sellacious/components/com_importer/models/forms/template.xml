@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset name="basic"
+	          label="COM_IMPORTER_FIELDSET_BASIC">
+		<field
+			name="id"
+			type="hidden"
+			default="0"
+			readonly="true"
+		/>
+		<field
+			name="title"
+			type="text"
+			label="COM_IMPORTER_TEMPLATE_FIELD_TITLE_LABEL"
+			description="COM_IMPORTER_TEMPLATE_FIELD_TITLE_DESC"
+			class="inputbox"
+			required="true"
+		/>
+		<field
+			name="alias"
+			type="text"
+			label="COM_IMPORTER_TEMPLATE_FIELD_ALIAS_LABEL"
+			description="COM_IMPORTER_TEMPLATE_FIELD_ALIAS_DESC"
+			class="inputbox"
+		/>
+		<field
+			name="import_type"
+			type="importHandler"
+			label="COM_IMPORTER_TEMPLATE_FIELD_HANDLER_LABEL"
+			description="COM_IMPORTER_TEMPLATE_FIELD_HANDLER_DESC"
+			class="w100p"
+			onchange="this.form.submit();"
+		>
+			<option value="">JOPTION_SELECT</option>
+		</field>
+		<field
+			name="state"
+			type="radio"
+			label="COM_IMPORTER_TEMPLATE_FIELD_STATUS_LABEL"
+			description="COM_IMPORTER_TEMPLATE_FIELD_STATUS_DESC"
+			required="true"
+			default="1"
+		>
+			<option value="1">JPUBLISHED</option>
+			<option value="0">JUNPUBLISHED</option>
+		</field>
+		<field
+			name="user_categories"
+			type="GroupedCategoryList"
+			label="COM_IMPORTER_TEMPLATE_FIELD_USER_CATEGORIES_LABEL"
+			description="COM_IMPORTER_TEMPLATE_FIELD_USER_CATEGORIES_DESC"
+			types="staff|seller|client|manufacturer"
+			class="w100p"
+			multiple="true"
+		/>
+		<field
+			name="override"
+			type="radio"
+			label="COM_IMPORTER_TEMPLATE_FIELD_OVERRIDE_LABEL"
+			description="COM_IMPORTER_TEMPLATE_FIELD_OVERRIDE_DESC"
+			required="true"
+			default="1"
+		>
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+		<field
+			name="user_id"
+			type="hidden"
+			default="0"
+			filter="unset"
+		/>
+		<field
+			name="created_by"
+			type="hidden"
+			filter="unset"
+		/>
+	</fieldset>
+
+	<fieldset name="params">
+		<fields name="params"> </fields>
+	</fieldset>
+
+	<fieldset name="mapping"
+	          label="COM_IMPORTER_FIELDSET_MAPPING" width="12">
+		<field
+			name="mapping_note"
+			type="note"
+			description="COM_IMPORTER_TEMPLATE_FIELD_MAPPING_DESC"
+			class="alert alert-info"
+		/>
+		<field
+			name="mapping"
+			type="templateMapping"
+			label="COM_IMPORTER_TEMPLATE_FIELD_MAPPING_LABEL"
+			description="COM_IMPORTER_TEMPLATE_FIELD_MAPPING_DESC"
+		/>
+	</fieldset>
+</form>

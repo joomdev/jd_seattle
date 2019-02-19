@@ -12,12 +12,12 @@ class N2TabBasicCSSFont extends N2Tab {
                     'class' => 'n2-css-name-label n2-uc'
                 ), '') . N2Html::tag('span', array(
                     'class' => 'n2-css-name-list'
-                ), '')) . N2Html::tag('div', array(
-                'class' => 'n2-css-tab'
-            )) . N2Html::tag('div', array(
-                'class'      => 'n2-css-tab-reset n2-button n2-button-icon n2-button-s n2-radius-s n2-button-grey',
-                'data-n2tip' => n2_('Reset to normal state'),
-            ), '<i class="n2-i n2-i-reset2"></i>'));
+                ), '')) . N2Html::tag('div', array('class' => 'n2-css-right'), N2Html::tag('div', array(
+                    'class'      => 'n2-css-tab-reset n2-button n2-button-icon n2-button-s n2-radius-s n2-button-grey',
+                    'data-n2tip' => n2_('Reset to normal state'),
+                ), '<i class="n2-i n2-i-reset2"></i>') . N2Html::tag('div', array(
+                    'class' => 'n2-css-tab'
+                ))));
     }
 
     protected function decorateGroupStart() {
@@ -27,6 +27,7 @@ class N2TabBasicCSSFont extends N2Tab {
         echo N2Html::link(n2_('More'), '#', array(
             'class' => 'n2-basiccss-more n2-button n2-button-normal n2-button-s n2-button-grey n2-radius-s n2-h5 n2-uc'
         ));
+        echo N2Html::clear();
         echo "</div>";
     }
 

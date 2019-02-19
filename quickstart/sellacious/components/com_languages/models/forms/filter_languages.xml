@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fields name="filter">
+		<field
+			name="search"
+			type="text"
+			hint="JSEARCH_FILTER"
+			class="inputbox"
+		/>
+		<!--<field
+			name="state"
+			type="status"
+			filter="1,0,-2,*"
+			onchange="this.form.submit();"
+			>
+			<option value="">JOPTION_SELECT_PUBLISHED</option>
+		</field>-->
+	</fields>
+	<fields name="list">
+		<field
+			name="state"
+			type="radio"
+			default="0"
+			onchange="this.form.submit();"
+		>
+			<option value="0">COM_LANGUAGES_FILTER_SHOW_ALL</option>
+			<option value="1">COM_LANGUAGES_FILTER_SHOW_INSTALLED</option>
+			<option value="-1">COM_LANGUAGES_FILTER_SHOW_NOT_INSTALLED</option>
+		</field>
+		<field
+			name="fullordering"
+			type="list"
+			label="JGLOBAL_SORT_BY"
+			description="JGLOBAL_SORT_BY"
+			onchange="this.form.submit();"
+			default="a.ordering ASC"
+			>
+			<option value="">JGLOBAL_SORT_BY</option>
+			<option value="state ASC">JSTATUS_ASC</option>
+			<option value="state DESC">JSTATUS_DESC</option>
+			<option value="title ASC">JGLOBAL_TITLE_ASC</option>
+			<option value="title DESC">JGLOBAL_TITLE_DESC</option>
+			<option value="title_native ASC">COM_LANGUAGES_HEADING_TITLE_NATIVE_ASC</option>
+			<option value="title_native DESC">COM_LANGUAGES_HEADING_TITLE_NATIVE_DESC</option>
+			<option value="lang_code ASC">COM_LANGUAGES_HEADING_LANG_TAG_ASC</option>
+			<option value="lang_code DESC">COM_LANGUAGES_HEADING_LANG_TAG_DESC</option>
+			<option value="sef ASC">COM_LANGUAGES_HEADING_LANG_CODE_ASC</option>
+			<option value="sef DESC">COM_LANGUAGES_HEADING_LANG_CODE_DESC</option>
+			<option value="image ASC">COM_LANGUAGES_HEADING_LANG_IMAGE_ASC</option>
+			<option value="image DESC">COM_LANGUAGES_HEADING_LANG_IMAGE_DESC</option>
+		</field>
+		<field
+			name="limit"
+			type="limitbox"
+			label="JGLOBAL_LIMIT"
+			description="JGLOBAL_LIMIT"
+			class="input-mini"
+			default="25"
+			onchange="this.form.submit();"
+		/>
+	</fields>
+</form>

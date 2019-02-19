@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" version="3.1" method="upgrade" client="sellacious">
+	<!--
+	This is a sample component exposing the minimum requirement of the demonstration.
+	Other features such as install/uninstall/update sql and language tags will work in the same was as in Joomla, hence skipeed here.
+	-->
+	<name>com_sellaciousreporting</name>
+	<author>Aditya Chakraborty</author>
+	<creationDate>December 26, 2018</creationDate>
+	<copyright>(C) 2012 - 2018 Bhartiy Web Technologies. All rights reserved.</copyright>
+	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+	<authorEmail>info@bhartiy.com</authorEmail>
+	<authorUrl>www.bhartiy.com</authorUrl>
+	<version>1.6.1-alpha0</version>
+	<scriptfile>script.php</scriptfile>
+	<description>COM_SELLACIOUSREPORTING_XML_DESCRIPTION</description>
+	<install>
+		<sql>
+			<file driver="mysqli" charset="utf8">sql/com_sellaciousreporting.install.mysqli.sql</file>
+		</sql>
+	</install>
+	<uninstall>
+		<sql>
+			<file driver="mysqli" charset="utf8">sql/com_sellaciousreporting.uninstall.mysqli.sql</file>
+		</sql>
+	</uninstall>
+	<sellacious>
+		<files folder="sellacious">
+			<filename>sellaciousreporting.php</filename>
+			<filename>config.xml</filename>
+			<filename>access.xml</filename>
+			<filename>controller.php</filename>
+			<folder>controllers</folder>
+			<folder>models</folder>
+			<folder>tables</folder>
+			<folder>views</folder>
+			<folder>layouts</folder>
+			<folder>helpers</folder>
+			<!--
+			However language tag will not work inside <sellacious></sellacious> tags.
+			You need to include the "language" folder just like other folders.
+
+			This is also the recommended way to install lanaguage files in "site" and "administrator" too. Using language tag is discouraged.
+			-->
+			<folder>language</folder>
+		</files>
+
+		<menu>Advanced Reporting</menu>
+		<submenu>
+			<menu link="index.php?option=com_sellaciousreporting">Advanced Reporting</menu>
+			<menu view="reports">Advanced Reporting</menu>
+		</submenu>
+	</sellacious>
+	<files folder="site">
+		<folder>layouts</folder>
+		<folder>libraries</folder>
+	</files>
+	<media folder="media" destination="com_sellaciousreporting">
+		<folder>css</folder>
+		<folder>images</folder>
+		<folder>js</folder>
+	</media>
+	<administration>
+		<!-- administration tag is required by joomla, even if it is empty -->
+		<files folder="administrator">
+			<folder>language</folder>
+			<folder>sql</folder>
+		</files>
+	</administration>
+	<updateservers>
+		<server type="extension" name="Sellacious Updates - com_sellaciousreporting">http://sellacious.com/release/updates/v1.6/com_sellaciousreporting.xml</server>
+	</updateservers>
+</extension>

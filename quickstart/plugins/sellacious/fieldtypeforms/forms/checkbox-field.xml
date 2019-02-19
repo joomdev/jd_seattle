@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fields name="params">
+		<fieldset name="params" label="COM_SELLACIOUS_FIELDSET_ADDITIONAL">
+			<field
+				name="value"
+				type="hidden"
+				class="inputbox"
+				default="1"
+			/>
+			<field
+				name="default"
+				type="radio"
+				label="PLG_SELLACIOUS_FIELDTYPEFORMS_ATTRIBUTE_DEFAULT_STATE_LABEL"
+				default="0"
+				description="PLG_SELLACIOUS_FIELDTYPEFORMS_ATTRIBUTE_DEFAULT_STATE_DESC"
+			>
+				<option value="1">PLG_SELLACIOUS_FIELDTYPEFORMS_ATTRIBUTE_DEFAULT_STATE_OPTION_CHECKED</option>
+				<option value="0">PLG_SELLACIOUS_FIELDTYPEFORMS_ATTRIBUTE_DEFAULT_STATE_OPTION_UNCHECKED</option>
+			</field>
+			<field
+				name="disabled"
+				type="radio"
+				label="PLG_SELLACIOUS_FIELDTYPEFORMS_ATTRIBUTE_DISABLED_LABEL"
+				default="false"
+				description="PLG_SELLACIOUS_FIELDTYPEFORMS_ATTRIBUTE_DISABLED_DESC"
+			>
+				<option value="true">JYes</option>
+				<option value="false">JNo</option>
+			</field>
+		</fieldset>
+	</fields>
+</form>

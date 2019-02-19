@@ -8,15 +8,15 @@
 
 defined('_JEXEC') or die;
 ?>
-<div class="latest-news"> 
+<div class="latest-news<?php echo $moduleclass_sfx; ?>"> 
     <div class="footer-recent-post">
         <ul class="list-inline">
             <?php foreach ($list as $item): ?>
                 <li>
                     <a href="<?php echo $item->link;?>">
-                        <span class="newsTitle"><?php echo  $item->title; ?> </span>
+                        <span class="newsTitle d-block"><?php echo  $item->title; ?> </span>
                         <time class="badge badge-primary newsTime">
-                            <i class="lni-alarm-clock"></i><?php echo  $created	=	date_format(date_create($item->created),"d M  Y"); ?>
+                            <i class="lni-alarm-clock"></i><?php echo $created = date_format(date_create($item->created),"d M  Y"); ?>
                         </time>
                     </a>
                 </li>

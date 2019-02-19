@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset name="basic" label="COM_SELLACIOUS_TRANSACTION_FIELDSET_WITHDRAW">
+		<field
+			name="user_id"
+			type="ajaxUser"
+			label="COM_SELLACIOUS_TRANSACTION_FIELD_USERID_LABEL"
+			description="COM_SELLACIOUS_TRANSACTION_FIELD_USERID_DESC"
+			class="inputbox"
+			required="true"
+		    submit="transaction.setType"
+			/>
+		<field
+			name="amount"
+			type="WalletMoney"
+			label="COM_SELLACIOUS_TRANSACTION_FIELD_AMOUNT_LABEL"
+			description="COM_SELLACIOUS_TRANSACTION_FIELD_AMOUNT_DESC"
+			class="inputbox"
+			required="true"
+			/>
+		<field
+			name="user_notes"
+			type="textarea"
+			label="COM_SELLACIOUS_TRANSACTION_FIELD_USER_NOTES_LABEL"
+			description="COM_SELLACIOUS_TRANSACTION_FIELD_USER_NOTES_DESC"
+			class="textarea"
+			required="true"
+			rows="3"
+			/>
+	</fieldset>
+</form>

@@ -1,0 +1,9 @@
+.table-no-padding  td {
+	padding: 0px !important;
+}
+span.form-control {
+	border-width: 0px;
+}
+.sfvfrow-remove {
+	line-height:1.5em !important;
+}

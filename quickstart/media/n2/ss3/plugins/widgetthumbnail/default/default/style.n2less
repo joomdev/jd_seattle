@@ -75,8 +75,6 @@
 
   .nextend-thumbnail-default .nextend-thumbnail-scroller {
     position: relative;
-    -webkit-box-sizing: border-box !important;
-    -moz-box-sizing: border-box !important;
     box-sizing: border-box !important;
     white-space: nowrap;
     display: flex;
@@ -130,10 +128,9 @@
     display: flex;
     position: relative;
     flex: 0 0 auto;
-    -webkit-box-sizing: content-box !important;
-    -moz-box-sizing: content-box !important;
     box-sizing: content-box !important;
     cursor: pointer;
+    overflow:hidden;
   }
 
   .nextend-thumbnail-horizontal .nextend-thumbnail-scroller .nextend-thumbnail-scroller-group > div {
@@ -147,8 +144,6 @@
   .nextend-thumbnail-default .n2-ss-caption {
     display: inline-block;
     white-space: normal;
-    -webkit-box-sizing: border-box !important;
-    -moz-box-sizing: border-box !important;
     box-sizing: border-box !important;
     overflow: hidden;
   }

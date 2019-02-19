@@ -39,7 +39,9 @@ class N2SSPluginItemFactoryVimeo extends N2SSPluginItemFactoryAbstract {
         return dirname(__FILE__) . DIRECTORY_SEPARATOR . $this->type . DIRECTORY_SEPARATOR;
     }
 
-    public static function getFilled($slide, $data) {
+    public function getFilled($slide, $data) {
+        $data = parent::getFilled($slide, $data);
+
         $data->set('image', $slide->fill($data->get('image', '')));
         $data->set('vimeourl', $slide->fill($data->get('vimeourl', '')));
 
@@ -47,10 +49,14 @@ class N2SSPluginItemFactoryVimeo extends N2SSPluginItemFactoryAbstract {
     }
 
     public function prepareExport($export, $data) {
+        parent::prepareExport($export, $data);
+
         $export->addImage($data->get('image'));
     }
 
     public function prepareImport($import, $data) {
+        $data = parent::prepareImport($import, $data);
+
         $data->set('image', $import->fixImage($data->get('image')));
 
         return $data;
@@ -94,7 +100,12 @@ class N2SSPluginItemFactoryVimeo extends N2SSPluginItemFactoryAbstract {
                 '-1'   => n2_('Default')
             )
         ));
-        new N2ElementOnOff($misc, 'autoplay', n2_('Autoplay'), 0);
+        new N2ElementOnOff($misc, 'autoplay', n2_('Autoplay'), 0, array(
+            'relatedFields' => array(
+                'item_vimeoautoplay-notice'
+            )
+        ));
+        new N2ElementImportant($misc, 'autoplay-notice', n2_('Video autoplaying has a lot of limitations made by browsers. You can read about them <a href="https://smartslider3.helpscoutdocs.com/article/1556-video-autoplay-handling" target="_blank">here</a>.'));
         new N2ElementOnOff($misc, 'title', n2_('Title'), 1);
         new N2ElementOnOff($misc, 'byline', n2_('Users byline'), 1);
         new N2ElementOnOff($misc, 'portrait', n2_('Portrait'), 1);
@@ -113,6 +124,10 @@ class N2SSPluginItemFactoryVimeo extends N2SSPluginItemFactoryAbstract {
             'min'  => 0,
             'unit' => 'sec',
             'wide' => 5
+        ));
+
+        new N2ElementOnOff($settings, 'privateurl', n2_('Private video'), 0, array(
+            'rowClass' => 'n2-expert'
         ));
     }
 

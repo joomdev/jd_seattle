@@ -5,10 +5,10 @@ defined('_JEXEC') or die;
 //print_r($profiles);
 ?>
 <div class="jd-profiler-wrapper jd-grid-layout-view jd-grid-simple-layout">
-  <div class="row <?php echo ($params->get('gutter_space')=='nomargin') ? 'no-gutters' : '' ?>">
+  <div class="jd-row <?php echo ($params->get('gutter_space')=='nomargin') ? 'jd-nogutters' : '' ?>">
 	<!-- Team Item wrapper start -->
 	<?php foreach($profiles as $profile) { ?>
-	<div class="jd-team-columns col-12 col-md-6 col-lg-<?php echo  $params->get('grid_coloumns'); ?>" <?php if($params->get('gutter_space')=='custom') { ?> style="padding-right:<?php echo $params->get('margin');?>px; padding-left:<?php echo $params->get('margin');?>px;" <?php } ?>>
+	<div class="jd-team-columns jd-col-12 jd-col-md-6 jd-col-lg-<?php echo  $params->get('grid_coloumns'); ?>" <?php if($params->get('gutter_space')=='custom') { ?> style="padding-right:<?php echo $params->get('margin');?>px; padding-left:<?php echo $params->get('margin');?>px;" <?php } ?>>
 		<div class="card-team jd-team-items">
 		  <?php if(!empty($profile->image)) { ?>
 			<img src="<?php echo $profile->image;  ?>" alt="<?php echo $profile->name;  ?>" class="card-img-top team-mamber-image">

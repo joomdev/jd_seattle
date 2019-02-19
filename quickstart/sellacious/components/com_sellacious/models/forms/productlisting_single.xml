@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset name="basic" label="COM_SELLACIOUS_PRODUCTLISTING_FIELDSET_BASIC">
+		<field
+			name="listing_days"
+			type="ProductListingBasic"
+			/>
+		<field
+			name="special_categories"
+			type="ProductListingSpecial"
+			/>
+	</fieldset>
+</form>

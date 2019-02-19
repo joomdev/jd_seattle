@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset name="basic"
+			label="COM_SELLACIOUS_MESSAGE_FIELDSET_BASIC" width="12">
+		<field
+			name="id"
+			type="hidden"
+			default="0"
+			/>
+		<field
+			name="note"
+			type="note"
+			label="COM_SELLACIOUS_MESSAGE_FIELD_NOTE_LABEL"
+			class="alert alert-info"
+			heading="p"
+			/>
+		<field
+			name="recipients"
+			type="text"
+			label="COM_SELLACIOUS_MESSAGE_FIELD_RECIPIENTS_LABEL"
+			description="COM_SELLACIOUS_MESSAGE_FIELD_RECIPIENTS_DESC"
+			class="w100p"
+			required="true"
+			hint="COM_SELLACIOUS_MESSAGE_FIELD_RECIPIENTS_LABEL"
+			/>
+		<field
+			name="title"
+			type="text"
+			label="COM_SELLACIOUS_MESSAGE_FIELD_TITLE_LABEL"
+			description="COM_SELLACIOUS_MESSAGE_FIELD_TITLE_DESC"
+			class="w100p inputbox"
+			required="true"
+			hint="COM_SELLACIOUS_MESSAGE_FIELD_TITLE_LABEL"
+			/>
+		<field
+			name="body"
+			type="editor"
+			label="COM_SELLACIOUS_MESSAGE_FIELD_TEXT_LABEL"
+			description="COM_SELLACIOUS_MESSAGE_FIELD_TEXT_DESC"
+			required="true"
+			class="textarea"
+			rows="6"
+			filter="safehtml"
+			/>
+	</fieldset>
+</form>

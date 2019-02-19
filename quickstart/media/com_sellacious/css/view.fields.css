@@ -1,0 +1,17 @@
+.onoffswitch.onoffswitch-required {
+	width: 85px;
+}
+
+.onoffswitch-required .onoffswitch-inner:before,
+.onoffswitch-required .onoffswitch-inner:after {
+	padding: 0 5px;
+}
+
+.onoffswitch.onoffswitch-filterable {
+	width: 95px;
+}
+
+.onoffswitch-filterable .onoffswitch-inner:before,
+.onoffswitch-filterable .onoffswitch-inner:after {
+	padding: 0 5px;
+}

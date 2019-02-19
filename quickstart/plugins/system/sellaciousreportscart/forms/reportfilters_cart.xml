@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset
+		name="report_details">
+		<fields name="filter">
+			<field
+				name="cart_value"
+				type="number"
+				label="PLG_SYSTEM_SELLACIOUSREPORTSCART_CART_VALUE"
+				description="PLG_SYSTEM_SELLACIOUSREPORTSCART_CART_VALUE_DESC"
+			    default=""
+				min="0"
+				max="10000000"
+				validate="number"
+			/>
+
+			<field
+				name="product_types"
+				type="productType"
+				label="PLG_SYSTEM_SELLACIOUSREPORTSCART_PRODUCT_FIELD_TYPE"
+				description="PLG_SYSTEM_SELLACIOUSREPORTSCART_PRODUCT_FIELD_TYPE_DESC"
+				default=""
+				class="w25p"
+				multiple="true"
+			/>
+
+			<field
+				name="last_modified_in_days"
+				type="number"
+				label="PLG_SYSTEM_SELLACIOUSREPORTSCART_LAST_MODIFIED_IN_DAYS"
+				description="PLG_SYSTEM_SELLACIOUSREPORTSCART_LAST_MODIFIED_IN_DAYS_DESC"
+				default=""
+				min="0"
+				max="10000000"
+				validate="number"
+			/>
+
+			<field
+				name="total_product"
+				type="number"
+				label="PLG_SYSTEM_SELLACIOUSREPORTSCART_TOTAL_PRODUCT"
+				description="PLG_SYSTEM_SELLACIOUSREPORTSCART_TOTAL_PRODUCT_DESC"
+			    default=""
+				min="0"
+				max="10000000"
+				validate="number"
+			/>
+
+			<field
+				name="product_categories"
+				type="categoryList"
+				label="PLG_SYSTEM_SELLACIOUSREPORTSCART_PRODUCT_FIELD_CATEGORY"
+				description="PLG_SYSTEM_SELLACIOUSREPORTSCART_PRODUCT_FIELD_CATEGORY_DESC"
+				class="inputbox w25p"
+				multiple="true"
+				show_all="true"
+				group="product/physical;product/electronic"
+			/>
+
+			<field
+				name="days_after_cart_abandoned"
+				type="number"
+				label="PLG_SYSTEM_SELLACIOUSREPORTSCART_DAYS_AFTER_CART_ABANDONED"
+				description="PLG_SYSTEM_SELLACIOUSREPORTSCART_DAYS_AFTER_CART_ABANDONED_DESC"
+				default="30"
+				min="0"
+				max="10000000"
+				validate="number"
+			/>
+
+			<field
+				name="abandoned_only"
+				type="radio"
+				label="PLG_SYSTEM_SELLACIOUSREPORTSCART_ABANDONED_ONLY"
+				description="PLG_SYSTEM_SELLACIOUSREPORTSCART_ABANDONED_ONLY_DESC"
+				class="btn-group btn-group-yesno"
+				default="0"
+			>
+				<option value="1">JYES</option>
+				<option value="0">JNO</option>
+			</field>
+
+			<field
+				name="payment_status_type"
+				type="PaymentStatusTypes"
+				label="PLG_SYSTEM_SELLACIOUSREPORTSCART_STATUS_TYPE"
+				description="PLG_SYSTEM_SELLACIOUSREPORTSCART_STATUS_TYPE_DESC"
+				class="w25p"
+				multiple="true"
+				group="approved;payment_failed;order_placed;completed"
+			/>
+		</fields>
+	</fieldset>
+</form>

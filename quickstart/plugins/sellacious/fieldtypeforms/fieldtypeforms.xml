@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.0" type="plugin" method="upgrade" group="sellacious">
+	<name>PLG_SELLACIOUS_FIELDTYPEFORMS</name>
+	<author>Izhar Aazmi</author>
+	<creationDate>December 26, 2018</creationDate>
+	<copyright>Copyright (C) 2012-2018 Bhartiy Web Technologies. All rights reserved.</copyright>
+	<license>GNU/GPL V2+</license>
+	<authorEmail>info@bhartiy.com</authorEmail>
+	<authorUrl>www.bhartiy.com</authorUrl>
+	<version>1.6.1-alpha0</version>
+	<description>PLG_SELLACIOUS_FIELDTYPEFORMS_DESCRIPTION</description>
+	<files>
+		<folder>forms</folder>
+		<folder>language</folder>
+		<folder>tmpl</folder>
+		<filename plugin="fieldtypeforms">fieldtypeforms.php</filename>
+	</files>
+	<config>
+	</config>
+	<updateservers>
+		<server type="extension" name="Sellacious Updates - plg_sellacious_fieldtypeforms">http://sellacious.com/release/updates/v1.6/plg_sellacious_fieldtypeforms.xml</server>
+	</updateservers>
+</extension>

@@ -38,10 +38,10 @@ class N2 {
 
             $client = new JHttp();
             try {
-                $response = $client->post($api, http_build_query($posts + $posts_default, '', '&'), array('Content-Type' => 'application/x-www-form-urlencoded; charset=utf-8'), 5);
+            $response = $client->post($api, http_build_query($posts + $posts_default, '', '&'), array('Content-Type' => 'application/x-www-form-urlencoded; charset=utf-8'), 5);
             } catch (Exception $e) {
             }
-            if (isset($response) && $response && $response->code != '200') {
+            if (isset($response) && $response && $response->code == '200') {
 
                 if (isset($response->headers['Content-Type'])) {
                     $contentType = $response->headers['Content-Type'];

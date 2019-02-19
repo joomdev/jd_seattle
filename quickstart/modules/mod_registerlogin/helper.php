@@ -3,7 +3,7 @@
  * @package		Register Login Joomla Module
  * @author		JoomDev
  * @copyright	Copyright (C) 2018 Joomdev, Inc. All rights reserved.
- * @license    GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
+ * @license    GNU/GPLv3 https://www.gnu.org/licenses/gpl-3.0.html
  */
 defined('_JEXEC') or die;
 class modRegisterLoginHelper
@@ -418,15 +418,17 @@ class modRegisterLoginHelper
 	{
 		$app  = JFactory::getApplication();
 		$item = $app->getMenu()->getItem($params->get($type));
-
 		// Stay on the same page
 		$url = JUri::getInstance()->toString();
-
 		if ($item)
 		{
-			$url = JRoute::_('index.php?Itemid=' . $item->id);
+			$lang = '';
+			if ($item->language !== '*' && JLanguageMultilang::isEnabled())
+			{
+				$lang = '&lang=' . $item->language;
+			}
+			$url = JURI::root().'index.php?Itemid=' . $item->id . $lang;
 		}
-
 		return base64_encode($url);
 	}
 	public static function getType()

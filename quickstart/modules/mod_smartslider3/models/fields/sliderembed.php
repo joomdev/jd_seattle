@@ -35,13 +35,13 @@ class JFormFieldSliderEmbed extends JFormField {
                     window[eventMethod](eventMethod == "attachEvent" ? "onmessage" : "message", function (e) {
                         if (e.source == (iframe[0].contentWindow || iframe[0].contentDocument)) {
                             var message = e[e.message ? "message" : "data"];
-                            try{
+                            try {
                                 message = JSON.parse(message);
-                                if(message.action && message.action === 'ss3embed') {
-                                    jQuery('#jform_params_slider').val(message.value).trigger('change').trigger("liszt:updated").trigger('chosen:updated');
+                                if (message.action && message.action === 'ss3embed') {
+                                    jQuery('#jform_params_slider').val(message.sliderID).trigger('change').trigger("liszt:updated").trigger('chosen:updated');
                                 }
-                            } catch(ex) {
-                            
+                            } catch (ex) {
+
                             }
                         }
                     }, false);

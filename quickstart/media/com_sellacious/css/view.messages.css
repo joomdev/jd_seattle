@@ -1,0 +1,22 @@
+label.label-tag {
+	font-size: 11px;
+}
+
+.recipients-tip {
+	background: #fff;
+	z-index: 109;
+	position: absolute;
+	display: block;
+	min-width: 150px;
+	max-width: 300px;
+	left: auto;
+	top: auto;
+	border: 1px solid #050;
+	margin: 0;
+	padding: 2px;
+}
+
+.recipients-tip ul {
+	list-style: none;
+	padding: 4px;
+}

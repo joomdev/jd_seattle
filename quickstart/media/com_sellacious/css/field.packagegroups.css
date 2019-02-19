@@ -1,0 +1,5 @@
+.float-label { width:120px; margin-right: 10px;}
+.controlset { margin: 5px 0; }
+.form-label { padding-top: 6px; }
+table.sfpi-products th, table.sfpi-products td { vertical-align: middle !important; }
+.select2-hidden-accessible { display: none; visibility: hidden; }

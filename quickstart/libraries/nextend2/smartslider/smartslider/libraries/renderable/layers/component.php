@@ -188,7 +188,6 @@ abstract class  N2SSSlideComponent {
     protected function renderPlugins($html) {
         $this->pluginRotation();
         $html = $this->pluginCrop($html);
-        $this->pluginAnimations();
         $this->pluginShowOn();
         $this->pluginFontSize();
         $this->pluginParallax();
@@ -240,30 +239,137 @@ abstract class  N2SSSlideComponent {
         return $html;
     }
 
-
-    private function pluginAnimations() {
-        $animations = $this->data->get('animations');
-        if (!empty($animations)) {
-            //Fix empty assoc arrays as they json_encoded into [] instead of {}
-            if (isset($animations['in']) && is_array($animations['in'])) {
-                for ($i = 0; $i < count($animations['in']); $i++) {
-                    $animations['in'][$i] = (object)$animations['in'][$i];
-                }
-            }
-            if (isset($animations['loop']) && is_array($animations['loop'])) {
-                for ($i = 0; $i < count($animations['loop']); $i++) {
-                    $animations['loop'][$i] = (object)$animations['loop'][$i];
-                }
-            }
-            if (isset($animations['out']) && is_array($animations['out'])) {
-                for ($i = 0; $i < count($animations['out']); $i++) {
-                    $animations['out'][$i] = (object)$animations['out'][$i];
-                }
-            }
-            $this->attributes['data-animations'] = n2_base64_encode(json_encode($animations));
+    /**
+     * Transform V1 animations to V2
+     *
+     * @param $data
+     *
+     * @return array
+     */
+    private function pluginAnimationsConvertV1ToV2($data) {
+        if (empty($data)) {
+            return array();
         }
 
-        $this->pluginAnimationGetEventAttributes();
+        if (isset($data['in'])) {
+            if (!isset($data['basic'])) {
+                $data['basic'] = array(
+                    'in' => array()
+                );
+            } else if (!isset($data['basic']['in'])) {
+                $data['basic']['in'] = array();
+            }
+            $this->pluginAnimationsConvertV1ToV2RemoveName($data['in']);
+            if (isset($data['in'][0]['delay']) && isset($data['repeatable']) && $data['repeatable'] == 1) {
+                if ($data['in'][0]['delay'] > 0) {
+                    $data['startDelay'] = $data['in'][0]['delay'];
+                }
+                unset($data['in'][0]['delay']);
+            }
+            $data['basic']['in']['keyFrames'] = $data['in'];
+            unset($data['in']);
+        }
+
+        if (isset($data['specialZeroIn'])) {
+            if (isset($data['basic']['in'])) {
+                $data['basic']['in']['specialZero'] = $data['specialZeroIn'];
+            }
+            unset($data['specialZeroIn']);
+        }
+
+        if (isset($data['transformOriginIn'])) {
+            if (isset($data['basic']['in'])) {
+                $data['basic']['in']['transformOrigin'] = $data['transformOriginIn'];
+            }
+            unset($data['transformOriginIn']);
+        }
+
+        if (isset($data['loop'])) {
+            if (!isset($data['basic'])) {
+                $data['basic'] = array(
+                    'loop' => array()
+                );
+            } else if (!isset($data['basic']['loop'])) {
+                $data['basic']['loop'] = array();
+            }
+            $this->pluginAnimationsConvertV1ToV2RemoveName($data['loop']);
+            $data['basic']['loop']['keyFrames'] = $data['loop'];
+            unset($data['loop']);
+        }
+
+        if (isset($data['repeatCount'])) {
+            if (isset($data['basic']['loop'])) {
+                $data['basic']['loop']['repeatCount'] = $data['repeatCount'];
+            }
+            unset($data['repeatCount']);
+        }
+
+        if (isset($data['repeatStartDelay'])) {
+            if (isset($data['basic']['loop'])) {
+                $data['basic']['loop']['repeatStartDelay'] = $data['repeatStartDelay'];
+            }
+            unset($data['repeatStartDelay']);
+        }
+
+        if (isset($data['transformOriginLoop'])) {
+            if (isset($data['basic']['loop'])) {
+                $data['basic']['loop']['transformOrigin'] = $data['transformOriginLoop'];
+            }
+            unset($data['transformOriginLoop']);
+        }
+
+        if (isset($data['out'])) {
+            if (!isset($data['basic'])) {
+                $data['basic'] = array(
+                    'out' => array()
+                );
+            } else if (!isset($data['basic']['out'])) {
+                $data['basic']['out'] = array();
+            }
+            $this->pluginAnimationsConvertV1ToV2RemoveName($data['out']);
+            $data['basic']['out']['keyFrames'] = $data['out'];
+            unset($data['out']);
+        }
+
+        if (isset($data['transformOriginOut'])) {
+            if (isset($data['basic']['out'])) {
+                $data['basic']['out']['transformOrigin'] = $data['transformOriginOut'];
+            }
+            unset($data['transformOriginOut']);
+        }
+
+        if (!isset($data['instantOut']) || $data['instantOut'] == '1') {
+            if (empty($data['outPlayEvent']) && $this->owner->getSlider()->params->get('layer-animation-play-mode') === 'forced') {
+                $data['outPlayEvent'] = 'InstantOut';
+            }
+        }
+
+        if (isset($data['instantOut'])) {
+            unset($data['instantOut']);
+        }
+
+        return $data;
+    }
+
+    private function pluginAnimationsConvertV1ToV2RemoveName(&$keyFrames) {
+        for ($i = 0; $i < count($keyFrames); $i++) {
+            if (isset($keyFrames[$i]['name'])) {
+                unset($keyFrames[$i]['name']);
+            }
+        }
+
+    }
+
+
+    private function pluginAnimations() {
+    }
+
+    private static function fixAnimationArray(&$array, $key) {
+        if (isset($array[$key]) && is_array($array[$key])) {
+            for ($i = 0; $i < count($array[$key]); $i++) {
+                $array[$key][$i] = (object)$array[$key][$i];
+            }
+        }
     }
 
 
@@ -441,16 +547,16 @@ abstract class  N2SSSlideComponent {
             }
             switch ($gradient) {
                 case 'horizontal':
-                    return 'background:-moz-linear-gradient(left, ' . N2Color::colorToRGBA($color) . ' 0%,' . N2Color::colorToRGBA($colorend) . ' 100%)' . $after . ';' . 'background:-webkit-linear-gradient(left, ' . N2Color::colorToRGBA($color) . ' 0%,' . N2Color::colorToRGBA($colorend) . ' 100%)' . $after . ';' . 'background:linear-gradient(to right, ' . N2Color::colorToRGBA($color) . ' 0%,' . N2Color::colorToRGBA($colorend) . ' 100%)' . $after . ';';
+                    return 'background:linear-gradient(to right, ' . N2Color::colorToRGBA($color) . ' 0%,' . N2Color::colorToRGBA($colorend) . ' 100%)' . $after . ';';
                     break;
                 case 'vertical':
-                    return 'background:-moz-linear-gradient(top, ' . N2Color::colorToRGBA($color) . ' 0%,' . N2Color::colorToRGBA($colorend) . ' 100%)' . $after . ';' . 'background:-webkit-linear-gradient(top, ' . N2Color::colorToRGBA($color) . ' 0%,' . N2Color::colorToRGBA($colorend) . ' 100%)' . $after . ';' . 'background:linear-gradient(to bottom, ' . N2Color::colorToRGBA($color) . ' 0%,' . N2Color::colorToRGBA($colorend) . ' 100%)' . $after . ';';
+                    return 'background:linear-gradient(to bottom, ' . N2Color::colorToRGBA($color) . ' 0%,' . N2Color::colorToRGBA($colorend) . ' 100%)' . $after . ';';
                     break;
                 case 'diagonal1':
-                    return 'background:-moz-linear-gradient(45deg, ' . N2Color::colorToRGBA($color) . ' 0%,' . N2Color::colorToRGBA($colorend) . ' 100%)' . $after . ';' . 'background:-webkit-linear-gradient(45deg, ' . N2Color::colorToRGBA($color) . ' 0%,' . N2Color::colorToRGBA($colorend) . ' 100%)' . $after . ';' . 'background:linear-gradient(45deg, ' . N2Color::colorToRGBA($color) . ' 0%,' . N2Color::colorToRGBA($colorend) . ' 100%)' . $after . ';';
+                    return 'background:linear-gradient(45deg, ' . N2Color::colorToRGBA($color) . ' 0%,' . N2Color::colorToRGBA($colorend) . ' 100%)' . $after . ';';
                     break;
                 case 'diagonal2':
-                    return 'background:-moz-linear-gradient(-45deg, ' . N2Color::colorToRGBA($color) . ' 0%,' . N2Color::colorToRGBA($colorend) . ' 100%)' . $after . ';' . 'background:-webkit-linear-gradient(-45deg, ' . N2Color::colorToRGBA($color) . ' 0%,' . N2Color::colorToRGBA($colorend) . ' 100%)' . $after . ';' . 'background:linear-gradient(135deg, ' . N2Color::colorToRGBA($color) . ' 0%,' . N2Color::colorToRGBA($colorend) . ' 100%)' . $after . ';';
+                    return 'background:linear-gradient(135deg, ' . N2Color::colorToRGBA($color) . ' 0%,' . N2Color::colorToRGBA($colorend) . ' 100%)' . $after . ';';
                     break;
                 case 'off':
                 default:

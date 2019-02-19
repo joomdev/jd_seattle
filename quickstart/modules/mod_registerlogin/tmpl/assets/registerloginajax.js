@@ -2,7 +2,7 @@
  * @package		Register Login Joomla Module
  * @author		JoomDev
  * @copyright	Copyright (C) 2018 Joomdev, Inc. All rights reserved.
- * @license    GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
+ * @license    GNU/GPLv3 https://www.gnu.org/licenses/gpl-3.0.html
  */
 
 jQuery(document).ready(function () {

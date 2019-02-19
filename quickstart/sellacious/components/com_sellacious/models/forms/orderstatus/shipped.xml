@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset>
+		<fields name="shipment">
+			<field
+				type="text"
+				name="shipper"
+				label="COM_SELLACIOUS_ORDERSTATUS_FIELD_SHIPPER_LBL"
+				class="inputbox"
+				hint="COM_SELLACIOUS_ORDERSTATUS_FIELD_SHIPPER_HINT"
+				/>
+			<field
+				type="text"
+				name="tracking_url"
+				label="COM_SELLACIOUS_ORDERSTATUS_FIELD_TRACKING_URL_LBL"
+				class="inputbox"
+				hint="COM_SELLACIOUS_ORDERSTATUS_FIELD_TRACKING_URL_HINT"
+				/>
+			<field
+				type="text"
+				name="tracking_number"
+				label="COM_SELLACIOUS_ORDERSTATUS_FIELD_TRACKING_NUMBER_LBL"
+				class="inputbox"
+				hint="COM_SELLACIOUS_ORDERSTATUS_FIELD_TRACKING_NUMBER_HINT"
+				/>
+			<field
+				type="text"
+				name="ship_date"
+				label="COM_SELLACIOUS_ORDERSTATUS_FIELD_SHIP_DATE_LBL"
+				class="inputbox"
+				hint="COM_SELLACIOUS_ORDERSTATUS_FIELD_SHIP_DATE_HINT"
+				/>
+			<field
+				type="text"
+				name="source_district"
+				label="COM_SELLACIOUS_ORDERSTATUS_FIELD_SOURCE_DISTRICT_LBL"
+				class="inputbox"
+				hint="COM_SELLACIOUS_ORDERSTATUS_FIELD_SOURCE_DISTRICT_HINT"
+				/>
+			<field
+				type="text"
+				name="source_zip"
+				label="COM_SELLACIOUS_ORDERSTATUS_FIELD_SOURCE_ZIP_LBL"
+				class="inputbox"
+				hint="COM_SELLACIOUS_ORDERSTATUS_FIELD_SOURCE_ZIP_HINT"
+				/>
+			<field
+				type="textarea"
+				name="item_serial"
+				label="COM_SELLACIOUS_ORDERSTATUS_FIELD_ITEM_SERIAL_LBL"
+				class="textarea"
+				rows="4"
+				hint="COM_SELLACIOUS_ORDERSTATUS_FIELD_ITEM_SERIAL_HINT"
+				/>
+		</fields>
+	</fieldset>
+</form>

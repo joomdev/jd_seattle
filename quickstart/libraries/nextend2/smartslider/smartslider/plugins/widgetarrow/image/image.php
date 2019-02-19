@@ -213,15 +213,15 @@ class N2SSPluginWidgetArrowImage extends N2SSPluginWidgetAbstract {
         $alt = $params->get(self::$key . $side . '-alt', $side . ' arrow');
 
         if ($imageHover === null) {
-            $image = N2Html::image($image, $alt, array(
-                    'class' => 'n2-ow'
-                ) + N2Html::getExcludeLazyLoadAttributes());
+            $image = N2Html::image($image, $alt, N2HTML::addExcludeLazyLoadAttributes(array(
+                'class' => 'n2-ow'
+            )));
         } else {
-            $image = N2Html::image($image, $alt, array(
-                        'class' => 'n2-arrow-normal-img n2-ow'
-                    ) + N2Html::getExcludeLazyLoadAttributes()) . N2Html::image($imageHover, $alt, array(
-                        'class' => 'n2-arrow-hover-img n2-ow'
-                    ) + N2Html::getExcludeLazyLoadAttributes());
+            $image = N2Html::image($image, $alt, N2HTML::addExcludeLazyLoadAttributes(array(
+                    'class' => 'n2-arrow-normal-img n2-ow'
+                ))) . N2Html::image($imageHover, $alt, N2HTML::addExcludeLazyLoadAttributes(array(
+                    'class' => 'n2-arrow-hover-img n2-ow'
+                )));
         }
 
         $label = '';

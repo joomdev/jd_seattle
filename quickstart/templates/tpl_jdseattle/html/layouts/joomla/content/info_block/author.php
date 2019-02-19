@@ -1,22 +1,21 @@
 <?php
 /**
- * @package     Joomla.Site
- * @subpackage  Layout
- *
- * @copyright   Copyright (C) 2005 - 2018 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE.txt
+ * @package   Astroid Framework
+ * @author    JoomDev https://www.joomdev.com
+ * @copyright Copyright (C) 2009 - 2018 JoomDev.
+ * @license http://www.gnu.org/licenses/gpl-2.0.html GNU/GPLv2 or Later
  */
-
 defined('JPATH_BASE') or die;
 
 ?>
-<span class="author d-inline-block mb-2 mr-3" itemprop="author" itemscope itemtype="https://schema.org/Person">
-	<i class="far fa-user mr-1"></i>
+<dd class="createdby" itemprop="author" itemscope itemtype="https://schema.org/Person">
 	<?php $author = ($displayData['item']->created_by_alias ?: $displayData['item']->author); ?>
 	<?php $author = '<span itemprop="name">' . $author . '</span>'; ?>
 	<?php if (!empty($displayData['item']->contact_link ) && $displayData['params']->get('link_author') == true) : ?>
-		<?php echo  JHtml::_('link', $displayData['item']->contact_link, $author, array('itemprop' => 'url')); ?>
+		<i class="far fa-user"></i>
+		<?php JHtml::_('link', $displayData['item']->contact_link, $author, array('itemprop' => 'url')); ?>
 	<?php else : ?>
-		<?php echo  $author ?>
+	<i class="far fa-user"></i>	
+		<?php echo $author; ?>
 	<?php endif; ?>
-</span>
+</dd>

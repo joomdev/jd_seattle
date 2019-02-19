@@ -1,0 +1,21 @@
+<form>
+	<fieldset name="exchange_modal">
+		<field
+			name="order_id"
+			type="hidden"
+			/>
+		<field
+			name="item_uid"
+			type="hidden"
+			/>
+		<field
+			name="customer_notes"
+			type="textarea"
+			label="COM_SELLACIOUS_ORDER_EXCHANGE_FORM_NOTES_LABEL"
+			description="COM_SELLACIOUS_ORDER_EXCHANGE_FORM_NOTES_DESC"
+			class="inputbox"
+			rows="6"
+			required="true"
+			/>
+	</fieldset>
+</form>

@@ -1,0 +1,20 @@
+/**
+ * @version     1.6.1
+ * @package     Sellacious Finder Module
+ *
+ * @copyright   Copyright (C) 2012-2018 Bhartiy Web Technologies. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
+ * @author      Izhar Aazmi <info@bhartiy.com> - http://www.bhartiy.com
+ */
+
+
+.sellafinder-search {
+	margin-bottom: 10px;
+}
+
+.sella-search.finder-default .inputbox.input-fullwidth {
+	width: 100%;
+	display: block;
+	margin-bottom: 6px;
+}
+

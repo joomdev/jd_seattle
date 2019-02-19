@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset name="basic">
+		<field
+			name="parent_id"
+			type="FieldParent"
+			label="COM_SELLACIOUS_FIELD_FIELD_PARENT_LABEL"
+			description="COM_SELLACIOUS_FIELD_FIELD_PARENT_DESC"
+			required="true"
+			onchange="Joomla.submitbutton('field.setType');"
+			class="w100p"
+		>
+			<option value="">COM_SELLACIOUS_FIELD_SELECT_FIELD_GROUP</option>
+		</field>
+		<field
+			name="title"
+			type="text"
+			label="COM_SELLACIOUS_FIELD_FIELD_NAME_LABEL"
+			description="COM_SELLACIOUS_FIELD_FIELD_NAME_DESC"
+			class="inputbox"
+			required="true"
+			/>
+		<field
+			name="alias"
+			type="text"
+			label="JFIELD_ALIAS_LABEL"
+			description="JFIELD_ALIAS_DESC"
+			class="inputbox"
+			/>
+		<field
+			name="description"
+			type="text"
+			label="COM_SELLACIOUS_FIELD_FIELD_DESCRIPTION_LABEL"
+			description="COM_SELLACIOUS_FIELD_FIELD_DESCRIPTION_DESC"
+			class="inputbox"
+			/>
+		<field
+			name="message"
+			type="text"
+			label="COM_SELLACIOUS_FIELD_FIELD_MESSAGE_LABEL"
+			class="inputbox"
+			description="COM_SELLACIOUS_FIELD_FIELD_MESSAGE_DESC"
+		/>
+		<field
+			name="class"
+			type="text"
+			label="COM_SELLACIOUS_FIELD_FIELD_CLASS_LABEL"
+			description="COM_SELLACIOUS_FIELD_FIELD_CLASS_DESC"
+			class="inputbox"
+			default="inputbox"
+		/>
+		<field
+			name="state"
+			type="radio"
+			label="COM_SELLACIOUS_FIELD_FIELD_STATUS_LABEL"
+			description="COM_SELLACIOUS_FIELD_FIELD_STATUS_DESC"
+			required="true"
+			default="0"
+			>
+			<option	value="1" class="radio-inline">JENABLED</option>
+			<option	value="0" class="radio-inline">JDISABLED</option>
+		</field>
+		<field
+			name="required"
+			type="radio"
+			label="COM_SELLACIOUS_FIELD_FIELD_REQUIRED_LABEL"
+			description="COM_SELLACIOUS_FIELD_FIELD_REQUIRED_DESC"
+			default="false"
+			required="true"
+		>
+			<option value="true">JYES</option>
+			<option value="false">JNO</option>
+		</field>
+		<field
+			name="filterable"
+			type="radio"
+			label="COM_SELLACIOUS_FIELD_FIELD_FILTERABLE_LABEL"
+			description="COM_SELLACIOUS_FIELD_FIELD_FILTERABLE_DESC"
+			default="0"
+			required="true"
+		>
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+	</fieldset>
+</form>

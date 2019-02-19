@@ -13,13 +13,19 @@ $model = new N2DBConnector('#__modules');
 
             $ss3Module = $model->queryRow("SELECT extension_id FROM `#__extensions` WHERE `element` LIKE  'mod_smartslider3'");
 
+            if (JComponentHelper::getComponent('com_advancedmodules', true)->enabled) {
+                $moduleType = 'com_advancedmodules';
+            } else {
+                $moduleType = 'com_modules';
+            }
+
             if (count($ss3Module)) {
-                echo N2Html::link(n2_('Create module'), 'index.php?option=com_modules&task=module.add&eid=' . $ss3Module['extension_id'] . '&params[slider]=' . $sliderid, array(
+                echo N2Html::link(n2_('Create module'), 'index.php?option=' . $moduleType . '&task=module.add&eid=' . $ss3Module['extension_id'] . '&params[slider]=' . $sliderid, array(
                     'class'  => 'n2-button n2-button-normal n2-button-l n2-button-green n2-h3 n2-uc',
                     'target' => '_blank'
                 ));
             } else {
-                echo N2Html::link(n2_('Create module'), 'index.php?option=com_modules&view=select', array(
+                echo N2Html::link(n2_('Create module'), 'index.php?option=' . $moduleType . '&view=select', array(
                     'class'  => 'n2-button n2-button-normal n2-button-l n2-button-green n2-h3 n2-uc',
                     'target' => '_blank'
                 ));
@@ -33,21 +39,21 @@ $model = new N2DBConnector('#__modules');
         if (count($modules)) {
             ?>
             <div class="n2-td">
-            <div class="n2-h2"><?php n2_e('Edit related modules'); ?></div>
+                <div class="n2-h2"><?php n2_e('Edit related modules'); ?></div>
                 <ul style="display:inline-block;">
-                <?php
-                $IDs = array();
-                foreach ($modules AS $module) {
-                    $IDs[] = intval($module['id']);
-                    ?>
-                    <li style="font-size: 14px; line-height:1.8;"><a href="index.php?option=com_modules&view=module&layout=edit&id=<?php echo $module['id'] ?>" target="_blank"><?php echo $module['title'] ?></a></li>
                     <?php
-                }
+                    $IDs = array();
+                    foreach ($modules AS $module) {
+                        $IDs[] = intval($module['id']);
+                        ?>
+                        <li style="font-size: 14px; line-height:1.8;"><a href="index.php?option=<?php echo $moduleType ?>&view=module&layout=edit&id=<?php echo $module['id'] ?>" target="_blank"><?php echo $module['title'] ?></a></li>
+                        <?php
+                    }
 
-                $context = 'com_modules.edit.module';
-                $app     = JFactory::getApplication();
-                $app->setUserState($context . '.id', $IDs);
-                ?>
+                    $context = 'com_modules.edit.module';
+                    $app     = JFactory::getApplication();
+                    $app->setUserState($context . '.id', $IDs);
+                    ?>
                 </ul>
             </div>
             <?php

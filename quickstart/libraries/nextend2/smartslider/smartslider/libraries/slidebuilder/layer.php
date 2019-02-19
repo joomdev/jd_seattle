@@ -19,7 +19,6 @@ class N2SmartSliderSlideBuilderLayer extends N2SmartSliderSlideBuilderComponent 
             "loopStopEvent"       => "",
             "transformOriginOut"  => "50|*|50|*|0",
             "outPlayEvent"        => "",
-            "instantOut"          => 1,
             "in"                  => array(),
             "loop"                => array(),
             "out"                 => array()

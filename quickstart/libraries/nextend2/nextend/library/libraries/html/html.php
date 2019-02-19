@@ -445,10 +445,21 @@ class N2Html {
                 $target['style'] .= $array['style'];
                 unset($array['style']);
             }
+            if (isset($array['class'])) {
+                if (!isset($target['class'])) $target['class'] = '';
+                $target['class'] .= ' ' . $array['class'];
+                unset($array['class']);
+            }
+
             $target = array_merge($target, $array);
         }
 
         return $target;
+    }
+
+    public static function addExcludeLazyLoadAttributes($target) {
+
+        return self::mergeAttributes($target, self::getExcludeLazyLoadAttributes());
     }
 
     public static function getExcludeLazyLoadAttributes() {
@@ -461,6 +472,10 @@ class N2Html {
 
             if (class_exists('\FlorianBrinkmann\LazyLoadResponsiveImages\Plugin', false)) {
                 $attrs['data-no-lazyload'] = 1;
+            }
+
+            if (function_exists('thb_lazy_images_filter')) {
+                $attrs['class'] = 'no-lazyload';
             }
         }
 

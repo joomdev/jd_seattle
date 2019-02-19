@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<layout title="COM_SELLACIOUS_USERS_VIEW_DEFAULT_TITLE">
+		<message>
+			<![CDATA[COM_SELLACIOUS_USERS_VIEW_DEFAULT_DESC]]>
+		</message>
+	</layout>
+	<fieldset name="request">
+		<fields name="request">
+			<fields name="filter">
+				<field
+					name="profile_type"
+					type="list"
+					label="COM_SELLACIOUS_USERS_FILTER_PROFILE_TYPE_LABEL"
+					class="inputbox w100p"
+				>
+					<option value="">COM_SELLACIOUS_USERS_PROFILE_TYPE_OPTION_ALL</option>
+					<option value="mfr">COM_SELLACIOUS_USERS_PROFILE_TYPE_OPTION_MANUFACTURER</option>
+					<option value="seller">COM_SELLACIOUS_USERS_PROFILE_TYPE_OPTION_SELLER</option>
+					<option value="client">COM_SELLACIOUS_USERS_PROFILE_TYPE_OPTION_CLIENT</option>
+					<option value="staff">COM_SELLACIOUS_USERS_PROFILE_TYPE_OPTION_STAFF</option>
+				</field>
+			</fields>
+		</fields>
+	</fieldset>
+</metadata>

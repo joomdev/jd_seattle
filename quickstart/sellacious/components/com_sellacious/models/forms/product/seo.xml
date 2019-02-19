@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset name="seo" label="COM_SELLACIOUS_PRODUCT_FIELDSET_SEO">
+		<fields name="basic">
+			<field
+				name="alias"
+				type="text"
+				label="COM_SELLACIOUS_PRODUCT_FIELD_ALIAS_LABEL"
+				description="COM_SELLACIOUS_PRODUCT_FIELD_ALIAS_DESC"
+				class="inputbox"
+				autocomplete="off"
+				/>
+			<field
+				name="metakey"
+				type="tagsInputText"
+				label="COM_SELLACIOUS_PRODUCT_FIELD_METAKEY_LABEL"
+				description="COM_SELLACIOUS_PRODUCT_FIELD_METAKEY_DESC"
+				class="inputbox"
+				/>
+			<field
+				name="metadesc"
+				type="textarea"
+				rows="6"
+				label="COM_SELLACIOUS_PRODUCT_FIELD_METADESC_LABEL"
+				description="COM_SELLACIOUS_PRODUCT_FIELD_METADESC_DESC"
+				class="textarea inputbox"
+				/>
+			<field
+				name="tags"
+				type="tagsInputList"
+				label="COM_SELLACIOUS_PRODUCT_FIELD_TAGS_LABEL"
+				description="COM_SELLACIOUS_PRODUCT_FIELD_TAGS_DESC"
+				class="inputbox"
+				/>
+		</fields>
+	</fieldset>
+</form>

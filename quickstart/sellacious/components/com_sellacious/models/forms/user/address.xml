@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset name="addresses" label="COM_SELLACIOUS_USER_FIELDSET_ADDRESSES">
+		<fields name="address">
+			<field
+				name="id"
+				type="text"
+				label="COM_SELLACIOUS_USER_FIELD_ADDRESS_ID_LABEL"
+				description="COM_SELLACIOUS_USER_FIELD_ADDRESS_ID_DESC"
+				default="0"
+				readonly="true"
+				class="input-disabled"
+				/>
+			<field
+				name="user_id"
+				type="hidden"
+				default="0"
+				readonly="true"
+				/>
+			<field
+				name="name"
+				type="text"
+				label="COM_SELLACIOUS_USER_FIELD_ADDRESS_NAME_LABEL"
+				description="COM_SELLACIOUS_USER_FIELD_ADDRESS_NAME_DESC"
+				class="inputbox"
+				required="true"
+				/>
+			<field
+				name="address"
+				type="textarea"
+				label="COM_SELLACIOUS_USER_FIELD_ADDRESS_ADDRESS_LABEL"
+				description="COM_SELLACIOUS_USER_FIELD_ADDRESS_ADDRESS_DESC"
+				class="inputbox textarea"
+				required="true"
+				/>
+			<field
+				name="mobile"
+				type="tel"
+				label="COM_SELLACIOUS_USER_FIELD_ADDRESS_MOBILE_LABEL"
+				description="COM_SELLACIOUS_USER_FIELD_ADDRESS_MOBILE_DESC"
+				class="inputbox validate-mobile"
+				required="true"
+				/>
+			<field
+				name="country"
+				type="location"
+				label="COM_SELLACIOUS_USER_FIELD_ADDRESS_COUNTRY_LABEL"
+				description="COM_SELLACIOUS_USER_FIELD_ADDRESS_COUNTRY_DESC"
+				class="gl-input"
+				autocomple="off"
+				gl_type="country"
+				rel=""
+			/>
+			<field
+				name="state_loc"
+				type="location"
+				label="COM_SELLACIOUS_USER_FIELD_ADDRESS_STATE_LOC_LABEL"
+				description="COM_SELLACIOUS_USER_FIELD_ADDRESS_STATE_LOC_DESC"
+				class="gl-input"
+				autocomple="off"
+				gl_type="state"
+				rel="address.country"
+			/>
+			<field
+				name="district"
+				type="location"
+				label="COM_SELLACIOUS_USER_FIELD_ADDRESS_DISTRICT_LABEL"
+				description="COM_SELLACIOUS_USER_FIELD_ADDRESS_DISTRICT_DESC"
+				class="gl-input"
+				autocomple="off"
+				gl_type="district"
+				rel="address.state_loc|address.country"
+			/>
+			<field
+				name="zip"
+				type="text"
+				label="COM_SELLACIOUS_USER_FIELD_ADDRESS_ZIP_LABEL"
+				description="COM_SELLACIOUS_USER_FIELD_ADDRESS_ZIP_DESC"
+				class="inputbox"
+				size="20"
+			/>
+		</fields>
+	</fieldset>
+</form>

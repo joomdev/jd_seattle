@@ -35,34 +35,23 @@ class N2SmartSliderFeatureSpinner {
   height: 100%;
   width: 6px;
   display: inline-block;
-  -webkit-animation: n2RectangleDark 1.2s infinite ease-in-out;
   animation: n2RectangleDark 1.2s infinite ease-in-out;
 }
 div.n2-ss-spinner-rectangle-2 {
-  -webkit-animation-delay: -1.1s;
   animation-delay: -1.1s;
 }
 div.n2-ss-spinner-rectangle-3 {
-  -webkit-animation-delay: -1.0s;
   animation-delay: -1.0s;
 }
 div.n2-ss-spinner-rectangle-4 {
-  -webkit-animation-delay: -0.9s;
   animation-delay: -0.9s;
-}
-
-@-webkit-keyframes n2RectangleDark {
-  0%, 40%, 100% { -webkit-transform: scaleY(0.4) }
-  20% { -webkit-transform: scaleY(1.0) }
 }
 
 @keyframes n2RectangleDark {
   0%, 40%, 100% {
     transform: scaleY(0.4);
-    -webkit-transform: scaleY(0.4);
   }  20% {
     transform: scaleY(1.0);
-    -webkit-transform: scaleY(1.0);
   }
 }'
         ),
@@ -103,18 +92,13 @@ div.n2-ss-spinner-rectangle-4 {
     border-top: 2px solid #fff;
     border-right: 2px solid transparent;
     animation: n2SimpleDark .6s linear infinite;
-    -webkit-animation: n2SimpleDark .6s linear infinite;
 }
 @keyframes n2SimpleDark {
     to {transform: rotate(360deg);}
-}
-
-@-webkit-keyframes n2SimpleDark {
-    to {-webkit-transform: rotate(360deg);}
 }'
         ),
         'simpleDarkCounter'  => array(
-            '<div><div class="n2-ss-spinner-simple-dark-counter-container"><div class="n2-ss-spinner-simple-dark-counter n2-ss-spinner-counter"></div></div></div>',
+            '<div><div class="n2-ss-spinner-simple-dark-counter-container"><div class="n2-ss-spinner-simple-dark-counter n2-ss-spinner-counter">0%</div></div></div>',
             '.n2-ss-spinner-simple-dark-counter-container {
     position: absolute;
     top: 50%;
@@ -126,7 +110,6 @@ div.n2-ss-spinner-rectangle-4 {
     padding: 10px;
     border-radius: 50%;
     z-index: 1000;
-    -moz-box-sizing: initial;
     box-sizing: initial;
 }
 
@@ -144,10 +127,10 @@ div.n2-ss-spinner-rectangle-4 {
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 41px;
-    height: 41px;
-    margin-top: -23px;
-    margin-left: -23px;
+    width: 42px;
+    height: 42px;
+    margin-top: -22px;
+    margin-left: -22px;
 }
 
 .n2-ss-spinner-simple-dark-counter:not(:required):before {
@@ -156,14 +139,9 @@ div.n2-ss-spinner-rectangle-4 {
     border-top: 2px solid #fff;
     border-right: 2px solid transparent;
     animation: n2SimpleDarkCounter .6s linear infinite;
-    -webkit-animation: n2SimpleDarkCounter .6s linear infinite;
 }
 @keyframes n2SimpleDarkCounter {
     to {transform: rotate(360deg);}
-}
-
-@-webkit-keyframes n2SimpleDarkCounter {
-    to {-webkit-transform: rotate(360deg);}
 }'
         ),
         'simpleWhite'        => array(
@@ -203,18 +181,13 @@ div.n2-ss-spinner-rectangle-4 {
     border-top: 2px solid #333;
     border-right: 2px solid transparent;
     animation: n2SimpleWhite .6s linear infinite;
-    -webkit-animation: n2SimpleWhite .6s linear infinite;
 }
 @keyframes n2SimpleWhite {
     to {transform: rotate(360deg);}
-}
-
-@-webkit-keyframes n2SimpleWhite {
-    to {-webkit-transform: rotate(360deg);}
 }'
         ),
         'simpleWhiteCounter' => array(
-            '<div><div class="n2-ss-spinner-simple-white-counter-container"><div class="n2-ss-spinner-simple-white-counter n2-ss-spinner-counter"></div></div></div>',
+            '<div><div class="n2-ss-spinner-simple-white-counter-container"><div class="n2-ss-spinner-simple-white-counter n2-ss-spinner-counter">0%</div></div></div>',
             '.n2-ss-spinner-simple-white-counter-container {
     position: absolute;
     top: 50%;
@@ -226,7 +199,6 @@ div.n2-ss-spinner-rectangle-4 {
     padding: 10px;
     border-radius: 50%;
     z-index: 1000;
-    -moz-box-sizing: initial;
     box-sizing: initial;
 }
 
@@ -244,10 +216,10 @@ div.n2-ss-spinner-rectangle-4 {
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 41px;
-    height: 41px;
-    margin-top: -23px;
-    margin-left: -23px;
+    width: 42px;
+    height: 42px;
+    margin-top: -22px;
+    margin-left: -22px;
 }
 
 .n2-ss-spinner-simple-white-counter:not(:required):before {
@@ -256,14 +228,9 @@ div.n2-ss-spinner-rectangle-4 {
     border-top: 2px solid #333;
     border-right: 2px solid transparent;
     animation: n2SimpleWhiteCounter .6s linear infinite;
-    -webkit-animation: n2SimpleWhiteCounter .6s linear infinite;
 }
 @keyframes n2SimpleWhiteCounter {
     to {transform: rotate(360deg);}
-}
-
-@-webkit-keyframes n2SimpleWhiteCounter {
-    to {-webkit-transform: rotate(360deg);}
 }'
         ),
         'infiniteDark'       => array(
@@ -300,13 +267,9 @@ div.n2-ss-spinner-rectangle-4 {
     border: 2px solid rgba(255, 255, 255, .3);
     border-top-color: #fff;
     animation: n2InfiniteDark .6s linear infinite;
-    -webkit-animation: n2InfiniteDark .6s linear infinite;
 }
 @keyframes n2InfiniteDark {
     to {transform: rotate(360deg);}
-}
-@-webkit-keyframes n2InfiniteDark {
-    to {-webkit-transform: rotate(360deg);}
 }'
         ),
         'infiniteWhite'      => array(
@@ -343,13 +306,9 @@ div.n2-ss-spinner-rectangle-4 {
     border: 2px solid rgba(0, 0, 0, .3);
     border-top-color: rgba(0, 0, 0, .6);
     animation: n2InfiniteWhite .6s linear infinite;
-    -webkit-animation: n2InfiniteWhite .6s linear infinite;
 }
 @keyframes n2InfiniteWhite {
     to {transform: rotate(360deg);}
-}
-@-webkit-keyframes n2InfiniteWhite {
-    to {-webkit-transform: rotate(360deg);}
 }'
         )
     );
@@ -374,7 +333,7 @@ div.n2-ss-spinner-rectangle-4 {
                 $style = 'style="display:none;"';
             }
 
-            return $sliderHTML . '<div id="' . $slider->elementId . '-spinner" ' . $style . '><img src="' . N2ImageHelper::fixed($customSpinner) . '" style="width:' . $width . 'px; height:' . $height . 'px; position:absolute;left:50%;top:50%;margin-left:' . $marginLeft . 'px;margin-top:' . $marginTop . 'px;" alt="loading"/></div>';
+            return $sliderHTML . '<div id="' . $slider->elementId . '-spinner" ' . $style . '><img src="' . n2_esc_attr(N2ImageHelper::fixed($customSpinner)) . '" style="width:' . $width . 'px; height:' . $height . 'px; position:absolute;left:50%;top:50%;margin-left:' . $marginLeft . 'px;margin-top:' . $marginTop . 'px;" alt="loading"/></div>';
         } else if (isset(self::$spinners[$this->slider->params->get('spinner', 'simpleWhite')]) && !empty(self::$spinners[$this->slider->params->get('spinner', 'simpleWhite')])) {
             N2CSS::addInline(self::$spinners[$this->slider->params->get('spinner', 'simpleWhite')][1]);
 

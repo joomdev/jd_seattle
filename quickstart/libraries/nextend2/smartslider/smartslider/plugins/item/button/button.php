@@ -69,7 +69,9 @@ class N2SSPluginItemFactoryButton extends N2SSPluginItemFactoryAbstract {
             'content'       => n2_('MORE'),
             'nowrap'        => 1,
             'fullwidth'     => 0,
-            'link'          => '#|*|_self',
+            'href'          => '#',
+            'href-target'   => '_self',
+            'href-rel'      => '',
             'font'          => $this->font,
             'style'         => $this->style,
             'class'         => '',
@@ -84,23 +86,40 @@ class N2SSPluginItemFactoryButton extends N2SSPluginItemFactoryAbstract {
         return dirname(__FILE__) . DIRECTORY_SEPARATOR . $this->type . DIRECTORY_SEPARATOR;
     }
 
-    public static function getFilled($slide, $data) {
+    public function upgradeData($data) {
+        $linkV1 = $data->get('link', '');
+        if (!empty($linkV1)) {
+            list($link, $target, $rel) = array_pad((array)N2Parse::parse($linkV1), 3, '');
+            $data->un_set('link');
+            $data->set('href', $link);
+            $data->set('href-target', $target);
+            $data->set('href-rel', $rel);
+        }
+    }
+
+    public function getFilled($slide, $data) {
+        $data = parent::getFilled($slide, $data);
+
         $data->set('content', $slide->fill($data->get('content', '')));
-        $data->set('link', $slide->fill($data->get('link', '#|*|')));
+        $data->set('href', $slide->fill($data->get('href', '#|*|')));
 
         return $data;
     }
 
     public function prepareExport($export, $data) {
+        parent::prepareExport($export, $data);
+
         $export->addVisual($data->get('font'));
         $export->addVisual($data->get('style'));
-        $export->addLightbox($data->get('link'));
+        $export->addLightbox($data->get('href'));
     }
 
     public function prepareImport($import, $data) {
+        $data = parent::prepareImport($import, $data);
+
         $data->set('font', $import->fixSection($data->get('font')));
         $data->set('style', $import->fixSection($data->get('style')));
-        $data->set('link', $import->fixLightbox($data->get('link')));
+        $data->set('href', $import->fixLightbox($data->get('href')));
 
         return $data;
     }
@@ -134,26 +153,12 @@ class N2SSPluginItemFactoryButton extends N2SSPluginItemFactoryAbstract {
             'preview'     => '<div class="{fontClassName}" style="width:{nextend.activeLayer.prop(\'style\').width};"><a style="display:{$(\'#item_buttonfullwidth\').val() == 1 ? \'block\' : \'inline-block\'};" href="#" class="{styleClassName}" onclick="return false;">{$(\'#item_buttoncontent\').val();}</a></div>'
         ));
 
-        $link = new N2ElementMixed($settings, 'link', '', '|*|_self|*|');
-        new N2ElementUrl($link, 'link-1', n2_('Link'), '', array(
+        $link = new N2ElementGroup($settings, 'link', '');
+        new N2ElementUrl($link, 'href', n2_('Link'), '', array(
             'style' => 'width:236px;'
         ));
-        new N2ElementList($link, 'link-2', n2_('Target window'), '', array(
-            'options' => array(
-                '_self'  => n2_('Self'),
-                '_blank' => n2_('New')
-            )
-        ));
-        new N2ElementList($link, 'link-3', n2_('Rel'), '', array(
-            'options' => array(
-                ''           => '',
-                'nofollow'   => 'nofollow',
-                'noreferrer' => 'noreferrer',
-                'author'     => 'author',
-                'external'   => 'external',
-                'help'       => 'help'
-            )
-        ));
+        new N2ElementLinkTarget($link, 'href-target', n2_('Target window'));
+        new N2ElementLinkRel($link, 'href-rel', n2_('Rel'));
 
         $ui = new N2ElementGroup($settings, 'item-button-ui');
         new N2ElementOnOff($ui, 'fullwidth', n2_('Full width'), 1);

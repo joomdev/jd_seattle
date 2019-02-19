@@ -322,19 +322,33 @@ class N2SmartsliderSlidersModel extends N2Model {
         $optimize2 = new N2Tab($optimize, 'optimize-images', false);
 
         $optimizeImages = new N2ElementGroup($optimize2, 'optimize-images', n2_('Optimize images'));
+
         new N2ElementOnOff($optimizeImages, 'optimize', n2_('Enable'), 0, array(
             'relatedFields' => array(
-                'slideroptimize-quality'
+                'slideroptimize-notice',
+                'slideroptimize-quality',
+                'sliderbackground-image-resize',
+                'sliderthumbnail-image-size'
             )
         ));
         new N2ElementNumber($optimizeImages, 'optimize-quality', n2_('Quality'), 70, array(
             'min'   => 0,
             'max'   => 100,
             'unit'  => '%',
-            'style' => 'width:40px;'
+            'style' => 'width:40px;',
+            'post'  => 'break'
         ));
 
-        $backgroundImage = new N2ElementGroup($optimize2, 'background-image-resize', n2_('Background image resize'), array('tip' => n2_('Only works if the \'Optimize images\' option is turned on too!')));
+        $memoryLimitText = '';
+        if (function_exists('ini_get')) {
+            $memory_limit = ini_get('memory_limit');
+            if (!empty($memory_limit)) {
+                $memoryLimitText = ' ' . sprintf(n2_('Your current memory limit is %s'), $memory_limit);
+            }
+        }
+        new N2ElementImportant($optimizeImages, 'optimize-notice', n2_('Optimize image feature requires high memory limit. If you do not have enough memory you will get a blank page on the frontend.') . $memoryLimitText);
+
+        $backgroundImage = new N2ElementGroup($optimize2, 'background-image-resize', n2_('Background image resize'));
         new N2ElementOnOff($backgroundImage, 'optimize-background-image-custom', n2_('Enable'), '0', array(
             'relatedFields' => array(
                 'slideroptimize-background-image-width',
@@ -412,6 +426,10 @@ class N2SmartsliderSlidersModel extends N2Model {
         ));
         new N2ElementTextarea($developerOptions, 'callbacks', n2_('JavaScript callbacks'), '', array(
             'fieldStyle' => 'width:600px;height:300px;'
+        ));
+
+        new N2ElementText($developerOptions, 'classes', n2_('Slider CSS classes'), '', array(
+            'tip' => 'You can put custom CSS classes to the slider\'s container.'
         ));
 
 
@@ -819,7 +837,7 @@ class N2SmartsliderSlidersModel extends N2Model {
 
 
         $attributes = array(
-            'style'         => 'background-image: URL("' . N2ImageHelper::fixed($thumbnail) . '");',
+            'style'         => 'background-image: URL("' . n2_esc_attr(N2ImageHelper::fixed($thumbnail)) . '");',
             'class'         => 'n2-ss-box-slider n2-box-selectable ' . ($slider['type'] == 'group' ? 'n2-ss-box-slider-group' : 'n2-ss-box-slider-slider'),
             'data-title'    => $slider['title'],
             'data-editUrl'  => $editUrl,
@@ -837,7 +855,7 @@ class N2SmartsliderSlidersModel extends N2Model {
             ), N2Html::link(n2_('Edit'), $editUrl, array('class' => 'n2-button n2-button-normal n2-button-s n2-button-green n2-radius-s n2-uc n2-h5'))),
             'placeholderContent' => N2Html::tag('div', array(
                     'class' => 'n2-box-placeholder-title'
-                ), N2Html::link($slider['title'], $editUrl, array('class' => 'n2-h4'))) . N2Html::tag('div', array(
+                ), N2Html::link(n2_esc_html($slider['title']), $editUrl, array('class' => 'n2-h4'))) . N2Html::tag('div', array(
                     'class' => 'n2-box-placeholder-buttons'
                 ), N2Html::tag('div', array(
                     'class' => 'n2-button n2-button-normal n2-button-s n2-radius-s n2-button-grey n2-h4 n2-right',
@@ -875,7 +893,7 @@ class N2SmartsliderSlidersModel extends N2Model {
 
 
         $attributes = array(
-            'style' => 'background-image: URL(' . N2ImageHelper::fixed($thumbnail) . ');',
+            'style' => 'background-image: URL(' . n2_esc_attr(N2ImageHelper::fixed($thumbnail)) . ');',
             'class' => 'n2-ss-box-slider n2-box-selectable ' . ($slider['type'] == 'group' ? 'n2-ss-box-slider-group' : 'n2-ss-box-slider-slider')
         );
 
@@ -903,7 +921,7 @@ class N2SmartsliderSlidersModel extends N2Model {
             'rb'                 => implode('', $rb),
             'placeholderContent' => N2Html::tag('div', array(
                     'class' => 'n2-box-placeholder-title n2-h4'
-                ), $slider['title']) . N2Html::tag('div', array(
+                ), n2_esc_html($slider['title'])) . N2Html::tag('div', array(
                     'class' => 'n2-box-placeholder-buttons'
                 ), N2Html::tag('div', array(
                     'class' => 'n2-button n2-button-normal n2-button-s n2-radius-s n2-button-grey n2-h4 n2-right',

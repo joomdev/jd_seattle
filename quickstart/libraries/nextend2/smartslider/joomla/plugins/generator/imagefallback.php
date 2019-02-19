@@ -22,11 +22,19 @@ class N2JoomlaImageFallBack {
         return $protocol . $domainName;
     }
 
-    static public function checkHTTP($image, $root) {
+    static public function checkHTTP($image, $root, $returnboolean = false) {
         if (substr($image, 0, 5) != 'http:' && substr($image, 0, 6) != 'https:') {
-            return $root . $image;
+            if ($returnboolean) {
+                return false;
+            } else {
+                return $root . $image;
+            }
         } else {
-            return $image;
+            if ($returnboolean) {
+                return true;
+            } else {
+                return $image;
+            }
         }
     }
 
@@ -43,9 +51,9 @@ class N2JoomlaImageFallBack {
                 foreach ($textVars as $text) {
                     $imageInText = self::findImage($text);
                     if (!empty($imageInText)) {
-                        $file = $root . $imageInText;
-                        if (N2Filesystem::existsFile($file)) {
-                            $return = N2ImageHelper::dynamic($root . $imageInText);
+                        $file = self::checkHTTP($imageInText, $root);
+                        if (N2Filesystem::existsFile($file) || self::checkHTTP($imageInText, $root, true)) {
+                            $return = N2ImageHelper::dynamic($file);
                         } else {
                             $slashes = array(
                                 '/',

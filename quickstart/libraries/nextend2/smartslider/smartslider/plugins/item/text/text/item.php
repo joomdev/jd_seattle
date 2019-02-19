@@ -38,7 +38,7 @@ class N2SSItemText extends N2SSItemAbstract {
         if ($contentTablet == '') {
             $class .= ' n2-ss-tablet';
         } else {
-            $html .= N2Html::tag('div', array(
+            $html  .= N2Html::tag('div', array(
                 'class' => 'n2-ss-tablet n2-ow n2-ow-all' . $class
             ), $contentTablet);
             $class = '';
@@ -48,7 +48,9 @@ class N2SSItemText extends N2SSItemAbstract {
             'class' => 'n2-ow n2-ow-all n2-ss-desktop' . $class
         ), $content);
 
-        return $html;
+        return N2Html::tag('div', array(
+            'class' => 'n2-ss-item-content n2-ow'
+        ), $html);
     }
 
 

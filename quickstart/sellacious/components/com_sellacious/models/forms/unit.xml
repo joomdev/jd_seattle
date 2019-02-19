@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset name="basic" label="COM_SELLACIOUS_UNIT_FIELDSET_BASIC">
+		<field
+			name="id"
+			type="hidden"
+			default="0"
+			readonly="true"
+		/>
+		<field
+			name="title"
+			type="text"
+			label="COM_SELLACIOUS_UNIT_FIELD_TITLE_LABEL"
+			description="COM_SELLACIOUS_UNIT_FIELD_TITLE_DESC"
+			class="inputbox"
+			size="40"
+			required="true"
+		 />
+		<field
+			name="alias"
+			type="text"
+			label="COM_SELLACIOUS_UNIT_FIELD_ALIAS_LABEL"
+			description="COM_SELLACIOUS_UNIT_FIELD_ALIAS_DESC"
+			class="inputbox"
+			size="60"
+		/>
+		<field
+			name="unit_group"
+			type="unitgroup"
+			label="COM_SELLACIOUS_UNIT_FIELD_UNITGROUP_LABEL"
+			description="COM_SELLACIOUS_UNIT_FIELD_UNITGROUP_DESC"
+			class="w100p"
+			required="true"
+			default=""
+			onchange="Joomla.submitform('unit.setType');"
+		>
+			<option value="">COM_SELLACIOUS_UNIT_FIELD_UNITGROUP_SELECT_OPTION</option>
+			<option value="+">COM_SELLACIOUS_UNIT_FIELD_UNITGROUP_ADDNDEW</option>
+		</field>
+		<field
+			name="newgroup"
+			type="text"
+			label="COM_SELLACIOUS_UNIT_FIELD_NEWGROUP_LABEL"
+			description="COM_SELLACIOUS_UNIT_FIELD_NEWGROUP_DESC"
+			class="inputbox"
+			required="true"
+			size="44"
+		/>
+		<field
+			name="symbol"
+			type="text"
+			label="COM_SELLACIOUS_UNIT_FIELD_SYMBOL_LABEL"
+			description="COM_SELLACIOUS_UNIT_FIELD_SYMBOL_DESC"
+			class="inputbox"
+			required="true"
+			size="44"
+		/>
+		<field
+			name="decimal_places"
+			type="number"
+			min="0"
+			max="6"
+			label="COM_SELLACIOUS_UNIT_FIELD_DECIMAL_LABEL"
+			description="COM_SELLACIOUS_UNIT_FIELD_DECIMAL_DESC"
+			class="inputbox"
+			required="true"
+		/>
+		<field
+			name="state"
+			type="radio"
+			label="COM_SELLACIOUS_UNIT_FIELD_STATUS_LABEL"
+			description="COM_SELLACIOUS_UNIT_FIELD_STATUS_DESC"
+			class="inputbox"
+			required="true"
+			default="1"
+		>
+			<option value="1">JENABLED</option>
+			<option value="0">JDISABLED</option>
+		</field>
+	</fieldset>
+	<fieldset name="conversion" label="COM_SELLACIOUS_UNIT_FIELDSET_CONVERSION">
+		<field
+			name="rates"
+			type="unitConversion"
+			label="COM_SELLACIOUS_UNIT_FIELD_RATES_LABEL"
+			description="COM_SELLACIOUS_UNIT_FIELD_RATES_DESC"
+			class="inputbox"
+			size="44"
+		/>
+	</fieldset>
+</form>

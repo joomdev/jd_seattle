@@ -18,8 +18,9 @@ abstract class N2ElementImageList extends N2ElementRadio {
             );
         }
         for ($i = 0; $i < count($files); $i++) {
-            $ext = pathinfo($files[$i], PATHINFO_EXTENSION);
-            if ($ext == 'jpg' || $ext == 'jpeg' || $ext == 'png' || $ext == 'svg' || $ext == 'gif') {
+            $ext        = pathinfo($files[$i], PATHINFO_EXTENSION);
+            $extensions = array( 'jpg', 'jpeg', 'png', 'svg', 'gif', 'webp' );
+            if (in_array($ext, $extensions)) {
 
                 $path  = $this->folder . $files[$i];
                 $value = $this->parseValue(N2Uri::pathToUri($path));
@@ -48,7 +49,7 @@ abstract class N2ElementImageList extends N2ElementRadio {
             $selected = $this->isSelected($value);
             if ($value != -1) {
 
-                $html .= N2Html::openTag("div", array("class" => "n2-radio-option n2-imagelist-option" . ($selected ? ' n2-active' : '')));
+                $html .= N2Html::openTag("div", array( "class" => "n2-radio-option n2-imagelist-option" . ($selected ? ' n2-active' : '') ));
 
                 $ext = pathinfo($option['path'], PATHINFO_EXTENSION);
                 if ($ext == 'svg') {
@@ -57,10 +58,10 @@ abstract class N2ElementImageList extends N2ElementRadio {
                     $image = N2Uri::pathToUri($option['path']);
                 }
 
-                $html .= N2Html::image($image, $option['label'], array('data-image' => $value));
+                $html .= N2Html::image($image, $option['label'], array( 'data-image' => $value ));
                 $html .= N2Html::closeTag("div");
             } else {
-                $html .= N2Html::tag("div", array("class" => "n2-radio-option" . ($selected ? ' n2-active' : '')), $option['label']);
+                $html .= N2Html::tag("div", array( "class" => "n2-radio-option" . ($selected ? ' n2-active' : '') ), $option['label']);
             }
         }
 

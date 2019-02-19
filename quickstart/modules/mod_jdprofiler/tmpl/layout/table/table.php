@@ -6,9 +6,9 @@ defined('_JEXEC') or die;
 ?>
 <?php if(!empty($profiles)){ ?>
 <div class="jd-profiler-wrapper jd-table-layout-view jd-table-simple-layout">
-      <div class="row <?php echo ($params->get('gutter_space')=='nomargin') ? 'no-gutters' : '' ?>">
+      <div class="jd-row <?php echo ($params->get('gutter_space')=='nomargin') ? 'jd-nogutters' : '' ?>">
           <!-- Team Item wrapper start -->
-          <div class="jd-team-table col-12">
+          <div class="jd-team-table jd-col-12">
             <table class="table table-striped">
             <tbody>
             <?php foreach($profiles as $profile) { ?>

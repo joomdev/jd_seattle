@@ -129,17 +129,11 @@ class N2SmartsliderLayersModel extends N2Model {
             )
         ));
 
-
-        $link = new N2ElementMixed($rowSettings, 'row-link', '', '|*|_self');
-        new N2ElementUrl($link, 'link-1', n2_('Link'), '', array(
-            'style' => 'width:160px;'
+        $link = new N2ElementGroup($rowSettings, 'row-link', '');
+        new N2ElementUrl($link, 'row-href', n2_('Link'), '', array(
+            'style' => 'width:150px;'
         ));
-        new N2ElementList($link, 'link-2', n2_('Target window'), '', array(
-            'options' => array(
-                '_self'  => n2_('Self'),
-                '_blank' => n2_('New')
-            )
-        ));
+        new N2ElementLinkTarget($link, 'row-href-target', n2_('Target window'));
 
         $rowBackground = new N2ElementGroup($rowSettings, 'row-background');
         new N2ElementImage($rowBackground, 'row-background-image', n2_('Background image'), '');
@@ -289,17 +283,11 @@ class N2SmartsliderLayersModel extends N2Model {
             'style'         => 'width:32px;'
         ));
 
-
-        $link = new N2ElementMixed($colSettings, 'col-link', '', '|*|_self');
-        new N2ElementUrl($link, 'link-1', n2_('Link'), '', array(
-            'style' => 'width:160px;'
+        $link = new N2ElementGroup($colSettings, 'col-link', '');
+        new N2ElementUrl($link, 'col-href', n2_('Link'), '', array(
+            'style' => 'width:150px;'
         ));
-        new N2ElementList($link, 'link-2', n2_('Target window'), '', array(
-            'options' => array(
-                '_self'  => n2_('Self'),
-                '_blank' => n2_('New')
-            )
-        ));
+        new N2ElementLinkTarget($link, 'col-href-target', n2_('Target window'));
 
         $colBackground = new N2ElementGroup($colSettings, 'col-background');
         new N2ElementImage($colBackground, 'col-background-image', n2_('Background image'), '');
@@ -576,6 +564,7 @@ class N2SmartsliderLayersModel extends N2Model {
                 '600' => '600 - ' . n2_('Semi bold'),
                 '700' => '700 - ' . n2_('Bold'),
                 '800' => '800 - ' . n2_('Extra bold'),
+                '900' => '900'
             )
         ));
 
@@ -700,6 +689,13 @@ class N2SmartsliderLayersModel extends N2Model {
      */
     protected function formAnimations($form) {
     }
+
+    protected function formAnimationsBasic($form) {
+    }
+
+    protected function formAnimationsReveal($form) {
+    }
+
 
     /**
      * @param N2FormElementContainer $form

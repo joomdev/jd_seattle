@@ -28,18 +28,18 @@ $active = TRUE;
 .testimonial-container-<?php echo $module->id; ?> {
 	overflow: hidden;
 	position: relative;
+	padding: 30px 48px;
+	margin: 0;
 }
 .testimonial-container-<?php echo $module->id; ?> .slide-content .author {
-	position: relative;
-	padding: 9px 0px 45px 89px;
+	padding-bottom: 45px;
+	display: flex;
+	align-items: center;
 }
 .testimonial-container-<?php echo $module->id; ?> .slide-content .author .author-img {
-	position: absolute;
-	overflow: hidden;
 	width: 70px;
 	height: 70px;
-	left: 0px;
-	top: 0px;
+	margin-right: 30px;
 }
 .testimonial-container-<?php echo $module->id; ?> .slide-content .author .author-img img {
 	width: 100%;
@@ -59,7 +59,7 @@ $active = TRUE;
 	display: inline-block;
 	height: 20px;
 	width: 20px;
-	margin: 0 5px;
+	margin: 0 2px;
 	padding: 0;
 	cursor: pointer;
 }
@@ -68,17 +68,17 @@ $active = TRUE;
 	line-height: 1;
 }
 .testimonial-container-<?php echo $module->id; ?> .slick-dots li button:before {
-	color: <?php if($NormalColor1=="defualt") { echo '#1c60ff'; }else {echo $NormalColor1; } ?>;
+	color: <?php if($NormalColor1=="defualt") { echo '#1c60ff'; }else {echo $NormalColor1; } ?> !important;
 	height: 20px; 
 	width: 20px;
-	font-size: 16px;
-	line-height: 1;
+	font-size: 12px;
+	line-height: 20px;
 	top: 0;
 	opacity: 1;
 }
 .testimonial-container-<?php echo $module->id; ?> .slick-dots li.slick-active button:before, 
 .testimonial-container-<?php echo $module->id; ?> .slick-dots li button:hover:before {
-	color: <?php echo $activeColor; ?>;
+	color: <?php echo $activeColor; ?> !important;
 }
 .testimonial-container-<?php echo $module->id; ?> .slick-prev {
 	left: 5px;
@@ -121,45 +121,46 @@ $active = TRUE;
 	}
 	<?php } ?>
 </style>
-
-<div class="testimonial-container-<?php echo $module->id; ?> bg-white shadow-lg px-5 py-4 m-0">
-<?php foreach($items as $item)  { ?>
-	<div class="slide-content">
-		<div class="author d-flex">
-			<?php if(!empty($item->author_thumbnail)) { ?>
-				<div class="author-img">
-					<img src="<?php echo $item->author_thumbnail; ?>" alt="<?php echo $item->author_name; ?>" class="img-fluid">
-				</div>
-			<?php } ?>
-		<?php if(!empty($item->author_name) or !empty($item->author_depart)) { ?>
-			<div class="author-info">
-				<?php if(!empty($item->author_name)) { ?>
-					<h5 class="name"><?php echo $item->author_name; ?></h5>
-				<?php } ?> 
-				<?php if(!empty($item->author_companyName)) { ?>
-					<div class="author-text"><?php if(!empty($item->author_companyLink)) { ?><a href="<?php echo $item->author_companyLink; ?>" target="_blank"  rel="nofollow" ><?php } ?><?php echo $item->author_companyName; ?><?php if(!empty($item->author_companyLink)) { ?></a><?php } ?></div>
-				<?php } ?>
-				<?php if(($item->rating !="none")) { ?>
-					<div class="rating">
-						<?php for($i=1; $i<=5; $i++) {
-							if($i <=  $item->rating ){
-								echo '<span class="fa fa-star text-primary"></span>';
-							}else{
-								echo '<span class="fa fa-star"></span>';
-							}
-						 } ?>
+<div class="jd-testimonial">
+	<div class="testimonial-container-<?php echo $module->id; ?> testimonial-wrapper">
+	<?php foreach($items as $item)  { ?>
+		<div class="slide-content">
+			<div class="author">
+				<?php if(!empty($item->author_thumbnail)) { ?>
+					<div class="author-img">
+						<img src="<?php echo $item->author_thumbnail; ?>" alt="<?php echo $item->author_name; ?>" class="img-fluid">
 					</div>
 				<?php } ?>
+			<?php if(!empty($item->author_name) or !empty($item->author_depart)) { ?>
+				<div class="author-info">
+					<?php if(!empty($item->author_name)) { ?>
+						<h5 class="name"><?php echo $item->author_name; ?></h5>
+					<?php } ?> 
+					<?php if(!empty($item->author_companyName)) { ?>
+						<div class="author-text"><?php if(!empty($item->author_companyLink)) { ?><a href="<?php echo $item->author_companyLink; ?>" target="_blank"  rel="nofollow" ><?php } ?><?php echo $item->author_companyName; ?><?php if(!empty($item->author_companyLink)) { ?></a><?php } ?></div>
+					<?php } ?>
+					<?php if(($item->rating !="none")) { ?>
+						<div class="rating">
+							<?php for($i=1; $i<=5; $i++) {
+								if($i <=  $item->rating ){
+									echo '<span class="fa fa-star text-primary"></span>';
+								}else{
+									echo '<span class="fa fa-star"></span>';
+								}
+							 } ?>
+						</div>
+					<?php } ?>
+				</div>
+				<?php } ?>
 			</div>
+			<?php if(!empty($item->author_companyReview)) { ?>
+				<div class="text">
+				<?php echo $item->author_companyReview; ?>
+				</div>
 			<?php } ?>
 		</div>
-		<?php if(!empty($item->author_companyReview)) { ?>
-			<div class="text">
-			<?php echo $item->author_companyReview; ?>
-			</div>
-		<?php } ?>
+	<?php } ?>
 	</div>
-<?php } ?>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>

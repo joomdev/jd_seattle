@@ -2,7 +2,7 @@
 /**
  * @package   Astroid Framework
  * @author    JoomDev https://www.joomdev.com
- * @copyright Copyright (C) 2009 - 2018 JoomDev.
+ * @copyright Copyright (C) 2009 - 2019 JoomDev.
  * @license http://www.gnu.org/licenses/gpl-2.0.html GNU/GPLv2 or Later
  */
 // No direct access.
@@ -18,7 +18,7 @@ if (file_exists($lib)) {
    jimport('astroid.framework.template');
    jimport('astroid.framework.constants');
 } else {
-   die('Please install and activate <a href="http://astroidframework.com/" target="_blank">Astroid Framework</a> in order to use this template.');
+   die('Please install and activate <a href="https://www.astroidframework.com" target="_blank">Astroid Framework</a> in order to use this template.');
 }
 $template = new AstroidFrameworkTemplate($this);
 
@@ -39,6 +39,7 @@ $template->loadTemplateCSS('custom.css');
       <meta name="HandheldFriendly" content="true" />
       <meta name="apple-mobile-web-app-capable" content="YES" />
       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v<?php echo AstroidFrameworkConstants::$fontawesome_version; ?>/css/all.css" >
+      <link rel="stylesheet" href="https://cdn.lineicons.com/1.0.1/LineIcons.min.css">
    <jdoc:include type="head" />
    <?php
    /*
@@ -85,7 +86,6 @@ $template->loadTemplateCSS('custom.css');
    $template->loadLayout('colors');
    ?>
    <?php $template->head(); ?>
-   <link rel="stylesheet" href="https://cdn.lineicons.com/1.0.0/LineIcons.min.css">
 </head>
 <body class="<?php echo $template->bodyClass($template->language, $template->direction); ?>">
    <?php

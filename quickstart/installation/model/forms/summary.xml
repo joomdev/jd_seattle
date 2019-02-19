@@ -34,6 +34,7 @@
 			type="installation.sample"
 			label="INSTL_SITE_INSTALL_SAMPLE_LABEL"
 			class="inputbox"
+			default="sample_seattle.sql"
 		/>
 	</fieldset>
 </form>

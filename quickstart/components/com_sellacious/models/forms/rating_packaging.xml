@@ -1,0 +1,25 @@
+<form>
+	<fields name="packaging">
+		<field
+			name="rating"
+			type="rating"
+			label="COM_SELLACIOUS_PRODUCT_FIELD_RATING_PACKAGING_RATING_LABEL"
+		/>
+		<field
+			name="title"
+			type="text"
+			hint="COM_SELLACIOUS_PRODUCT_FIELD_RATING_PACKAGING_TITLE_DESC"
+			class="w100p"
+			rows="3"
+			maxlength="150"
+		/>
+		<field
+			name="comment"
+			type="textarea"
+			hint="COM_SELLACIOUS_PRODUCT_FIELD_RATING_PACKAGING_COMMENT_DESC"
+			class="w100p"
+			rows="3"
+			maxlength="2000"
+		/>
+	</fields>
+</form>

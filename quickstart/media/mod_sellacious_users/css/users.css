@@ -1,0 +1,72 @@
+/**
+ * @version     1.6.1
+ * @package     Sellacious Users Module
+ *
+ * @copyright   Copyright (C) 2012-2018 Bhartiy Web Technologies. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
+ * @author      Mohd Kareemuddin <info@bhartiy.com> - http://www.bhartiy.com
+ */
+
+
+.user-box-inner {
+	width: 25%;
+	min-width: 220px;
+	position: relative;
+	cursor: default;
+	float: left;
+}
+.user-box-inner .user-box {
+	background-color: #fff;
+	border: 1px solid #e2e2e2;
+	position: relative;
+	cursor: default;
+	margin: 0 4px 8px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+.user-box-inner .user-box .image-box {
+	vertical-align: middle;
+	background: #fff;
+	height: 220px;
+	border: 3px solid #fff;
+	overflow: hidden;
+	position: relative;
+	text-align: center;
+}
+.user-box .image-box a{
+	display: block;
+	height: 100%;
+}
+.user-box .image-box img {
+	display: inline-block;
+	max-height: 100%;
+	width: auto;
+	transition: all 0s linear 0.25s;
+	-webkit-transition: all 0s linear 0.25s;
+	-moz-transition: all 0s linear 0.25s;
+	-ms-transition: all 0s linear 0.25s;
+}
+.user-box:hover .image-box img {
+	opacity: 0.4;
+}
+.user-box-inner .user-info-box {
+	padding: 10px;
+	text-align: left;
+	border-top: 1px solid #e2e2e2;
+	min-height: 132px;
+	box-sizing: border-box;
+}
+.user-box-inner .user-name {
+	font-size: 14px;
+	line-height: 20px;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+	font-weight: bold;
+}
+.user-name a,
+.user-name a:hover {
+	color: #222;
+	text-decoration: none;
+}

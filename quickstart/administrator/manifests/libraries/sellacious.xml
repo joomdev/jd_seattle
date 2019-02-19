@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="library" version="3.0" method="upgrade">
+	<name>Sellacious Library</name>
+	<libraryname>sellacious</libraryname>
+	<author>Izhar Aazmi</author>
+	<creationDate>December 26, 2018</creationDate>
+	<copyright>Copyright (C) 2012-2018 Bhartiy Web Technologies. All rights reserved.</copyright>
+	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+	<authorEmail>info@bhartiy.com</authorEmail>
+	<authorUrl>www.bhartiy.com</authorUrl>
+	<version>1.6.1-alpha0</version>
+	<description>Internal Library for Sellacious Application</description>
+	<files>
+		<folder>controller</folder>
+		<folder>exception</folder>
+		<folder>helper</folder>
+		<folder>installer</folder>
+		<folder>joomla</folder>
+		<folder>model</folder>
+		<folder>objects</folder>
+		<folder>plugin</folder>
+		<folder>table</folder>
+		<folder>utilities</folder>
+		<folder>view</folder>
+		<file>loader.php</file>
+	</files>
+	<updateservers>
+		<server type="extension" name="Sellacious Updates - lib_sellacious">http://sellacious.com/release/updates/v1.6/lib_sellacious.xml</server>
+	</updateservers>
+</extension>

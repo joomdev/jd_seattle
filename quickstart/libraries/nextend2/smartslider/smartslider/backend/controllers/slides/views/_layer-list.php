@@ -1,4 +1,4 @@
-<div id='n2-ss-layers' class="unselectable">
+<div id="n2-ss-layers" class="n2-unselectable">
     <div id="n2-ss-layers-table" class="n2-table n2-table-fixed">
         <div class="n2-tr">
             <div class="n2-td n2-ss-layers-sidebar">

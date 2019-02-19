@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset>
+		<field
+			name="price"
+			type="productPriceRepeatable"
+			class="premium-input"
+		/>
+		<field
+			name="stock"
+			type="textRepeatable"
+			class="inputbox"
+		/>
+		<field
+			name="seller_uid"
+			type="hidden"
+			class="inputbox"
+			filter="unset"
+		/>
+	</fieldset>
+</form>

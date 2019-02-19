@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form>
-   <field name="icon"
-                label="COM_JDPROFILER_ICON_LABEL"
-				description="COM_JDPROFILER_ICON_DESC"
-                type="faicons" />
-      <field name="link"
-             label="Link "
-             description=""
-             type="text"  />
+    <field name="icon" label="COM_JDPROFILER_ICON_LABEL" description="COM_JDPROFILER_ICON_DESC" type="faicons" />
+    <field name="link" label="COM_JDPROFILER_SOCIAL_LINK" description="COM_JDPROFILER_SOCIAL_LINK_DESC" type="text" />
 </form>

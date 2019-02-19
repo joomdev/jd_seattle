@@ -1,0 +1,102 @@
+fieldset div.input-row:hover {
+	background: #fff;
+}
+
+.table-actions {
+	border: 1px solid #dedede;
+}
+
+.table-actions th {
+	padding: 8px;
+	background: #efefef;
+}
+
+.accordion-group.panel {
+	margin-bottom: 0;
+}
+
+.accordion-heading {
+	color: #333;
+	border: 1px solid #dedede;
+	background: #e9e9e9;
+	line-height: 1.8;
+	padding: 2px 6px 2px 6px;
+	cursor: pointer;
+}
+
+.accordion-heading:hover {
+	background: #efefef;
+}
+
+.accordion-heading a:after {
+	float: right;
+	font-family: FontAwesome, serif;
+	content: "\f078";
+	margin-right: 6px;
+}
+
+.accordion-heading a.collapsed:after {
+	content: "\f053";
+	margin-right: 8px;
+	margin-left: 2px;
+}
+
+.accordion-heading a,
+.accordion-heading a:hover,
+.accordion-heading a:focus,
+.accordion-heading a:active {
+	color: #333;
+	text-decoration: none;
+
+}
+
+@media (min-width: 0) {
+	.table-actions .settings {
+		width: 200px;
+	}
+	.table-actions .calculated {
+		width: 200px;
+	}
+}
+
+@media (min-width: 768px) {
+	.table-actions .settings {
+		width: 200px;
+	}
+	.table-actions .calculated {
+		width: 200px;
+	}
+}
+
+@media (min-width: 992px) {
+	.table-actions .settings {
+		width: 200px;
+	}
+	.table-actions .calculated {
+		width: 200px;
+	}
+}
+
+@media (min-width: 1200px) {
+	.table-actions .settings {
+		width: 250px;
+	}
+	.table-actions .calculated {
+		width: 200px;
+	}
+}
+
+.tab-content {
+	padding: 30px 20px 50px 20px;
+}
+
+.tab-content .input-row {
+	margin-top: 5px;
+	margin-bottom: 10px;
+}
+
+.accordion-inner {
+	padding-top: 5px;
+	padding-bottom: 10px;
+	border: 1px solid #dddeee;
+}

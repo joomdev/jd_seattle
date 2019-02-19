@@ -1,0 +1,187 @@
+.superbox *,
+.superbox :after,
+.superbox :before {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-font-smoothing: antialiased;
+	-moz-font-smoothing: antialiased;
+	-o-font-smoothing: antialiased;
+	font-smoothing: antialiased;
+	text-rendering: optimizeLegibility;
+}
+.superbox-list {
+	display: inline-block;
+	*display: inline;
+	zoom: 1;
+	width: 12.5%;
+	padding: 5px;
+	position: relative;
+}
+.superbox-list.active:before {
+	content: "\f0d8";
+	font-family: FontAwesome;
+	display: block;
+	position: absolute;
+	left: 43%;
+	bottom: -44px;
+	z-index: 2;
+	text-align: center;
+	font-size: 45px;
+	color: #222222;
+}
+.superbox-img {
+	max-width: 100%;
+	width: 100%;
+	cursor: pointer;
+}
+.superbox-show {
+	text-align: left;
+	position: relative;
+	background-color: #222222;
+	width: 100%;
+	float: left;
+	padding: 25px 0 12px 25px;
+	display: none;
+	margin: 5px 0;
+}
+.superbox-current-img {
+	max-width: 100%;
+	float: left;
+	margin-right: 25px;
+	margin-bottom: 13px;
+}
+.superbox-img:hover {
+	opacity: .8
+}
+.superbox-float {
+	float: left
+}
+.superbox-close {
+	opacity: .7;
+	cursor: pointer;
+	position: absolute;
+	top: 15px;
+	right: 15px;
+	transition: all .1s linear 0s;
+}
+.superbox-close:hover {
+	opacity: 1
+}
+.superbox-imageinfo {
+	display: inline-block;
+	max-width: 500px;
+	color: #ffffff;
+	padding: 0 25px 0 0;
+}
+.superbox-imageinfo span {
+	font-size: 13px;
+	color: #a19994;
+	margin-right: -2px;
+	padding-top: 10px;
+	display: inline-block;
+	padding-bottom: 13px;
+}
+.superbox-imageinfo > :first-child {
+	margin-bottom: 10px;
+	font-weight: 700;
+}
+.superbox-imageinfo span p:last-child {
+	margin-top: 30px
+}
+/* fixes ahead */
+.superbox-current-img {
+	max-width: 90% !important;
+}
+.superbox-list-add {
+	display: inline-block;
+	*display: inline;
+	zoom: 1;
+	/* width: 12.5%; */
+	padding: 5px;
+	position: relative;
+}
+/* Height exponentiation fix - start */
+@media only screen and (min-width: 320px) {
+	.superbox-list-add, .superbox-list-add img {
+		max-height: 140px;
+		height: 140px;
+		width: auto;
+	}
+}
+@media only screen and (min-width: 486px) {
+	.superbox-list-add, .superbox-list-add img {
+		max-height: 120px;
+		height: 120px;
+		width: auto;
+	}
+}
+@media only screen and (min-width: 768px) {
+	.superbox-list-add, .superbox-list-add img {
+		max-height: 120px;
+		height: 120px;
+		width: auto;
+	}
+}
+@media only screen and (min-width: 1025px) {
+	.superbox-list-add, .superbox-list-add img {
+		max-height: 120px;
+		height: 120px;
+		width: auto;
+	}
+}
+@media only screen and (min-width: 1824px) {
+	.superbox-list-add, .superbox-list-add img {
+		max-height: 170px;
+		height: 170px;
+		width: auto;
+	}
+}
+@media only screen and (min-width: 320px) {
+	.superbox-list, .superbox-list img {
+		max-height: 140px;
+		height: 140px;
+		width: auto;
+	}
+}
+@media only screen and (min-width: 486px) {
+	.superbox-list, .superbox-list img {
+		max-height: 120px;
+		height: 120px;
+		width: auto;
+	}
+}
+@media only screen and (min-width: 768px) {
+	.superbox-list, .superbox-list img {
+		max-height: 120px;
+		height: 120px;
+		width: auto;
+	}
+}
+@media only screen and (min-width: 1025px) {
+	.superbox-list, .superbox-list img {
+		max-height: 120px;
+		height : 120px;
+		width: auto;
+	}
+}
+@media only screen and (min-width: 1824px) {
+	.superbox-list, .superbox-list img {
+		max-height: 170px;
+		height: 170px;
+		width: auto;
+	}
+}
+.superbox-list, .superbox-list-add {
+	overflow: hidden;
+	text-align: center;
+	vertical-align: top;
+	cursor: pointer;
+	border: #ffffff 1px solid;
+}
+.superbox-list-add {
+	margin-top: 0;
+	border: #ffffff 3px solid;
+}

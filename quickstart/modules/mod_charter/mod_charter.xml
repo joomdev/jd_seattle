@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="3.1.0" client="site" method="upgrade">
+
+	<name>Charter</name>
+	<author>Akash</author>
+	<version>1.0.0</version>
+	<description>Makes your charting needs easy!</description>
+
+	<files>
+		<filename>mod_charter.xml</filename>
+		<filename module="mod_charter">mod_charter.php</filename>
+		<filename>helper.php</filename>
+		<folder>tmpl</folder>
+	</files>
+
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+
+				<field name="text" type="text" label="Add Data" />
+				<field name="percentage" type="text" label="Percentage" />
+				<field name="color" type="text" label="Color" />
+
+			</fieldset>
+		</fields>
+	</config>
+
+</extension>

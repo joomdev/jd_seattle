@@ -1,0 +1,78 @@
+.order-table th, .order-table td {
+	border: 1px solid #dedede;
+	padding: 4px;
+	text-decoration: none;
+	font-size: 12px;
+	line-height: 1.4;
+}
+
+.order-table > thead > tr > th {
+	background: #e4e0bf;
+	border: 1px solid #ffffff;
+	color: #000;
+}
+
+.order-table table td {
+	background: #ffffff;
+}
+
+.button-mini {
+	padding: 2px 5px;
+	border: 1px solid #ffc363;
+	color: #404040;
+	background: #fcf8e3;
+	cursor: pointer;
+	text-decoration: none;
+	font-size: 10px;
+	line-height: 1.1;
+	text-transform: uppercase;
+	font-weight: bold;
+}
+
+.button-mini:hover,
+.button-mini:active,
+.button-mini:focus {
+	color: #000;
+	background: #fff000;
+	text-decoration: none;
+}
+
+div.pagination {
+	margin: 10px 2px 2px 2px !important;
+	padding: 5px 0 !important;
+	height: 20px !important;
+}
+
+.limit {
+	width: 160px;
+	font-size: 13px;
+}
+
+.limit #limit {
+	width: 80px;
+	line-height: 1.1;
+	padding: 2px !important;
+	margin: 0 -2px 0 12px !important;
+}
+
+.text-italic {
+	font-style: italic;
+}
+
+div[id^="payment-form"] {
+	text-align: left !important;
+	width: 680px !important;
+	margin-left: -340px !important;
+}
+
+#payment-methods .accordion-heading {
+	background: #edecee;
+}
+
+#payment-methods a.accordion-toggle,
+#payment-methods a.accordion-toggle:hover,
+#payment-methods a.accordion-toggle:active,
+#payment-methods a.accordion-toggle:focus {
+	color: #000000;
+	text-decoration: none;
+}

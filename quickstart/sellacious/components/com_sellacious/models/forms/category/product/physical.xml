@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset name="product" label="COM_SELLACIOUS_CATEGORY_FIELDSET_CUSTOM_FIELDS">
+		<field
+			name="core_fields"
+			type="formFields"
+			label="COM_SELLACIOUS_PRODUCT_FIELD_CORE_FIELDS_LABEL"
+			description="COM_SELLACIOUS_PRODUCT_FIELD_CORE_FIELDS_DESC"
+			context="product"
+			multiple="true"
+			showall="false"
+			tags="true"
+			/>
+		<field
+			name="variant_fields"
+			type="formFields"
+			label="COM_SELLACIOUS_PRODUCT_FIELD_VARIANT_FIELDS_LABEL"
+			description="COM_SELLACIOUS_PRODUCT_FIELD_VARIANT_FIELDS_DESC"
+			context="product"
+			multiple="true"
+			showall="false"
+			tags="true"
+			/>
+	</fieldset>
+</form>

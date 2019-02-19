@@ -1,0 +1,34 @@
+.slick-dots li.slick-active button:before {
+  border-radius: 100px;
+}
+/* Style One Template */
+.style-one{
+	background: #fff;
+	padding: 25px 0px;
+}
+.style-one .author-img{
+	margin-right: 20px;
+}
+.style-one .slide-content{
+	padding: 0 25px;
+}
+/* Style Two Template */
+.style-two .slick-slide {
+  background: #fff;
+  padding: 30px;
+  margin: 0px 15px;
+  border: 1px solid #d3d3d3;
+  height: auto;
+}
+.style-two .testimonials-wrap .client-img {
+	margin-top: 30px;
+}
+.style-two .testimonials-wrap .client-img .author-img img {
+	margin: auto;
+}
+.style-two .testimonials-wrap .client-img .author-info {
+	margin-top: 30px;
+}
+.style-two .testimonials-wrap .client-img .author-info .name {
+	margin-bottom: 5px;
+}

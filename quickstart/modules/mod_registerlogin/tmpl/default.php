@@ -3,7 +3,7 @@
  * @package		Register Login Joomla Module
  * @author		JoomDev
  * @copyright	Copyright (C) 2018 Joomdev, Inc. All rights reserved.
- * @license     GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
+ * @license     GNU/GPLv3 https://www.gnu.org/licenses/gpl-3.0.html
  */
 defined('_JEXEC') or die;
 JHtml::_('behavior.keepalive');
@@ -40,37 +40,40 @@ $lang = 'en';
     <script type="text/javascript" src="<?php echo JURI::root() .'modules/mod_registerlogin/tmpl/assets/jquery.registerloginplugin.js'?>"></script>
     <div id="error_message1">
         <?php if($errorMessage){ ?>
-            <div class="alert alert-error"><a data-dismiss="alert" class="close">x</a>
-                <div>
-                    <p>
-                        <?php echo $errorMessage; ?>
-                    </p>
-                </div>
+        <div class="alert alert-error"><a data-dismiss="alert" class="close">x</a>
+            <div>
+                <p>
+                    <?php echo $errorMessage; ?>
+                </p>
             </div>
+        </div>
         <?php } ?>
     </div>
     <div id="jd-logrig-module-<?php echo $module->id; ?>" class="jd-register-login-wrapper jd-clearfix">
         <div class="jd-register-login-container jd-clearfix">
             <?php if(isset($layout ) && $layout  == 1){ ?>
-               <ul class="jd-register-login-tab">
-                  <li class="jd-inputbox-control jd-control-check-raido"><input class="jd-form-checkbox-radio <?php echo (isset($view) && $view  == 1) ? 'active' : ''; ?>" type="radio" value="1" name="view" id="login_view" data-tab-target="#jd-login-container-<?php echo $module->id; ?>" <?php echo (isset($view) && $view==1 ) ? 'checked="checked"' : ''; ?> >
-                     <?php echo JText::_('MOD_REGISTERLOGIN_PARAM_DEFAULTVIEW_LOGIN'); ?>
-                  </li>
-                  <li class="jd-inputbox-control jd-control-check-raido"><input class="jd-form-checkbox-radio <?php echo (isset($view) && $view  == 2) ? 'active' : ''; ?>" type="radio" value="2" name="view" id="register_view" data-tab-target="#jd-register-container-<?php echo $module->id; ?>" <?php echo (isset($view) && $view==2 ) ? 'checked="checked"' : ''; ?> >
-                     <?php echo JText::_('MOD_REGISTERLOGIN_PARAM_DEFAULTVIEW_REGISTER'); ?>
-                  </li>
-               </ul>
+            <ul class="jd-register-login-tab">
+                <li class="jd-inputbox-control jd-control-check-raido"><input class="jd-form-checkbox-radio <?php echo (isset($view) && $view  == 1) ? 'active' : ''; ?>" type="radio" value="1" name="view" id="login_view" data-tab-target="#jd-login-container-<?php echo $module->id; ?>" <?php echo (isset($view) && $view==1 ) ? 'checked="checked"' : ''; ?> >
+                    <?php echo JText::_('MOD_REGISTERLOGIN_PARAM_DEFAULTVIEW_LOGIN'); ?>
+                </li>
+                <li class="jd-inputbox-control jd-control-check-raido"><input class="jd-form-checkbox-radio <?php echo (isset($view) && $view  == 2) ? 'active' : ''; ?>" type="radio" value="2" name="view" id="register_view" data-tab-target="#jd-register-container-<?php echo $module->id; ?>" <?php echo (isset($view) && $view==2 ) ? 'checked="checked"' : ''; ?> >
+                    <?php echo JText::_('MOD_REGISTERLOGIN_PARAM_DEFAULTVIEW_REGISTER'); ?>
+                </li>
+            </ul>
             <?php } ?>
             <!-- End radio Tab -->
             <?php if(isset($layout ) && $layout  == 2){ ?>
-               <ul class="jd-register-login-tab">
-                  <li><span class="<?php echo (isset($view) && $view  == 1) ? 'active' : 'notactive'; ?>" data-tab-target="#jd-login-container-<?php echo $module->id; ?>"><?php echo JText::_('MOD_REGISTERLOGIN_LOGINLEBEL'); ?></span></li>
-                  <li><span class="<?php echo (isset($view) && $view  == 2) ? 'active' : 'notactive'; ?>" data-tab-target="#jd-register-container-<?php echo $module->id; ?>"><?php echo JText::_('MOD_REGISTERLOGIN_REGISTERLEBEL'); ?></span></li>
+            <ul class="jd-register-login-tab">
+                <li><span class="<?php echo (isset($view) && $view  == 1) ? 'active' : 'notactive'; ?>" data-tab-target="#jd-login-container-<?php echo $module->id; ?>"><?php echo JText::_('MOD_REGISTERLOGIN_LOGINLEBEL'); ?></span></li>
+                <li><span class="<?php echo (isset($view) && $view  == 2) ? 'active' : 'notactive'; ?>" data-tab-target="#jd-register-container-<?php echo $module->id; ?>"><?php echo JText::_('MOD_REGISTERLOGIN_REGISTERLEBEL'); ?></span></li>
             </ul>
             <?php } ?>
             <!-- End Tab  -->
             <div class="jd-register-login-box">
                 <div data-tab id="jd-login-container-<?php echo $module->id; ?>" class="jd-login-container">
+                    <h3 class="jd-form-title">
+                        <?php echo JText::_('MOD_REGISTERLOGIN_LOGINLEBEL'); ?>
+                    </h3>
                     <form action="<?php echo JRoute::_('index.php', true, $params->get('usesecure')); ?>" method="post" id="login-form" name="josForm" class="form-validate form-horizontal">
                         <div class="jd-inputbox-control">
                             <?php if ($params->get('usetext')) : ?><label for=""><?php echo JText::_('COM_USERS_LOGIN_USERNAME_LABEL'); ?> </label>
@@ -134,7 +137,7 @@ $lang = 'en';
                                 <?php endif; ?>
                                 <input tabindex="4" placeholder="<?php if(!$params->get('usetext')) { echo JText::_('COM_USERS_REGISTER_PASSWORD2_DESC'); } ?>" data-rule-equalTo="#jform_password1" class="jd-form-input required" type="password" id="jform_password2" name="jform[password2]" size="20" value="" required/>
                                 <span class="jd-input-group-addon" onclick="previewpassonregister()">
-                                    <span class="showpass" id="regshowpass" aria-hidden="true"><?php echo JText::_('JSHOW') ?></span>
+                                    <span class="showpass" id="reghidepass" aria-hidden="true"><?php echo JText::_('JSHOW') ?></span>
                                 </span>
                             </div>
                             <div class="jd-inputbox-control">
@@ -217,10 +220,10 @@ $lang = 'en';
            
             if (login.type === "password") {
                 login.type = "text";
-                document.getElementById("loginshowpass").innerHTML = "<?php echo JText::_('JSHOW') ?>";
+                document.getElementById("loginshowpass").innerHTML = "<?php echo JText::_('JHIDE') ?>";
             } else {
                 login.type = "password";
-                document.getElementById("loginshowpass").innerHTML = "<?php echo JText::_('JHIDE') ?>";
+                document.getElementById("loginshowpass").innerHTML = "<?php echo JText::_('JSHOW') ?>";
             }
         }
 

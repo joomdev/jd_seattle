@@ -1,0 +1,73 @@
+.show-hide-cols {
+    position: relative;
+}
+
+.ColVis_collection {
+    list-style: none;
+    min-width: 150px;
+    padding: 8px 8px 4px 8px;
+    margin: 0;
+    border: 1px solid #ccc;
+    border: 1px solid rgba( 0, 0, 0, 0.4 );
+    background-color: #F9F9F9;
+    overflow: hidden;
+    display: block;
+    opacity: 1;
+    position: absolute;
+    z-index: 1;
+}
+
+ul#ul-columns-name li input {
+    margin-top: 0;
+}
+
+ul#ul-columns-name li:hover label {
+    background-color: #F0F0F0;
+}
+
+ul#ul-columns-name li label {
+    margin-bottom: 0;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    cursor: pointer;
+}
+
+.ColVis_collection {
+    display: none;
+}
+
+div.filter-search {
+    display: inline-block;
+    float: left;
+    margin-right: 5px;
+}
+
+.save-result {
+    margin: 5px 0;
+}
+
+.saveData {
+    margin-left: 5px;
+}
+
+.query-wrapper {
+    display: block;
+    width: auto;
+    margin-bottom: 5px;
+}
+
+.w75p {
+    width: 75% !important;
+}
+
+.btn-toolbar .btn-small {
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;
+}
+
+@media screen and (max-width: 767px) {
+    #show-hide-cols-btn {
+        width: 100%;
+    }
+}

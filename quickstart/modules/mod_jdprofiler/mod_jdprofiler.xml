@@ -2,12 +2,12 @@
 <extension type="module" version="3.1" client="site" method="upgrade">
    <name>mod_jdprofiler</name>
    <author>JoomDev</author>
-   <creationDate>Oct 2018</creationDate>
+   <creationDate>Dec 2018</creationDate>
    <copyright>Copyright (C) 2005 - 2017 Open Source Matters. All rights reserved.</copyright>
    <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
    <authorEmail>info@joomdev.com</authorEmail>
    <authorUrl>www.joomdev.com</authorUrl>
-   <version>1.0</version>
+   <version>1.1</version>
    <description>MOD_JDPROFILER_XML_DESCRIPTION</description>
    <updateservers>
 		<server type="extension" name="mod_jdprofiler" priority="1">https://cdn.joomdev.com/extensionupdates/mod_jdprofiler.xml</server>
@@ -76,7 +76,7 @@
             <field
                name="grid_coloumns"
                type="list"
-			         showon="template:grid_layout[OR]template:carousel_layout"
+			    showon="template:grid_layout"
                label="MOD_JDPROFILER_GRID_COLUMNS_LABEL"
                description="MOD_JDPROFILER_GRID_COLUMNS_DESC"
                default="4"
@@ -87,6 +87,21 @@
                <option value="4">J3</option>
                <option value="3">J4</option>
                <option value="2">J6</option>
+            </field>
+            <field
+               name="grid_coloumns_carosuel"
+               type="list"
+			    showon="template:carousel_layout"
+               label="MOD_JDPROFILER_GRID_COLUMNS_LABEL"
+               description="MOD_JDPROFILER_GRID_COLUMNS_DESC"
+               default="4"
+               class="btn-group btn-group-yesno"
+            >
+               <option value="1">J1</option>
+               <option value="2">J2</option>
+               <option value="3">J3</option>
+               <option value="4">J4</option>
+               <option value="5">J5</option>
             </field>
             <field
                name="gutter_space"
@@ -133,6 +148,32 @@
                default="1"
                class="btn-group btn-group-yesno"
             />
+           
+            <field
+               name="order"
+               type="radio"
+               label="MOD_JDPROFILER_ORDER_LABEL"
+               description="MOD_JDPROFILER_ORDER_DESC"
+               default="id"
+               class="btn-group btn-group-yesno"
+            >
+               <option value="id">MOD_JDPROFILER_ORDER_OPTION_LATEST</option>
+               <option value="ordering">MOD_JDPROFILER_ORDER_OPTION_ORDERING</option>
+               <option value="name">MOD_JDPROFILER_ORDER_OPTION_ALPHABETICALLY</option>
+               <option value="random">MOD_JDPROFILER_ORDER_OPTION_RANDOM</option>
+            </field>
+             <field
+               name="sort"
+               type="radio"
+               label="Sort by"
+               showon="order:id[OR]order:name"
+               description="MOD_JDPROFILER_SORT_BY_LABEL"
+               default="MOD_JDPROFILER_SORT_BY_DESC"
+               class="btn-group btn-group-yesno"
+            >
+               <option value="ASC">MOD_JDPROFILER_SORT_BY_OPTIONS_ASC</option>
+               <option value="DESC">MOD_JDPROFILER_SORT_BY_OPTIONS_DESC</option>
+            </field>
          </fieldset>
          <fieldset name="options">
             <field
@@ -160,8 +201,8 @@
             <field
                name="display_sbio"
                type="radio"
-               label="Display Short Bio"
-               description="Display Short Bio"
+               label="MOD_JDPROFILER_DISPLAY_SHORT_BIO"
+               description="MOD_JDPROFILER_DISPLAY_SHORT_BIO_DESC"
                default="1"
                class="btn-group btn-group-yesno"
             >

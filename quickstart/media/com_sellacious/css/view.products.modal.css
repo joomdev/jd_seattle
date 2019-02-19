@@ -1,0 +1,37 @@
+.modalform.overlay {
+	z-index: 100;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: #d3d3d3;
+	opacity: 0.5;
+}
+
+.modalform.content {
+	position: absolute;
+	top: 20px;
+	width: 600px;
+	left: 50%;
+	z-index: 200;
+	margin-left: -300px;
+	background: #fff;
+	opacity: 1.0;
+	border: 2px solid #9c9c9c;
+	border-radius: 4px;
+	box-shadow: 2px 2px #ccc;
+	padding: 15px;
+}
+
+.modalform {
+	display: none;
+}
+
+.modalform.active {
+	display: block;
+}
+
+.modalform th {
+	white-space: nowrap;
+}

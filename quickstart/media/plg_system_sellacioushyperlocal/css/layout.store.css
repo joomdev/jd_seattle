@@ -1,0 +1,18 @@
+.timing_available{
+	color: green;
+	font-weight: bold;
+}
+
+.timing_available_in{
+	color: #f49a1f;
+	font-weight: bold;
+}
+
+.timing_unavailable{
+	color: red;
+	font-weight: bold;
+}
+
+.store_availiability{
+	margin-top: 5px;
+}

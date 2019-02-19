@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="library" version="3.0" method="upgrade">
+	<name>Sellacious Importer Library</name>
+	<libraryname>sellacious_importer</libraryname>
+	<author>Izhar Aazmi</author>
+	<creationDate>December 26, 2018</creationDate>
+	<copyright>Copyright (C) 2012-2018 Bhartiy Web Technologies. All rights reserved.</copyright>
+	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+	<authorEmail>info@bhartiy.com</authorEmail>
+	<authorUrl>www.bhartiy.com</authorUrl>
+	<version>1.6.1-alpha0</version>
+	<description>Library for Sellacious Importer </description>
+	<files>
+		<folder>language</folder>
+		<folder>plugin</folder>
+		<folder>src</folder>
+		<filename>loader.php</filename>
+	</files>
+	<updateservers>
+		<server type="extension" name="Sellacious Updates - lib_sellacious_importer">http://sellacious.com/release/updates/v1.6/lib_sellacious_importer.xml</server>
+	</updateservers>
+</extension>

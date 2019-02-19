@@ -1,0 +1,731 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fields name="com_sellacious">
+		<fieldset
+			name="com_sellacious_layout"
+			label="COM_SELLACIOUS_CONFIG_FIELDSET_LAYOUT_LABEL">
+			<field
+				type="fieldgroup"
+				label="COM_SELLACIOUS_CONFIG_FIELDSET_SHOP_SUBSET_ELEMENTS_LABEL"
+			/>
+			<field
+				name="splcategory_badge_display"
+				type="checkboxes"
+				label="COM_SELLACIOUS_CONFIG_FIELD_SPLCATEGORY_BADGE_DISPLAY_LABEL"
+				description="COM_SELLACIOUS_CONFIG_FIELD_SPLCATEGORY_BADGE_DISPLAY_DESC">
+				<option value="categories">COM_SELLACIOUS_CONFIG_FIELD_PAGE_CHOICE_CATEGORIES</option>
+				<option value="products">COM_SELLACIOUS_CONFIG_FIELD_PAGE_CHOICE_PRODUCTS</option>
+				<option value="product">COM_SELLACIOUS_CONFIG_FIELD_PAGE_CHOICE_PRODUCT</option>
+				<option value="product_modal">COM_SELLACIOUS_CONFIG_FIELD_PAGE_CHOICE_PRODUCT_MODAL</option>
+			</field>
+			<field
+				name="product_features_list"
+				type="checkboxes"
+				label="COM_SELLACIOUS_CONFIG_FIELD_PRODUCT_FEATURES_LIST_LABEL"
+				description="COM_SELLACIOUS_CONFIG_FIELD_PRODUCT_FEATURES_LIST_DESC">
+				<option value="categories">COM_SELLACIOUS_CONFIG_FIELD_PAGE_CHOICE_CATEGORIES</option>
+				<option value="products">COM_SELLACIOUS_CONFIG_FIELD_PAGE_CHOICE_PRODUCTS</option>
+				<option value="product">COM_SELLACIOUS_CONFIG_FIELD_PAGE_CHOICE_PRODUCT</option>
+				<option value="product_modal">COM_SELLACIOUS_CONFIG_FIELD_PAGE_CHOICE_PRODUCT_MODAL</option>
+			</field>
+			<field
+				name="product_rating_display"
+				type="checkboxes"
+				label="COM_SELLACIOUS_CONFIG_FIELD_PRODUCT_RATING_DISPLAY_LABEL"
+				description="COM_SELLACIOUS_CONFIG_FIELD_PRODUCT_RATING_DISPLAY_DESC">
+				<option value="categories">COM_SELLACIOUS_CONFIG_FIELD_PAGE_CHOICE_CATEGORIES</option>
+				<option value="products">COM_SELLACIOUS_CONFIG_FIELD_PAGE_CHOICE_PRODUCTS</option>
+				<option value="product">COM_SELLACIOUS_CONFIG_FIELD_PAGE_CHOICE_PRODUCT</option>
+				<option value="product_modal">COM_SELLACIOUS_CONFIG_FIELD_PAGE_CHOICE_PRODUCT_MODAL</option>
+			</field>
+			<field
+				name="product_compare_display"
+				type="checkboxes"
+				label="COM_SELLACIOUS_CONFIG_FIELD_PRODUCT_COMPARE_DISPLAY_LABEL"
+				description="COM_SELLACIOUS_CONFIG_FIELD_PRODUCT_COMPARE_DISPLAY_DESC">
+				<option value="categories">COM_SELLACIOUS_CONFIG_FIELD_PAGE_CHOICE_CATEGORIES</option>
+				<option value="products">COM_SELLACIOUS_CONFIG_FIELD_PAGE_CHOICE_PRODUCTS</option>
+				<option value="product">COM_SELLACIOUS_CONFIG_FIELD_PAGE_CHOICE_PRODUCT</option>
+				<option value="product_modal">COM_SELLACIOUS_CONFIG_FIELD_PAGE_CHOICE_PRODUCT_MODAL</option>
+			</field>
+			<field
+				name="product_add_to_cart_display"
+				type="checkboxes"
+				label="COM_SELLACIOUS_CONFIG_FIELD_PRODUCT_ADD_TO_CART_DISPLAY_LABEL"
+				description="COM_SELLACIOUS_CONFIG_FIELD_PRODUCT_ADD_TO_CART_DISPLAY_DESC">
+				<option value="categories">COM_SELLACIOUS_CONFIG_FIELD_PAGE_CHOICE_CATEGORIES</option>
+				<option value="products">COM_SELLACIOUS_CONFIG_FIELD_PAGE_CHOICE_PRODUCTS</option>
+				<option value="product">COM_SELLACIOUS_CONFIG_FIELD_PAGE_CHOICE_PRODUCT</option>
+				<option value="product_modal">COM_SELLACIOUS_CONFIG_FIELD_PAGE_CHOICE_PRODUCT_MODAL</option>
+			</field>
+			<field
+				name="product_buy_now_display"
+				type="checkboxes"
+				label="COM_SELLACIOUS_CONFIG_FIELD_PRODUCT_BUY_NOW_DISPLAY_LABEL"
+				description="COM_SELLACIOUS_CONFIG_FIELD_PRODUCT_BUY_NOW_DISPLAY_DESC">
+				<option value="categories">COM_SELLACIOUS_CONFIG_FIELD_PAGE_CHOICE_CATEGORIES</option>
+				<option value="products">COM_SELLACIOUS_CONFIG_FIELD_PAGE_CHOICE_PRODUCTS</option>
+				<option value="product">COM_SELLACIOUS_CONFIG_FIELD_PAGE_CHOICE_PRODUCT</option>
+				<option value="product_modal">COM_SELLACIOUS_CONFIG_FIELD_PAGE_CHOICE_PRODUCT_MODAL</option>
+			</field>
+			<field
+				name="product_quick_detail_pages"
+				type="checkboxes"
+				label="COM_SELLACIOUS_CONFIG_FIELD_PRODUCT_QUICK_DETAIL_PAGES_LABEL"
+				description="COM_SELLACIOUS_CONFIG_FIELD_PRODUCT_QUICK_DETAIL_PAGES_DESC">
+				<option value="categories">COM_SELLACIOUS_CONFIG_FIELD_PAGE_CHOICE_CATEGORIES</option>
+				<option value="products">COM_SELLACIOUS_CONFIG_FIELD_PAGE_CHOICE_PRODUCTS</option>
+			</field>
+			<field
+				name="product_price_display"
+				type="radio"
+				default="2"
+				label="COM_SELLACIOUS_CONFIG_FIELD_PRODUCT_PRICE_DISPLAY_LABEL"
+				description="COM_SELLACIOUS_CONFIG_FIELD_PRODUCT_PRICE_DISPLAY_DESC">
+				<option value="0">COM_SELLACIOUS_CONFIG_FIELD_PRODUCT_PRICE_DISPLAY_CHOICE_HIDE_ALL</option>
+				<option value="1">COM_SELLACIOUS_CONFIG_FIELD_PRODUCT_PRICE_DISPLAY_CHOICE_PRICE_ONLY</option>
+				<option value="2">COM_SELLACIOUS_CONFIG_FIELD_PRODUCT_PRICE_DISPLAY_CHOICE_WITH_LIST_PRICE</option>
+			</field>
+			<field
+				name="product_price_display_pages"
+				type="checkboxes"
+				label="COM_SELLACIOUS_CONFIG_FIELD_PRODUCT_PRICE_DISPLAY_PAGES_LABEL"
+				description="COM_SELLACIOUS_CONFIG_FIELD_PRODUCT_PRICE_DISPLAY_PAGES_DESC">
+				<option value="categories">COM_SELLACIOUS_CONFIG_FIELD_PAGE_CHOICE_CATEGORIES</option>
+				<option value="products">COM_SELLACIOUS_CONFIG_FIELD_PAGE_CHOICE_PRODUCTS</option>
+				<option value="product">COM_SELLACIOUS_CONFIG_FIELD_PAGE_CHOICE_PRODUCT</option>
+				<option value="product_modal">COM_SELLACIOUS_CONFIG_FIELD_PAGE_CHOICE_PRODUCT_MODAL</option>
+			</field>
+			<field
+				name="cart_shop_more_link"
+				type="radio"
+				label="COM_SELLACIOUS_CONFIG_FIELD_CART_SHOP_MORE_LINK_LABEL"
+				description="COM_SELLACIOUS_CONFIG_FIELD_CART_SHOP_MORE_LINK_DESC"
+				default="1">
+				<option value="1">JSHOW</option>
+				<option value="0">JHIDE</option>
+			</field>
+			<field
+				name="shop_more_redirect"
+				type="text"
+				label="COM_SELLACIOUS_CONFIG_SHOP_MORE_REDIRECT_LABEL"
+				description="COM_SELLACIOUS_CONFIG_SHOP_MORE_REDIRECT_DESC"
+				class="inputbox medium-input"
+			/>
+
+			<field
+				name="show_store_product_count"
+				type="radio"
+				default="1"
+				label="COM_SELLACIOUS_CONFIG_SELLER_SHOW_STORE_PRODUCT_COUNT_LABEL"
+				description="COM_SELLACIOUS_CONFIG_SELLER_SHOW_STORE_PRODUCT_COUNT_DESC"
+			>
+				<option value="1">JYES</option>
+				<option value="0">JNO</option>
+			</field>
+			<field
+				name="show_store_rating"
+				type="radio"
+				default="1"
+				label="COM_SELLACIOUS_CONFIG_SELLER_SHOW_STORE_RATING_LABEL"
+				description="COM_SELLACIOUS_CONFIG_SELLER_SHOW_STORE_RATING_DESC"
+			>
+				<option value="1">JYES</option>
+				<option value="0">JNO</option>
+			</field>
+			<field
+				name="show_order_download_link"
+				type="radio"
+				default="1"
+				label="COM_SELLACIOUS_CONFIG_ORDER_SHOW_DOWNLOAD_LINK_LABEL"
+				description="COM_SELLACIOUS_CONFIG_ORDER_SHOW_DOWNLOAD_LINK_DESC">
+				<option value="1">JSHOW</option>
+				<option value="0">JHIDE</option>
+			</field>
+			<field
+				type="fieldgroup"
+				label="COM_SELLACIOUS_CONFIG_FIELDSET_SHOP_SUBSET_SUBCATEGORY_LABEL"
+			/>
+			<field
+				name="show_category_child_count"
+				type="radio"
+				default="1"
+				label="COM_SELLACIOUS_CONFIG_FIELD_SHOW_CATEGORY_CHILD_COUNT_LABEL"
+				description="COM_SELLACIOUS_CONFIG_FIELD_SHOW_CATEGORY_CHILD_COUNT_DESC">
+				<option value="1">JSHOW</option>
+				<option value="0">JHIDE</option>
+			</field>
+			<field
+				name="show_category_product_count"
+				type="radio"
+				default="1"
+				label="COM_SELLACIOUS_CONFIG_FIELD_SHOW_CATEGORY_PRODUCT_COUNT_LABEL"
+				description="COM_SELLACIOUS_CONFIG_FIELD_SHOW_CATEGORY_PRODUCT_COUNT_DESC">
+				<option value="1">JSHOW</option>
+				<option value="0">JHIDE</option>
+			</field>
+			<field
+				name="show_category_description"
+				type="radio"
+				default="1"
+				label="COM_SELLACIOUS_CONFIG_FIELD_SHOW_CATEGORY_DESCRIPTION_LABEL"
+				description="COM_SELLACIOUS_CONFIG_FIELD_SHOW_CATEGORY_DESCRIPTION_DESC">
+				<option value="1">JSHOW</option>
+				<option value="0">JHIDE</option>
+			</field>
+			<field
+				name="show_category_products"
+				type="radio"
+				default="1"
+				label="COM_SELLACIOUS_CONFIG_FIELD_SHOW_CATEGORY_PRODUCTS_LABEL"
+				description="COM_SELLACIOUS_CONFIG_FIELD_SHOW_CATEGORY_PRODUCTS_DESC">
+				<option value="1">JSHOW</option>
+				<option value="0">JHIDE</option>
+			</field>
+			<field
+				name="category_page_product_limit"
+				type="number"
+				default="5"
+				class="inputbox"
+				label="COM_SELLACIOUS_CONFIG_FIELD_CATEGORY_PAGE_PRODUCT_LIMIT_LABEL"
+				description="COM_SELLACIOUS_CONFIG_FIELD_CATEGORY_PAGE_PRODUCT_LIMIT_DESC"
+			/>
+			<field
+				name="category_page_view_all_products"
+				type="radio"
+				default="1"
+				label="COM_SELLACIOUS_CONFIG_FIELD_SHOW_CATEGORY_PAGE_VIEW_ALL_PRODUCT_LABEL"
+				description="COM_SELLACIOUS_CONFIG_FIELD_SHOW_CATEGORY_PAGE_VIEW_ALL_PRODUCT_DESC">
+				<option value="1">JSHOW</option>
+				<option value="0">JHIDE</option>
+			</field>
+
+			<field
+				name="category_no_child_redirect"
+				type="radio"
+				class="inputbox"
+				label="COM_SELLACIOUS_CONFIG_FIELD_CATEGORY_NO_CHILD_REDIRECT_LABEL"
+				description="COM_SELLACIOUS_CONFIG_FIELD_CATEGORY_NO_CHILD_REDIRECT_DESC"
+				default="0"
+			>
+				<option value="1">JYES</option>
+				<option value="0">JNO</option>
+			</field>
+
+			<field
+				name="category_level_limit"
+				type="number"
+				default="10"
+				min="1"
+				max="10"
+				class="inputbox"
+				label="COM_SELLACIOUS_CONFIG_FIELD_CATEGORY_LEVEL_LIMIT_LABEL"
+				description="COM_SELLACIOUS_CONFIG_FIELD_CATEGORY_LEVEL_LIMIT_DESC"
+			/>
+
+			<field
+				name="show_category_banner"
+				type="radio"
+				class="inputbox"
+				label="COM_SELLACIOUS_CONFIG_FIELD_SHOW_CATEGORY_BANNER_LABEL"
+				description="COM_SELLACIOUS_CONFIG_FIELD_SHOW_CATEGORY_BANNER_DESC"
+				default="1"
+			>
+				<option value="1">JSHOW</option>
+				<option value="0">JHIDE</option>
+			</field>
+			<field
+				name="category_banner_height"
+				type="number"
+				default="300"
+				class="inputbox"
+				label="COM_SELLACIOUS_CONFIG_FIELD_CATEGORY_BANNER_HEIGHT_LABEL"
+				description="COM_SELLACIOUS_CONFIG_FIELD_CATEGORY_BANNER_HEIGHT_DESC"
+			/>
+			<field
+				name="category_cols"
+				type="list"
+				default="4"
+				class="small-input"
+				label="COM_SELLACIOUS_CONFIG_FIELD_CATEGORY_COLS_LABEL"
+				description="COM_SELLACIOUS_CONFIG_FIELD_CATEGORY_COLS_DESC"
+			>
+				<option value="auto">COM_SELLACIOUS_CONFIG_FIELD_COLS_AUTO</option>
+				<option value="2">2</option>
+				<option value="3">3</option>
+				<option value="4">4</option>
+			</field>
+			<field
+				name="category_image_size_adjust"
+				type="radio"
+				default="contain"
+				class="inputbox"
+				label="COM_SELLACIOUS_CONFIG_FIELD_CATEGORY_IMAGE_SIZE_ADJUST_LABEL"
+				description="COM_SELLACIOUS_CONFIG_FIELD_CATEGORY_IMAGE_SIZE_ADJUST_DESC">
+				<option value="contain">COM_SELLACIOUS_CONFIG_FIELD_IMAGE_SIZE_ADJUST_FIT</option>
+				<option value="cover">COM_SELLACIOUS_CONFIG_FIELD_IMAGE_SIZE_ADJUST_FILL</option>
+			</field>
+
+			<field
+				type="fieldgroup"
+				label="COM_SELLACIOUS_CONFIG_FIELDSET_SHOP_SUBSET_PRODUCTS_LABEL"
+			/>
+
+			<field
+				name="list_switcher_display"
+				type="checkboxes"
+				label="COM_SELLACIOUS_CONFIG_FIELD_PRODUCTS_LIST_SWITCHER_DISPLAY_LABEL"
+				description="COM_SELLACIOUS_CONFIG_FIELD_PRODUCTS_LIST_SWITCHER_DISPLAY_DESC">
+				<option value="grid">COM_SELLACIOUS_CONFIG_FIELD_PRODUCTS_LIST_STYLE_GRID</option>
+				<option value="masonry">COM_SELLACIOUS_CONFIG_FIELD_PRODUCTS_LIST_STYLE_MASONRY</option>
+				<option value="list">COM_SELLACIOUS_CONFIG_FIELD_PRODUCTS_LIST_STYLE_LIST</option>
+			</field>
+			<field
+				name="list_style"
+				type="radio"
+				default="grid"
+				label="COM_SELLACIOUS_CONFIG_FIELD_PRODUCTS_LIST_STYLE_LABEL"
+				description="COM_SELLACIOUS_CONFIG_FIELD_PRODUCTS_LIST_STYLE_DESC"
+			>
+				<option value="grid">COM_SELLACIOUS_CONFIG_FIELD_PRODUCTS_LIST_STYLE_GRID</option>
+				<option value="masonry">COM_SELLACIOUS_CONFIG_FIELD_PRODUCTS_LIST_STYLE_MASONRY</option>
+				<option value="list">COM_SELLACIOUS_CONFIG_FIELD_PRODUCTS_LIST_STYLE_LIST</option>
+				<option value="">COM_SELLACIOUS_CONFIG_FIELD_PRODUCTS_LIST_STYLE_ALL</option>
+			</field>
+			<field
+				name="list_style_switcher"
+				type="radio"
+				default="1"
+				label="COM_SELLACIOUS_CONFIG_FIELD_PRODUCTS_LIST_STYLE_SWITCHER_LABEL"
+				description="COM_SELLACIOUS_CONFIG_FIELD_PRODUCTS_LIST_STYLE_SWITCHER_DESC">
+				<option value="1">JYES</option>
+				<option value="0">JNO</option>
+			</field>
+			<field
+				name="hide_out_of_stock"
+				type="radio"
+				default="0"
+				label="COM_SELLACIOUS_CONFIG_FIELD_PRODUCTS_HIDE_OUT_OF_STOCK_LABEL"
+				description="COM_SELLACIOUS_CONFIG_FIELD_PRODUCTS_HIDE_OUT_OF_STOCK_DESC">
+				<option value="1">JYES</option>
+				<option value="0">JNO</option>
+			</field>
+
+			<field
+				name="hide_zero_priced"
+				type="radio"
+				default="0"
+				label="COM_SELLACIOUS_CONFIG_FIELD_PRODUCTS_HIDE_ZERO_PRICED_LABEL"
+				description="COM_SELLACIOUS_CONFIG_FIELD_PRODUCTS_HIDE_ZERO_PRICED_DESC">
+				<option value="1">JYES</option>
+				<option value="0">JNO</option>
+			</field>
+			<field
+				name="products_image_height"
+				type="number"
+				default="220"
+				class="inputbox"
+				label="COM_SELLACIOUS_CONFIG_FIELD_PRODUCTS_IMAGE_HEIGHT_LABEL"
+				description="COM_SELLACIOUS_CONFIG_FIELD_PRODUCTS_IMAGE_HEIGHT_DESC"/>
+			<field
+				name="products_cols"
+				type="list"
+				default="4"
+				class="small-input"
+				label="COM_SELLACIOUS_CONFIG_FIELD_PRODUCTS_COLS_LABEL"
+				description="COM_SELLACIOUS_CONFIG_FIELD_PRODUCTS_COLS_DESC"
+			>
+				<option value="auto">COM_SELLACIOUS_CONFIG_FIELD_COLS_AUTO</option>
+				<option value="2">2</option>
+				<option value="3">3</option>
+				<option value="4">4</option>
+			</field>
+			<field
+				name="products_image_size_adjust"
+				type="radio"
+				default="contain"
+				class="inputbox"
+				label="COM_SELLACIOUS_CONFIG_FIELD_PRODUCTS_IMAGE_SIZE_ADJUST_LABEL"
+				description="COM_SELLACIOUS_CONFIG_FIELD_PRODUCTS_IMAGE_SIZE_ADJUST_DESC">
+				<option value="contain">COM_SELLACIOUS_CONFIG_FIELD_IMAGE_SIZE_ADJUST_FIT</option>
+				<option value="cover">COM_SELLACIOUS_CONFIG_FIELD_IMAGE_SIZE_ADJUST_FILL</option>
+			</field>
+
+			<field
+				type="fieldgroup"
+				label="COM_SELLACIOUS_CONFIG_FIELDSET_SHOP_SUBSET_PRODUCT_LABEL"
+			/>
+
+			<field
+				name="product_img_width"
+				type="number"
+				default="250"
+				class="inputbox"
+				label="COM_SELLACIOUS_CONFIG_FIELD_PRODUCT_IMAGE_WIDTH_LABEL"
+				description="COM_SELLACIOUS_CONFIG_FIELD_PRODUCT_IMAGE_WIDTH_DESC"/>
+			<field
+				name="product_img_height"
+				type="number"
+				default="350"
+				class="inputbox"
+				label="COM_SELLACIOUS_CONFIG_FIELD_PRODUCT_IMAGE_HEIGHT_LABEL"
+				description="COM_SELLACIOUS_CONFIG_FIELD_PRODUCT_IMAGE_HEIGHT_DESC"/>
+			<field
+				name="product_img_size_adjust"
+				type="radio"
+				default="contain"
+				class="inputbox"
+				label="COM_SELLACIOUS_CONFIG_FIELD_PRODUCT_IMAGE_SIZE_ADJUST_LABEL"
+				description="COM_SELLACIOUS_CONFIG_FIELD_PRODUCT_IMAGE_SIZE_ADJUST_DESC">
+				<option value="contain">COM_SELLACIOUS_CONFIG_FIELD_IMAGE_SIZE_ADJUST_FIT</option>
+				<option value="cover">COM_SELLACIOUS_CONFIG_FIELD_IMAGE_SIZE_ADJUST_FILL</option>
+			</field>
+			<field
+				name="show_shipping_info_on_detail"
+				type="radio"
+				default="1"
+				label="COM_SELLACIOUS_CONFIG_FIELD_SHOW_SHIPPING_INFO_ON_DETAIL_LABEL"
+				description="COM_SELLACIOUS_CONFIG_FIELD_SHOW_SHIPPING_INFO_ON_DETAIL_DESC">
+				<option value="1">JYES</option>
+				<option value="0">JNO</option>
+			</field>
+			<field
+				name="show_allowed_listing_type"
+				type="radio"
+				default="1"
+				label="COM_SELLACIOUS_CONFIG_SELLER_SHOW_LISTING_TYPE_LABEL"
+				description="COM_SELLACIOUS_CONFIG_SELLER_SHOW_LISTING_TYPE_DESC"
+			>
+				<option value="1">JYES</option>
+				<option value="0">JNO</option>
+			</field>
+			<field
+				name="show_seller_rating"
+				type="radio"
+				default="1"
+				label="COM_SELLACIOUS_CONFIG_SELLER_SHOW_SELLER_RATING_LABEL"
+				description="COM_SELLACIOUS_CONFIG_SELLER_SHOW_SELLER_RATING_DESC"
+			>
+				<option value="1">JYES</option>
+				<option value="0">JNO</option>
+			</field>
+			<field
+				name="mfg_link"
+				type="radio"
+				default="products"
+				label="COM_SELLACIOUS_CONFIG_MANUFACTURER_LINK_LABEL"
+				description="COM_SELLACIOUS_CONFIG_MANUFACTURER_LINK_DESC">
+				<option value="none">COM_SELLACIOUS_CONFIG_MANUFACTURER_LINK_NONE</option>
+				<option value="cats">COM_SELLACIOUS_CONFIG_MANUFACTURER_LINK_CATS</option>
+				<option value="products">COM_SELLACIOUS_CONFIG_MANUFACTURER_LINK_PRODUCTS</option>
+			</field>
+
+			<field
+				type="fieldgroup"
+				label="COM_SELLACIOUS_CONFIG_FIELDSET_SHOP_SUBSET_PRODUCTS_IMAGE_DETAIL_LABEL"
+			/>
+			<field
+				name="image_gallery_enable"
+				type="radio"
+				default="1"
+				label="COM_SELLACIOUS_CONFIG_FIELD_IMAGE_GALLERY_ENABLE_LABEL"
+				description="COM_SELLACIOUS_CONFIG_FIELD_IMAGE_GALLERY_ENABLE_DESC">
+				<option value="1">JYES</option>
+				<option value="0">JNO</option>
+			</field>
+			<field
+				name="image_navigation_enable"
+				type="radio"
+				default="1"
+				label="COM_SELLACIOUS_CONFIG_FIELD_IMAGE_NAVIGATION_ENABLE_LABEL"
+				description="COM_SELLACIOUS_CONFIG_FIELD_IMAGE_NAVIGATION_ENABLE_DESC">
+				<option value="1">JYES</option>
+				<option value="0">JNO</option>
+			</field>
+
+			<field
+				type="fieldgroup"
+				label="COM_SELLACIOUS_CONFIG_FIELDSET_SHOP_SUBSET_PRODUCTS_IMAGE_ZOOM_LABEL"
+			/>
+			<field
+				name="image_zoom_enable"
+				type="radio"
+				default="1"
+				label="COM_SELLACIOUS_CONFIG_FIELD_IMAGE_ZOOM_ENABLE_LABEL"
+				description="COM_SELLACIOUS_CONFIG_FIELD_IMAGE_ZOOM_ENABLE_DESC">
+				<option value="1">JYES</option>
+				<option value="0">JNO</option>
+			</field>
+			<field
+				name="image_zoom_type"
+				type="radio"
+				default="lens"
+				class="inputbox"
+				label="COM_SELLACIOUS_CONFIG_FIELD_IMAGE_ZOOM_TYPE_LABEL"
+				description="COM_SELLACIOUS_CONFIG_FIELD_IMAGE_ZOOM_TYPE_DESC">
+				<option value="lens">COM_SELLACIOUS_CONFIG_FIELD_IMAGE_ZOOM_TYPE_LENS</option>
+				<option value="window">COM_SELLACIOUS_CONFIG_FIELD_IMAGE_ZOOM_TYPE_WINDOW</option>
+			</field>
+			<field
+				name="image_zoom_window_width"
+				type="number"
+				default="400"
+				class="inputbox"
+				label="COM_SELLACIOUS_CONFIG_FIELD_IMAGE_ZOOM_WINDOW_WIDTH_LABEL"
+				description="COM_SELLACIOUS_CONFIG_FIELD_IMAGE_ZOOM_WINDOW_WIDTH_DESC"
+			/>
+			<field
+				name="image_zoom_window_height"
+				type="number"
+				default="400"
+				class="inputbox"
+				label="COM_SELLACIOUS_CONFIG_FIELD_IMAGE_ZOOM_WINDOW_HEIGHT_LABEL"
+				description="COM_SELLACIOUS_CONFIG_FIELD_IMAGE_ZOOM_WINDOW_HEIGHT_DESC"
+			/>
+			<field
+				name="image_zoom_lens_border_width"
+				type="number"
+				default="1"
+				class="inputbox"
+				label="COM_SELLACIOUS_CONFIG_FIELD_IMAGE_ZOOM_LENS_BORDER_WIDTH_LABEL"
+				description="COM_SELLACIOUS_CONFIG_FIELD_IMAGE_ZOOM_LENS_BORDER_WIDTH_DESC"
+			/>
+			<field
+				name="image_zoom_lens_border_color"
+				type="color"
+				default="rgba(0, 0, 0, 1)"
+				label="COM_SELLACIOUS_CONFIG_FIELD_IMAGE_ZOOM_LENS_BORDER_COLOR_LABEL"
+				description="COM_SELLACIOUS_CONFIG_FIELD_IMAGE_ZOOM_LENS_BORDER_COLOR_DESC"
+				class="inputbox"
+				format="rgba"
+			/>
+			<field
+				name="image_zoom_lens_background_color"
+				type="color"
+				default="rgba(255, 255, 255, 0.4)"
+				label="COM_SELLACIOUS_CONFIG_FIELD_IMAGE_ZOOM_LENS_BG_COLOR_LABEL"
+				description="COM_SELLACIOUS_CONFIG_FIELD_IMAGE_ZOOM_LENS_BG_COLOR_DESC"
+				class="inputbox"
+				format="rgba"
+			/>
+			<field
+				name="image_zoom_easing_enable"
+				type="radio"
+				default="1"
+				label="COM_SELLACIOUS_CONFIG_FIELD_IMAGE_ZOOM_EASING_ENABLE_LABEL"
+				description="COM_SELLACIOUS_CONFIG_FIELD_IMAGE_ZOOM_EASING_ENABLE_DESC">
+				<option value="1">JYES</option>
+				<option value="0">JNO</option>
+			</field>
+			<field
+				name="image_zoom_lens_size"
+				type="number"
+				default="200"
+				class="inputbox"
+				label="COM_SELLACIOUS_CONFIG_FIELD_IMAGE_ZOOM_LENS_SIZE_LABEL"
+				description="COM_SELLACIOUS_CONFIG_FIELD_IMAGE_ZOOM_LENS_SIZE_DESC"
+			/>
+			<field
+				name="image_zoom_border_width"
+				type="number"
+				default="8"
+				class="inputbox"
+				label="COM_SELLACIOUS_CONFIG_FIELD_IMAGE_ZOOM_BORDER_WIDTH_LABEL"
+				description="COM_SELLACIOUS_CONFIG_FIELD_IMAGE_ZOOM_BORDER_WIDTH_DESC"
+			/>
+			<field
+				name="image_zoom_border_color"
+				type="color"
+				default="rgba(0, 0, 0, 0.1)"
+				label="COM_SELLACIOUS_CONFIG_FIELD_IMAGE_ZOOM_BORDER_COLOR_LABEL"
+				description="COM_SELLACIOUS_CONFIG_FIELD_IMAGE_ZOOM_BORDER_COLOR_DESC"
+				class="inputbox"
+				format="rgba"
+			/>
+			<field
+				name="image_zoom_type_mobile"
+				type="radio"
+				default="lens"
+				label="COM_SELLACIOUS_CONFIG_FIELD_IMAGE_ZOOM_TYPE_MOBILE_LABEL"
+				description="COM_SELLACIOUS_CONFIG_FIELD_IMAGE_ZOOM_TYPE_MOBILE_DESC">
+				<option value="lens">COM_SELLACIOUS_CONFIG_FIELD_IMAGE_ZOOM_TYPE_MOBILE_LENS</option>
+				<option value="none">COM_SELLACIOUS_CONFIG_FIELD_IMAGE_ZOOM_TYPE_MOBILE_NONE</option>
+			</field>
+			<field
+				name="image_zoom_lens_size_mobile"
+				type="number"
+				default="180"
+				class="inputbox"
+				label="COM_SELLACIOUS_CONFIG_FIELD_IMAGE_ZOOM_LENS_SIZE_MOBILE_LABEL"
+				description="COM_SELLACIOUS_CONFIG_FIELD_IMAGE_ZOOM_LENS_SIZE_MOBILE_DESC"
+			/>
+
+			<field
+				type="fieldgroup"
+				name="new_menu_type_fieldgroup"
+				label="COM_SELLACIOUS_CONFIG_FIELDSET_LAYOUT_SUBSET_CATEGORY_MENU_LABEL"
+			/>
+			<field
+				name="category_menu_menutype"
+				type="menu"
+				addfieldpath="administrator/components/com_menus/models/fields"
+				label="COM_SELLACIOUS_CONFIG_FIELD_CATEGORY_MENU_MENUTYPE_LABEL"
+				description="COM_SELLACIOUS_CONFIG_FIELD_CATEGORY_MENU_MENUTYPE_DESC"
+				clientid="0"
+				class="medium-input"
+			>
+				<option value="-" class="red">COM_SELLACIOUS_CONFIG_FIELD_CATEGORY_MENU_MENUTYPE_OPTION_CREATE_MENUTYPE</option>
+				<option disabled="true"> <!-- this just separates the above row --> </option>
+			</field>
+			<field
+				name="category_menu_parent"
+				type="menuparent"
+				addfieldpath="administrator/components/com_menus/models/fields"
+				label="COM_SELLACIOUS_CONFIG_FIELD_CATEGORY_MENU_PARENT_LABEL"
+				description="COM_SELLACIOUS_CONFIG_FIELD_CATEGORY_MENU_PARENT_DESC"
+				default="1"
+				filter="int"
+				clientid="0"
+				class="medium-input"
+			>
+				<option value="1" class="red">COM_SELLACIOUS_CONFIG_FIELD_CATEGORY_MENU_PARENT_VALUE_ROOT</option>
+			</field>
+			<field
+				type="subform"
+				name="category_menu"
+				label="COM_SELLACIOUS_CONFIG_FIELD_CATEGORY_MENU_LABEL"
+				description="COM_SELLACIOUS_CONFIG_FIELD_CATEGORY_MENU_DESC"
+				formsource="config/category_menu"
+				layout="com_sellacious.fields.config.category_menu.repeatable-table"
+				buttons="add,remove"
+				multiple="true"
+				min="1"
+				max="15"
+			/>
+
+			<field
+				type="fieldgroup"
+				label="COM_SELLACIOUS_CONFIG_FIELDSET_LAYOUT_SUBSET_GEOLOCATION_LABEL"
+			/>
+
+			<fields name="geolocation_levels">
+				<field
+					name="company"
+					label="COM_SELLACIOUS_LOCATIONS_TITLE_COMPANY"
+					type="radio"
+					default="1"
+				>
+					<option value="0">JHIDE</option>
+					<option value="1">JSHOW</option>
+					<option value="2">JREQUIRED</option>
+				</field>
+				<field
+					name="address"
+					label="COM_SELLACIOUS_LOCATIONS_TITLE_ADDRESS"
+					type="radio"
+					default="1"
+				>
+					<option value="0">JHIDE</option>
+					<option value="1">JSHOW</option>
+					<option value="2">JREQUIRED</option>
+				</field>
+				<field
+					name="po_box"
+					label="COM_SELLACIOUS_LOCATIONS_TITLE_PO_BOX"
+					type="radio"
+					default="1"
+				>
+					<option value="0">JHIDE</option>
+					<option value="1">JSHOW</option>
+					<option value="2">JREQUIRED</option>
+				</field>
+				<field
+					name="landmark"
+					label="COM_SELLACIOUS_LOCATIONS_TITLE_LANDMARK"
+					type="radio"
+					default="1"
+				>
+					<option value="0">JHIDE</option>
+					<option value="1">JSHOW</option>
+					<option value="2">JREQUIRED</option>
+				</field>
+				<field
+					name="country"
+					label="COM_SELLACIOUS_LOCATIONS_TITLE_COUNTRY"
+					type="radio"
+					default="1"
+				>
+					<option value="0">JHIDE</option>
+					<option value="1">JSHOW</option>
+					<option value="2">JREQUIRED</option>
+				</field>
+				<field
+					name="state_loc"
+					label="COM_SELLACIOUS_LOCATIONS_TITLE_STATE"
+					type="radio"
+					default="1"
+				>
+					<option value="0">JHIDE</option>
+					<option value="1">JSHOW</option>
+					<option value="2">JREQUIRED</option>
+				</field>
+				<field
+					name="district"
+					label="COM_SELLACIOUS_LOCATIONS_TITLE_DISTRICT"
+					type="radio"
+					default="0"
+				>
+					<option value="0">JHIDE</option>
+					<option value="1">JSHOW</option>
+					<option value="2">JREQUIRED</option>
+				</field>
+				<field
+					name="zip"
+					label="COM_SELLACIOUS_LOCATIONS_TITLE_ZIP"
+					type="radio"
+					default="1"
+				>
+					<option value="0">JHIDE</option>
+					<option value="1">JSHOW</option>
+					<option value="2">JREQUIRED</option>
+				</field>
+				<field
+					name="mobile"
+					label="COM_SELLACIOUS_LOCATIONS_TITLE_MOBILE"
+					type="radio"
+					default="1"
+				>
+					<option value="0">JHIDE</option>
+					<option value="1">JSHOW</option>
+					<option value="2">JREQUIRED</option>
+				</field>
+				<field
+					name="residential"
+					label="COM_SELLACIOUS_LOCATIONS_TITLE_ADDRESS_TYPE"
+					type="radio"
+					default="1"
+				>
+					<option value="0">JHIDE</option>
+					<option value="1">JSHOW</option>
+					<option value="2">JREQUIRED</option>
+				</field>
+			</fields>
+			<field
+				name="address_zip_regex"
+				label="COM_SELLACIOUS_CONFIG_ADDRESS_ZIP_REGEX_LABEL"
+				description="COM_SELLACIOUS_CONFIG_ADDRESS_ZIP_REGEX_DESC"
+				type="text"
+				default=""
+				class="inputbox medium-input"
+			/>
+			<field
+				name="address_mobile_regex"
+				label="COM_SELLACIOUS_CONFIG_ADDRESS_MOBILE_REGEX_LABEL"
+				description="COM_SELLACIOUS_CONFIG_ADDRESS_MOBILE_REGEX_DESC"
+				type="text"
+				default=""
+				class="inputbox medium-input"
+			/>
+		</fieldset>
+	</fields>
+</form>

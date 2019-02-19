@@ -41,7 +41,7 @@ class N2CacheManifest extends N2Cache {
 
             $this->manifestData = json_decode($this->get($manifestKey), true);
 
-            if (!$this->isCacheValid($this->manifestData) || $this->manifestData['hash'] != $hash) {
+            if (!$this->isCacheValid($this->manifestData) || $this->manifestData['hash'] != $hash || !$this->exists($fileName)) {
                 $this->clean($fileName);
 
                 return false;

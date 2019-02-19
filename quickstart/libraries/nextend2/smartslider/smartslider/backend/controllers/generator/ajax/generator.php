@@ -97,7 +97,7 @@ class N2SmartsliderBackendGeneratorControllerAjax extends N2SmartSliderControlle
             ));
 
         } else {
-            N2Message::notice('No records found for the filter');
+            N2Message::notice(n2_('No records found for the filter'));
             $this->response->error();
         }
     }

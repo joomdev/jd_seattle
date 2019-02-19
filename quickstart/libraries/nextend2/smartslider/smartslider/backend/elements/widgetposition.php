@@ -57,7 +57,7 @@ class N2ElementWidgetPosition extends N2ElementGroup {
     protected function addAdvanced() {
 
         $advanced = new N2ElementGroup($this, $this->name . '-advanced', false, array(
-            'style' => 'width:350px;'
+            'style' => 'width:400px;'
         ));
 
         new N2ElementSwitcher($advanced, $this->name . '-horizontal', n2_('Horizontal'), 'left', array(

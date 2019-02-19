@@ -20,9 +20,7 @@ class N2SSItemYouTube extends N2SSItemAbstract {
             'center'   => 0,
             'loop'     => 0,
             'reset'    => 0,
-            'theme'    => 'dark',
-            'related'  => 0,
-            'vq'       => 'default'
+            'related'  => 1,
         ));
 
         $rawYTUrl = $owner->fill($this->data->get('youtubeurl', ''));
@@ -41,6 +39,10 @@ class N2SSItemYouTube extends N2SSItemAbstract {
         $start = $owner->fill($this->data->get('start', ''));
         $this->data->set("youtubecode", $youTubeUrl);
         $this->data->set("start", $start);
+
+        $end = $owner->fill($this->data->get('end', ''));
+        $this->data->set("youtubecode", $youTubeUrl);
+        $this->data->set("end", $end);
 
         $style = '';
 
@@ -91,7 +93,7 @@ class N2SSItemYouTube extends N2SSItemAbstract {
 
         return N2Html::tag('div', array(
             'id'    => $this->id,
-            'class' => 'n2-ss-layer-player n2-ow-all'
+            'class' => 'n2-ss-layer-player n2-ss-item-content n2-ow-all'
         ), N2Html::tag('div', array(
                 'id' => $this->id . '-frame',
             ), '') . $coverImage);

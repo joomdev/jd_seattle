@@ -28,11 +28,9 @@ class N2SSPluginItemFactoryYouTube extends N2SSPluginItemFactoryAbstract {
             'autoplay'       => 0,
             'controls'       => 1,
             'defaultimage'   => 'maxresdefault',
-            'related'        => '0',
-            'vq'             => 'default',
+            'related'        => '1',
             'center'         => 0,
             'loop'           => 0,
-            'showinfo'       => 1,
             'modestbranding' => 1,
             'reset'          => 0,
             'start'          => '0',
@@ -45,7 +43,9 @@ class N2SSPluginItemFactoryYouTube extends N2SSPluginItemFactoryAbstract {
         return dirname(__FILE__) . DIRECTORY_SEPARATOR . $this->type . DIRECTORY_SEPARATOR;
     }
 
-    public static function getFilled($slide, $data) {
+    public function getFilled($slide, $data) {
+        $data = parent::getFilled($slide, $data);
+
         $data->set('image', $slide->fill($data->get('image', '')));
         $data->set('youtubeurl', $slide->fill($data->get('youtubeurl', '')));
 
@@ -53,10 +53,14 @@ class N2SSPluginItemFactoryYouTube extends N2SSPluginItemFactoryAbstract {
     }
 
     public function prepareExport($export, $data) {
+        parent::prepareExport($export, $data);
+
         $export->addImage($data->get('image'));
     }
 
     public function prepareImport($import, $data) {
+        $data = parent::prepareImport($import, $data);
+
         $data->set('image', $import->fixImage($data->get('image')));
 
         return $data;
@@ -71,7 +75,7 @@ class N2SSPluginItemFactoryYouTube extends N2SSPluginItemFactoryAbstract {
     public function renderFields($form) {
         $settings = new N2Tab($form, 'item-youtube');
 
-        new N2ElementText($settings, 'youtubeurl', n2_('YouTube url or Video ID'), '', array(
+        new N2ElementText($settings, 'youtubeurl', n2_('YouTube URL or Video ID'), '', array(
             'style' => 'width:290px;'
         ));
 
@@ -95,6 +99,11 @@ class N2SSPluginItemFactoryYouTube extends N2SSPluginItemFactoryAbstract {
             'unit' => 'sec',
             'wide' => 5
         ));
+        new N2ElementNumber($misc, 'end', n2_('End time'), 0, array(
+            'min'  => 0,
+            'unit' => 'sec',
+            'wide' => 5
+        ));
         new N2ElementList($misc, 'volume', n2_('Volume'), 1, array(
             'options' => array(
                 '0'    => n2_('Mute'),
@@ -106,30 +115,17 @@ class N2SSPluginItemFactoryYouTube extends N2SSPluginItemFactoryAbstract {
             )
         ));
 
-        new N2ElementList($misc, 'theme', n2_('Theme'), '', array(
-            'options' => array(
-                'light' => n2_('Light'),
-                'dark'  => n2_('Dark')
+        new N2ElementOnOff($misc, 'autoplay', n2_('Autoplay'), 0, array(
+            'relatedFields' => array(
+                'item_youtubeautoplay-notice'
             )
         ));
-
-        new N2ElementList($misc, 'vq', n2_('Quality'), 'default', array(
-            'options' => array(
-                'small'   => '240p',
-                'medium'  => '360p',
-                'large'   => '480p',
-                'hd720'   => '720p',
-                'hd1080'  => '1080p',
-                'highres' => 'High res',
-                'default' => 'Default'
-            )
-        ));
-
-        new N2ElementOnOff($misc, 'autoplay', n2_('Autoplay'), 0);
+        new N2ElementImportant($misc, 'autoplay-notice', n2_('Video autoplaying has a lot of limitations made by browsers. You can read about them <a href="https://smartslider3.helpscoutdocs.com/article/1556-video-autoplay-handling" target="_blank">here</a>.'));
+		
         new N2ElementOnOff($misc, 'controls', n2_('Controls'), 1);
         new N2ElementOnOff($misc, 'center', n2_('Centered'), 0);
         new N2ElementOnOff($misc, 'loop', n2_('Loop'), 0);
-        new N2ElementOnOff($misc, 'related', n2_('Related'), 0);
+        new N2ElementOnOff($misc, 'related', n2_('Show related videos from the same channel'), 1);
 
 
         $playButton = new N2ElementGroup($settings, 'item-vimeo-playbutton', '', array(

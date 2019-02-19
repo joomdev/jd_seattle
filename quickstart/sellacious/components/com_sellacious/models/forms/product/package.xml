@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset name="package" label="COM_SELLACIOUS_PRODUCT_FIELDSET_PACKAGE">
+		<fields name="package">
+			<field
+				name="products"
+				type="MultiVariantProduct"
+				label="PLG_SELLACIOUSRULES_PRODUCT_FIELD_PRODUCT_LABEL"
+				description="PLG_SELLACIOUSRULES_PRODUCT_FIELD_PRODUCT_DESC"
+				class="w100p"
+				multiple="true"
+			/>
+		</fields>
+	</fieldset>
+</form>

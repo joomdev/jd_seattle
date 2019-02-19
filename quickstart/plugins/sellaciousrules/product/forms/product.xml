@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fields name="params">
+		<fieldset name="filters" label="COM_SELLACIOUS_FIELDSET_FILTERS">
+			<fields name="product">
+				<field
+					name="categories"
+					type="categoryList"
+					label="PLG_SELLACIOUSRULES_PRODUCT_FIELD_CATEGORY_LABEL"
+					description="PLG_SELLACIOUSRULES_PRODUCT_FIELD_CATEGORY_DESC"
+					group="product/physical;product/electronic"
+					class="inputbox w100p"
+					multiple="true"
+					show_all="true"
+				/>
+				<field
+					name="products"
+					type="product"
+					label="PLG_SELLACIOUSRULES_PRODUCT_FIELD_PRODUCT_LABEL"
+					description="PLG_SELLACIOUSRULES_PRODUCT_FIELD_PRODUCT_DESC"
+					class="w100p"
+					multiple="true"
+				/>
+				<field
+					name="manufacturer"
+					type="manufacturer"
+					label="PLG_SELLACIOUSRULES_PRODUCT_FIELD_MANUFACTURER_LABEL"
+					description="PLG_SELLACIOUSRULES_PRODUCT_FIELD_MANUFACTURER_DESC"
+					class="inputbox w100p"
+					multiple="true"
+				/>
+				<field
+					name="seller"
+					type="productSellers"
+					label="PLG_SELLACIOUSRULES_PRODUCT_FIELD_SELLER_LABEL"
+					description="PLG_SELLACIOUSRULES_PRODUCT_FIELD_SELLER_DESC"
+					class="inputbox w100p"
+					multiple="true"
+				/>
+				<field
+					name="min_quantity"
+					type="number"
+					label="PLG_SELLACIOUSRULES_PRODUCT_FIELD_MIN_QUANTITY_LABEL"
+					description="PLG_SELLACIOUSRULES_PRODUCT_FIELD_MIN_QUANTITY_DESC"
+					class="inputbox"
+					size="16"
+					default="0"
+				    min="0"
+				/>
+				<field
+					name="max_quantity"
+					type="number"
+					label="PLG_SELLACIOUSRULES_PRODUCT_FIELD_MAX_QUANTITY_LABEL"
+					description="PLG_SELLACIOUSRULES_PRODUCT_FIELD_MAX_QUANTITY_DESC"
+					class="inputbox"
+					size="16"
+					default="0"
+				    min="0"
+				/>
+				<field
+					name="min_weight"
+					type="unitcombo"
+					label="PLG_SELLACIOUSRULES_PRODUCT_FIELD_MIN_WEIGHT_LABEL"
+					description="PLG_SELLACIOUSRULES_PRODUCT_FIELD_MIN_WEIGHT_DESC"
+					class="inputbox"
+					unit_group="weight"
+				/>
+				<field
+					name="max_weight"
+					type="unitcombo"
+					label="PLG_SELLACIOUSRULES_PRODUCT_FIELD_MAX_WEIGHT_LABEL"
+					description="PLG_SELLACIOUSRULES_PRODUCT_FIELD_MAX_WEIGHT_DESC"
+					class="inputbox"
+					unit_group="weight"
+				/>
+				<field
+					name="min_volume"
+					type="unitcombo"
+					label="PLG_SELLACIOUSRULES_PRODUCT_FIELD_MIN_VOLUME_LABEL"
+					description="PLG_SELLACIOUSRULES_PRODUCT_FIELD_MIN_VOLUME_DESC"
+					class="inputbox"
+					unit_group="volume"
+				/>
+				<field
+					name="max_volume"
+					type="unitcombo"
+					label="PLG_SELLACIOUSRULES_PRODUCT_FIELD_MAX_VOLUME_LABEL"
+					description="PLG_SELLACIOUSRULES_PRODUCT_FIELD_MAX_VOLUME_DESC"
+					class="inputbox"
+					unit_group="volume"
+				/>
+			</fields>
+		</fieldset>
+	</fields>
+</form>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset name="permissions" label="COM_SELLACIOUS_CONFIG_FIELDSET_ACCESS_LABEL">
+		<field
+			name="user_group"
+			type="SellaciousUserGroupList"
+			label="COM_SELLACIOUS_PERMISSIONS_FIELD_USERGROUP_LABEL"
+			desc="COM_SELLACIOUS_PERMISSIONS_FIELD_USERGROUP_DESC"
+			onchange="Joomla.submitform('permissions.setGroup');"
+			class="select-small"
+			>
+			<option value="">COM_SELLACIOUS_OPTION_SELECT</option>
+		</field>
+		<field
+			name="rules"
+			type="GroupRules"
+			validate="SellaciousRules"
+			component="com_sellacious"
+			section="component"
+		/>
+	</fieldset>
+</form>

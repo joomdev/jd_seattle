@@ -677,6 +677,9 @@ class N2HTTP {
                                 case ".psd":
                                     $content_type = "application/x-photoshop";
                                     break;
+                                case ".svg":
+                                    $content_type = "image/svg+xml";
+                                    break;
                                 case ".swf":
                                 case ".swc":
                                 case ".rf":
@@ -733,6 +736,9 @@ class N2HTTP {
                                     break;
                                 case ".wbmp":
                                     $content_type = "image/vnd.wap.wbmp";
+                                    break;
+                                case ".webp":
+                                    $content_type = "image/webp";
                                     break;
                                 case ".xbm":
                                     $content_type = "image/xbm";

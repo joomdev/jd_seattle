@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<layout title="COM_SELLACIOUS_FIELDS_VIEW_DEFAULT_TITLE">
+		<message>
+			<![CDATA[COM_SELLACIOUS_FIELDS_VIEW_DEFAULT_DESC]]>
+		</message>
+	</layout>
+	<fieldset name="request">
+		<fields name="request">
+			<fields name="filter">
+				<field
+					name="context"
+					type="list"
+					label="COM_SELLACIOUS_FIELDS_FILTER_CONTEXT_LABEL"
+					class="inputbox w100p"
+				>
+					<option value="product">COM_SELLACIOUS_FIELDS_CONTEXT_OPTION_PRODUCT</option>
+					<option value="user">COM_SELLACIOUS_FIELDS_CONTEXT_OPTION_USER</option>
+					<option value="queryform">COM_SELLACIOUS_FIELDS_CONTEXT_OPTION_QUERY_FORM</option>
+					<option value="paymentmethod">COM_SELLACIOUS_FIELDS_CONTEXT_OPTION_PAYMENT_METHOD</option>
+					<option value="checkoutform">COM_SELLACIOUS_FIELDS_CONTEXT_OPTION_CHECKOUT_FORM</option>
+					<option value="shippingmethod">COM_SELLACIOUS_FIELDS_CONTEXT_OPTION_SHIPPING_METHOD</option>
+					<option value="form">COM_SELLACIOUS_FIELDS_CONTEXT_OPTION_CUSTOM_FORM</option>
+				</field>
+			</fields>
+		</fields>
+	</fieldset>
+</metadata>
