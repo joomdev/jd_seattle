@@ -1,14 +1,15 @@
-// Bootstrap 4.1.3 variables override
 @import "bootstrap/functions";
 @import "seattle/bootstrap_variables";
+@import "seattle/bootstrap_type";
 @import "seattle/bootstrap_borders";
 
 // Bootstrap Default 4.1.3
 @import "bootstrap/bootstrap";
 
-// Astroid Framework
+// Astroid Template
 @import "astroid/astroid";
 
-// Theme
-@import "seattle/style";
+// Seattle Template
 @import "seattle/buttons";
+@import "seattle/template";
+@import "seattle/rtl";

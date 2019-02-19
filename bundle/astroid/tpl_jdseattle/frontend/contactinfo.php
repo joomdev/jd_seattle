@@ -20,7 +20,7 @@ $address = $template->params->get('contact_address', '');
 $contact_display = $template->params->get('contact_display', 'icons');
 ?>
 
-<div class="astroid-contact-info py-3">
+<div class="astroid-contact-info">
    <?php if (!empty($address)) { ?>
       <span class="mr-3 d-inline-block">
          <?php if ($contact_display == "icons") : ?>

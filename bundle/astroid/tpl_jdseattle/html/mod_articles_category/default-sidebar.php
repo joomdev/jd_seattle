@@ -9,7 +9,7 @@
 
 defined('_JEXEC') or die;
 ?>
-<ul class="category-module list-group list-group-flush">
+<ul class="category-module<?php echo $moduleclass_sfx; ?> list-group list-group-flush">
 	<?php if ($grouped) : ?>
 		<?php foreach ($list as $group_name => $group) : ?>
 		<li class="list-group-item">

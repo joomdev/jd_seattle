@@ -1,7 +1,7 @@
 .article-rating{
    clear: both;
    .rating{
-      padding: 13px 0px;
+      padding: 13px 0;
    }
    .vote-count{
       display: -webkit-inline-box;
@@ -41,21 +41,5 @@
       &.success{
          color: $success;
       }
-   }
-}
-
-.simple-contact-form-loader{
-   position: absolute;
-   top: 0;
-   left: 0;
-   width: 100%;
-   height: 100%;
-   background: rgba(255,255,255,0.6);
-   z-index: 1;
-   display: flex;
-   border-radius: $card-border-radius;
-   .loading{
-      margin: auto;
-      @include loading-variant(2rem, $primary, .5s, 2px);
    }
 }

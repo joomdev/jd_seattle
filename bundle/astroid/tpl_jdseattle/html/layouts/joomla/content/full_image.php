@@ -1,21 +1,29 @@
 <?php
 /**
- * @package     Joomla.Site
- * @subpackage  Layout
- *
- * @copyright   Copyright (C) 2005 - 2018 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE.txt
+ * @package   Astroid Framework
+ * @author    JoomDev https://www.joomdev.com
+ * @copyright Copyright (C) 2009 - 2018 JoomDev.
+ * @license http://www.gnu.org/licenses/gpl-2.0.html GNU/GPLv2 or Later
  */
 
-defined('JPATH_BASE') or die;
-$params = $displayData->params;
+defined('_JEXEC') or die;
+$params  = $displayData->params;
+$attribs 		= json_decode($displayData->attribs);
+$images 		= json_decode($displayData->images);
+$full_image 	= '';
+
+if(isset($attribs->spfeatured_image) && $attribs->spfeatured_image != '') {
+	$full_image = $attribs->spfeatured_image;
+} elseif(isset($images->image_fulltext) && !empty($images->image_fulltext)) {
+	$full_image = $images->image_fulltext;
+}
 ?>
-<?php $images = json_decode($displayData->images); ?>
-	<?php if (isset($images->image_fulltext) && !empty($images->image_fulltext)) : ?>
-		<?php $imgfloat = empty($images->float_fulltext) ? $params->get('float_fulltext') : $images->float_fulltext; ?>
-		<div class="pull-<?php echo htmlspecialchars($imgfloat); ?> item-image"> <img
-		<?php if ($images->image_fulltext_caption) :
-			echo 'class="caption"' . ' title="' . htmlspecialchars($images->image_fulltext_caption) . '"';
+
+<?php if(!empty($full_image) || (isset($images->image_fulltext) && !empty($images->image_fulltext))) { ?>
+	<?php $imgfloat = (empty($images->float_fulltext)) ? $params->get('float_fulltext') : $images->float_fulltext; ?>
+	<div class="entry-image full-image mb-3"> <img
+		<?php if ($images->image_fulltext_caption):
+		echo 'class="caption"' . ' title="' . htmlspecialchars($images->image_fulltext_caption) . '"';
 		endif; ?>
-		src="<?php echo htmlspecialchars($images->image_fulltext); ?>" alt="<?php echo htmlspecialchars($images->image_fulltext_alt); ?>" class="img-fluid" itemprop="image"/> </div>
-	<?php endif; ?>
+		src="<?php echo htmlspecialchars($full_image); ?>" alt="<?php echo htmlspecialchars($images->image_fulltext_alt); ?>" itemprop="image" class="img-fluid"/> </div>
+<?php } ?>

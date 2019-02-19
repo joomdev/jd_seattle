@@ -2,14 +2,14 @@
 <!DOCTYPE install PUBLIC "-//Joomla! 2.5//DTD template 1.0//EN" "https://www.joomla.org/xml/dtd/1.6/template-install.dtd">
 <extension version="3.1" type="template" client="site" method="upgrade">
    <name>tpl_jdseattle</name>
-   <creationDate>Oct 2018</creationDate>
+   <creationDate>Feb 2019</creationDate>
    <author>JoomDev</author>
    <authorEmail>info@joomdev.com</authorEmail>
    <authorUrl>https://www.joomdev.com</authorUrl>
-   <copyright>Copyright (C) 2018 Joomdev, Inc. All rights reserved.</copyright>
+   <copyright>Copyright (C) 2019 Joomdev, Inc. All rights reserved.</copyright>
    <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
-   <version>1.0.2</version>
-   <description>TPL_TPL_JDSEATTLE_XML_DESCRIPTION</description>
+   <version>1.3</version>
+   <description>JD Seattle - Free Multipurpose Business Joomla Template</description>
    <files>
       <folder>css</folder>
       <folder>scss</folder>

@@ -22,16 +22,20 @@ html {
 			margin-bottom: 10px;
 		}
 	}
-	.text-white {
+	&.text-white {
 		[class*="split-"] {
 			color: #fff;
 		}
 	}
-	.heading-center {
+	&.heading-center {
 		span {
 			text-align: center;
 		}
 	}
+}
+
+.heading-center .module-title {
+	text-align: center;
 }
 
 /* Text hightlight

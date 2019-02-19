@@ -1,0 +1,62 @@
+.jdprocess-boxs .jdprocess-box {
+	.process-wrapper {
+		.pro-icon {
+			position: relative;
+			background: $primary;
+			font-size: 42px;
+			height: 100px;
+			width: 100px;
+			margin: 0 auto;
+			text-align: center;
+			border: 1px solid $white;
+			line-height: 104px;
+			border-radius: 100%;
+			@include transition(all 0.3s ease);
+			z-index: 1;
+
+			&:after {
+				content: attr(title); // content: "1";
+				position: absolute;
+				top: -20px;
+				left: -20px;
+				height: 40px;
+				width: 40px;
+				background: $white;
+				color: $primary;
+				font-size: 26px;
+				line-height: 40px;
+				border-radius: 50% 50% 0 50%;
+				@include box-shadow($box-shadow-lg !importanft);
+			}
+		}
+
+		&:hover {
+			.pro-icon {
+				color: $primary;
+				@include box-shadow(0 0 25px 50px $white inset);
+			}
+		}
+
+		>i {
+			position: absolute;
+			right: -24px;
+			top: 20%;
+			transform: translateY(-20%);
+			font-size: 52px;
+			line-height: 1;
+		}
+
+		.process-heading {
+			text-align: center;
+			margin-top: 20px;
+		}
+	}
+
+	&:last-child {
+		>.process-wrapper {
+			>i {
+				display: none !important;
+			}
+		}
+	}
+}

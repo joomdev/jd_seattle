@@ -41,6 +41,7 @@ class AstroidFrameworkArticle {
          }
       }
       $this->addMeta();
+      $this->renderRating();
    }
 
    public function addMeta() {
@@ -234,7 +235,6 @@ class AstroidFrameworkArticle {
          $document = JFactory::getDocument();
          $document->addCustomTag('<script src="//cdn.jsdelivr.net/npm/semantic-ui@2.4.0/dist/components/rating.min.js"></script>');
          $document->addStylesheet('//cdn.jsdelivr.net/npm/semantic-ui@2.4.0/dist/components/rating.min.css');
-         $this->template->loadLayout('blog.modules.rating', true, ['article' => $this->article]);
       }
    }
 
@@ -242,10 +242,7 @@ class AstroidFrameworkArticle {
       if (JFactory::getApplication()->input->get('tmpl', '') === 'component') {
          return FALSE;
       }
-      $menu_level = $this->params->get('astroid_rating', '');
-      $article_level = $this->article->params->get('astroid_rating', '');
-      $astroid_level = $this->template->params->get('article_rating', 1);
-      return $this->checkPriority($menu_level, $article_level, $astroid_level);
+      return $this->template->params->get('article_rating', 1);
    }
 
    // Utility functions
@@ -381,6 +378,18 @@ class AstroidFrameworkArticle {
          return (isset($query['v']) ? $query['v'] : '');
       } else {
          return (isset($parts['path']) ? str_replace('/', '', $parts['path']) : '');
+      }
+   }
+
+   public static function getArticleRating($id) {
+      $db = JFactory::getDbo();
+      $query = "SELECT * FROM `#__content_rating` WHERE `content_id`='$id'";
+      $db->setQuery($query);
+      $result = $db->loadObject();
+      if (empty($result)) {
+         return 0;
+      } else {
+         return ceil($result->rating_sum / $result->rating_count);
       }
    }
 
