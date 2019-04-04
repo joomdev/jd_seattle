@@ -1028,7 +1028,7 @@ class N2OAuth {
         return (false);
     }
 
-    Function SetPHPError($error, &$php_error_message) {
+    Function SetPHPError($error, $php_error_message) {
         if (IsSet($php_error_message) && strlen($php_error_message)) $error .= ": " . $php_error_message;
 
         return ($this->SetError($error));
@@ -1036,7 +1036,7 @@ class N2OAuth {
 
     Function OutputDebug($message) {
         if ($this->debug) {
-            $message = $this->debug_prefix . $message;
+            $message            = $this->debug_prefix . $message;
             $this->debug_output .= $message . "\n";
             error_log($message);
         }
@@ -1066,7 +1066,7 @@ class N2OAuth {
 
     Function GetStoredState(&$state) {
         if (!function_exists('session_start')) return $this->SetError('Session variables are not accessible in this PHP environment');
-        if (session_id() === '' && !session_start()) return ($this->SetPHPError('it was not possible to start the PHP session', $php_errormsg));
+        if (session_id() === '' && !session_start()) return ($this->SetPHPError('it was not possible to start the PHP session', N2PHPErrorMessage()));
         if (IsSet($_SESSION['OAUTH_STATE'])) $state = $_SESSION['OAUTH_STATE']; else
             $state = $_SESSION['OAUTH_STATE'] = time() . '-' . substr(md5(rand() . time()), 0, 6);
 
@@ -1192,7 +1192,7 @@ class N2OAuth {
     */
     Function StoreAccessToken($access_token) {
         if (!function_exists('session_start')) return $this->SetError('Session variables are not accessible in this PHP environment');
-        if (session_id() === '' && !session_start()) return ($this->SetPHPError('it was not possible to start the PHP session', $php_errormsg));
+        if (session_id() === '' && !session_start()) return ($this->SetPHPError('it was not possible to start the PHP session', N2PHPErrorMessage()));
         if (!$this->GetAccessTokenURL($access_token_url)) return false;
         $_SESSION['OAUTH_ACCESS_TOKEN'][$access_token_url] = $access_token;
 
@@ -1242,7 +1242,7 @@ class N2OAuth {
     */
     Function GetAccessToken(&$access_token) {
         if (!function_exists('session_start')) return $this->SetError('Session variables are not accessible in this PHP environment');
-        if (session_id() === '' && !session_start()) return ($this->SetPHPError('it was not possible to start the PHP session', $php_errormsg));
+        if (session_id() === '' && !session_start()) return ($this->SetPHPError('it was not possible to start the PHP session', N2PHPErrorMessage()));
         if (!$this->GetAccessTokenURL($access_token_url)) return false;
         if (IsSet($_SESSION['OAUTH_ACCESS_TOKEN'][$access_token_url])) $access_token = $_SESSION['OAUTH_ACCESS_TOKEN'][$access_token_url]; else
             $access_token = array();
@@ -1288,7 +1288,7 @@ class N2OAuth {
         if (!$this->GetAccessTokenURL($access_token_url)) return false;
         if ($this->debug) $this->OutputDebug('Resetting the access token status for OAuth server located at ' . $access_token_url);
         if (!function_exists('session_start')) return $this->SetError('Session variables are not accessible in this PHP environment');
-        if (session_id() === '' && !session_start()) return ($this->SetPHPError('it was not possible to start the PHP session', $php_errormsg));
+        if (session_id() === '' && !session_start()) return ($this->SetPHPError('it was not possible to start the PHP session', N2PHPErrorMessage()));
         Unset($_SESSION['OAUTH_ACCESS_TOKEN'][$access_token_url]);
         UnSet($_SESSION['OAUTH_STATE']);
 
@@ -1340,7 +1340,7 @@ class N2OAuth {
             if (($this->url_parameters || $method !== 'POST') && $request_content_type === 'application/x-www-form-urlencoded' && count($parameters)) {
                 $first = (strpos($url, '?') === false);
                 foreach ($parameters as $parameter => $value) {
-                    $url .= ($first ? '?' : '&') . UrlEncode($parameter) . '=' . UrlEncode($value);
+                    $url   .= ($first ? '?' : '&') . UrlEncode($parameter) . '=' . UrlEncode($value);
                     $first = false;
                 }
                 $parameters = array();
@@ -1366,7 +1366,7 @@ class N2OAuth {
                 }
                 KSort($sign_values);
                 foreach ($sign_values as $parameter => $value) {
-                    $sign .= $this->Encode(($first ? '' : '&') . $parameter . '=' . $this->Encode($value));
+                    $sign  .= $this->Encode(($first ? '' : '&') . $parameter . '=' . $this->Encode($value));
                     $first = false;
                 }
                 $header_values['oauth_signature'] = $values['oauth_signature'] = n2_base64_encode($this->HMAC('sha1', $sign, $key));
@@ -1379,14 +1379,14 @@ class N2OAuth {
             $first         = true;
             foreach ($header_values as $parameter => $value) {
                 $authorization .= ($first ? ' ' : ',') . $parameter . '="' . $this->Encode($value) . '"';
-                $first = false;
+                $first         = false;
             }
             $post_values = $parameters;
         } else {
             if ($method !== 'POST' || $post_values_in_uri) {
                 $first = (strcspn($url, '?') == strlen($url));
                 foreach ($values as $parameter => $value) {
-                    $url .= ($first ? '?' : '&') . $parameter . '=' . $this->Encode($value);
+                    $url   .= ($first ? '?' : '&') . $parameter . '=' . $this->Encode($value);
                     $first = false;
                 }
                 $post_values = array();
@@ -1459,11 +1459,11 @@ class N2OAuth {
                         foreach ($parameters as $name => $value) {
                             if (GetType($value) === 'array') {
                                 foreach ($value as $index => $value) {
-                                    $url .= ($first ? '?' : '&') . $name . '=' . UrlEncode($value);
+                                    $url   .= ($first ? '?' : '&') . $name . '=' . UrlEncode($value);
                                     $first = false;
                                 }
                             } else {
-                                $url .= ($first ? '?' : '&') . $name . '=' . UrlEncode($value);
+                                $url   .= ($first ? '?' : '&') . $name . '=' . UrlEncode($value);
                                 $first = false;
                             }
                         }
@@ -2073,10 +2073,10 @@ class N2OAuth {
                 if (!($json = @file_get_contents($this->configuration_file))) {
                     if (!file_exists($this->configuration_file)) return $this->SetError('the OAuth server configuration file ' . $this->configuration_file . ' does not exist');
 
-                    return $this->SetPHPError('could not read the OAuth server configuration file ' . $this->configuration_file, $php_errormsg);
+                    return $this->SetPHPError('could not read the OAuth server configuration file ' . $this->configuration_file, N2PHPErrorMessage());
                 }
                 $oauth_server = json_decode($json);
-                if (!IsSet($oauth_server)) return $this->SetPHPError('It was not possible to decode the OAuth server configuration file ' . $this->configuration_file . ' eventually due to incorrect format', $php_errormsg);
+                if (!IsSet($oauth_server)) return $this->SetPHPError('It was not possible to decode the OAuth server configuration file ' . $this->configuration_file . ' eventually due to incorrect format', N2PHPErrorMessage());
                 if (GetType($oauth_server) !== 'object') return $this->SetError('It was not possible to decode the OAuth server configuration file ' . $this->configuration_file . ' because it does not correctly define a JSON object');
                 if (!IsSet($oauth_server->servers) || GetType($oauth_server->servers) !== 'object') return $this->SetError('It was not possible to decode the OAuth server configuration file ' . $this->configuration_file . ' because it does not correctly define a JSON object for servers');
                 if (!IsSet($oauth_server->servers->{$this->server})) return ($this->SetError($this->server . ' is not yet a supported type of OAuth server. Please send a request in this class support forum (preferred) http://www.phpclasses.org/oauth-api , or if it is a security or private matter, contact the author Manuel Lemos mlemos@acm.org to request adding built-in support to this type of OAuth server.'));

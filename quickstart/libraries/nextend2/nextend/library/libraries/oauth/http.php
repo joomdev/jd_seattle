@@ -15,6 +15,15 @@ defined('HTTP_CLIENT_ERROR_CANNOT_ACCESS_LOCAL_FILE') || define('HTTP_CLIENT_ERR
 defined('HTTP_CLIENT_ERROR_PROTOCOL_FAILURE') || define('HTTP_CLIENT_ERROR_PROTOCOL_FAILURE', 5);
 defined('HTTP_CLIENT_ERROR_INVALID_PARAMETERS') || define('HTTP_CLIENT_ERROR_INVALID_PARAMETERS', 6);
 
+function N2PHPErrorMessage() {
+    $lastError = error_get_last();
+    if ($lastError === null) {
+        return '';
+    }
+
+    return $lastError['message'];
+}
+
 class N2HTTP {
 
     var $host_name = "";
@@ -142,7 +151,7 @@ class N2HTTP {
         return ($this->error = $error);
     }
 
-    Function SetPHPError($error, &$php_error_message, $error_code = HTTP_CLIENT_ERROR_UNSPECIFIED_ERROR) {
+    Function SetPHPError($error, $php_error_message, $error_code = HTTP_CLIENT_ERROR_UNSPECIFIED_ERROR) {
         if (IsSet($php_error_message) && strlen($php_error_message)) $error .= ": " . $php_error_message;
 
         return ($this->SetError($error, $error_code));
@@ -172,8 +181,8 @@ class N2HTTP {
     Function GetLine() {
         for ($line = ""; ;) {
             if ($this->use_curl) {
-                $eol  = strpos($this->response, "\n", $this->read_response);
-                $data = ($eol ? substr($this->response, $this->read_response, $eol + 1 - $this->read_response) : "");
+                $eol                 = strpos($this->response, "\n", $this->read_response);
+                $data                = ($eol ? substr($this->response, $this->read_response, $eol + 1 - $this->read_response) : "");
                 $this->read_response += strlen($data);
             } else {
                 if (feof($this->connection)) {
@@ -188,11 +197,11 @@ class N2HTTP {
 
                 return (0);
             }
-            $line .= $data;
+            $line   .= $data;
             $length = strlen($line);
             if ($length && !strcmp(substr($line, $length - 1, 1), "\n")) {
                 $length -= (($length >= 2 && !strcmp(substr($line, $length - 2, 1), "\r")) ? 2 : 1);
-                $line = substr($line, 0, $length);
+                $line   = substr($line, 0, $length);
                 if ($this->debug) $this->OutputDebug("S $line");
 
                 return ($line);
@@ -255,7 +264,7 @@ class N2HTTP {
 
     Function ReadBytes($length) {
         if ($this->use_curl) {
-            $bytes = substr($this->response, $this->read_response, min($length, strlen($this->response) - $this->read_response));
+            $bytes               = substr($this->response, $this->read_response, min($length, strlen($this->response) - $this->read_response));
             $this->read_response += strlen($bytes);
             if ($this->debug && $this->debug_response_body && strlen($bytes)) $this->OutputDebug("S " . $bytes);
         } else {
@@ -275,9 +284,9 @@ class N2HTTP {
                         return ("");
                     }
                     if ($this->debug && $this->debug_response_body) $this->OutputDebug("S " . $chunk);
-                    $bytes .= $chunk;
+                    $bytes                 .= $chunk;
                     $this->remaining_chunk -= $read;
-                    $remaining -= $read;
+                    $remaining             -= $read;
                     if ($this->remaining_chunk == 0) {
                         if (feof($this->connection)) return ($this->SetError("reached the end of data while reading the end of data chunk mark from the HTTP server", HTTP_CLIENT_ERROR_PROTOCOL_FAILURE));
                         $data = @fread($this->connection, 2);
@@ -356,7 +365,7 @@ class N2HTTP {
                 case -7:
                     return ($this->SetError("setvbuf() call failed", $error_code));
                 default:
-                    return ($this->SetPHPError($errno . " could not connect to the host \"" . $host_name . "\"", $php_errormsg, $error_code));
+                    return ($this->SetPHPError($errno . " could not connect to the host \"" . $host_name . "\"", N2PHPErrorMessage(), $error_code));
             }
         } else {
             if ($this->data_timeout && function_exists("socket_set_timeout")) socket_set_timeout($this->connection, $this->data_timeout, 0);
@@ -792,7 +801,8 @@ class N2HTTP {
         if (IsSet($file["FileName"])) {
             if (GetType($length = @filesize($file["FileName"])) != "integer") {
                 $error = "it was not possible to determine the length of the file " . $file["FileName"];
-                if (IsSet($php_errormsg) && strlen($php_errormsg)) $error .= ": " . $php_errormsg;
+                $errorMessage = N2PHPErrorMessage();
+                if (strlen($errorMessage)) $error .= ": " . $errorMessage;
                 if (!file_exists($file["FileName"])) $error = "it was not possible to access the file " . $file["FileName"];
 
                 return ($error);
@@ -822,7 +832,7 @@ class N2HTTP {
         switch ($this->response_status) {
             case "200":
                 if (!@stream_socket_enable_crypto($this->connection, 1, STREAM_CRYPTO_METHOD_SSLv23_CLIENT)) {
-                    $this->SetPHPError('it was not possible to start a SSL encrypted connection via this proxy', $php_errormsg, HTTP_CLIENT_ERROR_COMMUNICATION_FAILURE);
+                    $this->SetPHPError('it was not possible to start a SSL encrypted connection via this proxy', N2PHPErrorMessage(), HTTP_CLIENT_ERROR_COMMUNICATION_FAILURE);
                     $this->Disconnect();
 
                     return ($this->error);
@@ -892,11 +902,11 @@ class N2HTTP {
                             "HEADERS" => $headers,
                             "DATA"    => $data
                         );
-                        $body_length += strlen($headers) + strlen($data) + strlen("\r\n");
+                        $body_length  += strlen($headers) + strlen($data) + strlen("\r\n");
                     }
                 }
                 $body_length += strlen("--" . $boundary . "--\r\n");
-                $files = (IsSet($arguments["PostFiles"]) ? $arguments["PostFiles"] : array());
+                $files       = (IsSet($arguments["PostFiles"]) ? $arguments["PostFiles"] : array());
                 Reset($files);
                 $end = (GetType($input = Key($files)) != "string");
                 for (; !$end;) {
@@ -910,7 +920,7 @@ class N2HTTP {
                     } else
                         $data = $definition["DATA"];
                     $post_parts[$part]["DATA"] = $data;
-                    $body_length += strlen($headers) + $definition["Content-Length"] + strlen("\r\n");
+                    $body_length               += strlen($headers) + $definition["Content-Length"] + strlen("\r\n");
                     Next($files);
                     $end = (GetType($input = Key($files)) != "string");
                 }
@@ -940,10 +950,10 @@ class N2HTTP {
                 $this->request_body = "";
                 for ($part = 0; $part < count($stream); $part++) {
                     if (IsSet($stream[$part]["Data"])) $this->request_body .= $stream[$part]["Data"]; elseif (IsSet($stream[$part]["File"])) {
-                        if (!($file = @fopen($stream[$part]["File"], "rb"))) return ($this->SetPHPError("could not open upload file " . $stream[$part]["File"], $php_errormsg, HTTP_CLIENT_ERROR_CANNOT_ACCESS_LOCAL_FILE));
+                        if (!($file = @fopen($stream[$part]["File"], "rb"))) return ($this->SetPHPError("could not open upload file " . $stream[$part]["File"], N2PHPErrorMessage(), HTTP_CLIENT_ERROR_CANNOT_ACCESS_LOCAL_FILE));
                         while (!feof($file)) {
                             if (GetType($block = @fread($file, $this->file_buffer_length)) != "string") {
-                                $error = $this->SetPHPError("could not read body stream file " . $stream[$part]["File"], $php_errormsg, HTTP_CLIENT_ERROR_CANNOT_ACCESS_LOCAL_FILE);
+                                $error = $this->SetPHPError("could not read body stream file " . $stream[$part]["File"], N2PHPErrorMessage(), HTTP_CLIENT_ERROR_CANNOT_ACCESS_LOCAL_FILE);
                                 fclose($file);
 
                                 return ($error);
@@ -1017,13 +1027,13 @@ class N2HTTP {
                     $request_body .= $post_parts[$part]["HEADERS"] . $post_parts[$part]["DATA"];
                     if (IsSet($post_parts[$part]["FILENAME"])) {
                         if (!($file = @fopen($post_parts[$part]["FILENAME"], "rb"))) {
-                            $this->SetPHPError("could not open upload file " . $post_parts[$part]["FILENAME"], $php_errormsg, HTTP_CLIENT_ERROR_CANNOT_ACCESS_LOCAL_FILE);
+                            $this->SetPHPError("could not open upload file " . $post_parts[$part]["FILENAME"], N2PHPErrorMessage(), HTTP_CLIENT_ERROR_CANNOT_ACCESS_LOCAL_FILE);
                             $success = 0;
                             break;
                         }
                         while (!feof($file)) {
                             if (GetType($block = @fread($file, $this->file_buffer_length)) != "string") {
-                                $this->SetPHPError("could not read upload file", $php_errormsg, HTTP_CLIENT_ERROR_CANNOT_ACCESS_LOCAL_FILE);
+                                $this->SetPHPError("could not read upload file", N2PHPErrorMessage(), HTTP_CLIENT_ERROR_CANNOT_ACCESS_LOCAL_FILE);
                                 $success = 0;
                                 break;
                             }
@@ -1061,13 +1071,13 @@ class N2HTTP {
                                 if (!($success = $this->PutData($post_parts[$part]["HEADERS"])) || !($success = $this->PutData($post_parts[$part]["DATA"]))) break;
                                 if (IsSet($post_parts[$part]["FILENAME"])) {
                                     if (!($file = @fopen($post_parts[$part]["FILENAME"], "rb"))) {
-                                        $this->SetPHPError("could not open upload file " . $post_parts[$part]["FILENAME"], $php_errormsg, HTTP_CLIENT_ERROR_CANNOT_ACCESS_LOCAL_FILE);
+                                        $this->SetPHPError("could not open upload file " . $post_parts[$part]["FILENAME"], N2PHPErrorMessage(), HTTP_CLIENT_ERROR_CANNOT_ACCESS_LOCAL_FILE);
                                         $success = 0;
                                         break;
                                     }
                                     while (!feof($file)) {
                                         if (GetType($block = @fread($file, $this->file_buffer_length)) != "string") {
-                                            $this->SetPHPError("could not read upload file", $php_errormsg, HTTP_CLIENT_ERROR_CANNOT_ACCESS_LOCAL_FILE);
+                                            $this->SetPHPError("could not read upload file", N2PHPErrorMessage(), HTTP_CLIENT_ERROR_CANNOT_ACCESS_LOCAL_FILE);
                                             $success = 0;
                                             break;
                                         }
@@ -1503,7 +1513,7 @@ class N2HTTP {
     }
 
     Function ReadWholeReplyIntoTemporaryFile(&$file) {
-        if (!($file = tmpfile())) return $this->SetPHPError('could not create the temporary file to save the response', $php_errormsg, HTTP_CLIENT_ERROR_CANNOT_ACCESS_LOCAL_FILE);
+        if (!($file = tmpfile())) return $this->SetPHPError('could not create the temporary file to save the response', N2PHPErrorMessage(), HTTP_CLIENT_ERROR_CANNOT_ACCESS_LOCAL_FILE);
         for (; ;) {
             if (strlen($error = $this->ReadReplyBody($block, $this->file_buffer_length))) {
                 fclose($file);
@@ -1512,7 +1522,7 @@ class N2HTTP {
             }
             if (strlen($block) == 0) {
                 if (@fseek($file, 0) != 0) {
-                    $error = $this->SetPHPError('could not seek to the beginning of temporary file with the response', $php_errormsg, HTTP_CLIENT_ERROR_CANNOT_ACCESS_LOCAL_FILE);
+                    $error = $this->SetPHPError('could not seek to the beginning of temporary file with the response', N2PHPErrorMessage(), HTTP_CLIENT_ERROR_CANNOT_ACCESS_LOCAL_FILE);
                     fclose($file);
 
                     return $error;
@@ -1521,7 +1531,7 @@ class N2HTTP {
                 return ('');
             }
             if (!@fwrite($file, $block)) {
-                $error = $this->SetPHPError('could not write to the temporary file to save the response', $php_errormsg, HTTP_CLIENT_ERROR_CANNOT_ACCESS_LOCAL_FILE);
+                $error = $this->SetPHPError('could not write to the temporary file to save the response', N2PHPErrorMessage(), HTTP_CLIENT_ERROR_CANNOT_ACCESS_LOCAL_FILE);
                 fclose($file);
 
                 return $error;

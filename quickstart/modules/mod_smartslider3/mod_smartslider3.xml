@@ -4,7 +4,7 @@
     <copyright>Copyright (C) Nextendweb.com</copyright>
     <authorEmail>support@nextendweb.com</authorEmail>
     <authorUrl>https://smartslider3.com</authorUrl>
-    <version>3.3.15</version>
+    <version>3.3.16</version>
     <description>This module displays sliders from Smart Slider 3. You can create the sliders in the Smart Slider 3 component!</description>
     <config>
         <fields name="params">

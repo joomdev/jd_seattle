@@ -28,6 +28,15 @@ class N2LinkParser {
     }
 }
 
+
+class N2LinkScrollToAlias {
+
+    public static function parse($argument, &$attributes, $isEditor = false) {
+
+        return N2LinkScrollTo::parse('[data-alias=\"' . $argument . '\"]', $attributes, $isEditor);
+    }
+}
+
 class N2LinkScrollTo {
 
     private static function init() {

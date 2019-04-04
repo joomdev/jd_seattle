@@ -6,7 +6,7 @@
     <license>http://www.gnu.org/licenses/gpl-3.0.txt GNU General Public License</license>
     <authorEmail>support@nextendweb.com</authorEmail>
     <authorUrl>http://smartslider3.com</authorUrl>
-    <version>3.3.15</version>
+    <version>3.3.16</version>
     <description/>
     <files>
         <filename plugin="nextendsmartslider3">nextendsmartslider3.php</filename>

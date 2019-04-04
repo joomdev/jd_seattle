@@ -3,7 +3,7 @@
 /**
  * @package   JD Simple Contact Form
  * @author    JoomDev https://www.joomdev.com
- * @copyright Copyright (C) 2009 - 2018 JoomDev.
+ * @copyright Copyright (C) 2009 - 2019 JoomDev.
  * @license http://www.gnu.org/licenses/gpl-2.0.html GNU/GPLv2 or Later
  */
 // no direct access
@@ -13,6 +13,7 @@ require_once dirname(__FILE__) . '/helper.php';
 
 $document = JFactory::getDocument();
 $document->addStylesheet(JURI::root() . 'media/mod_jdsimplecontactform/assets/css/style.css?v=' . $document->getMediaVersion());
+$document->addStylesheet('//cdn.jsdelivr.net/npm/pikaday/css/pikaday.css');
 
 $layout = $params->get('layout', 'default');
 // Adding Module Class Suffix.

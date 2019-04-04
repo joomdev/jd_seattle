@@ -236,6 +236,7 @@ class N2SmartsliderSlidersModel extends N2Model {
         $size = new N2ElementGroup($sizeTab2, 'slider-size', n2_('Slider size'));
         new N2ElementNumberAutocomplete($size, 'width', n2_('Width'), 900, array(
             'style'  => 'width:35px',
+            'min'    => 10,
             'values' => array(
                 1920,
                 1400,
@@ -248,6 +249,7 @@ class N2SmartsliderSlidersModel extends N2Model {
         ));
         new N2ElementNumberAutocomplete($size, 'height', n2_('Height'), 500, array(
             'style'  => 'width:35px',
+            'min'    => 10,
             'values' => array(
                 800,
                 600,

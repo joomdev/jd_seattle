@@ -2,7 +2,7 @@
 /**
  * @package   JD Simple Contact Form
  * @author    JoomDev https://www.joomdev.com
- * @copyright Copyright (C) 2009 - 2018 JoomDev.
+ * @copyright Copyright (C) 2009 - 2019 JoomDev.
  * @license http://www.gnu.org/licenses/gpl-2.0.html GNU/GPLv2 or Later
  */
 // no direct access
@@ -12,6 +12,9 @@ $attrs = [];
 if ($field->required) {
    $attrs[] = 'required';
    $attrs[] = 'data-parsley-required-message="' . JText::sprintf('MOD_JDSCF_REQUIRED_ERROR', strip_tags($label)) . '"';
+}
+if (isset($field->placeholder) && !empty($field->placeholder)) {
+   $attrs[] = 'placeholder="' . $field->placeholder . '"';
 }
 ?>
 <textarea class="form-control" rows="<?php echo $field->textarearows; ?>" name="jdscf[<?php echo $field->name; ?>]" <?php echo implode(' ', $attrs); ?>></textarea>

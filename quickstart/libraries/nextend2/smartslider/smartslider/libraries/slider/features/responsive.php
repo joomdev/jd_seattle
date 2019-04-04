@@ -128,8 +128,8 @@ class N2SmartSliderFeatureResponsive {
             'mobileLandscape'  => 1
         );
 
-        $sliderWidth  = intval($slider->params->get('width', 1000));
-        $sliderHeight = intval($slider->params->get('height', 500));
+        $sliderWidth  = max(10, intval($slider->params->get('width', 1000)));
+        $sliderHeight = max(10, intval($slider->params->get('height', 500)));
 
         $modeSwitchWidth = array(
             'desktopPortrait'  => $sliderWidth,

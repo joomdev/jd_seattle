@@ -45,6 +45,8 @@ class N2 {
 
                 if (isset($response->headers['Content-Type'])) {
                     $contentType = $response->headers['Content-Type'];
+                } else if(isset($response->headers['content-type'])) {
+                    $contentType = $response->headers['content-type'];
                 }
                 $data = $response->body;
             } else {

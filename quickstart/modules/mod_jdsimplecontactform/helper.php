@@ -3,7 +3,7 @@
 /**
  * @package   JD Simple Contact Form
  * @author    JoomDev https://www.joomdev.com
- * @copyright Copyright (C) 2009 - 2018 JoomDev.
+ * @copyright Copyright (C) 2009 - 2019 JoomDev.
  * @license http://www.gnu.org/licenses/gpl-2.0.html GNU/GPLv2 or Later
  */
 // no direct access
@@ -11,14 +11,15 @@ defined('_JEXEC') or die;
 
 class ModJDSimpleContactFormHelper {
 
-   public static function renderForm($params) {
+   public static function renderForm($params, $module) {
       $fields = $params->get('fields', []);
       foreach ($fields as $field) {
-         self::renderField($field);
+         $field->id = \JFilterOutput::stringURLSafe('jdscf-' . $module->id . '-' . $field->name);
+         self::renderField($field, $module, $params);
       }
    }
 
-   public static function renderField($field) {
+   public static function renderField($field, $module, $params) {
       $label = new JLayoutFile('label', JPATH_SITE . '/modules/mod_jdsimplecontactform/layouts');
       $field_layout = self::getFieldLayout($field->type);
       $input = new JLayoutFile('fields.' . $field_layout, JPATH_SITE . '/modules/mod_jdsimplecontactform/layouts');
@@ -26,7 +27,7 @@ class ModJDSimpleContactFormHelper {
       if ($field->type == 'checkbox') {
          $field->show_label = 0;
       }
-      echo $layout->render(['field' => $field, 'label' => $label->render(['field' => $field]), 'input' => $input->render(['field' => $field, 'label' => self::getLabelText($field)])]);
+      echo $layout->render(['field' => $field, 'label' => $label->render(['field' => $field]), 'input' => $input->render(['field' => $field, 'label' => self::getLabelText($field), 'module' => $module, 'params' => $params]), 'module' => $module]);
    }
 
    public static function getOptions($options) {
@@ -88,20 +89,67 @@ class ModJDSimpleContactFormHelper {
          $labels[$field->name] = ['label' => self::getLabelText($field), 'type' => $field->type];
       }
 
+      $cc_emails = [];
       $values = [];
       foreach ($jdscf as $name => $value) {
-         $values[$name] = $value;
+         if(is_array($value)) {
+            if(isset($value['email'])) {
+               $values[$name] = $value['email'];
+               if(isset($value['cc']) && $value['cc'] == 1) {
+                  $cc_emails[] = $value['email'];
+               }
+            }
+         } else {
+            $values[$name] = $value;
+         }
       }
 
-
       $contents = [];
+      $attachments = [];
+      $errors = [];
       foreach ($labels as $name => $fld) {
          $value = isset($values[$name]) ? $values[$name] : '';
-         if ($fld['type'] == 'checkbox') {
+         
+         if ($fld['type'] == 'checkboxes') {
+             
+            $value = $_POST['jdscf'][$name]['cbs'];
+            
+            if (is_array($value)) {
+               $value = implode(', ', $value);
+            } else {
+               $value = $value;
+            }
+         }
+        
+         if ($fld['type'] == 'checkbox') {            
+            $value = $_POST['jdscf'][$name]['cb'];
             if (is_array($value)) {
                $value = implode(',', $value);
+            } else {
+               $value = $value;
             }
             $value = empty($value) ? 'unchecked' : 'checked';
+         }
+
+         if ($fld['type'] == 'file') {
+            if(isset($_FILES['jdscf']['name'][$name])) {
+               $value = $_FILES['jdscf']['name'][$name];
+               $uploaded = self::uploadFile($_FILES['jdscf']['name'][$name], $_FILES['jdscf']['tmp_name'][$name]);
+               //filetype error
+               if(!empty($value)) {
+                  if(!$uploaded) {
+                     $errors[] = JText::_('MOD_JDSCF_UNSUPPORTED_FILE_ERROR');
+                  }
+               }               
+               if(!empty($uploaded)) {
+                  $attachments[] = $uploaded;
+               }
+            }
+         }
+         if ($fld['type'] == 'textarea') {
+            if ($value) {
+               $value = nl2br($value);
+            }
          }
 
          $contents[] = [
@@ -126,8 +174,26 @@ class ModJDSimpleContactFormHelper {
          $title = ' : ' . $title;
       }
       // Sender
-      $email_from = !empty($params->get('email_from', '')) ? $params->get('email_from') : $config->get('mailfrom');
-      $email_name = !empty($params->get('email_name', '')) ? $params->get('email_name') : $config->get('fromname');
+      if (!empty($params->get('email_from', ''))) {
+         $email_from = $params->get('email_from', '');
+         $email_from = self::renderVariables($contents, $email_from);
+         if (!filter_var($email_from, FILTER_VALIDATE_EMAIL)) {
+            $email_from = $config->get('mailfrom');
+         }
+      } else {
+         $email_from = $config->get('mailfrom');
+      }
+
+      if (!empty($params->get('email_name', ''))) {
+         $email_name = $params->get('email_name', '');
+         $email_name = self::renderVariables($contents, $email_name);
+         if (empty($email_name)) {
+            $email_name = $config->get('fromname');
+         }
+      } else {
+         $email_name = $config->get('fromname');
+      }
+
       $sender = array($email_from, $email_name);
       $mailer->setSender($sender);
 
@@ -144,7 +210,12 @@ class ModJDSimpleContactFormHelper {
       }
       // CC
       $cc = !empty($params->get('email_cc', '')) ? $params->get('email_cc') : '';
-      $cc = explode(',', $cc);
+      $cc = empty($cc) ? [] : explode(",", $cc);
+      if(!empty($cc_emails)){
+         $cc = array_merge($cc, $cc_emails);
+         $cc = array_unique($cc);
+      }
+
       if (!empty($cc)) {
          $mailer->addCc($cc);
       }
@@ -157,7 +228,20 @@ class ModJDSimpleContactFormHelper {
       $mailer->isHtml(true);
       $mailer->Encoding = 'base64';
       $mailer->setBody($html);
-      $send = $mailer->Send();
+      foreach($attachments as $attachment){
+         $mailer->addAttachment($attachment);
+      }
+      if(!empty($errors)) {
+         $app = JFactory::getApplication();
+         //showing all the validation errors
+         foreach ($errors as $error) {
+            $app->enqueueMessage(\JText::_($error), 'error');
+         }
+      }
+      else {
+         $send = $mailer->Send();
+      }
+
       if ($send !== true) {
          throw new \Exception(JText::_('MOD_JDSCFEMAIL_SEND_ERROR'));
       }
@@ -246,4 +330,63 @@ class ModJDSimpleContactFormHelper {
       exit;
    }
 
+   public static function addJS($js, $moduleid) {
+      if (!isset($GLOBALS['mod_jdscf_js_' . $moduleid])) {
+         $GLOBALS['mod_jdscf_js_' . $moduleid] = [];
+      }
+      $GLOBALS['mod_jdscf_js_' . $moduleid][] = $js;
+   }
+
+   public static function getJS($moduleid) {
+      if (!isset($GLOBALS['mod_jdscf_js_' . $moduleid])) {
+         return [];
+      }
+      return $GLOBALS['mod_jdscf_js_' . $moduleid];
+   }
+
+   public static function isCCMail($field, $params){
+      $sendcopy_email = $params->get('sendcopy_email', 0);
+      $sendcopyemail_field = $params->get('sendcopyemail_field', '');
+      $sendcopyemail_fields = explode(",", $sendcopyemail_field);
+      if($sendcopy_email && !empty($sendcopyemail_fields) && in_array($field->name, $sendcopyemail_fields)){
+         return true;
+      }else{
+         return false;
+      }
+   }
+
+   public static function uploadFile($name, $src) {
+      jimport('joomla.filesystem.file');
+      jimport('joomla.application.component.helper');
+
+      $fullFileName = JFile::stripExt($name);
+      $filetype = JFile::getExt($name);
+      $filename = JFile::makeSafe($fullFileName."_".mt_rand(10000000,99999999).".".$filetype);
+
+      $params = JComponentHelper::getParams('com_media');
+      $allowable = array_map('trim', explode(',', $params->get('upload_extensions')));
+
+      if ($filetype == '' || $filetype == false || (!in_array($filetype, $allowable) ))
+      {
+         return false;
+      }
+      else
+      {
+         $tmppath = JPATH_SITE . '/tmp';
+         if(!file_exists($tmppath.'/jdscf')){
+            mkdir($tmppath.'/jdscf',0777);
+         }
+         $folder = md5(time().'-'.$filename.rand(0,99999));
+         if(!file_exists($tmppath.'/jdscf/'.$folder)){
+            mkdir($tmppath.'/jdscf/'.$folder,0777);
+         }
+         $dest = $tmppath.'/jdscf/'.$folder.'/'.$filename;
+
+         $return = null;
+         if (JFile::upload($src, $dest)){
+            $return = $dest;
+         }
+         return $return;
+      }
+   }
 }

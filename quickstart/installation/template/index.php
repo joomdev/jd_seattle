@@ -2,7 +2,7 @@
 /**
  * @package	Joomla.Installation
  *
- * @copyright  Copyright (C) 2005 - 2018 Open Source Matters, Inc. All rights reserved.
+ * @copyright  Copyright (C) 2005 - 2019 Open Source Matters, Inc. All rights reserved.
  * @license	GNU General Public License version 2 or later; see LICENSE.txt
  */
 
@@ -60,7 +60,7 @@ $this->addScriptOptions('system.installation', array('url' => JRoute::_('index.p
 	<body data-basepath="<?php echo JUri::root(true); ?>">
 		<!-- Header -->
 		<div class="header">
-			<img src="<?php echo $this->baseurl; ?>/template/images/joomla.png" alt="Joomla" />
+			<img src="<?php echo $this->baseurl; ?>/template/images/logo.png" alt="Joomla" />
 			<hr />
 			<h5>
 				<?php // Fix wrong display of Joomla!® in RTL language ?>
@@ -83,7 +83,12 @@ $this->addScriptOptions('system.installation', array('url' => JRoute::_('index.p
 				<jdoc:include type="component" />
 			</div>
 			<hr />
-			<style>.links-holder{text-align: center;}.links-holder ul {list-style: none;}.links-holder ul li {display: inline-block;}</style>
+			<style>
+			.header {background: #fff; border: 0;}
+         .btn-primary, .step.active span { background: #1c60ff;border-color: transparent; }
+			.btn-primary:hover ,.btn-primary:focus { background: #1c60ff;}
+         .nav-tabs>.active>a, .nav-tabs>.active>a:hover, .nav-tabs>.active>a:focus {color: #000000;}
+			.links-holder{text-align: center;}.links-holder ul {list-style: none;}.links-holder ul li {display: inline-block;}</style>
 			<div class="links-holder">
 				<ul>
 				<li><a href="https://www.joomdev.com/documentation" target="_blank">Documentation</a></li>

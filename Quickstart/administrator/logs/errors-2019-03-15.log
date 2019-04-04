@@ -1,0 +1,49 @@
+#
+#<?php die('Forbidden.'); ?>
+#Date: 2019-03-15 05:34:21 UTC
+#Software: Joomla Platform 13.1.0 Stable [ Curiosity ] 24-Apr-2013 00:00 GMT
+
+#Fields: datetime	priority clientip	category	message
+2019-03-15T05:34:21+00:00	WARNING ::1	jerror	JFolder: :delete: Path is not a folder. Path: E:\xampp728\htdocs\Joomla\templates\seattle\v14\beta3\administrator\components\com_nextend_installer\libraries
+2019-03-15T05:34:21+00:00	WARNING ::1	jerror	JFolder: :delete: Path is not a folder. Path: E:\xampp728\htdocs\Joomla\templates\seattle\v14\beta3\administrator\components\com_nextend_installer\media\n2\n
+2019-03-15T05:34:21+00:00	WARNING ::1	jerror	JFolder: :delete: Path is not a folder. Path: E:\xampp728\htdocs\Joomla\templates\seattle\v14\beta3\administrator\components\com_nextend_installer\media\n2\ss3
+2019-03-15T07:34:57+00:00	CRITICAL ::1	error	Uncaught \Throwable of type Joomla\CMS\Component\Exception\MissingComponentException thrown. Stack trace: #0 E:\xampp728\htdocs\Joomla\templates\seattle\v14\beta3\libraries\src\Application\SiteApplication.php(194): Joomla\CMS\Component\ComponentHelper::renderComponent('com_error')
+#1 E:\xampp728\htdocs\Joomla\templates\seattle\v14\beta3\libraries\src\Application\SiteApplication.php(233): Joomla\CMS\Application\SiteApplication->dispatch()
+#2 E:\xampp728\htdocs\Joomla\templates\seattle\v14\beta3\libraries\src\Application\CMSApplication.php(196): Joomla\CMS\Application\SiteApplication->doExecute()
+#3 E:\xampp728\htdocs\Joomla\templates\seattle\v14\beta3\index.php(49): Joomla\CMS\Application\CMSApplication->execute()
+#4 {main}
+2019-03-15T07:41:23+00:00	CRITICAL ::1	error	Uncaught \Throwable of type JException thrown. Stack trace: #0 E:\xampp728\htdocs\Joomla\templates\seattle\v14\beta3\libraries\legacy\error\error.php(277): JError::raise(1, 404, 'Article not fou...', NULL, true)
+#1 E:\xampp728\htdocs\Joomla\templates\seattle\v14\beta3\components\com_content\models\article.php(155): JError::raiseError(404, 'Article not fou...')
+#2 E:\xampp728\htdocs\Joomla\templates\seattle\v14\beta3\libraries\src\MVC\View\HtmlView.php(425): ContentModelArticle->getItem()
+#3 E:\xampp728\htdocs\Joomla\templates\seattle\v14\beta3\components\com_content\views\article\view.html.php(42): Joomla\CMS\MVC\View\HtmlView->get('Item')
+#4 E:\xampp728\htdocs\Joomla\templates\seattle\v14\beta3\libraries\src\MVC\Controller\BaseController.php(672): ContentViewArticle->display()
+#5 E:\xampp728\htdocs\Joomla\templates\seattle\v14\beta3\components\com_content\controller.php(118): Joomla\CMS\MVC\Controller\BaseController->display(true, Array)
+#6 E:\xampp728\htdocs\Joomla\templates\seattle\v14\beta3\libraries\src\MVC\Controller\BaseController.php(710): ContentController->display()
+#7 E:\xampp728\htdocs\Joomla\templates\seattle\v14\beta3\components\com_content\content.php(43): Joomla\CMS\MVC\Controller\BaseController->execute('')
+#8 E:\xampp728\htdocs\Joomla\templates\seattle\v14\beta3\libraries\src\Component\ComponentHelper.php(402): require_once('E:\\xampp728\\htd...')
+#9 E:\xampp728\htdocs\Joomla\templates\seattle\v14\beta3\libraries\src\Component\ComponentHelper.php(377): Joomla\CMS\Component\ComponentHelper::executeComponent('E:\\xampp728\\htd...')
+#10 E:\xampp728\htdocs\Joomla\templates\seattle\v14\beta3\libraries\src\Application\SiteApplication.php(194): Joomla\CMS\Component\ComponentHelper::renderComponent('com_content')
+#11 E:\xampp728\htdocs\Joomla\templates\seattle\v14\beta3\libraries\src\Application\SiteApplication.php(233): Joomla\CMS\Application\SiteApplication->dispatch()
+#12 E:\xampp728\htdocs\Joomla\templates\seattle\v14\beta3\libraries\src\Application\CMSApplication.php(196): Joomla\CMS\Application\SiteApplication->doExecute()
+#13 E:\xampp728\htdocs\Joomla\templates\seattle\v14\beta3\index.php(49): Joomla\CMS\Application\CMSApplication->execute()
+#14 {main}
+2019-03-15T07:42:17+00:00	CRITICAL ::1	error	Uncaught \Throwable of type JException thrown. Stack trace: #0 E:\xampp728\htdocs\Joomla\templates\seattle\v14\beta3\libraries\legacy\error\error.php(277): JError::raise(1, 404, 'Article not fou...', NULL, true)
+#1 E:\xampp728\htdocs\Joomla\templates\seattle\v14\beta3\components\com_content\models\article.php(155): JError::raiseError(404, 'Article not fou...')
+#2 E:\xampp728\htdocs\Joomla\templates\seattle\v14\beta3\libraries\src\MVC\View\HtmlView.php(425): ContentModelArticle->getItem()
+#3 E:\xampp728\htdocs\Joomla\templates\seattle\v14\beta3\components\com_content\views\article\view.html.php(42): Joomla\CMS\MVC\View\HtmlView->get('Item')
+#4 E:\xampp728\htdocs\Joomla\templates\seattle\v14\beta3\libraries\src\MVC\Controller\BaseController.php(672): ContentViewArticle->display()
+#5 E:\xampp728\htdocs\Joomla\templates\seattle\v14\beta3\components\com_content\controller.php(118): Joomla\CMS\MVC\Controller\BaseController->display(true, Array)
+#6 E:\xampp728\htdocs\Joomla\templates\seattle\v14\beta3\libraries\src\MVC\Controller\BaseController.php(710): ContentController->display()
+#7 E:\xampp728\htdocs\Joomla\templates\seattle\v14\beta3\components\com_content\content.php(43): Joomla\CMS\MVC\Controller\BaseController->execute('')
+#8 E:\xampp728\htdocs\Joomla\templates\seattle\v14\beta3\libraries\src\Component\ComponentHelper.php(402): require_once('E:\\xampp728\\htd...')
+#9 E:\xampp728\htdocs\Joomla\templates\seattle\v14\beta3\libraries\src\Component\ComponentHelper.php(377): Joomla\CMS\Component\ComponentHelper::executeComponent('E:\\xampp728\\htd...')
+#10 E:\xampp728\htdocs\Joomla\templates\seattle\v14\beta3\libraries\src\Application\SiteApplication.php(194): Joomla\CMS\Component\ComponentHelper::renderComponent('com_content')
+#11 E:\xampp728\htdocs\Joomla\templates\seattle\v14\beta3\libraries\src\Application\SiteApplication.php(233): Joomla\CMS\Application\SiteApplication->dispatch()
+#12 E:\xampp728\htdocs\Joomla\templates\seattle\v14\beta3\libraries\src\Application\CMSApplication.php(196): Joomla\CMS\Application\SiteApplication->doExecute()
+#13 E:\xampp728\htdocs\Joomla\templates\seattle\v14\beta3\index.php(49): Joomla\CMS\Application\CMSApplication->execute()
+#14 {main}
+2019-03-15T07:53:20+00:00	CRITICAL ::1	error	Uncaught \Throwable of type Joomla\CMS\Component\Exception\MissingComponentException thrown. Stack trace: #0 E:\xampp728\htdocs\Joomla\templates\seattle\v14\beta3\libraries\src\Application\SiteApplication.php(194): Joomla\CMS\Component\ComponentHelper::renderComponent('com_error')
+#1 E:\xampp728\htdocs\Joomla\templates\seattle\v14\beta3\libraries\src\Application\SiteApplication.php(233): Joomla\CMS\Application\SiteApplication->dispatch()
+#2 E:\xampp728\htdocs\Joomla\templates\seattle\v14\beta3\libraries\src\Application\CMSApplication.php(196): Joomla\CMS\Application\SiteApplication->doExecute()
+#3 E:\xampp728\htdocs\Joomla\templates\seattle\v14\beta3\index.php(49): Joomla\CMS\Application\CMSApplication->execute()
+#4 {main}

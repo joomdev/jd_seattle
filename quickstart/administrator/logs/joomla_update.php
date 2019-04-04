@@ -15,3 +15,11 @@
 2019-02-15T13:52:55+00:00	INFO ::1	update	Deleting removed files and folders.
 2019-02-15T13:53:11+00:00	INFO ::1	update	Cleaning up after installation.
 2019-02-15T13:53:11+00:00	INFO ::1	update	Update to version 3.9.3 is complete.
+2019-03-15T05:13:36+00:00	INFO ::1	update	Update started by user Super User (778). Old version is 3.9.3.
+2019-03-15T05:13:41+00:00	INFO ::1	update	Downloading update file from https://s3-us-west-2.amazonaws.com/joomla-official-downloads/joomladownloads/joomla3/Joomla_3.9.4-Stable-Update_Package.zip?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIZ6S3Q3YQHG57ZRA%2F20190315%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20190315T051340Z&X-Amz-Expires=60&X-Amz-SignedHeaders=host&X-Amz-Signature=df7ce6265fcf6da27eb9357a62f49c82b521b094e1b7c22fc8f6c057e089ef0d.
+2019-03-15T05:13:56+00:00	INFO ::1	update	File Joomla_3.9.4-Stable-Update_Package.zip downloaded.
+2019-03-15T05:13:57+00:00	INFO ::1	update	Starting installation of new version.
+2019-03-15T05:14:08+00:00	INFO ::1	update	Finalising installation.
+2019-03-15T05:14:08+00:00	INFO ::1	update	Deleting removed files and folders.
+2019-03-15T05:14:21+00:00	INFO ::1	update	Cleaning up after installation.
+2019-03-15T05:14:21+00:00	INFO ::1	update	Update to version 3.9.4 is complete.

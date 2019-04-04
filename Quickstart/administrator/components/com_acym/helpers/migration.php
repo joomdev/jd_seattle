@@ -1,0 +1,1282 @@
+<?php
+/**
+ * @package	AcyMailing for Joomla
+ * @version	6.1.2
+ * @author	acyba.com
+ * @copyright	(C) 2009-2019 ACYBA S.A.R.L. All rights reserved.
+ * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
+ */
+
+defined('_JEXEC') or die('Restricted access');
+?><?php
+
+class acymmigrationHelper
+{
+    private $errors = array();
+
+
+    private $result = array(
+        "isOk" => true,
+        "errorInsert" => false,
+        "errorClean" => false,
+        "count" => 0,
+    );
+
+    public function doConfigMigration()
+    {
+        $this->doElementMigration("config");
+
+        return $this->result;
+    }
+
+    public function doUsers_fieldsMigration()
+    {
+        $this->doElementMigration("users_fields");
+
+        return $this->result;
+    }
+
+    public function doMailStatsMigration()
+    {
+        $this->doElementMigration("MailStats");
+
+        return $this->result;
+    }
+
+    public function doMailhaslistsMigration()
+    {
+        $this->doElementMigration("MailHasLists");
+
+        return $this->result;
+    }
+
+    public function doTemplatesMigration()
+    {
+        $this->doElementMigration("templates");
+
+        return $this->result;
+    }
+
+    public function doMailsMigration()
+    {
+        $params = array();
+
+        $this->doElementMigration("mails", $params);
+
+        return $this->result;
+    }
+
+    public function doFieldsMigration()
+    {
+        if (!$this->doCleanTable("Fields")) {
+            return $this->result;
+        }
+
+        $this->doElementMigration("fields");
+
+        return $this->result;
+    }
+
+    public function doListsMigration()
+    {
+
+        $this->doElementMigration("lists");
+
+        return $this->result;
+    }
+
+    public function doUsersMigration()
+    {
+
+        $this->doElementMigration("users");
+
+        return $this->result;
+    }
+
+    public function doSubscriptionsMigration()
+    {
+        $this->doElementMigration("subscriptions");
+
+        return $this->result;
+    }
+
+    public function doWelcomeunsubMigration()
+    {
+        $this->doElementMigration("Welcomeunsub");
+
+        return $this->result;
+    }
+
+    public function doBounceMigration()
+    {
+
+        $this->doElementMigration("bounce");
+
+        return $this->result;
+    }
+
+    public function migrateConfig($params = array())
+    {
+        $fieldsMatchMailSettings = [
+            "add_names" => "add_names",
+            "bounce_email" => "bounce_email",
+            "charset" => "charset",
+            "dkim" => "dkim",
+            "dkim_domain" => "dkim_domain",
+            "dkim_identity" => "dkim_identity",
+            "dkim_passphrase" => "dkim_passphrase",
+            "dkim_private" => "dkim_private",
+            "dkim_public" => "dkim_public",
+            "dkim_selector" => "dkim_selector",
+            "elasticemail_password" => "elasticemail_password",
+            "elasticemail_port" => "elasticemail_port",
+            "elasticemail_username" => "elasticemail_username",
+            "embed_files" => "embed_files",
+            "embed_images" => "embed_images",
+            "encoding_format" => "encoding_format",
+            "from_email" => "from_email",
+            "from_name" => "from_name",
+            "mailer_method" => "mailer_method",
+            "multiple_part" => "multiple_part",
+            "reply_email" => "replyto_email",
+            "reply_name" => "replyto_name",
+            "sendmail_path" => "sendmail_path",
+            "smtp_auth" => "smtp_auth",
+            "smtp_host" => "smtp_host",
+            "smtp_keepalive" => "smtp_keepalive",
+            "smtp_password" => "smtp_password",
+            "smtp_port" => "smtp_port",
+            "smtp_secured" => "smtp_secured",
+            "smtp_username" => "smtp_username",
+            "special_chars" => "special_chars",
+            "ssl_links" => "use_https",
+        ];
+
+        $fieldsMatchQueueProcess = [
+            "cron_frequency" => "cron_frequency",
+            "cron_fromip" => "cron_fromip",
+            "cron_last" => "cron_last",
+            "cron_report" => "cron_report",
+            "cron_savereport" => "cron_savereport",
+            "cron_sendreport" => "cron_sendreport",
+            "cron_sendto" => "cron_sendto",
+            "queue_nbmail" => "queue_nbmail",
+            "queue_nbmail_auto" => "queue_nbmail_auto",
+            "queue_pause" => "queue_pause",
+            "queue_try" => "queue_try",
+            "queue_type" => "queue_type",
+            "sendorder" => "sendorder",
+        ];
+
+        $fieldsMatchSubscription = [
+            "require_confirmation" => "require_confirmation",
+        ];
+
+        $fieldsMatchFeatures = [
+
+        ];
+
+        $fieldsMatchSecurity = [
+            "allowedfiles" => "allowed_files",
+            "email_checkdomain" => "email_checkdomain",
+            "recaptcha_secretkey" => "recaptcha_secretkey",
+            "recaptcha_sitekey" => "recaptcha_sitekey",
+            "security_key" => "security_key",
+        ];
+
+        $fieldsMatchLanguages = [
+
+        ];
+
+        $fieldsMatchNotUsed = [
+            "allow_visitor" => "allow_visitor",
+            "confirm_redirect" => "confirm_redirect",
+            "confirmation_message" => "confirmation_message",
+            "cron_fullreport" => "cron_fullreport",
+            "cron_next" => "cron_next",
+            "css_backend" => "css_backend",
+            "css_frontend" => "css_frontend",
+            "forward" => "forward",
+            "hostname" => "hostname",
+            "notification_accept" => "notification_accept",
+            "notification_confirm" => "notification_confirm",
+            "notification_created" => "notification_created",
+            "notification_refuse" => "notification_refuse",
+            "notification_unsuball" => "notification_unsuball",
+            "priority_followup" => "priority_followup",
+            "priority_newsletter" => "priority_newsletter",
+            "subscription_message" => "subscription_message",
+            "unsub_message" => "unsub_message",
+            "unsub_reasons" => "unsub_reasons",
+            "unsub_redirect" => "unsub_redirect",
+            "use_sef" => "use_sef",
+            "welcome_message" => "welcome_message",
+            "word_wrapping" => "word_wrapping",
+        ];
+
+        $fieldsMatchBounce = [
+            "bounce_email" => "bounce_email",
+            "bounce_server" => "bounce_server",
+            "bounce_port" => "bounce_port",
+            "bounce_connection" => "bounce_connection",
+            "bounce_secured" => "bounce_secured",
+            "bounce_certif" => "bounce_certif",
+            "bounce_username" => "bounce_username",
+            "bounce_password" => "bounce_password",
+            "bounce_timeout" => "bounce_timeout",
+            "bounce_max" => "bounce_max",
+            "auto_bounce" => "auto_bounce",
+            "auto_bounce_frequency" => "auto_bounce_frequency",
+            "bounce_action_lists_maxtry" => "bounce_action_lists_maxtry",
+        ];
+
+        $fieldsMatch = array_merge($fieldsMatchMailSettings, $fieldsMatchQueueProcess, $fieldsMatchSubscription, $fieldsMatchFeatures, $fieldsMatchSecurity, $fieldsMatchLanguages, $fieldsMatchNotUsed, $fieldsMatchBounce);
+
+        $queryGetValuesPreviousVersion = "SELECT `namekey`, `value` FROM #__acymailing_config WHERE `namekey` IN ('".implode("','", array_keys($fieldsMatch))."') LIMIT ".intval($params['currentElement']).", ".intval($params['insertPerCalls']);
+
+        $dataPrevious = acym_loadObjectList($queryGetValuesPreviousVersion);
+
+        if (empty($dataPrevious)) return true;
+
+        $valuesToInsert = array();
+
+        foreach ($dataPrevious as $value) {
+            switch ($value->namekey) {
+                case "queue_type":
+                    switch ($value->value) {
+                        case "onlyauto":
+                            $value->value = "auto";
+                            break;
+                        case "auto":
+                            $value->value = "automan";
+                            break;
+                    }
+                    break;
+
+                case "mailer_method":
+                    $sending_platform = $value->value == "smtp" || $value->value == "elasticemail" ? "external" : "server";
+                    $valuesToInsert[] = "('sending_platform','".$sending_platform."')";
+                    break;
+            }
+
+            $value->namekey = $fieldsMatch[$value->namekey];
+            $valuesToInsert[] = "(".acym_escapeDB($value->namekey).",".acym_escapeDB($value->value).")";
+        }
+
+        $query = "REPLACE INTO #__acym_configuration VALUES ".implode($valuesToInsert, ",").";";
+
+        try {
+            $result = acym_query($query);
+        } catch (Exception $e) {
+            $this->errors[] = acym_getDBError();
+
+            return false;
+        }
+
+        if ($result === null) {
+            $this->errors[] = acym_getDBError();
+
+            return false;
+        } else {
+            return $result;
+        }
+    }
+
+    public function migrateTemplates($params = array())
+    {
+        $result = 0;
+
+        $queryGetTemplates = "SELECT `tempid`, `name`, `body`, `styles`, `subject`, `stylesheet`, `fromname`, `fromemail`, `replyname`, `replyemail` FROM #__acymailing_template LIMIT ".$params['currentElement'].", ".$params['insertPerCalls'];
+
+        $templates = acym_loadObjectList($queryGetTemplates);
+        if (empty($templates)) return true;
+
+        $valuesToInsert = array();
+
+        foreach ($templates as $oneTemplate) {
+            $oneTemplateStyles = unserialize($oneTemplate->styles);
+
+            foreach ($oneTemplateStyles as $key => $value) {
+                if (strpos($key, "tag_") !== false) {
+                    $tag = str_replace("tag_", "", $key);
+                    $styleDeclaration = $tag."{".$value."}";
+                } else if (strpos($key, "color_bg") !== false) {
+                    $styleDeclaration = "";
+                } else {
+                    $styleDeclaration = ".".$key."{".$value."}";
+                }
+
+                $oneTemplate->stylesheet .= $styleDeclaration;
+            }
+
+            $valuesToInsert[] = "(".acym_escapeDB(empty($oneTemplate->name) ? acym_translation('ACYM_MIGRATED_TEMPLATE').' '.time() : $oneTemplate->name).", ".acym_escapeDB(acym_date('now', 'Y-m-d H:i:s')).", 0, 0, 'standard', ".acym_escapeDB(empty($oneTemplate->body) ? "" : $oneTemplate->body).", ".acym_escapeDB($oneTemplate->subject).", 1, ".acym_escapeDB($oneTemplate->fromname).", ".acym_escapeDB($oneTemplate->fromemail).", ".acym_escapeDB($oneTemplate->replyname).", ".acym_escapeDB($oneTemplate->replyemail).",".acym_escapeDB($oneTemplate->stylesheet).",  '".acym_currentUserId()."')";
+        }
+
+        if (empty($valuesToInsert)) {
+            return true;
+        }
+
+        $queryInsert = "INSERT INTO #__acym_mail (`name`, `creation_date`, `drag_editor`, `library`, `type`, `body`, `subject`, `template`, `from_name`, `from_email`, `reply_to_name`, `reply_to_email`, `stylesheet`, `creator_id`) VALUES ".implode($valuesToInsert, ',').";";
+
+        try {
+            $resultQuery = acym_query($queryInsert);
+        } catch (Exception $e) {
+            $this->errors[] = acym_getDBError();
+
+            return false;
+        }
+
+        if ($resultQuery === null) {
+            $this->errors[] = acym_getDBError();
+
+            return false;
+        } else {
+            $result += $resultQuery;
+        }
+
+
+        return $result;
+    }
+
+    public function migrateUsers_fields($params = array())
+    {
+        $fieldsV5 = acym_loadObjectList('SELECT `namekey`, `type` FROM #__acymailing_fields WHERE `namekey` NOT IN ("name", "email", "html") AND `type` NOT IN ("customtext", "category", "gravatar")', 'namekey');
+
+        if (empty($fieldsV5)) return true;
+
+        $fieldsKeyV5 = array_keys($fieldsV5);
+
+        $usersFieldsValuesV5 = acym_loadObjectList('SELECT `subid`, `'.implode('`, `', $fieldsKeyV5).'` FROM #__acymailing_subscriber LIMIT '.intval($params['currentElement']).', '.intval($params['insertPerCalls']));
+
+        $fieldImported = acym_loadObjectList('SELECT `id`, `namekey`, `option`, `type` FROM #__acym_field WHERE `namekey` IN ("'.implode('", "', $fieldsKeyV5).'")', 'namekey');
+
+        $valuesToInsert = array();
+
+        foreach ($fieldsKeyV5 as $fieldKey) {
+            foreach ($usersFieldsValuesV5 as $user) {
+                if ('date' == $fieldImported[$fieldKey]->type) {
+                    $user->$fieldKey = preg_replace('@[^0-9]@', '/', $user->$fieldKey);
+                }
+
+                if ('birthday' == $fieldsV5[$fieldKey]->type && !empty($user->$fieldKey)) {
+                    $fieldImported[$fieldKey]->option = json_decode($fieldImported[$fieldKey]->option, true);
+
+                    if (!empty($fieldImported[$fieldKey]->option['format'])) {
+                        $birthdayValue = explode('/', $user->$fieldKey);
+                        $positions = array(
+                            '0' => strpos($fieldImported[$fieldKey]->option['format'], '%y'),
+                            '1' => strpos($fieldImported[$fieldKey]->option['format'], '%m'),
+                            '2' => strpos($fieldImported[$fieldKey]->option['format'], '%d'),
+                        );
+                        asort($positions);
+                        $final = array();
+                        foreach ($positions as $key => $value) {
+                            $final[] = $birthdayValue[$key];
+                        }
+                        $user->$fieldKey = implode('/', $final);
+                    }
+                }
+                $valuesToInsert[] = '('.intval($user->subid).', '.acym_escapeDB($user->$fieldKey).', '.intval($fieldImported[$fieldKey]->id).')';
+            }
+        }
+
+        if (empty($valuesToInsert)) {
+            return true;
+        }
+
+        return acym_query('INSERT INTO #__acym_user_has_field (`user_id`, `value`, `field_id`) VALUES '.implode(', ', $valuesToInsert));
+    }
+
+    public function migrateFields($params = array())
+    {
+
+        $fieldClass = acym_get('class.field');
+
+        $columnConnection = array(
+            'namekey' => 'namekey',
+            'fieldname' => 'name',
+            'published' => 'active',
+            'options' => 'option',
+            'listing' => 'backend_listing',
+            'backend' => 'backend_profile',
+            'default' => 'default_value',
+            'type' => 'type',
+            'value' => 'value',
+            'ordering' => 'ordering',
+            'required' => 'required',
+        );
+
+        $optionConnection = array(
+            'errormessage' => 'error_message',
+            'editablecreate' => 'editable_user_creation',
+            'editablemodify' => 'editable_user_modification',
+            'checkcontent' => 'authorized_content',
+            'errormessagecheckcontent' => 'error_message_invalid',
+            'cols' => 'columns',
+            'fieldcatclass' => 'css_class',
+            'format' => 'format',
+            'size' => 'size',
+            'rows' => 'rows',
+            'customtext' => 'custom_text',
+        );
+
+        $databaseConnection = array(
+            'dbName' => 'database',
+            'tableName' => 'table',
+            'valueFromDb' => 'value',
+            'titleFromDb' => 'title',
+            'whereCond' => 'where',
+            'whereOperator' => 'where_sign',
+            'whereValue' => 'where_value',
+            'orderField' => 'order_by',
+            'orderValue' => 'sort_order',
+        );
+
+        $typeConnection = array(
+            'text' => 'text',
+            'textarea' => 'textarea',
+            'radio' => 'radio',
+            'checkbox' => 'checkbox',
+            'singledropdown' => 'single_dropdown',
+            'multipledropdown' => 'multiple_dropdown',
+            'date' => 'date',
+            'birthday' => 'date',
+            'file' => 'file',
+            'phone' => 'phone',
+            'customtext' => 'custom_text',
+        );
+
+        $fieldsFromV5 = acym_loadObjectList('SELECT * FROM #__acymailing_fields WHERE `namekey` NOT IN ("name", "email", "html") AND `type` NOT IN ("gravatar", "category")  LIMIT '.intval($params['currentElement']).', '.intval($params['insertPerCalls']));
+
+        $insertedFields = array();
+
+        foreach ($fieldsFromV5 as $oneField) {
+            $newField = new stdClass();
+            foreach ($oneField as $key => $value) {
+                if (!array_key_exists($key, $columnConnection)) continue;
+                if ('type' == $columnConnection[$key]) {
+                    $value = $typeConnection[$value];
+                }
+                if ('default_value' == $columnConnection[$key] && in_array($oneField->type, array('date', 'birthday'))) {
+                    $value = preg_replace('@[^0-9]@', '/', $value);
+                }
+                if ('value' == $columnConnection[$key]) {
+                    $allValues = explode("\n", $value);
+                    $returnedValues = array();
+                    foreach ($allValues as $id => $oneVal) {
+                        $line = explode('::', trim($oneVal));
+                        if (empty($line[1])) continue;
+                        $var = empty($line[0]) ? '' : $line[0];
+                        $val = empty($line[1]) ? '' : $line[1];
+
+                        $obj = new stdClass();
+                        $obj->value = $var;
+                        $obj->title = $val;
+                        if (!empty($line[2])) {
+                            $obj->disabled = 'y';
+                        } else {
+                            $obj->disabled = 'n';
+                        }
+                        $returnedValues[] = $obj;
+                    }
+                    $value = json_encode($returnedValues);
+                }
+                if ('option' == $columnConnection[$key]) {
+                    $options = unserialize($value);
+                    $newOption = new stdClass();
+                    foreach ($options as $keyOption => $option) {
+                        if (!array_key_exists($keyOption, $optionConnection)) continue;
+                        if ('authorized_content' == $optionConnection[$keyOption]) {
+                            $option = array(
+                                $option,
+                                'regex' => $options['regexp'],
+                            );
+                        }
+                        if (in_array($oneField->type, array('date', 'birthday')) && 'format' == $keyOption) {
+                            if (empty($option)) {
+                                $option = '%d%m%y';
+                            } else {
+                                $option = strtolower($option);
+                                $position = array(
+                                    '%y' => strpos($option, '%y'),
+                                    '%m' => strpos($option, '%m'),
+                                    '%d' => strpos($option, '%d'),
+                                );
+                                asort($position);
+                                $option = implode('', array_keys($position));
+                            }
+                        }
+                        $optionName = $optionConnection[$keyOption];
+                        $newOption->$optionName = $option;
+                    }
+                    $newOption->fieldDB = array();
+                    foreach ($databaseConnection as $keyOldDatabase => $keyNewDatabase) {
+                        if (!array_key_exists($keyOldDatabase, $options)) {
+                            $newOption->fieldDB[$keyNewDatabase] = '';
+                            continue;
+                        }
+                        if ('database' == $keyNewDatabase && 'current' == $options[$keyOldDatabase]) $options[$keyOldDatabase] = acym_loadResult('SELECT DATABASE();');
+                        $newOption->fieldDB[$keyNewDatabase] = $options[$keyOldDatabase];
+                    }
+                    $newOption->fieldDB = json_encode($newOption->fieldDB);
+                    $value = json_encode($newOption);
+                }
+                $column = $columnConnection[$key];
+                $newField->$column = $value;
+            }
+            $insertedFields[] = $fieldClass->save($newField);
+        }
+
+        return count($insertedFields);
+    }
+
+    public function migrateMails($params = array())
+    {
+        $result = 0;
+        $idsMigratedMails = array();
+
+        $migrateMailStats = empty($params["migrateMailStats"]) ? 0 : 1;
+
+        $queryGetMails = 'SELECT mail.`mailid`,
+                                mail.`created`, 
+                                mail.`type`, 
+                                mail.`body`, 
+                                mail.`subject`, 
+                                mail.`fromname`, 
+                                mail.`fromemail`, 
+                                mail.`replyname`, 
+                                mail.`replyemail`, 
+                                mail.`bccaddresses`, 
+                                mail.`tempid`, 
+                                mail.`senddate`, 
+                                mail.`published`, 
+                                template.`stylesheet`, 
+                                template.`styles` 
+                        FROM #__acymailing_mail mail 
+                        LEFT JOIN #__acymailing_template template 
+                        ON mail.tempid = template.tempid
+                        LIMIT '.intval($params['currentElement']).', '.intval($params['insertPerCalls']);
+
+        $mails = acym_loadObjectList($queryGetMails);
+
+        if (empty($mails)) return true;
+
+        $mailsToInsert = array();
+        $campaignsToInsert = array();
+
+        foreach ($mails as $oneMail) {
+            if (empty($oneMail->mailid)) {
+                continue;
+            }
+
+            switch ($oneMail->type) {
+                case "welcome":
+                    $mailType = "welcome";
+                    break;
+                case "unsub":
+                    $mailType = "unsubscribe";
+                    break;
+                case "news":
+                case "followup":
+                    $mailType = "standard";
+                    break;
+                default:
+                    $mailType = "invalid";
+                    break;
+            }
+
+            if ($mailType == "invalid") {
+                continue;
+            }
+
+            $mailStylesheet = $oneMail->stylesheet;
+
+            $templateStyles = unserialize($oneMail->styles);
+
+            if ($templateStyles !== false) {
+                foreach ($templateStyles as $key => $value) {
+                    if (strpos($key, "tag_") !== false) {
+                        $tag = str_replace("tag_", "", $key);
+                        $styleDeclaration = $tag."{".$value."}";
+                    } else if (strpos($key, "color_bg") !== false) {
+                        $styleDeclaration = "";
+                    } else {
+                        $styleDeclaration = ".".$key."{".$value."}";
+                    }
+                    $mailStylesheet .= $styleDeclaration;
+                }
+            }
+
+            $mail = [
+                "id" => intval($oneMail->mailid),
+                "name" => acym_escapeDB($oneMail->subject),
+                "creation_date" => acym_escapeDB(empty($oneMail->created) ? acym_date('now', 'Y-m-d H:i:s') : acym_date($oneMail->created, 'Y-m-d H:i:s')),
+                "drag_editor" => 0,
+                "library" => 0,
+                "type" => acym_escapeDB($mailType),
+                "body" => acym_escapeDB($oneMail->body),
+                "subject" => acym_escapeDB($oneMail->subject),
+                "template" => $mailType == "welcome" || $mailType == "unsubscribe" ? 1 : 0,
+                "from_name" => acym_escapeDB($oneMail->fromname),
+                "from_email" => acym_escapeDB($oneMail->fromemail),
+                "reply_to_name" => acym_escapeDB($oneMail->replyname),
+                "reply_to_email" => acym_escapeDB($oneMail->replyemail),
+                "bcc" => acym_escapeDB($oneMail->bccaddresses),
+                "stylesheet" => acym_escapeDB($mailStylesheet),
+                "creator_id" => empty($oneMail->userid) ? acym_currentUserId() : $oneMail->userid,
+            ];
+
+            if ($mailType == "standard") {
+                $stats = acym_loadResult("SELECT COUNT(mailid) FROM #__acymailing_stats WHERE mailid = ".intval($oneMail->mailid));
+                $isSent = !empty($stats);
+
+                $campaign = [
+                    "sending_date" => !empty($oneMail->senddate) ? "'".acym_date($oneMail->senddate, 'Y-m-d H:i:s')."'" : "NULL",
+                    "draft" => intval(!$isSent),
+                    "active" => empty($oneMail->published) ? 0 : $oneMail->published,
+                    "mail_id" => $oneMail->mailid,
+                    "scheduled" => intval(!$isSent && ($oneMail->senddate > time())),
+                    "sent" => intval($isSent),
+                ];
+                $campaignsToInsert[] = "(".implode($campaign, ", ").")";
+            }
+
+            $mailsToInsert[] = "(".implode($mail, ", ").")";
+
+
+            if ($migrateMailStats) {
+                $idsMigratedMails[] = $oneMail->mailid;
+            }
+        }
+
+        if (empty($mailsToInsert)) {
+            return true;
+        }
+
+        $queryMailsInsert = "INSERT INTO #__acym_mail (`id`, `name`, `creation_date`, `drag_editor`, `library`, `type`, `body`, `subject`, `template`, `from_name`, `from_email`, `reply_to_name`, `reply_to_email`, `bcc`, `stylesheet`, `creator_id`) VALUES ".implode($mailsToInsert, ',').";";
+
+        try {
+            $resultMail = acym_query($queryMailsInsert);
+        } catch (Exception $e) {
+            $this->errors[] = acym_getDBError();
+
+            return false;
+        }
+
+        if ($resultMail === null) {
+            $this->errors[] = acym_getDBError();
+
+            return false;
+        } else {
+            $result += $resultMail;
+        }
+
+        if (!empty($campaignsToInsert)) {
+            $queryCampaignInsert = "INSERT INTO #__acym_campaign (`sending_date`, `draft`, `active`, `mail_id`, `scheduled`, `sent`) VALUES ".implode($campaignsToInsert, ",").";";
+
+            try {
+                $resultCampaign = acym_query($queryCampaignInsert);
+            } catch (Exception $e) {
+                $this->errors[] = acym_getDBError();
+
+                return false;
+            }
+
+            if ($resultCampaign === null) {
+                $this->errors[] = acym_getDBError();
+
+                return false;
+            }
+        }
+
+        return $result;
+    }
+
+    public function migrateLists($params = array())
+    {
+        $result = 0;
+
+        $queryGetLists = "SELECT `listid`, `name`, `published`, `visible`, `color`, `userid` FROM #__acymailing_list LIMIT ".intval($params['currentElement']).", ".intval($params['insertPerCalls']);
+
+        $lists = acym_loadObjectList($queryGetLists);
+
+        $listsToInsert = array();
+
+        foreach ($lists as $oneList) {
+            if (empty($oneList->listid)) {
+                continue;
+            }
+
+            $list = [
+                "id" => intval($oneList->listid),
+                "name" => acym_escapeDB($oneList->name),
+                "active" => empty($oneList->published) ? 0 : 1,
+                "visible" => acym_escapeDB($oneList->visible),
+                "clean" => 0,
+                "color" => acym_escapeDB($oneList->color),
+                "creation_date" => acym_escapeDB(acym_date('now', 'Y-m-d H:i:s')),
+                "cms_user_id" => empty($oneList->userid) ? acym_currentUserId() : intval($oneList->userid),
+            ];
+
+            $listsToInsert[] = "(".implode($list, ", ").")";
+        }
+
+        if (empty($listsToInsert)) {
+            return true;
+        }
+
+        $queryInsert = "INSERT INTO #__acym_list (`id`, `name`, `active`, `visible`, `clean`, `color`, `creation_date`, `cms_user_id`) VALUES ".implode($listsToInsert, ",").";";
+
+        try {
+            $resultQuery = acym_query($queryInsert);
+        } catch (Exception $e) {
+            $this->errors[] = acym_getDBError();
+
+            return false;
+        }
+
+        if ($resultQuery === null) {
+            $this->errors[] = acym_getDBError();
+
+            return false;
+        } else {
+            $result += $resultQuery;
+        }
+
+        return $result;
+    }
+
+    public function migrateUsers($params = array())
+    {
+        $result = 0;
+
+        $queryGetUsers = "SELECT `subid`, `name`, `email`, `created`, `enabled`, `userid`, `source`, `confirmed`, `key` FROM #__acymailing_subscriber LIMIT ".intval($params['currentElement']).", ".intval($params['insertPerCalls']);
+
+        $users = acym_loadObjectList($queryGetUsers, 'subid');
+
+        $usersToInsert = array();
+
+        foreach ($users as $oneUser) {
+            if (empty($oneUser->subid)) {
+                continue;
+            }
+
+            $user = [
+                "id" => intval($oneUser->subid),
+                "name" => acym_escapeDB($oneUser->name),
+                "email" => acym_escapeDB($oneUser->email),
+                "creation_date" => acym_escapeDB(empty($oneUser->created) ? acym_date('now', 'Y-m-d H:i:s') : acym_date($oneUser->created, 'Y-m-d H:i:s')),
+                "active" => acym_escapeDB($oneUser->enabled),
+                "cms_id" => intval($oneUser->userid),
+                "source" => acym_escapeDB($oneUser->source),
+                "confirmed" => acym_escapeDB($oneUser->confirmed),
+                "key" => acym_escapeDB($oneUser->key),
+            ];
+
+            $usersToInsert[] = "(".implode($user, ", ").")";
+        }
+
+        if (empty($usersToInsert)) {
+            return true;
+        }
+
+        $queryInsert = "INSERT INTO #__acym_user (`id`, `name`, `email`, `creation_date`, `active`, `cms_id`, `source`, `confirmed`, `key`) VALUES ".implode($usersToInsert, ", ").";";
+
+        try {
+            $resultQuery = acym_query($queryInsert);
+        } catch (Exception $e) {
+            $this->errors[] = acym_getDBError();
+
+            return false;
+        }
+
+        if ($resultQuery === null) {
+            $this->errors[] = acym_getDBError();
+
+            return false;
+        } else {
+            $result += $resultQuery;
+        }
+
+        return $result;
+    }
+
+    public function migrateBounce($params = array())
+    {
+        $rules = acym_loadObjectList('SELECT * FROM #__acymailing_rules LIMIT '.intval($params['currentElement']).', '.intval($params['insertPerCalls']));
+
+        if (empty($rules)) return true;
+
+        $keys = [
+            'ACY_RULE_ACTION' => 'ACYM_ACTION_REQUIRED',
+            'ACY_RULE_ACKNOWLEDGE_BODY' => 'ACYM_ACKNOWLEDGMENT_RECEIPT_BODY',
+            'ACY_RULE_ACKNOWLEDGE' => 'ACYM_ACKNOWLEDGMENT_RECEIPT_SUBJECT',
+            'ACY_RULE_LOOP_BODY' => 'ACYM_FEEDBACK_LOOP_BODY',
+            'ACY_RULE_LOOP' => 'ACYM_FEEDBACK_LOOP',
+            'ACY_RULE_FULL' => 'ACYM_MAILBOX_FULL',
+            'ACY_RULE_GOOGLE' => 'ACYM_BLOCKED_GOOGLE_GROUPS',
+            'ACY_RULE_EXIST1' => 'ACYM_MAILBOX_DOESNT_EXIST_1',
+            'ACY_RULE_FILTERED' => 'ACYM_MESSAGE_BLOCKED_RECIPIENTS',
+            'ACY_RULE_EXIST2' => 'ACYM_MAILBOX_DOESNT_EXIST_2',
+            'ACY_RULE_DOMAIN' => 'ACYM_DOMAIN_NOT_EXIST',
+            'ACY_RULE_TEMPORAR' => 'ACYM_TEMPORARY_FAILURES',
+            'ACY_RULE_PERMANENT' => 'ACYM_FAILED_PERM',
+            'ACY_RULE_FINAL' => 'ACYM_FINAL_RULE',
+        ];
+
+        $migratedRules = array();
+        foreach ($rules as $oneRule) {
+
+            $actionUser = unserialize($oneRule->action_user);
+            $actionMessage = unserialize($oneRule->action_message);
+
+            $actionsOnUsers = array();
+            if (!empty($actionUser['unsub'])) $actionsOnUsers[] = 'unsubscribe_user';
+            if (!empty($actionUser['sub']) && !empty($actionUser['subscribeto'])) {
+                $actionsOnUsers[] = 'subscribe_user';
+                $actionsOnUsers['subscribe_user_list'] = $actionUser['subscribeto'];
+            }
+            if (!empty($actionUser['block'])) $actionsOnUsers[] = 'block_user';
+            if (!empty($actionUser['delete'])) $actionsOnUsers[] = 'delete_user';
+            if (!empty($actionUser['emptyq'])) $actionsOnUsers[] = 'empty_queue_user';
+
+
+            $actionsOnEmail = array();
+            if (!empty($actionMessage['save'])) $actionsOnEmail[] = 'save_message';
+            if (!empty($actionMessage['delete'])) $actionsOnEmail[] = 'delete_message';
+            if (!empty($actionMessage['forwardto'])) {
+                $actionsOnEmail[] = 'forward_message';
+                $actionsOnEmail['forward_to'] = $actionMessage['forwardto'];
+            }
+
+            $rule = [
+                "id" => intval($oneRule->ruleid),
+                "name" => acym_escapeDB(str_replace(array_keys($keys), $keys, $oneRule->name)),
+                "active" => intval($oneRule->published),
+                "ordering" => intval($oneRule->ordering),
+                "regex" => acym_escapeDB($oneRule->regex),
+                "executed_on" => acym_escapeDB(json_encode(array_keys(unserialize($oneRule->executed_on)))),
+                "execute_action_after" => empty($actionUser['min']) ? 0 : intval($actionUser['min']),
+                "increment_stats" => empty($actionUser['stats']) ? 0 : intval($actionUser['stats']),
+                "action_user" => acym_escapeDB(json_encode($actionsOnUsers)),
+                "action_message" => acym_escapeDB(json_encode($actionsOnEmail)),
+            ];
+
+            $migratedRules[] = "(".implode($rule, ", ").")";
+        }
+
+        if (empty($migratedRules)) return true;
+
+        $queryInsert = "INSERT INTO #__acym_rule (`id`, `name`, `active`, `ordering`, `regex`, `executed_on`, `execute_action_after`, `increment_stats`, `action_user`, `action_message`) VALUES ".implode($migratedRules, ", ");
+
+        try {
+            $resultQuery = acym_query($queryInsert);
+
+            return $resultQuery;
+        } catch (Exception $e) {
+            $this->errors[] = acym_getDBError();
+
+            return false;
+        }
+    }
+
+    public function migrateSubscriptions($params = array())
+    {
+        $result = 0;
+
+        $queryGetSubscriptions = "SELECT `listid`, `subid`, `subdate`, `unsubdate`, `status` FROM #__acymailing_listsub LIMIT ".intval($params['currentElement']).", ".intval($params['insertPerCalls']);
+
+        $subscriptions = acym_loadObjectList($queryGetSubscriptions);
+
+        if (empty($subscriptions)) return true;
+
+        $subscriptionsToInsert = array();
+
+        foreach ($subscriptions as $oneSubscription) {
+            if (empty($oneSubscription->subid) || empty($oneSubscription->listid)) {
+                continue;
+            }
+
+            $subscription = [
+                "user_id" => acym_escapeDB($oneSubscription->subid),
+                "list_id" => acym_escapeDB($oneSubscription->listid),
+                "status" => acym_escapeDB($oneSubscription->status == -1 ? 0 : $oneSubscription->status),
+                "subscription_date" => empty($oneSubscription->subdate) ? "NULL" : acym_escapeDB(acym_date($oneSubscription->subdate, 'Y-m-d H:i:s')),
+                "unsubscribe_date" => empty($oneSubscription->unsubdate) ? "NULL" : acym_escapeDB(acym_date($oneSubscription->unsubdate, 'Y-m-d H:i:s')),
+            ];
+
+            $subscriptionsToInsert[] = "(".implode($subscription, ", ").")";
+        }
+
+        if (empty($subscriptionsToInsert)) {
+            return true;
+        }
+
+        $queryInsert = "INSERT INTO #__acym_user_has_list (`user_id`, `list_id`, `status`, `subscription_date`, `unsubscribe_date`) VALUES ".implode($subscriptionsToInsert, ", ").";";
+
+        try {
+            $resultQuery = acym_query($queryInsert);
+        } catch (Exception $e) {
+            $this->errors[] = acym_getDBError();
+
+            return false;
+        }
+
+        if ($resultQuery === null) {
+            $this->errors[] = acym_getDBError();
+
+            return false;
+        } else {
+            $result += $resultQuery;
+        }
+
+        return $result;
+    }
+
+    public function migrateMailHasLists($params = array())
+    {
+        $result = 0;
+
+        $queryGetMailHasLists = "SELECT listmail.`mailid`, listmail.`listid` 
+                                FROM #__acymailing_listmail AS listmail
+                                JOIN #__acymailing_mail AS mail ON mail.`mailid` = listmail.`mailid` 
+                                WHERE mail.`type` IN ('news', 'unsub', 'welcome', 'followup')
+                                LIMIT ".intval($params['currentElement']).", ".intval($params['insertPerCalls']);
+
+        $mailHasLists = acym_loadObjectList($queryGetMailHasLists);
+        if (empty($mailHasLists)) return true;
+
+        $mailHasListsToInsert = array();
+
+        foreach ($mailHasLists as $oneMailHasLists) {
+            if (empty($oneMailHasLists->mailid) || empty($oneMailHasLists->listid)) {
+                continue;
+            }
+
+            $mailHasListsToInsert[] = "(".acym_escapeDB($oneMailHasLists->mailid).",".acym_escapeDB($oneMailHasLists->listid).")";
+        }
+
+        if (empty($mailHasListsToInsert)) {
+            return true;
+        }
+
+        $queryInsert = "INSERT INTO #__acym_mail_has_list (`mail_id`, `list_id`) VALUES ".implode($mailHasListsToInsert, ',').";";
+
+        try {
+            $resultQuery = acym_query($queryInsert);
+        } catch (Exception $e) {
+            $this->errors[] = acym_getDBError();
+
+            return false;
+        }
+
+        if ($resultQuery === null) {
+            $this->errors[] = acym_getDBError();
+
+            return false;
+        } else {
+            $result += $resultQuery;
+        }
+
+        return $result;
+    }
+
+    public function migrateMailStats($params = array())
+    {
+        $result = 0;
+
+        $queryGetStats = "SELECT `mailid`, `senthtml`, `senttext`, `senddate`, `fail`, `openunique`, `opentotal` FROM #__acymailing_stats LIMIT ".intval($params['currentElement']).", ".intval($params['insertPerCalls']);
+
+        $stats = acym_loadObjectList($queryGetStats);
+        if (empty($stats)) return true;
+
+
+        $statsToInsert = array();
+
+        foreach ($stats as $oneStat) {
+            if (empty($oneStat->mailid)) {
+                continue;
+            }
+
+            $totalSent = intval($oneStat->senthtml) + intval($oneStat->senttext);
+            $stat = [
+                "mail_id" => acym_escapeDB($oneStat->mailid),
+                "total_subscribers" => acym_escapeDB($totalSent + $oneStat->fail),
+                "sent" => acym_escapeDB($totalSent),
+                "send_date" => empty($oneStat->senddate) ? "NULL" : acym_escapeDB(acym_date($oneStat->senddate, 'Y-m-d H:i:s')),
+                "fail" => acym_escapeDB($oneStat->fail),
+                "open_unique" => acym_escapeDB(intval($oneStat->openunique)),
+                "open_total" => acym_escapeDB(intval($oneStat->opentotal)),
+            ];
+            $statsToInsert[] = "(".implode($stat, ", ").")";
+        }
+
+        if (empty($statsToInsert)) {
+            return true;
+        }
+
+        $queryInsert = "INSERT INTO #__acym_mail_stat (`mail_id`, `total_subscribers`, `sent`, `send_date`, `fail`, `open_unique`, `open_total`) VALUES ".implode($statsToInsert, ",").";";
+
+        try {
+            $resultQuery = acym_query($queryInsert);
+        } catch (Exception $e) {
+            $this->errors[] = acym_getDBError();
+
+            return false;
+        }
+
+        if ($resultQuery === null) {
+            $this->errors[] = acym_getDBError();
+
+            return false;
+        } else {
+            $result += $resultQuery;
+        }
+
+        return $result;
+    }
+
+    public function migrateWelcomeunsub($params = array())
+    {
+        $result = 0;
+
+        $queryGetIds = "SELECT `listid`, `welmailid`, `unsubmailid` FROM #__acymailing_list LIMIT ".intval($params['currentElement']).", ".intval($params['insertPerCalls']);
+
+        $ids = acym_loadObjectList($queryGetIds);
+
+        if (empty($ids)) return true;
+
+        $idsToInsert = array();
+
+        foreach ($ids as $oneId) {
+            if (empty($oneId->listid)) {
+                continue;
+            }
+
+            $welId = empty($oneId->welmailid) ? "NULL" : $oneId->welmailid;
+            $unsId = empty($oneId->unsubmailid) ? "NULL" : $oneId->unsubmailid;
+
+            $id = [
+                "id" => $oneId->listid,
+                "welcome_id" => $welId,
+                "unsubscribe_id" => $unsId,
+            ];
+
+            $idsToInsert[] = "(".implode($id, ', ').")";
+        }
+
+        if (empty($idsToInsert)) {
+            return true;
+        }
+
+        $queryInsert = "INSERT INTO #__acym_list(`id`, `welcome_id`, `unsubscribe_id`) VALUES ".implode($idsToInsert, ",")." ON DUPLICATE KEY UPDATE `welcome_id` = VALUES(`welcome_id`), `unsubscribe_id` = VALUES(`unsubscribe_id`)";
+
+        try {
+            $resultQuery = acym_query($queryInsert);
+        } catch (Exception $e) {
+            $this->errors[] = acym_getDBError();
+
+            return false;
+        }
+
+        if ($resultQuery === null) {
+            $this->errors[] = acym_getDBError();
+
+            return false;
+        } else {
+            $result += $resultQuery;
+        }
+
+        return $result;
+    }
+
+
+
+
+    private function cleanFieldsTable()
+    {
+        $hasError = false;
+
+        $queryClean = [
+            "DELETE FROM #__acym_user_has_field",
+            "DELETE FROM #__acym_field WHERE `id` NOT IN (1,2)",
+        ];
+
+        foreach ($queryClean as $query) {
+            if (acym_query($query) === null) {
+                $this->errors[] = acym_getDBError();
+                $hasError = true;
+            }
+        }
+
+        return !$hasError;
+    }
+
+    private function cleanUsers_fieldsTable()
+    {
+        return true;
+    }
+
+    private function cleanMailsTable()
+    {
+        $hasError = false;
+
+        $queryClean = [
+            "UPDATE #__acym_list SET `unsubscribe_id` = NULL",
+            "UPDATE #__acym_list SET `welcome_id` = NULL",
+            "DELETE FROM #__acym_tag WHERE `type` = 'mail'",
+            "DELETE FROM #__acym_campaign WHERE `mail_id` IS NOT NULL",
+            "DELETE FROM #__acym_campaign",
+            "DELETE FROM #__acym_queue",
+            "DELETE FROM #__acym_mail_has_list",
+            "DELETE FROM #__acym_user_stat",
+            "DELETE FROM #__acym_url_click",
+            "DELETE FROM #__acym_mail_stat",
+            "DELETE FROM #__acym_mail",
+        ];
+
+        foreach ($queryClean as $oneQuery) {
+            if (acym_query($oneQuery) === null) {
+                $this->errors[] = acym_getDBError();
+                $hasError = true;
+                break;
+            }
+        }
+
+        return !$hasError;
+    }
+
+    private function cleanListsTable()
+    {
+        $hasError = false;
+
+        $queryClean = [
+            "DELETE FROM #__acym_tag WHERE `type` = 'list'",
+            "DELETE FROM #__acym_mail_has_list",
+            "DELETE FROM #__acym_user_has_list",
+            "DELETE FROM #__acym_list",
+        ];
+
+        foreach ($queryClean as $oneQuery) {
+            if (acym_query($oneQuery) === null) {
+                $this->errors[] = acym_getDBError();
+                $hasError = true;
+                break;
+            }
+        }
+
+        return !$hasError;
+    }
+
+    private function cleanUsersTable()
+    {
+        $hasError = false;
+
+        $queryClean = [
+            "DELETE FROM `#__acym_user_has_field`",
+            "DELETE FROM `#__acym_user_has_list`",
+            "DELETE FROM `#__acym_queue`",
+            "DELETE FROM `#__acym_user`",
+        ];
+
+        foreach ($queryClean as $oneQuery) {
+            if (acym_query($oneQuery) === null) {
+                $this->errors[] = acym_getDBError();
+                $hasError = true;
+                break;
+            }
+        }
+
+        return !$hasError;
+    }
+
+    private function cleanBounceTable()
+    {
+        $hasError = false;
+
+        $queryClean = [
+            "DELETE FROM `#__acym_rule`",
+        ];
+
+        foreach ($queryClean as $oneQuery) {
+            if (acym_query($oneQuery) === null) {
+                $this->errors[] = acym_getDBError();
+                $hasError = true;
+                break;
+            }
+        }
+
+        return !$hasError;
+    }
+
+    public function doElementMigration($elementName, $params = array())
+    {
+        $functionName = 'migrate'.ucfirst($elementName);
+        $params['currentElement'] = acym_getVar('int', 'currentElement');
+        $params['insertPerCalls'] = acym_getVar('int', 'insertPerCalls');
+
+        if (empty($params)) {
+            $nbInsert = $this->$functionName();
+        } else {
+            $nbInsert = $this->$functionName($params);
+        }
+
+        if ($nbInsert !== false) {
+            $this->result[$elementName] = $nbInsert;
+
+            return true;
+        } else {
+            $this->result[$elementName] = false;
+            $this->result["isOk"] = false;
+            $this->result["errorInsert"] = true;
+            $this->result["errors"] = $this->errors;
+
+            return false;
+        }
+    }
+
+    private function doCleanTable($tableName)
+    {
+        $functionName = "clean".ucfirst($tableName)."Table";
+
+        if (method_exists($this, $functionName) && !$this->$functionName()) {
+            $this->result["isOk"] = false;
+            $this->result["errorClean"] = true;
+            $this->result["errors"] = $this->errors;
+        }
+
+        return $this->result;
+    }
+
+    public function preMigration($element)
+    {
+        $connection = array(
+            'config' => array('table' => 'config', 'where' => ''),
+            'templates' => array('table' => 'template', 'where' => ''),
+            'mails' => array('table' => 'mail', 'where' => ''),
+            'lists' => array('table' => 'list', 'where' => ''),
+            'users' => array('table' => 'subscriber', 'where' => ''),
+            'bounce' => array('table' => 'rules', 'where' => ''),
+            'subscriptions' => array('table' => 'listsub', 'where' => ''),
+            'mailhaslists' => array('table' => 'listmail', 'where' => ''),
+            'mailstats' => array('table' => 'stats', 'where' => ''),
+            'welcomeunsub' => array('table' => 'list', 'where' => 'unsubmailid IS NOT NULL OR welmailid IS NOT NULL'),
+            'users_fields' => array('table' => 'subscriber'),
+            'fields' => array('table' => 'fields', 'where' => 'namekey NOT IN (\'name\', \'html\', \'email\')'),
+        );
+
+        $this->doCleanTable($element);
+
+        if ('users_fields' == $element) {
+            $fields = acym_loadResultArray("SELECT namekey FROM #__acymailing_fields WHERE `namekey` NOT IN ('name', 'email', 'html') AND `type` NOT IN ('customtext', 'category', 'gravatar')");
+            $connection[$element]['where'] = implode(' IS NOT NULL OR ', $fields);
+        }
+
+        $where = !empty($connection[$element]['where']) ? 'WHERE '.$connection[$element]['where'] : '';
+
+
+        $this->result["count"] = acym_loadResult('SELECT COUNT(*) FROM #__acymailing_'.$connection[$element]['table'].' '.$where);
+
+        return $this->result;
+    }
+}

@@ -1,0 +1,9 @@
+#
+#<?php die('Forbidden.'); ?>
+#Date: 2019-03-22 12:03:44 UTC
+#Software: Joomla Platform 13.1.0 Stable [ Curiosity ] 24-Apr-2013 00:00 GMT
+
+#Fields: datetime	priority clientip	category	message
+2019-03-22T12:03:43+00:00	WARNING ::1	jerror	JUser: :_load: Unable to load user with ID: 167
+2019-03-22T12:03:52+00:00	WARNING ::1	jerror	JUser: :_load: Unable to load user with ID: 167
+2019-03-22T12:04:58+00:00	WARNING ::1	jerror	Username and password do not match or you do not have an account yet.
