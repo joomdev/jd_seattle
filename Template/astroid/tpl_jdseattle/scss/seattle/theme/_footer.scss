@@ -39,24 +39,24 @@
             }
         }
     }
-    .footer-nav-link {
-        ul {
-			display: block;
-            li {
-                a {
-                    letter-spacing: normal;
-                    position: relative;
-                    &:hover {
-                        color: $primary;
-                    }
-				}
-				&:before{
-					content: "\ea4c";
-					@extend %LineIcons-font;
-					display: inline-block;
-					vertical-align: middle;
-					margin-right: 10px;
-				}
+    ul.nav.list-inline {
+        display: block;
+        li {
+            a {
+                letter-spacing: normal;
+                position: relative;
+                display: inline-block;
+                vertical-align: middle;
+                &:hover {
+                    color: $primary;
+                }
+            }
+            &:before{
+                content: "\ea4c";
+                @extend %LineIcons-font;
+                display: inline-block;
+                vertical-align: middle;
+                margin-right: 10px;
             }
         }
     }
