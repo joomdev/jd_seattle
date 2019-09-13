@@ -1,13 +1,21 @@
+// Logo
+$logo-max-width: 250px;
+$logo-max-height: 65px;
+
 // Header Section
 $header-padding-y: 15px !default;
 $header-padding-x: 0 !default;
 $header-section-zindex: $zindex-dropdown !default;
+$header-sidebar-width: 320px !default;
+$header-sidebar-mini-width: 54px !default;
 
 // Sticky Header
 $sticky-header-zindex: $zindex-sticky !default;
-$sticky-header-animation-duration: 0.7s !default;
+$sticky-header-animation-duration: .7s !default;
 $sticky-header-padding-x: 0 !default;
 $sticky-header-padding-y: 10px !default;
+$sticky-header-border-bottom: 1px solid #dee2e6 !default;
+$sticky-header-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075) !default;
 
 // Stacked Header
 $stacked-header-bg: #fff !default;
@@ -21,7 +29,7 @@ $backtotop-zindex: $zindex-sticky !default;
 $backtotop-rounded-radius: 4px !default;
 
 // Banner
-$banner-bg: #f9f9f9 !default;
+$banner-bg: #f8f9fa !default;
 $banner-padding-y: 80px !default;
 $banner-padding-x: 0 !default;
 $banner-title-color: #fff !default;
@@ -39,9 +47,9 @@ $comingsoon-count-font-weight: bold !default;
 $socialshare_margin: 0 10px !default;
 
 // Module
-$module-margin-y: 0.5rem !default;
+$module-margin-y: .5rem !default;
 $module-margin-x: 0 !default;
-$module-padding-y: 0.5rem !default;
+$module-padding-y: .5rem !default;
 $module-padding-x: 0 !default;
 
 // Selection

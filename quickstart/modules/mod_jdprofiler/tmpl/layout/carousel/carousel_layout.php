@@ -1,4 +1,5 @@
 <?php
+JHtml::_('jquery.framework');
 defined('_JEXEC') or die;
 // Licensed under the GPL v3
 //echo "<pre>";

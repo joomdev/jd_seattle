@@ -170,10 +170,11 @@ class AstroidFrameworkHelper {
       $data = null;
       switch ($action) {
          case "library":
+            $params = JComponentHelper::getParams('com_media');
             $input = JFactory::getApplication()->input;
             $folder = $input->get('folder', '', 'RAW');
             $data = self::getMediaLibrary();
-            $data['current_folder'] = 'images' . (empty($folder) ? '' : '/' . $folder);
+            $data['current_folder'] = $params->get('image_path', 'images') . (empty($folder) ? '' : '/' . $folder);
             break;
          case "upload":
             $data = self::uploadMedia();
@@ -374,26 +375,28 @@ class AstroidFrameworkHelper {
       return $icons;
    }
 
-   public static function clearCache($template = '') {
+   public static function clearCache($template = '', $prefix = 'style') {
       $template_dir = JPATH_SITE . '/' . 'templates' . '/' . $template . '/' . 'css';
       $version = new \JVersion;
       $version->refreshMediaVersion();
       if (!file_exists($template_dir)) {
          throw new \Exception("Template not found.", 404);
       }
-      $styles = preg_grep('~^style-.*\.(css)$~', scandir($template_dir));
-      foreach ($styles as $style) {
-         unlink($template_dir . '/' . $style);
+
+      if (is_array($prefix)) {
+         foreach ($prefix as $pre) {
+            $styles = preg_grep('~^' . $pre . '-.*\.(css)$~', scandir($template_dir));
+            foreach ($styles as $style) {
+               unlink($template_dir . '/' . $style);
+            }
+         }
+      } else {
+         $styles = preg_grep('~^' . $prefix . '-.*\.(css)$~', scandir($template_dir));
+         foreach ($styles as $style) {
+            unlink($template_dir . '/' . $style);
+         }
       }
-      $custom_styles = preg_grep('~^custom-.*\.(css)$~', scandir($template_dir));
-      foreach ($custom_styles as $style) {
-         unlink($template_dir . '/' . $style);
-      }
-      $astroid_styles = preg_grep('~^astroid-.*\.(css)$~', scandir($template_dir));
-      foreach ($astroid_styles as $style) {
-         unlink($template_dir . '/' . $style);
-      }
-      return $styles;
+      return true;
    }
 
    public static function getAstroidFieldsets($form) {
@@ -574,8 +577,8 @@ class AstroidFrameworkHelper {
    public static function getMediaList($folder) {
       $params = JComponentHelper::getParams('com_media');
 
-      define('COM_MEDIA_BASE', JPATH_ROOT . '/' . $params->get('file_path', 'images'));
-      define('COM_MEDIA_BASEURL', JUri::root() . $params->get('file_path', 'images'));
+      define('COM_MEDIA_BASE', JPATH_ROOT . '/' . $params->get('image_path', 'images'));
+      define('COM_MEDIA_BASEURL', JUri::root() . $params->get('image_path', 'images'));
 
       $current = $folder;
       $basePath = COM_MEDIA_BASE . ((strlen($current) > 0) ? '/' . $current : '');
@@ -619,7 +622,10 @@ class AstroidFrameworkHelper {
                   case 'odg':
                   case 'bmp':
                   case 'jpeg':
+                  case 'svg':
+                  case 'webp':
                   case 'ico':
+                  case 'tiff':
                      $info = @getimagesize($tmp->path);
                      $tmp->width = @$info[0];
                      $tmp->height = @$info[1];
@@ -649,6 +655,8 @@ class AstroidFrameworkHelper {
 
                   // Video
                   case 'mp4':
+				  case 'webm':
+                  case 'ogg':
                      $tmp->icon_32 = 'media/mime-icon-32/' . $ext . '.png';
                      $tmp->icon_16 = 'media/mime-icon-16/' . $ext . '.png';
                      $videos[] = $tmp;

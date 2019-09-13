@@ -56,6 +56,9 @@ class AstroidElement {
          case 'column':
             $this->default_xml_file = $library_elements_directory . 'column-default.xml';
             break;
+         case 'row':
+            $this->default_xml_file = $library_elements_directory . 'row-default.xml';
+            break;
          default:
             $this->default_xml_file = $library_elements_directory . 'default.xml';
             break;
@@ -375,7 +378,7 @@ class AstroidElement {
          }
          $background_image = $params->get('background_image', '');
          if (!empty($background_image)) {
-            $styles[] = 'background-image: url(' . JURI::root() . 'images/' . $background_image . ')';
+            $styles[] = 'background-image: url(' . JURI::root()  .$this->SeletedMedia(). '/' . $background_image . ')';
             $background_repeat = $params->get('background_repeat', '');
             $background_repeat = empty($background_repeat) ? 'inherit' : $background_repeat;
             $styles[] = 'background-repeat:' . $background_repeat;
@@ -442,8 +445,13 @@ class AstroidElement {
          }
          if ($background_setting == "image") {
             $background_image = $params->get('background_image', '');
+           
+            $img_background_color = $params->get('img_background_color', '');
+            $img_background_color = empty($img_background_color) ? 'inherit' : $img_background_color;
+            $Style[] = 'background-color:' . $img_background_color;
+           
             if (!empty($background_image)) {
-               $Style[] = 'background-image: url(' . JURI::root() . 'images/' . $background_image . ')';
+               $Style[] = 'background-image: url(' . JURI::root()  .$this->SeletedMedia().  '/' . $background_image . ')';
                $background_repeat = $params->get('background_repeat', '');
                $background_repeat = empty($background_repeat) ? 'inherit' : $background_repeat;
                $Style[] = 'background-repeat:' . $background_repeat;
@@ -505,7 +513,7 @@ class AstroidElement {
       if ($background && $this->type != 'section') {
          $background_video = $params->get('background_video', '');
          if (!empty($background_video)) {
-            $attributes['data-jd-video-bg'] = JURI::root() . 'images/' . $background_video;
+            $attributes['data-jd-video-bg'] = JURI::root()  .$this->SeletedMedia(). '/' . $background_video;
          }
       }
 
@@ -514,7 +522,7 @@ class AstroidElement {
          if ($background_setting && $background_setting == "video") {
             $background_video = $params->get('background_video', '');
             if (!empty($background_video)) {
-               $attributes['data-jd-video-bg'] = JURI::root() . 'images/' . $background_video;
+               $attributes['data-jd-video-bg'] = JURI::root()  .$this->SeletedMedia(). '/' . $background_video;
                $template = AstroidFramework::getTemplate();
                $videobgjs = 'vendor/jquery.jdvideobg.js';
                if(!isset($template->_js[$videobgjs])){
@@ -528,7 +536,7 @@ class AstroidElement {
          if ($background_setting && $background_setting == "video") {
             $background_video = $params->get('background_video', '');
             if (!empty($background_video)) {
-               $attributes['data-jd-video-bg'] = JURI::root() . 'images/' . $background_video;
+               $attributes['data-jd-video-bg'] = JURI::root()  .$this->SeletedMedia(). '/' . $background_video;
                $template = AstroidFramework::getTemplate();
                $videobgjs = 'vendor/jquery.jdvideobg.js';
                if(!isset($template->_js[$videobgjs])){
@@ -542,7 +550,7 @@ class AstroidElement {
          if ($background_setting && $background_setting == "video") {
             $background_video = $params->get('background_video', '');
             if (!empty($background_video)) {
-               $attributes['data-jd-video-bg'] = JURI::root() . 'images/' . $background_video;
+               $attributes['data-jd-video-bg'] = JURI::root() .$this->SeletedMedia(). '/' . $background_video;
                $template = AstroidFramework::getTemplate();
                $videobgjs = 'vendor/jquery.jdvideobg.js';
                if(!isset($template->_js[$videobgjs])){
@@ -557,6 +565,11 @@ class AstroidElement {
          $return[] = $key . '="' . $value . '"';
       }
       return implode(' ', $return);
+   }
+
+   public function SeletedMedia() {
+      $params = JComponentHelper::getParams('com_media');
+      return $params->get('image_path', 'images');
    }
 
    public function getValue($key, $default = '') {

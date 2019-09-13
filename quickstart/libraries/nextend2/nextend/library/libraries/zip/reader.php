@@ -51,6 +51,12 @@ if (function_exists('zip_open') && function_exists('zip_read') && strtoupper(sub
 
         function extract() {
             $extractedData = array();
+
+            if ( ! is_readable(dirname($this->file))) {
+                N2Message::error(sprintf(n2_('%s is not readable'), dirname($this->file) ) );
+                return false;
+            }
+            
             if (!$this->file || !is_file($this->file)) return false;
             $filesize = sprintf('%u', filesize($this->file));
 

@@ -75,6 +75,8 @@ class N2SSPluginWidgetBulletTransition extends N2SSPluginWidgetAbstract {
             return '';
         }
 
+        $slider->exposeSlideData['title'] = true;
+
         $slider->addLess(N2Filesystem::translate(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'transition' . DIRECTORY_SEPARATOR . 'style.n2less'), array(
             "sliderid" => $slider->elementId
         ));

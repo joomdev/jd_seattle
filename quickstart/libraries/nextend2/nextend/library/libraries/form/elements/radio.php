@@ -22,7 +22,7 @@ class N2ElementRadio extends N2ElementHidden {
             'style' => $this->style
         ), $this->renderOptions() . parent::fetchElement());
 
-        N2JS::addInline('new N2Classes.FormElementRadio("' . $this->fieldID . '", ' . json_encode(array_keys($this->options)) . ');');
+        N2JS::addInline('new N2Classes.FormElementRadio("' . $this->fieldID . '", ' . json_encode(array_keys($this->options)) . ', ' . json_encode($this->relatedFields) . ');');
 
         return $html;
     }

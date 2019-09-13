@@ -1,3 +1,0 @@
---
--- No Database changes in Sellacious version 1.3.0
---

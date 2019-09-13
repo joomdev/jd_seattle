@@ -1,5 +1,5 @@
 html {
-	font-size: 0.9rem;
+	font-size: .9rem;
 	@include media-breakpoint-up(md) {
 		font-size: 1rem;
 	}
@@ -42,7 +42,6 @@ html {
 =========================== */
 
 mark {
-	//padding: 0.1em .3em;
 	color: $white;
 	display: inline-block;
 	@extend .rounded;
@@ -70,7 +69,7 @@ ul.list-styled {
 			font-size: 55%;
 			margin-right: 10px;
 			padding-top: 10px;
-			padding-left: 0.39rem;
+			padding-left: .39rem;
 			line-height: 1;
 		}
 	}

@@ -1,6 +1,6 @@
 <?php
-if (!version_compare(PHP_VERSION, '5.4', '>=')) {
-    JError::raiseWarning(500, 'Smart Slider 3 requires PHP version 5.4+, extension is currently NOT RUNNING.');
+if (!version_compare(PHP_VERSION, '5.6.20', '>=')) {
+    JError::raiseWarning(500, 'Smart Slider 3 requires PHP version 5.6.20+, extension is currently NOT RUNNING.');
 } else if (!version_compare(JVersion::RELEASE, '3.7', '>=')) {
     JError::raiseWarning(500, 'Smart Slider 3 requires Joomla version 3.7+. Because you are using an earlier version, the plugin is currently NOT RUNNING.');
 } else {

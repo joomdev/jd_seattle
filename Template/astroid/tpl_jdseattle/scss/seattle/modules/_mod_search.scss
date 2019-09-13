@@ -1,0 +1,14 @@
+.search {
+   input[type="search"]{
+      border-radius: 4px 0 0 4px;
+   }
+   form.form-group input[type="image"]{
+      border-radius: 0 4px 4px 0;
+   }
+}
+
+.search-btn {
+   @extend .btn-dark;
+   @extend .btn;
+   height: 100%;
+}

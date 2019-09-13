@@ -5,8 +5,6 @@ N2Loader::import('libraries.browse.browse');
 
 N2ImageHelper::init();
 
-N2Loader::import('libraries.image.aviary');
-
 class N2ElementImage extends N2ElementText {
 
     protected $attributes = array();
@@ -34,12 +32,7 @@ class N2ElementImage extends N2ElementText {
         $this->renderRelatedFields();
 
         if ($this->fixed) {
-
-            $aviary = '';
-            $html .= '<div id="' . $this->fieldID . '_preview" class="n2-form-element-preview n2-form-element-preview-fixed n2-border-radius" style="' . $this->getImageStyle() . '">
-                ' . $aviary . '
-            </div><div></div>';
-        } else {
+            $html .= '<div id="' . $this->fieldID . '_preview" class="n2-form-element-preview n2-form-element-preview-fixed n2-border-radius" style="' . $this->getImageStyle() . '"></div><div></div>';
         }
 
         return $html;

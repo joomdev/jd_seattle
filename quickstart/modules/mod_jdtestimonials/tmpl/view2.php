@@ -7,8 +7,6 @@ $NormalColor1 = $params->get('NormalColor1');
 $NormalColor = $params->get('NormalColor');
 $activeColor = $params->get('activeColor');
 $hoverColor = $params->get('hoverColor');
-
-
 $items = (array) $items;
 $active = TRUE;
 ?>
@@ -26,13 +24,7 @@ $active = TRUE;
 	color:<?php echo $NormalColor; ?>
 }
 .testimonial-<?php echo $module->id; ?> .slick-dots li.slick-active button:before{
-	border: 1px solid <?php echo $activeColor; ?>;
-}
-.testimonial-<?php echo $module->id; ?> .slick-prev{
-	left: -41px;
-}
-.testimonial-<?php echo $module->id; ?> .slick-next{
-	right: -41px;
+	border-color: <?php echo $activeColor; ?>;
 }
 .testimonial-<?php echo $module->id; ?> .slick-prev:hover:before, 
 .testimonial-<?php echo $module->id; ?> .slick-next:hover:before{

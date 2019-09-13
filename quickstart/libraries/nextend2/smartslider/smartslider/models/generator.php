@@ -336,18 +336,6 @@ class N2SmartsliderGeneratorModel extends N2Model {
             'wide' => 4,
         ));
 
-        if (N2SSPRO) {
-            $record = new N2ElementGroup($settings, 'generator-record-offset', n2_('Record'), array(
-                'rowClass' => 'n2-expert'
-            ));
-            new N2ElementNumber($record, 'record-start', n2_('Start index'), 1, array(
-                'wide' => 3
-            ));
-            new N2ElementNumber($record, 'record-group', n2_('Group result'), 1, array(
-                'wide' => 3
-            ));
-        }//N2SSPRO
-
 
         new N2ElementNumber($settings, 'cache-expiration', n2_('Cache expiration'), 24, array(
             'wide' => 3,

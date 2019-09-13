@@ -1,3 +1,8 @@
+.astroid-header-section header.astroid-header {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
 /*Slick Slider
 =========================== */
 .slick-dotted.slick-slider{
@@ -46,8 +51,6 @@
 =========================== */
 
 .skew-block {
-    position: relative;
-    overflow: hidden;
     >div {
         position: relative;
         z-index: 1;
@@ -64,12 +67,12 @@
     }
     &.skew-top {
         &:after {
-            @include transform(translateY(5vw) skewY(-5deg));
+            @include transform(translateY(-5vw) skewY(-5deg));
         }
     }
     &.skew-bottom {
         &:after {
-            @include transform(translateY(-5vw) skewY(-5deg));
+            @include transform(translateY(5vw) skewY(-5deg));
         }
     }
 }
@@ -90,7 +93,7 @@
     }
     .slick-dots {
         padding: 100px 0;
-        bottom: 0px !important;
+        bottom: 0 !important;
         position: absolute;
         z-index: 99;
     }
@@ -128,6 +131,11 @@
             }
         }
     }
+    @include media-breakpoint-down(md) {
+        > div {
+            margin: 20px 0;
+        }
+    }
 }
 
 /* box icon
@@ -140,9 +148,9 @@
         background: $white;
         top: -15px;
         left: -5px;
-        border: 1px solid rgba(71, 93, 255, 0.25);
+        border: 1px solid rgba(71, 93, 255, .25);
         color: $primary;
-        @include transition(all 0.5s linear);
+        @include transition(all .5s linear);
     }
     &:hover,
     &:focus {
@@ -153,22 +161,29 @@
     }
 }
 
-/* Features box icon
+/* Features Box
 =========================== */
-
 .features-box-icon-wrapper {
     background: $white;
     position: relative;
-    @include transition(all 0.4s linear);
+    padding: 20px;
+    height: 100%;
+    @include transition(all .4s linear);
+    @include media-breakpoint-up(md) {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding: 50px;
+    }
     &:before,
     &:after {
         content: "";
         display: block;
         position: absolute;
-        height: 40px;
-        width: 40px;
+        height: 1px;
+        width: 1px;
         opacity: 0;
-        @include transition(all 0.4s linear);
+        @include transition(all .4s linear);
     }
     &:before {
         top: 7px;
@@ -182,19 +197,26 @@
         border-right: 1px solid $white;
         border-bottom: 1px solid $white;
     }
-    .features-box-icon {
+    .service-icon {
         font-size: 42px;
         position: relative;
         z-index: 1;
+        color: #040c2c;
+        a {
+            color: #040c2c;
+        }
     }
     .features-box-content {
         position: relative;
         z-index: 1;
+        padding: 0;
+    }
+    .services-title a {
+        color: #040c2c;
     }
     &:focus,
     &:hover {
         background: $primary;
-        color: $white;
         &:before,
         &:after {
             opacity: 1;
@@ -207,24 +229,36 @@
             height: 60px;
             width: 70%;
         }
-        h4,
-        p {
+        .services-title a,
+        .services-description {
             color: $white;
+        }
+        .service-icon,
+        .service-icon a {
+            color: #fff;
         }
     }
     &.features-box-hover-none {
-        background: $white;
+        background: transparent;
         &:before,
         &:after {
             border-color: $primary;
         }
         &:focus,
         &:hover {
-            p {
+            .services-description {
                 color: $indigo;
             }
         }
     }
+}
+.services-title {
+    font-size: 20px;
+    margin: 0;
+}
+.services-btn {
+    @extend .btn;
+    @extend .btn-secondary;
 }
 
 /* Testimonial Wrapper
@@ -238,7 +272,7 @@
         .slide-content {
             .author {
                 position: relative;
-                padding: 9px 0px 45px 89px;
+                padding: 9px 0 45px 89px;
                 .author-img {
                     position: absolute;
                     overflow: hidden;
@@ -246,8 +280,8 @@
                     background: #eeeeee;
                     width: 70px;
                     height: 70px;
-                    left: 0px;
-                    top: 0px;
+                    left: 0;
+                    top: 0;
                     img {
                         width: 100%;
                     }
@@ -277,7 +311,7 @@
     position: relative;
     .card-body {
         position: absolute;
-        background: rgba($white, 0.9);
+        background: rgba($white, .9);
         max-width: 90%;
         max-height: 95%;
         left: 0;
@@ -288,7 +322,7 @@
         opacity: 0;
         visibility: hidden;
         padding-bottom: 60px !important;
-        @include transition(all 0.3s ease);
+        @include transition(all .3s ease);
         overflow: hidden;
     }
     .card-footer {
@@ -306,7 +340,7 @@
                         display: block;
                         padding: 5px 10px;
                         min-width: 40px;
-                        @include transition(all 0.3s ease);
+                        @include transition(all .3s ease);
                     }
                 }
             }
@@ -327,7 +361,7 @@
 .clients-images {
     img {
         @include transform(scale(1));
-        @include transition(all 0.3s ease);
+        @include transition(all .3s ease);
         &:hover {
             @include transform(scale(1.1));
         }

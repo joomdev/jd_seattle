@@ -394,7 +394,7 @@ class N2SmartsliderBackendSlidesControllerAjax extends N2SmartSliderControllerAj
 
         foreach ($slides AS $slide) {
             if (!empty($changed[$slide['id']])) {
-                $slidesModel->quickSlideUpdate($slide, $changed[$slide['id']]['name'], $changed[$slide['id']]['description'], $changed[$slide['id']]['link']);
+                $slidesModel->quickSlideUpdate($slide, $changed[$slide['id']]['name'], $changed[$slide['id']]['description'], $changed[$slide['id']]['link'], $changed[$slide['id']]['hreftarget']);
             }
         }
 
@@ -417,7 +417,8 @@ class N2SmartsliderBackendSlidesControllerAjax extends N2SmartSliderControllerAj
                 'title'          => $slideObj->getTitle() . ($slideObj->hasGenerator() ? ' [' . $slideObj->getSlideStat() . ']' : ''),
                 'rawTitle'       => $slideObj->getRawTitle(),
                 'rawDescription' => $slideObj->getRawDescription(),
-                'rawLink'        => $slideObj->getRawLink()
+                'rawLink'        => $slideObj->getRawLink(),
+                'rawLinkHref'    => $slideObj->getRawLinkHref()
             );
         }
 

@@ -2,18 +2,16 @@
     <?php
     include dirname(__FILE__) . '/_toolbar.php';
     ?>
-    <div id="n2-ss-slide-canvas-container-inner" class="viewport">
+    <div id="n2-ss-slide-canvas-container-inner" class="n2-scroll-viewport">
         <div class="n2-ss-scrollbar-wrapper n2-ss-scrollbar-light">
-            <div class="scrollbar">
-                <div class="track">
-                    <div class="thumb"><div class="end"></div></div>
-                </div>
+            <div class="n2-scroll-track">
+                <div class="n2-scroll-grip"></div>
             </div>
         </div>
 
         <div class="n2-ss-slider-real-container">
             <?php echo N2Html::tag('div', array(
-                'class' => "n2-ss-slider-outer-container overview"
+                'class' => "n2-ss-slider-outer-container n2-scroll-content"
             ), N2Html::tag('div', array(
                 'class' => "n2-ss-canvas-slider-container"
             ), $renderedSlider)); ?>

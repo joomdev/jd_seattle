@@ -117,4 +117,63 @@ class SpsimpleportfolioHelper {
 
     return false;
   }
+
+  public static function isPageBuilderIntegrated($item) {
+
+    $output = new stdClass();
+    $integration = false;
+    $output->url = '';
+
+    if(JPluginHelper::isEnabled('spsimpleportfolio', 'sppagebuilder')) {
+      $db = JFactory::getDbo();
+      $query = $db->getQuery(true);
+      $user = JFactory::getUser();
+      $query->select('a.id');
+      $query->from('#__sppagebuilder_integrations as a');
+      $query->where($db->quoteName('component') . ' = ' . $db->quote('com_spsimpleportfolio'));
+      $query->where($db->quoteName('state') . ' = 1');
+      $db->setQuery($query);
+      $integration = $db->loadResult();
+
+      $hasPage = self::hasPBPage($item->id);
+      $output->hasPage = $hasPage;
+      
+
+      if($integration && $hasPage) {
+
+        $app = JApplication::getInstance('site');
+        $router = $app->getRouter();
+
+        $lang_code = (isset($item->language) && $item->language && explode('-',$item->language)[0])? explode('-',$item->language)[0] : '';
+        $enable_lang_filter = JPluginHelper::getPlugin('system', 'languagefilter');
+        $conf = JFactory::getConfig();
+
+        $front_link = 'index.php?option=com_sppagebuilder&view=form&tmpl=componenet&layout=edit&extension=com_spsimpleportfolio&extension_view=item&id=' . $hasPage;
+        $sefURI = str_replace('/administrator', '', $router->build($front_link));
+        if($lang_code && $lang_code !== '*' && $enable_lang_filter && $conf->get('sef') ){
+          $sefURI = str_replace('/index.php/', '/index.php/' . $lang_code . '/', $sefURI);
+        } elseif($lang_code && $lang_code !== '*') {
+          $sefURI = $sefURI . '&lang=' . $lang_code;
+        }
+
+        $output->url = $sefURI;
+      }
+    }
+
+    $output->integration = $integration;
+
+    return $output;
+  }
+
+  public static function hasPBPage($view_id = 0) {
+    $db = JFactory::getDbo();
+    $query = $db->getQuery(true);
+    $query->select($db->quoteName(array('id')));
+    $query->from($db->quoteName('#__sppagebuilder'));
+    $query->where($db->quoteName('extension') . ' = '. $db->quote('com_spsimpleportfolio'));
+    $query->where($db->quoteName('extension_view') . ' = '. $db->quote('item'));
+    $query->where($db->quoteName('view_id') . ' = '. $db->quote($view_id));
+    $db->setQuery($query);
+    return $db->loadResult();
+  }
 }

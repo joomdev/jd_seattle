@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension version="3.2" type="plugin" group="installer" method="upgrade">
     <name>plg_installer_smartslider3</name>
-    <version>3.3.16</version>
+    <version>3.3.22</version>
     <creationDate>2017.08.03.</creationDate>
     <author>Nextendweb</author>
     <authorEmail>support@nextendweb.com</authorEmail>

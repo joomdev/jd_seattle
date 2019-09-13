@@ -37,6 +37,10 @@ class N2SmartSliderTypeSimple extends N2SmartSliderType {
         $background = $params->get('background');
         $backgroundColor = $params->get('background-color', '');
         $sliderCSS  = $params->get('slider-css');
+		$borderRadius = $params->get('border-radius', 0);
+        if (!empty($borderRadius)) {
+            $sliderCSS .= 'overflow:hidden';
+        }
         if (!empty($background)) {
             $sliderCSS .= 'background-image: URL(' . N2ImageHelper::fixed($background) . ');';
         }

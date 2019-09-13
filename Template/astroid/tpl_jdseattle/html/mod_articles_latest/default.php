@@ -2,25 +2,25 @@
 /**
  * @package   Astroid Framework
  * @author    JoomDev https://www.joomdev.com
- * @copyright Copyright (C) 2009 - 2018 JoomDev.
- * @license http://www.gnu.org/licenses/gpl-2.0.html GNU/GPLv2 or Later
+ * @copyright Copyright (C) 2009 - 2019 JoomDev.
+ * @license https://www.gnu.org/licenses/gpl-2.0.html GNU/GPLv2 or Later
  */
 
 defined('_JEXEC') or die;
 ?>
-<div class="latest-news<?php echo $moduleclass_sfx; ?>"> 
-    <div class="footer-recent-post">
-        <ul class="list-inline">
-            <?php foreach ($list as $item): ?>
-                <li>
-                    <a href="<?php echo $item->link;?>">
-                        <span class="newsTitle d-block"><?php echo  $item->title; ?> </span>
-                        <time class="badge badge-primary newsTime">
-                            <i class="lni-alarm-clock"></i><?php echo $created = date_format(date_create($item->created),"d M  Y"); ?>
-                        </time>
-                    </a>
-                </li>
-            <?php endforeach; ?>
-        </ul>
-    </div>
+<div class="latestnews menu list-inline">
+	<ul class="menu list-inline">
+		<?php foreach ($list as $item) : $image = json_decode($item->images); ?>
+		<li itemscope itemtype="https://schema.org/Article">
+			<a class="article-title" href="<?php echo $item->link; ?>" itemprop="url">
+				<span itemprop="name">
+					<?php echo $item->title; ?>
+				</span>
+				<time class="badge badge-primary newsTime">
+						<i class="lni-alarm-clock"></i><?php echo $created = date_format(date_create($item->created),"d M  Y"); ?>
+				</time>
+			</a>
+		</li>
+		<?php endforeach; ?>
+	</ul>
 </div>

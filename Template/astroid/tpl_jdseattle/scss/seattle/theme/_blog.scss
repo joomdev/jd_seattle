@@ -16,10 +16,11 @@
 }
 
 .card-blog {
+    margin-bottom: 20px;
     .image-wrap {
         overflow: hidden;
         .overly {
-            background: rgba($primary, 0.8);
+            background: rgba($primary, .8);
             height: 95%;
             width: 95%;
             top: 0;
@@ -29,7 +30,7 @@
             font-size: 52px;
             opacity: 0;
             visibility: hidden;
-            @include transition(all 0.3s ease);
+            @include transition(all .3s ease);
             margin: auto;
         }
     }
@@ -57,7 +58,7 @@
         font-size: $byline-font-size;
         line-height: $byline-line-height;
         color: $white;
-        @include transition (all 0.3s ease);
+        @include transition (all .3s ease);
     }
     a:hover {
         color: $primary;
@@ -93,7 +94,6 @@
     }
 }
 
-
 /* Blog Sidebar
 =========================== */
 
@@ -107,9 +107,6 @@
                 align-items: center;
                 font-size: $sidebar-list-fontsize;
                 padding: $sidebar-list-padding-y 0;
-                &:not(:last-child) {
-                    border-bottom: $border-width solid $border-color;
-                }
                 i {
                     margin-right: 15px;
                 }

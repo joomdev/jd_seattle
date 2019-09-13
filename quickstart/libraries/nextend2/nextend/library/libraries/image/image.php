@@ -10,8 +10,12 @@ class N2Image extends N2CacheImage {
 
     public static function resizeImage($group, $imageUrl, $targetWidth, $targetHeight, $lazy = false, $mode = 'cover', $backgroundColor = false, $resizeRemote = false, $quality = 100, $optimize = false, $x = 50, $y = 50) {
 
+        if (strpos($imageUrl, N2Filesystem::getBasePath()) === 0) {
+            $imageUrl = N2Uri::pathToUri($imageUrl);
+        }
+
         if ($targetWidth <= 0 || $targetHeight <= 0 || !function_exists('imagecreatefrompng')) {
-            return $imageUrl;
+            return N2Filesystem::pathToAbsoluteURL($imageUrl);
         }
 
 
@@ -37,7 +41,7 @@ class N2Image extends N2CacheImage {
         if ($imagePath == $imageUrl) {
             // The image is not local
             if (!$resizeRemote) {
-                return $originalImageUrl;
+                return N2Filesystem::pathToAbsoluteURL($originalImageUrl);
             }
 
             $pathInfo  = pathinfo(parse_url($imageUrl, PHP_URL_PATH));
@@ -63,7 +67,7 @@ class N2Image extends N2CacheImage {
             ));
 
             if ($resizedPath === $originalImageUrl) {
-                return $originalImageUrl;
+                return N2Filesystem::pathToAbsoluteURL($originalImageUrl);
             }
 
             return N2Filesystem::pathToAbsoluteURL($resizedPath);
@@ -80,7 +84,7 @@ class N2Image extends N2CacheImage {
                     break;
             }
             if (!$extension) {
-                return $originalImageUrl;
+                return N2Filesystem::pathToAbsoluteURL($originalImageUrl);
             }
 
             return N2Filesystem::pathToAbsoluteURL($cache->makeCache($extension, array(
@@ -207,13 +211,13 @@ class N2Image extends N2CacheImage {
             if ($imagePath == $imageUrl) {
                 // The image is not local
                 if (!$resizeRemote) {
-                    return $originalImageUrl;
+                    return N2Filesystem::pathToAbsoluteURL($originalImageUrl);
                 }
 
                 $pathInfo  = pathinfo(parse_url($imageUrl, PHP_URL_PATH));
                 $extension = self::validateExtension($pathInfo['extension']);
                 if (!$extension) {
-                    return $originalImageUrl;
+                    return N2Filesystem::pathToAbsoluteURL($originalImageUrl);
                 }
 
                 return N2ImageHelper::dynamic(N2Filesystem::pathToAbsoluteURL($cache->makeCache($extension, array(
@@ -241,12 +245,12 @@ class N2Image extends N2CacheImage {
                         fclose($fp);
                         if (ord($data) == 3) {
                             // GD cannot resize palette PNG so we return the original image
-                            return $originalImageUrl;
+                            return N2Filesystem::pathToAbsoluteURL($originalImageUrl);
                         }
                         break;
                 }
                 if (!$extension) {
-                    return $originalImageUrl;
+                    return N2Filesystem::pathToAbsoluteURL($originalImageUrl);
                 }
 
                 return N2ImageHelper::dynamic(N2Filesystem::pathToAbsoluteURL($cache->makeCache($extension, array(

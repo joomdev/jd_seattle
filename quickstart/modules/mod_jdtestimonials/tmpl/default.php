@@ -7,84 +7,17 @@ $NormalColor1 = $params->get('NormalColor1');
 $NormalColor = $params->get('NormalColor');
 $activeColor = $params->get('activeColor');
 $hoverColor = $params->get('hoverColor');
-
-
 $items = (array) $items;
 $active = TRUE;
 ?>
+
 <style type="text/css">
-   .jd-testimonial-bullets-<?php echo $module->id; ?> li{
-      width: 10px;
-      height: 10px;
-      border-radius: 10px;
-      background: #fff;
-      border: 1px solid #000;
-   }
-   .jd-testimonial-bullets-<?php echo $module->id; ?> li.active{
-      background: #000;
-   }
-/* Testimonial Wrapper
-=========================== */
-.testimonial-container-<?php echo $module->id; ?> {
-	overflow: hidden;
-	position: relative;
-	padding: 30px 48px;
-	margin: 0;
-}
-.testimonial-container-<?php echo $module->id; ?> .slide-content .author {
-	padding-bottom: 45px;
-	display: flex;
-	align-items: center;
-}
-.testimonial-container-<?php echo $module->id; ?> .slide-content .author .author-img {
-	width: 70px;
-	height: 70px;
-	margin-right: 30px;
-}
-.testimonial-container-<?php echo $module->id; ?> .slide-content .author .author-img img {
-	width: 100%;
-}
-.testimonial-container-<?php echo $module->id; ?> .slide-content .author .author-info {
-	position: relative;
-	display: inline-block;
-}
-.testimonial-container-<?php echo $module->id; ?> .slide-content .author .author-info h5 {
-	margin: 0;
-}
-.testimonial-container-<?php echo $module->id; ?> .slick-dots {
-	position: static;
-}
-.testimonial-container-<?php echo $module->id; ?> .slick-dots li {
-	position: relative;
-	display: inline-block;
-	height: 20px;
-	width: 20px;
-	margin: 0 2px;
-	padding: 0;
-	cursor: pointer;
-}
-.testimonial-container-<?php echo $module->id; ?> .slick-dots li button {
-	padding: 0;
-	line-height: 1;
-}
 .testimonial-container-<?php echo $module->id; ?> .slick-dots li button:before {
 	color: <?php if($NormalColor1=="defualt") { echo '#1c60ff'; }else {echo $NormalColor1; } ?> !important;
-	height: 20px; 
-	width: 20px;
-	font-size: 12px;
-	line-height: 20px;
-	top: 0;
-	opacity: 1;
 }
 .testimonial-container-<?php echo $module->id; ?> .slick-dots li.slick-active button:before, 
 .testimonial-container-<?php echo $module->id; ?> .slick-dots li button:hover:before {
 	color: <?php echo $activeColor; ?> !important;
-}
-.testimonial-container-<?php echo $module->id; ?> .slick-prev {
-	left: 5px;
-}
-.testimonial-container-<?php echo $module->id; ?> .slick-next {
-	right: 5px;
 }
 .testimonial-container-<?php echo $module->id; ?> .slick-prev:before, 
 .testimonial-container-<?php echo $module->id; ?> .slick-next:before{
@@ -103,27 +36,24 @@ $active = TRUE;
 		$designationSize = $params->get('designationSize');
 		$reviewSize = $params->get('reviewSize');
 	?>
-	.testimonial-container-<?php echo $module->id; ?> .slide-content .author .author-info h5{
-		color: <?php  echo $nameColor?>;
-		font-size: <?php  echo $nameSize?>px;
-	}	
-	.testimonial-container-<?php echo $module->id; ?> .author-info a{	
-		color: <?php  echo $designationColor?>;
-		font-size: <?php  echo $designationSize?>px;
+	<?php } ?>
+	.testimonial-container-<?php echo $module->id; ?> .slide-content .author .author-info .name{
+		color: <?php echo $nameColor?>;
+		font-size: <?php echo $nameSize?>px;
 	}
-	.testimonial-container-<?php echo $module->id; ?> .author-info{	
-		color: <?php  echo $designationColor?>;
-		font-size: <?php  echo $designationSize?>px;
+	.testimonial-container-<?php echo $module->id; ?> .author-info .author-text{	
+		color: <?php echo $designationColor?>;
+		font-size: <?php echo $designationSize?>px;
 	}
 	.testimonial-container-<?php echo $module->id; ?> .text{
-		color: <?php  echo $reviewColor?>;
-		font-size: <?php  echo $reviewSize?>px;
+		color: <?php echo $reviewColor?>;
+		font-size: <?php echo $reviewSize?>px;
 	}
-	<?php } ?>
+	
 </style>
 <div class="jd-testimonial">
 	<div class="testimonial-container-<?php echo $module->id; ?> testimonial-wrapper">
-	<?php foreach($items as $item)  { ?>
+	<?php foreach($items as $item) { ?>
 		<div class="slide-content">
 			<div class="author">
 				<?php if(!empty($item->author_thumbnail)) { ?>
@@ -137,12 +67,12 @@ $active = TRUE;
 						<h5 class="name"><?php echo $item->author_name; ?></h5>
 					<?php } ?> 
 					<?php if(!empty($item->author_companyName)) { ?>
-						<div class="author-text"><?php if(!empty($item->author_companyLink)) { ?><a href="<?php echo $item->author_companyLink; ?>" target="_blank"  rel="nofollow" ><?php } ?><?php echo $item->author_companyName; ?><?php if(!empty($item->author_companyLink)) { ?></a><?php } ?></div>
+						<div class="author-text"><?php if(!empty($item->author_companyLink)) { ?><a href="<?php echo $item->author_companyLink; ?>" target="_blank" rel="nofollow" ><?php } ?><?php echo $item->author_companyName; ?><?php if(!empty($item->author_companyLink)) { ?></a><?php } ?></div>
 					<?php } ?>
 					<?php if(($item->rating !="none")) { ?>
 						<div class="rating">
 							<?php for($i=1; $i<=5; $i++) {
-								if($i <=  $item->rating ){
+								if($i <= $item->rating ){
 									echo '<span class="fa fa-star text-primary"></span>';
 								}else{
 									echo '<span class="fa fa-star"></span>';

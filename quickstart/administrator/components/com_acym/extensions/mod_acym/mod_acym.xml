@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="2.5" client="site" method="upgrade">
+	<name>AcyMailing subscription form</name>
+	<creationDate>August 2018</creationDate>
+	<version>1.0.0</version>
+	<author>Acyba</author>
+	<authorEmail>dev@acyba.com</authorEmail>
+	<authorUrl>https://www.acyba.com</authorUrl>
+	<copyright>Copyright (C) 2009-2019 ACYBA SAS - All rights reserved.</copyright>
+	<license>GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html</license>
+	<description>Subscribe to / Unsubscribe from AcyMailing lists</description>
+	<files>
+		<filename module="mod_acym">mod_acym.php</filename>
+		<filename>index.html</filename>
+		<folder>tmpl/</folder>
+	</files>
+
+	<config>
+		<fields name="params" addfieldpath="/components/com_acym/params">
+			<fieldset name="basic">
+				<field name="help" type="help" default="module" label="ACYM_HELP"/>
+				<field name="mode" type="list" default="tableless" label="ACYM_DISPLAY_MODE" description="ACYM_DISPLAY_MODE_DESC">
+					<option value="inline">ACYM_MODE_HORIZONTAL</option>
+					<option value="vertical">ACYM_MODE_VERTICAL</option>
+					<option value="tableless">ACYM_MODE_TABLELESS</option>
+				</field>
+				<field name="hiddenlists" type="lists" default="None" label="ACYM_AUTO_SUBSCRIBE_TO" description="ACYM_AUTO_SUBSCRIBE_TO_DESC"/>
+				<field name="displists" type="lists" default="None" label="ACYM_DISPLAYED_LISTS" description="ACYM_DISPLAYED_LISTS_DESC"/>
+				<field name="listschecked" type="lists" default="None" label="ACYM_CHECKED_LISTS" description="ACYM_CHECKED_LISTS_DESC"/>
+
+				<field name="listposition" type="list" default="before" label="ACYM_LIST_POSITION">
+					<option value="before">ACYM_BEFORE_FIELDS</option>
+					<option value="after">ACYM_AFTER_FIELDS</option>
+				</field>
+				<field name="fields" type="fields" default="1" label="ACYM_FIELDS_TO_DISPLAY" description="ACYM_FIELDS_TO_DISPLAY_DESC"/>
+				<field name="textmode" type="list" default="0" label="ACYM_TEXT_MODE" description="ACYM_TEXT_MODE_DESC">
+					<option value="1">ACYM_TEXT_INSIDE</option>
+					<option value="0">ACYM_TEXT_OUTSIDE</option>
+				</field>
+				<field name="subtext" type="text" size="50" default="" label="ACYM_SUBSCRIBE_TEXT" description="ACYM_SUBSCRIBE_TEXT_DESC" filter="SAFEHTML"/>
+				<field name="subtextlogged" type="text" size="50" default="" label="ACYM_SUBSCRIBE_TEXT_LOGGED_IN" description="ACYM_SUBSCRIBE_TEXT_LOGGED_IN_DESC" filter="SAFEHTML"/>
+
+				<field name="termscontent" type="article" default="0" label="ACYM_TERMS_CONDITIONS"/>
+				<field name="privacypolicy" type="article" default="0" label="ACYM_PRIVACY_POLICY"/>
+				<field name="articlepopup" type="list" default="1" label="ACYM_DISPLAY_ARTICLE_POPUP">
+					<option value="0">ACYM_NO</option>
+					<option value="1">ACYM_YES</option>
+				</field>
+			</fieldset>
+			<fieldset name="advanced">
+				<field name="unsub" type="list" default="0" label="ACYM_DISPLAY_UNSUB_BUTTON">
+					<option value="0">ACYM_NO</option>
+					<option value="1">ACYM_YES</option>
+				</field>
+				<field name="unsubtext" type="text" size="50" default="" label="ACYM_UNSUBSCRIBE_TEXT" description="ACYM_UNSUBSCRIBE_TEXT_DESC" filter="SAFEHTML"/>
+				<field name="unsubredirect" type="text" size="50" default="" label="ACYM_REDIRECT_LINK_UNSUB" description="ACYM_REDIRECT_LINK_UNSUB_DESC"/>
+				<field name="redirect" type="text" size="50" default="" label="ACYM_REDIRECT_LINK" description="ACYM_REDIRECT_LINK_DESC"/>
+
+				<field name="introtext" type="textarea" rows="5" cols="35" default="" label="ACYM_INTRO_TEXT" description="ACYM_INTRO_TEXT_DESC" filter="SAFEHTML"/>
+				<field name="posttext" type="textarea" rows="5" cols="35" default="" label="ACYM_POST_TEXT" description="ACYM_POST_TEXT_DESC" filter="SAFEHTML"/>
+
+				<field name="userinfo" type="list" default="1" label="ACYM_FORM_AUTOFILL_ID" description="ACYM_FORM_AUTOFILL_ID_DESC">
+					<option value="0">ACYM_NO</option>
+					<option value="1">ACYM_YES</option>
+				</field>
+
+				<field name="alignment" type="list" default="none" label="ACYM_ALIGNMENT" description="ACYM_ALIGNMENT_DESC">
+					<option value="none">ACYM_DEFAULT</option>
+					<option value="left">ACYM_LEFT</option>
+					<option value="center">ACYM_CENTER</option>
+					<option value="right">ACYM_RIGHT</option>
+				</field>
+
+				<field name="source" type="text" size="50" default="" label="ACYM_SOURCE" description="ACYM_SOURCE_DESC"/>
+
+				<field name="moduleclass_sfx" type="text" default="" label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL" description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC"/>
+				<field name="formclass" type="text" size="50" default="" label="ACYM_FORM_CLASS" description="ACYM_FORM_CLASS_DESC" filter="SAFEHTML"/>
+			</fieldset>
+		</fields>
+	</config>
+</extension>
+

@@ -92,8 +92,14 @@ class N2SmartSliderSlides {
         if (!$randomizeCache && $randomize) {
             shuffle($slides);
         }
+
         if ($this->maximumSlideCount > 0) {
             array_splice($slides, $this->maximumSlideCount);
+        }
+
+        $reverse = intval($this->slider->params->get('reverse-slides', 0));
+        if ($reverse) {
+            $slides = array_reverse($slides);
         }
 
         if (!$randomizeCache && $randomizeFirst) {

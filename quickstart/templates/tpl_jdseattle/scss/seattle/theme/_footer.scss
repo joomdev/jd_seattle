@@ -8,6 +8,32 @@
 }
 
 .footer {
+	.astroid-social-icons {
+		li {
+			display: inline-block;
+			margin-bottom: 10px;
+
+			&:not(:last-child) {
+				margin-right: 10px;
+			}
+
+			a {
+				text-align: center;
+				display: block;
+				padding: 5px 10px;
+				min-width: 40px;
+				@include transition(all .3s ease);
+
+				.text-white & {
+					color: $white;
+				}
+
+				&:hover {
+					color: $primary !important;
+				}
+			}
+		}
+	}
     ul {
         margin: 0;
         li {
@@ -39,24 +65,24 @@
             }
         }
     }
-    ul.nav.list-inline {
-        display: block;
-        li {
-            a {
-                letter-spacing: normal;
-                position: relative;
-                display: inline-block;
-                vertical-align: middle;
-                &:hover {
-                    color: $primary;
-                }
-            }
-            &:before{
-                content: "\ea4c";
-                @extend %LineIcons-font;
-                display: inline-block;
-                vertical-align: middle;
-                margin-right: 10px;
+    .footer-nav-link {
+        ul {
+			display: block;
+            li {
+                a {
+                    letter-spacing: normal;
+                    position: relative;
+                    &:hover {
+                        color: $primary;
+                    }
+				}
+				&:before{
+					content: "\ea4c";
+					@extend %LineIcons-font;
+					display: inline-block;
+					vertical-align: middle;
+					margin-right: 10px;
+				}
             }
         }
     }

@@ -64,11 +64,6 @@
                 label="Read More Text"
                 showon="showReadMore:1"
                 type="text" />
-            <field name="showcase_height"
-                type="text"
-                label="MOD_JDSERVICES_SHOWCASE_OPTIONS_HEIGHT_LBL"
-                default="auto">
-            </field>
             <field
                name="select_view"
                type="jdthumbnailradio"
@@ -88,18 +83,6 @@
                description="JFIELD_ALT_MODULE_LAYOUT_DESC"
                default="default"
             />
-            
-            <field
-               name="load_bootstrap"
-               type="radio"
-               label="MOD_JDSERVICES_SHOWCASE_OPTIONS_LOAD_BOOTSTRAP_LBL"
-               description="MOD_JDSERVICES_SHOWCASE_OPTIONS_LOAD_BOOTSTRAP_DESC"
-               default="0"
-               class="btn-group btn-group-yesno"
-            >
-               <option value="1">JYES</option>
-               <option value="0">JNO</option>
-            </field>
             <field name="moduleclass_sfx" type="textarea" label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL" description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC" rows="3"/>
          </fieldset>
       </fields>

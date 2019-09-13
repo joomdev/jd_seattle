@@ -56,6 +56,10 @@ class N2SmartSliderManager {
                 return '';
             }
         }
+
+        N2AssetsPredefined::frontend();
+        N2Base::getApplication('smartslider')->info->assetsFrontend();
+
         if (!$cache) {
             return $this->slider->render();
         }

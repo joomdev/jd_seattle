@@ -21,12 +21,12 @@
    display: none;
    position: absolute;
    z-index: 999;
-   box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.1);
+   box-shadow: 0 1px 5px 0 rgba(0, 0, 0, .1);
    &.nav-submenu-container{
       padding: 0;
    }
    .nav-submenu {
-      box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.1);
+      box-shadow: 0 1px 5px 0 rgba(0, 0, 0, .1);
    }
 }
 
@@ -54,7 +54,7 @@
          top: 0;
          left: 100%;
          width: 100%;
-         max-width: 300px;
+         /* max-width: 300px;*/
          display: none;
          &.right{
             left: -100%;
@@ -110,8 +110,8 @@
    }
    .nav-subtitle{
       display: block;
-      padding: 5px 0;
-      opacity: 0.6;
+      padding: 0;
+      opacity: .6;
       font-size: 70%;
    }
    .nav-item-parent{
@@ -128,6 +128,9 @@
             text-align: center;
             margin-top: -10px;
          }
+      }
+      &.no-dropdown-icon .nav-title{
+         padding-right: 0;
       }
    }
 }
@@ -181,8 +184,63 @@ ul{
          z-index: 0;
          left: 50%;
          margin-left: -8px;
-         bottom: 0px;
+         bottom: 0;
          display: none;
+      }
+   }
+}
+
+.astroid-sidebar-menu{
+   list-style-type: none;
+   margin: 0;
+   padding: 0;
+   li{
+      width: 100%;
+      display: block;
+      border-bottom: 1px solid #eee;
+      a{
+         padding: 10px;
+         width: calc(100% - 50px);
+         display: inline-block;
+      }
+      > ul{
+         list-style-type: none;
+         margin: 0;
+         padding: 0;
+         padding-left: 20px;
+         display: none;
+         border-top: 1px solid #eee;
+         li{
+            &:last-child{
+               border-bottom: 0;
+            }
+         }
+      }
+      &.nav-item-active{
+         > ul{
+            display: block;
+         }
+      }
+      > .nav-item-caret{
+         width: 50px;
+         display: inline-block;
+         font-size: 13px;
+         text-align: right;
+         padding: 10px;
+         cursor: pointer;
+         float: right;
+         line-height: inherit;
+         &:before{
+            content: "\f067";
+         }
+         &.open{
+            &:before{
+               content: "\f068";
+            }
+         }
+      }
+      &:last-child{
+         border-bottom: 0;
       }
    }
 }

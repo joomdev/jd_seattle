@@ -116,6 +116,11 @@ body,
 		}
 	}
 }
+
+.astroid-mobile-menu a.nav-link.btn {
+   margin: 10px auto;
+   display: block;
+}
 .astroid-mobilemenu-inner{
 	.astroid-mobile-menu{	
 		.btn-outline-dark{
@@ -136,4 +141,26 @@ body,
 			}
 		}
 	}
+}
+
+body .position-top-right {
+   position: fixed;
+   top: 0;
+   right: 0;
+   opacity: 1;
+   text-shadow: none;
+   background-color: #000;
+   color: #fff;
+   padding: 10px;
+   font-size: 24px;
+   text-align: center;
+   line-height: 21px;
+}
+
+.solid_header {
+   .top-header-navbar {
+      a, i {
+         color: inherit;
+      }
+   }
 }

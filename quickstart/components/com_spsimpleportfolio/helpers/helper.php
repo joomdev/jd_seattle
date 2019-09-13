@@ -16,21 +16,17 @@ class SpsimpleportfolioHelper {
 	}
 
 	public static function getTags($ids) {
+		
 		$db = JFactory::getDbo();
 		$query = $db->getQuery(true);
-
 		if(!is_array($ids)) {
 			$ids = (array) json_decode($ids, true);
 		}
-
 		$ids = implode(',', $ids);
-
 		$query->select($db->quoteName(array('id', 'title', 'alias')));
 		$query->from($db->quoteName('#__spsimpleportfolio_tags'));
 		$query->where($db->quoteName('id')." IN (" . $ids . ")");
-
 		$query->order('id ASC');
-
 		$db->setQuery($query);
 
 		return $db->loadObjectList();
@@ -40,9 +36,8 @@ class SpsimpleportfolioHelper {
 	public static function getTagList($items) {
 		$db = JFactory::getDbo();
 		$query = $db->getQuery(true);
-
+		
 		$tags = array();
-
 		foreach ($items as $item) {
 			$itemtags = json_decode( $item->tagids );
 			foreach ($itemtags as $itemtag) {

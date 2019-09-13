@@ -39,7 +39,7 @@ class N2SystemApplicationInfo extends N2ApplicationInfo {
     
     }
 
-    public function assetsFrontend() {
+    public function assetsFrontend($force = false) {
 
     }
 }

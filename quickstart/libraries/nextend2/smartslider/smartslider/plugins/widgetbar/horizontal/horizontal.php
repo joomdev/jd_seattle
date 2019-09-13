@@ -72,7 +72,7 @@ class N2SSPluginWidgetBarHorizontal extends N2SSPluginWidgetAbstract {
         ));
 
         $slide_count = new N2ElementGroup($settings, 'horizontal-bar-slide-count', n2_('Show slide count'), array(
-            'tip' => 'The "Title" will be the index of the slide and "Description" will be the total number of slides.'
+            'tip' => n2_('The "Title" will be the index of the slide and "Description" will be the total number of slides.')
         ));
         new N2ElementOnOff($slide_count, 'widget-bar-slide-count', n2_('Enable'), 0);
 

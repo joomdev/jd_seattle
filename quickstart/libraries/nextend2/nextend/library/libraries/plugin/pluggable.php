@@ -9,6 +9,11 @@ class N2Pluggable {
         self::$classes[$eventName][] = $callable;
     }
 
+    static function addFilter($eventName, $callable) {
+        if (!isset(self::$classes[$eventName])) self::$classes[$eventName] = array();
+        self::$classes[$eventName][] = $callable;
+    }
+
     static function applyFilters($eventName, $value, $args = array()) {
         if (self::hasAction($eventName)) {
             foreach (self::$classes[$eventName] AS $callable) {

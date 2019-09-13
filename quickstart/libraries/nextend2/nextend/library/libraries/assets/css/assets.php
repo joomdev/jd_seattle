@@ -16,7 +16,7 @@ class N2AssetsCss extends N2AssetsAbstract {
         $this->urls = array_unique($this->urls);
 
         foreach ($this->urls AS $url) {
-            $output .= N2Html::style($url, true, array(
+            $output .= N2Html::style($this->filterSrc($url), true, array(
                     'media' => 'all'
                 )) . "\n";
         }
@@ -28,11 +28,11 @@ class N2AssetsCss extends N2AssetsAbstract {
 
             foreach ($this->getFiles() AS $file) {
                 if (substr($file, 0, 2) == '//') {
-                    $output .= N2Html::style($file, true, array(
+                    $output .= N2Html::style($this->filterSrc($file), true, array(
                             'media' => 'all'
                         )) . "\n";
                 } else {
-                    $output .= N2Html::style(N2Uri::pathToUri($file, $needProtocol) . '?' . filemtime($file), true, array(
+                    $output .= N2Html::style($this->filterSrc(N2Uri::pathToUri($file, $needProtocol) . '?' . filemtime($file)), true, array(
                             'media' => 'all'
                         )) . "\n";
                 }
@@ -47,7 +47,7 @@ class N2AssetsCss extends N2AssetsAbstract {
 
             foreach ($this->getFiles() AS $file) {
                 if (substr($file, 0, 2) == '//') {
-                    $output .= N2Html::style($file, true, array(
+                    $output .= N2Html::style($this->filterSrc($file), true, array(
                             'media' => 'screen, print'
                         )) . "\n";
                 } else {
@@ -63,6 +63,10 @@ class N2AssetsCss extends N2AssetsAbstract {
         }
 
         return $output;
+    }
+
+    private function filterSrc($src) {
+        return N2Pluggable::applyFilters('n2_style_loader_src', $src);
     }
 
     public function get() {

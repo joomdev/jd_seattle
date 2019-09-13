@@ -126,7 +126,7 @@ class N2Filesystem extends N2FilesystemAbstract {
      * @return mixed
      */
     static function readFile($path) {
-        return JFile::read($path);
+        return file_get_contents($path);
     }
 
 

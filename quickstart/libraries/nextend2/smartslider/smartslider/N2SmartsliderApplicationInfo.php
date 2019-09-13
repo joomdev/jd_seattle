@@ -129,7 +129,13 @@ class N2SmartsliderApplicationInfo extends N2ApplicationInfo {
     
     }
 
-    public function assetsFrontend() {
+    public function assetsFrontend($force = false) {
+
+        static $once;
+        if ($once != null && !$force) {
+            return;
+        }
+        $once = true;
         if (N2Platform::$isAdmin) {
             N2JS::addGlobalInline('window.N2SSPRO=0;');
         

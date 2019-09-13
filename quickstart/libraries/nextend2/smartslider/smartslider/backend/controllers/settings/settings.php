@@ -125,29 +125,6 @@ class N2SmartsliderBackendSettingsController extends N2SmartSliderController {
         }
     }
 
-    public function actionAviary() {
-        if ($this->canDo('nextend_config')) {
-            N2Loader::import('libraries.image.aviary');
-            $aviary = N2Request::getVar('aviary', false);
-            if ($aviary) {
-                if ($this->validateToken()) {
-                    N2ImageAviary::storeSettings($aviary);
-                    N2Message::success(n2_('Saved.'));
-
-                }
-
-                $this->redirect(array("settings/aviary"));
-            }
-
-            $this->addViewFile($this->appType->path . '/fragments/', "sidebar-settings", array(
-                "appObj" => $this
-            ), "sidebar");
-
-            $this->addView("aviary");
-            $this->render();
-        }
-    }
-
     private function invalidateSliderCache() {
 
         $slidersModel = new N2SmartsliderSlidersModel();

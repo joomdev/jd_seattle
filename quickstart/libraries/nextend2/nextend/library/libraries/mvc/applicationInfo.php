@@ -72,7 +72,7 @@ abstract class N2ApplicationInfo {
 
     }
 
-    public function assetsFrontend() {
+    public function assetsFrontend($force = false) {
 
     }
 

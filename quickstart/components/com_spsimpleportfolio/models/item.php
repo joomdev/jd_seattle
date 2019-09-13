@@ -22,6 +22,10 @@ class SpsimpleportfolioModelItem extends JModelItem {
 	}
 
 	public function getItem( $itemId = null ) {
+		$dispatcher = JDispatcher::getInstance();
+		JPluginHelper::importPlugin('spsimpleportfolio');
+		$params = JFactory::getApplication('com_spsimpleportfolio')->getParams();
+		$limitstart = 0;
 		$user = JFactory::getUser();
 
 		$itemId = (!empty($itemId))? $itemId : (int)$this->getState('item.id');
@@ -73,6 +77,9 @@ class SpsimpleportfolioModelItem extends JModelItem {
 				if(!in_array($data->access, $groups)) {
 					return JError::raiseError(404, JText::_('COM_SPSIMPLEPORTFOLIO_ERROR_NOT_AUTHORISED'));
 				}
+
+				// Event trigger
+				$dispatcher->trigger('onSPPortfolioPrepareContent', array( 'com_spsimpleportfolio.item', &$data, &$params, $limitstart ));
 
 				$this->_item[$itemId] = $data;
 			}

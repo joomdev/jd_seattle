@@ -474,7 +474,7 @@ class N2Html {
                 $attrs['data-no-lazyload'] = 1;
             }
 
-            if (function_exists('thb_lazy_images_filter')) {
+            if (function_exists('thb_lazy_images_filter') || defined('WP_SMUSH_VERSION')) {
                 $attrs['class'] = 'no-lazyload';
             }
         }

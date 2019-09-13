@@ -26,7 +26,7 @@ class plgSystemAstroid extends JPlugin {
    public function onBeforeRender() {
       if ($this->app->isAdmin()) {
          if (JFactory::getUser()->id) {
-            $astroid_redirect = $this->app->input->get->get('ast', '');
+            $astroid_redirect = $this->app->input->get->get('ast', '', 'RAW');
             if (!empty($astroid_redirect)) {
                $this->app->redirect(base64_decode(urldecode($astroid_redirect)));
             }
@@ -192,7 +192,11 @@ class plgSystemAstroid extends JPlugin {
 
                   // render manager
                   $layout = new JLayoutFile('framework.manager', JPATH_LIBRARIES . '/astroid/framework/layouts');
-                  echo $layout->render();
+                  JPluginHelper::importPlugin('astroid');
+                  $dispatcher = JDispatcher::getInstance();
+                  $dispatcher->trigger('onBeforeAstroidAdminRender', [&$template]);
+
+                  echo $layout->render(['template' => $template, 'id' => $id]);
 
                   // stop application
                   die();
@@ -200,8 +204,8 @@ class plgSystemAstroid extends JPlugin {
                case 'clear-cache':
                   try {
                      $template = $this->app->input->get->get('template', '', 'RAW');
-                     $styles = AstroidFrameworkHelper::clearCache($template);
-                     echo \json_encode(['status' => 'success', 'code' => 200, 'message' => 'Cache successfully cleared.', 'styles' => $styles]);
+                     AstroidFrameworkHelper::clearCache($template, ['style', 'custom', 'astroid']);
+                     echo \json_encode(['status' => 'success', 'code' => 200, 'message' => 'Cache successfully cleared.']);
                   } catch (\Exception $e) {
                      echo \json_encode(['status' => 'error', 'code' => $e->getCode(), 'message' => $e->getMessage()]);
                   }

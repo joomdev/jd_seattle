@@ -2,9 +2,9 @@
 
 class N2SS3 {
 
-    public static $version = '3.3.16';
+    public static $version = '3.3.22';
 
-    public static $revision = '3223';
+    public static $revision = '4804';
 
     public static $completeVersion;
 
@@ -165,6 +165,9 @@ class N2SS3 {
     }
 
     public static function initLicense() {
+    }
+
+    public static function sliderChanged() {
     }
 }
 

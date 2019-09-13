@@ -44,11 +44,11 @@ class N2SmartSliderFeatureOptimize {
             try {
                 return N2Image::resizeImage('resized', N2ImageHelper::fixed($image, true), $this->thumbnailWidth, $this->thumbnailHeight, false, 'normal', 'ffffff', true, $this->quality, true);
             } catch (Exception $e) {
-                return $image;
+                return N2ImageHelper::fixed($image);
             }
         }
 
-        return $image;
+        return N2ImageHelper::fixed($image);
     }
 
     public function adminOptimizeThumbnail($image) {
@@ -56,10 +56,10 @@ class N2SmartSliderFeatureOptimize {
             try {
                 return N2Image::resizeImage('resized', N2ImageHelper::fixed($image, true), $this->thumbnailWidth, $this->thumbnailHeight, true, 'normal', 'ffffff', true, $this->quality, true);
             } catch (Exception $e) {
-                return $image;
+                return N2ImageHelper::fixed($image);
             }
         }
 
-        return $image;
+        return N2ImageHelper::fixed($image);
     }
 }

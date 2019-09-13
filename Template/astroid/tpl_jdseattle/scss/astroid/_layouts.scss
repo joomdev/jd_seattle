@@ -63,29 +63,42 @@ img {
 	position: relative;
 }
 
+.astroid-component-section {
+	padding: 50px 0;
+}
+
+.com-jdbuilder .astroid-component-section {
+	padding: 0;
+}
+
 .astroid-layout {
 	position: relative;
 
 	.astroid-wrapper {
 		position: relative;
+		display: flex;
+		flex-direction: column;
 	}
 
 	&.astroid-layout-boxed {
 		.astroid-wrapper {
 			max-width: 1140px;
 			margin: 0 auto;
-			box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+			box-shadow: 0 0 5px rgba(0, 0, 0, .2);
 			background-color: $white;
-			min-height: 100%;
 		}
 	}
+}
+
+.sticky-footer {
+	margin-top: auto !important;
 }
 
 .astroid-content {
 	left: 0;
 	z-index: $zindex-modal-backdrop;
-	-webkit-transition: -webkit-transform 0.5s;
-	transition: transform 0.5s;
+	-webkit-transition: -webkit-transform .5s;
+	transition: transform .5s;
 
 	&:after {
 		position: absolute;
@@ -93,12 +106,45 @@ img {
 		right: 0;
 		width: 0;
 		height: 0;
-		background: rgba(0, 0, 0, 0.8);
+		background: rgba(0, 0, 0, .8);
 		content: '';
 		opacity: 0;
-		-webkit-transition: opacity 0.5s, width 0.1s 0.5s, height 0.1s 0.5s;
-		transition: opacity 0.5s, width 0.1s 0.5s, height 0.1s 0.5s;
+		-webkit-transition: opacity .5s, width .1s .5s, height .1s .5s;
+		transition: opacity .5s, width .1s .5s, height .1s .5s;
 		z-index: $zindex-modal-backdrop;
+	}
+
+	&.has-sidebar {
+		height: 100vh;
+		overflow-y: auto;
+
+		&.sidebar-dir-left {
+			padding-left: $header-sidebar-width;
+
+			@media(max-width: 1600px) {
+				padding-left: $header-sidebar-mini-width;
+			}
+
+			@media(max-width: 1599px) {
+				padding-left: 0;
+			}
+		}
+
+		&.sidebar-dir-right {
+			padding-right: $header-sidebar-width;
+
+			@media(max-width: 1600px) {
+				padding-right: $header-sidebar-mini-width;
+			}
+
+			@media(max-width: 1599px) {
+				padding-right: 0;
+			}
+		}
+
+		@include media-breakpoint-down(xl) {
+			height: auto;
+		}
 	}
 }
 
@@ -121,16 +167,39 @@ blockquote {
 	margin-bottom: 15px;
 }
 
-.split-title-module{
-   .split-title{
+.split-title-module {
+	.split-title {
 		[class*="split-"] {
 			display: block;
 			font-size: 18px;
 			font-weight: normal;
 		}
-		[class*="split-1"]{
+
+		[class*="split-1"] {
 			font-size: inherit;
 			font-weight: inherit
 		}
-   }
+	}
+}
+
+div.search{
+	input {
+		border-radius: 0;
+	}
+	input.button{
+		object-fit: none;
+	}
+	.radio {
+		margin-right: 8px;
+		input {
+			margin-right: 3px;
+		}
+	}
+	.checkbox {
+		margin-right: 8px;
+	}
+}
+
+ul.fa-ul {
+	margin-left: 25px;
 }

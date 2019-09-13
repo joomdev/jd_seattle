@@ -37,7 +37,7 @@ $grays: map-merge((
 $blue:    #1c60ff !default;
 $indigo:  #70799f !default;
 $indigo-light:  #f0f4fd !default;
-$purple:  rgba(71, 93, 255, 0.25) !default;
+$purple:  rgba(71, 93, 255, .25) !default;
 $pink:    #e83e8c !default;
 $red:     #dc3545 !default;
 $orange:  #fd7e14 !default;
@@ -251,9 +251,9 @@ $border-radius:               .25rem !default;
 $border-radius-lg:            .3rem !default;
 $border-radius-sm:            .2rem !default;
 
-$box-shadow-sm:               0px 10px 25px 0px rgba(0, 0, 0, 0.04) !default;
-$box-shadow:                  0px 10px 25px 0px rgba(0, 0, 0, 0.08) !default;
-$box-shadow-lg:               0px 10px 50px 0px rgba(0, 0, 0, 0.07) !default;
+$box-shadow-sm:               0 10px 25px 0 rgba(0, 0, 0, .04) !default;
+$box-shadow:                  0 10px 25px 0 rgba(0, 0, 0, .08) !default;
+$box-shadow-lg:               0 10px 50px 0 rgba(0, 0, 0, .07) !default;
 
 $component-active-color:      $white !default;
 $component-active-bg:         theme-color("primary") !default;
@@ -323,7 +323,7 @@ $blockquote-font-size:        ($font-size-base * 1.25) !default;
 $hr-border-color:             rgba($black, .1) !default;
 $hr-border-width:             $border-width !default;
 
-$mark-padding:                0.1em .3em !default;
+$mark-padding:                .1em .3em !default;
 
 $dt-font-weight:              $font-weight-bold !default;
 
@@ -375,7 +375,7 @@ $input-btn-line-height:       $line-height-base !default;
 
 $input-btn-focus-width:       .2rem !default;
 $input-btn-focus-color:       rgba($component-active-bg, .25) !default;
-$input-btn-focus-box-shadow:  0 0 0 0.1rem $input-btn-focus-color !default;
+$input-btn-focus-box-shadow:  0 0 0 .1rem $input-btn-focus-color !default;
 
 $input-btn-padding-y-sm:      .25rem !default;
 $input-btn-padding-x-sm:      .5rem !default;

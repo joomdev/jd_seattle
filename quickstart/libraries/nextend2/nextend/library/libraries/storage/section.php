@@ -169,6 +169,13 @@ class N2StorageSection {
 
     private $application = 'system';
 
+    /**
+     * Quick cache implementation to prevent duplicate queries. It might have bugs.
+     *
+     * @var array
+     */
+    protected $cache = array();
+
     public function __construct($application) {
         $this->application = $application;
     }
@@ -178,10 +185,17 @@ class N2StorageSection {
     }
 
     public function setById($id, $value) {
+        $this->cache = array();
+
         return N2StorageSectionAdmin::setById($id, $value);
     }
 
     public function get($section, $referenceKey = null, $default = null) {
+
+        if (isset($this->cache[$section . '///' . $referenceKey])) {
+            return $this->cache[$section . '///' . $referenceKey];
+        }
+
         $attributes = array(
             "application" => $this->application,
             "section"     => $section
@@ -192,6 +206,8 @@ class N2StorageSection {
         }
         $result = N2StorageSectionAdmin::$model->db->findByAttributes($attributes);
         if (is_array($result)) {
+            $this->cache[$section . '///' . $referenceKey] = $result['value'];
+
             return $result['value'];
         }
 
@@ -203,14 +219,25 @@ class N2StorageSection {
     }
 
     public function set($section, $referenceKey, $value) {
+        if (isset($this->cache[$section . '///' . $referenceKey])) {
+            unset($this->cache[$section . '///' . $referenceKey]);
+        }
         N2StorageSectionAdmin::set($this->application, $section, $referenceKey, $value);
     }
 
     public function add($section, $referenceKey, $value) {
+        if (isset($this->cache[$section . '///' . $referenceKey])) {
+            unset($this->cache[$section . '///' . $referenceKey]);
+        }
+
         return N2StorageSectionAdmin::add($this->application, $section, $referenceKey, $value);
     }
 
     public function delete($section, $referenceKey = null) {
+        if (isset($this->cache[$section . '///' . $referenceKey])) {
+            unset($this->cache[$section . '///' . $referenceKey]);
+        }
+
         return N2StorageSectionAdmin::delete($this->application, $section, $referenceKey);
     }
 

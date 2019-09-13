@@ -26,26 +26,30 @@ class N2SSItemImage extends N2SSItemAbstract {
         if (empty($size[0])) $size[0] = 'auto';
         if (empty($size[1])) $size[1] = 'auto';
 
-        $imageAttributes = $owner->optimizeImage($this->data->get('image', '')) + array(
-                "id"    => $this->id,
-                "alt"   => htmlspecialchars($owner->fill($this->data->get('alt', ''))),
-                "style" => "display: inline-block; max-width: 100%; width: {$size[0]};height: {$size[1]};",
-                "class" => $owner->fill($this->data->get('cssclass', '')) . ' n2-ow'
-            );
+        $imageUrl = $this->data->get('image', '');
+        if (!empty($imageUrl)) {
+            $imageAttributes = $owner->optimizeImage($imageUrl) + array(
+                    "id"    => $this->id,
+                    "alt"   => htmlspecialchars($owner->fill($this->data->get('alt', ''))),
+                    "style" => "display: inline-block; max-width: 100%; width: {$size[0]};height: {$size[1]};",
+                    "class" => $owner->fill($this->data->get('cssclass', '')) . ' n2-ow'
+                );
 
-        $title = htmlspecialchars($owner->fill($this->data->get('title', '')));
-        if (!empty($title)) {
-            $imageAttributes['title'] = $title;
+            $title = htmlspecialchars($owner->fill($this->data->get('title', '')));
+            if (!empty($title)) {
+                $imageAttributes['title'] = $title;
+            }
+
+            $html = N2Html::tag('img', N2HTML::addExcludeLazyLoadAttributes($imageAttributes), false);
+
+            $style = $owner->addStyle($this->data->get('style'), 'heading');
+
+            return N2Html::tag("div", array(
+                "class" => $style . ' n2-ss-img-wrapper n2-ss-item-content n2-ow',
+                'style' => 'overflow:hidden;'
+            ), $this->getLink($html, array( 'class' => 'n2-ow' )));
+        } else {
+            return null;
         }
-
-        $html = N2Html::tag('img', N2HTML::addExcludeLazyLoadAttributes($imageAttributes), false);
-
-
-        $style = $owner->addStyle($this->data->get('style'), 'heading');
-
-        return N2Html::tag("div", array(
-            "class" => $style . ' n2-ss-img-wrapper n2-ss-item-content n2-ow',
-            'style' => 'overflow:hidden;'
-        ), $this->getLink($html, array('class' => 'n2-ow')));
     }
 }

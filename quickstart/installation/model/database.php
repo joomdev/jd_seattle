@@ -953,6 +953,7 @@ class InstallationModelDatabase extends JModelBase
 			'#__ucm_content'     => array('core_created_user_id', 'core_modified_user_id'),
 			'#__ucm_history'     => array('editor_user_id'),
 			'#__user_notes'      => array('created_user_id', 'modified_user_id'),
+			'#__jdbuilder_pages'  => array('created_by', 'modified_by'),
 		);
 
 		foreach ($updatesArray as $table => $fields)

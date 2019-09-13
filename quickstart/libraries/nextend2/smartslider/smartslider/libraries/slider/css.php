@@ -74,6 +74,18 @@ abstract class N2SmartSliderCSSAbstract {
             ), $css);
         }
 
+        if ($this->slider->params->get('media-query-hide-slider', 0)) {
+            $css .= '
+                #' . $this->slider->elementId . '{
+                    display:block;
+                }
+                @media (' . $this->slider->params->get('media-query-under-over', 'max-width') . ': ' . $this->slider->params->get('media-query-width', '640') . 'px){
+                    div#' . $this->slider->elementId . ', div#' . $this->slider->elementId . '-placeholder{
+                        display:none;
+                    }
+                }';
+        }
+
         $css .= $this->slider->params->get('custom-css-codes', '');
 
         return $css;

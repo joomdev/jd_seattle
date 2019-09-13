@@ -5,8 +5,6 @@ N2Loader::import('libraries.browse.browse');
 
 N2ImageHelper::init();
 
-N2Loader::import('libraries.image.aviary');
-
 class N2ElementVideo extends N2ElementText {
 
     protected $class = 'n2-form-element-img ';

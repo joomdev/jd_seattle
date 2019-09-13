@@ -96,24 +96,6 @@ class N2SmartsliderBackendSettingsView extends N2ViewBase {
         ");
     }
 
-    public function renderAviaryConfigurationForm() {
-        $values = N2ImageAviary::loadSettings();
-
-        $form = new N2Form($this->appType);
-        $form->loadArray($values);
-
-        $aviary = new N2Tab($form, 'aviary', n2_('Adobe Creative SDK - Aviary'));
-        new N2ElementToken($aviary);
-        new N2ElementText($aviary, 'public', n2_('API Key'), '', array(
-            'style' => 'width: 250px;'
-        ));
-        new N2ElementText($aviary, 'secret', n2_('Client secret'), '', array(
-            'style' => 'width: 250px;'
-        ));
-
-        $form->render('aviary');
-    }
-
     public function renderFontsConfigurationForm() {
         $values = N2Fonts::loadSettings();
 

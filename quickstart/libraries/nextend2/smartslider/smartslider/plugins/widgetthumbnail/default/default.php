@@ -120,7 +120,7 @@ class N2SSPluginWidgetThumbnailDefault extends N2SSPluginWidgetAbstract {
             'style' => 'width:100px;'
         ));
         new N2ElementImage($arrowGroup, 'widget-thumbnail-arrow-image', n2_('Next image'), '', array(
-            'tip' => 'The previous arrow image will be mirrored.'
+            'tip' => n2_('The previous arrow image will be mirrored.')
         ));
 
         $caption = new N2ElementGroup($settings, 'widget-thumbnail-caption', n2_('Caption'));

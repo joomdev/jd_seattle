@@ -33,7 +33,8 @@ class N2SSPluginWidgetArrowImage extends N2SSPluginWidgetAbstract {
             'widget-arrow-next-hover'               => 0,
             'widget-arrow-next-hover-color'         => 'ffffffcc',
             'widget-arrow-previous-alt'             => 'previous arrow',
-            'widget-arrow-next-alt'                 => 'next arrow'
+            'widget-arrow-next-alt'                 => 'next arrow',
+            'widget-arrow-base64'                   => 1
         );
     }
 
@@ -69,6 +70,15 @@ class N2SSPluginWidgetArrowImage extends N2SSPluginWidgetAbstract {
         $alt_group = new N2ElementGroup($settings, 'widget-arrow-alt', n2_('Alt tags'));
         new N2ElementText($alt_group, 'widget-arrow-previous-alt', n2_('Previous arrow'), 'previous arrow');
         new N2ElementText($alt_group, 'widget-arrow-next-alt', n2_('Next arrow'), 'next arrow');
+        new N2ElementOnoff($settings, 'widget-arrow-base64', n2_('Base64 encoding'), 1, array(
+            'tip'           => n2_('Base64 encoded arrow images are loading faster and they are colorable. But optimization plugins often have errors in their codes related to them, so if your arrow won\'t load, turn this option off.'),
+            'relatedFields' => array(
+                'sliderwidget-arrow-next-color',
+                'sliderwidget-arrow-next-hover',
+                'sliderwidget-arrow-previous-color',
+                'sliderwidget-arrow-previous-hover'
+            )
+        ));
     }
 
     public function getPath() {
@@ -186,25 +196,33 @@ class N2SSPluginWidgetArrowImage extends N2SSPluginWidgetAbstract {
 
         $ext = pathinfo($image, PATHINFO_EXTENSION);
         if (substr($image, 0, 1) == '$' && $ext == 'svg') {
-            list($color, $opacity) = N2Color::colorToSVG($color);
-            $content = N2Filesystem::readFile(N2ImageHelper::fixed($image, true));
-            $image   = 'data:image/svg+xml;base64,' . n2_base64_encode(str_replace(array(
-                    'fill="#FFF"',
-                    'opacity="1"'
-                ), array(
-                    'fill="#' . $color . '"',
-                    'opacity="' . $opacity . '"'
-                ), $content));
-
-            if ($hover) {
-                list($color, $opacity) = N2Color::colorToSVG($hoverColor);
-                $imageHover = 'data:image/svg+xml;base64,' . n2_base64_encode(str_replace(array(
+            if ($params->get(self::$key . 'base64', 1)) {
+                list($color, $opacity) = N2Color::colorToSVG($color);
+                $content = N2Filesystem::readFile(N2ImageHelper::fixed($image, true));
+                $image   = 'data:image/svg+xml;base64,' . n2_base64_encode(str_replace(array(
                         'fill="#FFF"',
                         'opacity="1"'
                     ), array(
                         'fill="#' . $color . '"',
                         'opacity="' . $opacity . '"'
                     ), $content));
+            } else {
+                $image = N2ImageHelper::fixed($image);
+            }
+
+            if ($hover) {
+                if ($params->get(self::$key . 'base64', 1)) {
+                    list($color, $opacity) = N2Color::colorToSVG($hoverColor);
+                    $imageHover = 'data:image/svg+xml;base64,' . n2_base64_encode(str_replace(array(
+                            'fill="#FFF"',
+                            'opacity="1"'
+                        ), array(
+                            'fill="#' . $color . '"',
+                            'opacity="' . $opacity . '"'
+                        ), $content));
+                } else {
+                    $imageHover = N2ImageHelper::fixed($imageHover);
+                }
             }
         } else {
             $image = N2ImageHelper::fixed($image);
@@ -224,16 +242,6 @@ class N2SSPluginWidgetArrowImage extends N2SSPluginWidgetAbstract {
                 )));
         }
 
-        $label = '';
-        switch ($side) {
-            case 'previous':
-                $label = 'Previous slide';
-                break;
-            case 'next':
-                $label = 'Next slide';
-                break;
-        }
-
         $isNormalFlow = self::isNormalFlow($params, self::$key . $side . '-');
 
         if ($animation == 'none' || $animation == 'fade') {
@@ -242,7 +250,7 @@ class N2SSPluginWidgetArrowImage extends N2SSPluginWidgetAbstract {
                     'class'      => $displayClass . $styleClass . 'nextend-arrow n2-ow nextend-arrow-' . $side . '  nextend-arrow-animated-' . $animation . ($isNormalFlow ? '' : ' n2-ib'),
                     'style'      => $style,
                     'role'       => 'button',
-                    'aria-label' => $label,
+                    'aria-label' => $alt,
                     'tabindex'   => '0'
                 ), $image);
         }
@@ -253,7 +261,7 @@ class N2SSPluginWidgetArrowImage extends N2SSPluginWidgetAbstract {
                 'class'      => $displayClass . 'nextend-arrow nextend-arrow-animated n2-ow nextend-arrow-animated-' . $animation . ' nextend-arrow-' . $side . ($isNormalFlow ? '' : ' n2-ib'),
                 'style'      => $style,
                 'role'       => 'button',
-                'aria-label' => $label,
+                'aria-label' => $alt,
                 'tabindex'   => '0'
             ), N2Html::tag('div', array(
                 'class' => $styleClass . ' n2-resize'

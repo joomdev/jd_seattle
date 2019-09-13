@@ -28,12 +28,13 @@
                 <option value="1">JYES</option>
                 <option value="0">JNO</option>
             </field>
-            <field showon="astroid_article_type:gallery" name="astroid_article_gallery_items" type="subform" formsource="libraries/astroid/framework/forms/galleryitem.xml" multiple="true" label="ASTROID_GALLERY_ITEMS" />
-            
+
             <field showon="astroid_article_type:gallery[OR]astroid_article_type:video" name="astroid_article_thumbnail" type="radio" default="1" label="ASTROID_GALLERY_THUMBNAIL_LBL" description="ASTROID_GALLERY_THUMBNAIL_DESC" class="btn-group btn-group-yesno">
                 <option value="1">JYES</option>
                 <option value="0">JNO</option>
             </field>
+
+            <field showon="astroid_article_type:gallery" name="astroid_article_gallery_items" type="subform" formsource="libraries/astroid/framework/forms/galleryitem.xml" multiple="true" label="ASTROID_GALLERY_ITEMS" />
             
             <!-- Audio Options -->
             <field type="spacer" showon="astroid_article_type:audio" name="astroidarticleaudio" label="ASTROID_ARTICLE_OPTIONS_AUDIO_LABEL" />
@@ -73,6 +74,7 @@
             </field>
             <field type="text" name="astroid_article_badge_text" label="ASTROID_BADGE_LABEL" description="ASTROID_BADGE_LABEL_DESC" showon="astroid_article_badge:1[AND]astroid_article_badge_type:1" />
             <field type="color" name="astroid_article_badge_color" label="ASTROID_BADGE_COLOR" description="ASTROID_BADGE_COLOR_DESC" showon="astroid_article_badge:1[AND]astroid_article_badge_type:1" />
+            <field type="color" name="astroid_article_badge_text_color" label="ASTROID_BADGE_TEXT_COLOR" description="ASTROID_BADGE_TEXT_COLOR_DESC" showon="astroid_article_badge:1[AND]astroid_article_badge_type:1" />
         </fieldset>
     </fields>
 </form>

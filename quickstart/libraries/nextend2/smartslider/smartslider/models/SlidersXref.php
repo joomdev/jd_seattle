@@ -16,6 +16,8 @@ class N2SmartsliderSlidersXrefModel extends N2Model {
                 'ordering'  => $this->getMaximalOrderValue($groupID)
             ));
 
+            N2SS3::sliderChanged();
+
             return true;
         } catch (Exception $e) {
             return false;
@@ -36,11 +38,15 @@ class N2SmartsliderSlidersXrefModel extends N2Model {
                 $slidersModel->delete($slider['slider_id']);
             }
         }
+
+        N2SS3::sliderChanged();
     }
 
     public function deleteSlider($sliderID) {
 
         N2SmartsliderSlidersModel::markChanged($sliderID);
+
+        N2SS3::sliderChanged();
 
         return $this->db->deleteByAttributes(array(
             'slider_id' => $sliderID
@@ -51,6 +57,8 @@ class N2SmartsliderSlidersXrefModel extends N2Model {
 
         N2SmartsliderSlidersModel::markChanged($sliderID);
         N2SmartsliderSlidersModel::markChanged($groupID);
+
+        N2SS3::sliderChanged();
 
         return $this->db->deleteByAttributes(array(
             'group_id'  => $groupID,

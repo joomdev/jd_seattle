@@ -49,7 +49,9 @@ class N2SystemBackendVisualManagerController extends N2BackendController {
             'Cancel',
             'Yes',
             'Do you really want to delete the set and all associated %s?',
-            'Unable to delete the set'
+            'Unable to delete the set',
+            'Current tab',
+            'Live'
         ));
     }
 

@@ -471,7 +471,19 @@ var AstroidAdmin = function AstroidAdmin() {
       var hours = date.getHours();
       var minutes = date.getMinutes();
       var seconds = date.getSeconds();
-      var exportFileDefaultName = $('#export-link').data('template-name') + ' ' + (year + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds) + '.json';
+      var exportName = prompt("Please enter your desired name", "astroid-zero-template");
+      if (exportName === "") {
+           Admin.notify("Can't be empty", "error");
+            return false
+      } else if (exportName) {
+            var re = /^[0-9a-zA-Z].*/;
+            if (!re.test(exportName) || /\s/.test(exportName)) {
+               Admin.notify("Invalid", "error");
+               return false
+         }else{
+             var exportFileDefaultName = exportName + ' ' + (year + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds) + '.json';
+         }
+      }
       $('#export-link').attr('href', dataUri);
       $('#export-link').attr('download', exportFileDefaultName);
       $('#export-link')[0].click();
@@ -621,7 +633,7 @@ var AstroidAdmin = function AstroidAdmin() {
          $('.astroid-loading').fadeIn(500);
       } else {
          $('.astroid-loading').fadeOut(500);
-      }
+      }  
    };
 };
 
@@ -631,6 +643,28 @@ var Admin = new AstroidAdmin();
 (function ($) {
    var docReady = function docReady() {
       Admin.init();
+      var astroid_shortcut_enable = $("#astroid_shortcut_enable").val();
+      var OnSave = function(enable){
+         $(document).on('keydown', function ( e ) {
+            // You may replace `s` with whatever key you want
+            if (enable =="true" && (e.metaKey || e.ctrlKey) && ( String.fromCharCode(e.which).toLowerCase() === 's') ) {
+               $("#astroid-form").submit();
+               return false
+            }
+         });
+      }
+      var OnClear = function(enable){
+         $(document).on('keydown', function ( e ) {
+            var hasFocus = $("input,textarea").is(":focus");
+            if(enable =="true" && hasFocus == false && e.keyCode == 46) {
+               $("#clear-cache").click();
+               return false
+            }
+         });
+      }
+      OnSave(astroid_shortcut_enable);
+      OnClear(astroid_shortcut_enable);
+
       getGoogleFonts();
       initAstroidUploader();
       $('.astroid-code-editor-exit-fs').click(function () {

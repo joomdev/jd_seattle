@@ -36,7 +36,7 @@ class N2GeneratorJoomlaContentArticle extends N2GeneratorAbstract {
 
         $variables = new N2ElementGroup($filter, 'extravariables', n2_('Extra variables'), array(
             'rowClass' => 'n2-expert',
-            'tip'      => 'Turn on these options to generate more variables for the slides.'
+            'tip'      => n2_('Turn on these options to generate more variables for the slides.')
         ));
 
         new N2ElementOnOff($variables, 'sourcefields', 'Fields', 0);

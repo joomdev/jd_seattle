@@ -151,7 +151,6 @@ class N2SmartsliderLayersModel extends N2Model {
             'unit'     => '%',
             'style'    => 'width:22px;'
         ));
-        new N2ElementOnOff($rowBackground, 'row-background-parallax', n2_('Parallax'), 0);
 
         new N2ElementStyleMode($rowSettings, 'row-style-mode', n2_('Style'), '', array(
             'options' => array(
@@ -305,7 +304,6 @@ class N2SmartsliderLayersModel extends N2Model {
             'unit'     => '%',
             'style'    => 'width:22px;'
         ));
-        new N2ElementOnOff($colBackground, 'col-background-parallax', n2_('Parallax'), 0);
 
         new N2ElementStyleMode($colSettings, 'col-style-mode', n2_('Style'), '', array(
             'options' => array(
@@ -477,7 +475,6 @@ class N2SmartsliderLayersModel extends N2Model {
             'unit'     => '%',
             'style'    => 'width:22px;'
         ));
-        new N2ElementOnOff($contentBackground, 'content-background-parallax', n2_('Parallax'), 0);
 
         new N2ElementStyleMode($contentSettings, 'content-style-mode', n2_('Style'), '', array(
             'options' => array(

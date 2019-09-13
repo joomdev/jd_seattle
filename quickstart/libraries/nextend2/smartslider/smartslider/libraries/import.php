@@ -36,6 +36,8 @@ class N2SmartSliderImport {
         } else if (!isset($importData['data'])) {
             if (array_key_exists("slider.ss2", $importData)) {
                 N2Message::error(n2_('You can\'t import sliders from Smart Slider 2.'));
+            } else if (empty($importData)) {
+                N2Message::error(n2_('Export file corrupted! Slider data is missing.'));
             }
 
             return false;
@@ -239,14 +241,17 @@ class N2SmartSliderImport {
     }
 
     public function fixLightbox($url) {
-        preg_match('/^([a-zA-Z]+)\[(.*)](.*)/', $url, $matches);
+        preg_match('/^([a-zA-Z]+)\[(.*)]/', $url, $matches);
         if (!empty($matches) && $matches[1] == 'lightbox') {
-            $images    = explode(',', $matches[2]);
-            $newImages = array();
-            foreach ($images AS $image) {
-                $newImages[] = $this->fixImage($image);
+            $data = json_decode($matches[2]);
+            if ($data) {
+                $newImages = array();
+                foreach ($data->urls AS $image) {
+                    $newImages[] = $this->fixImage($image);
+                }
+                $data->urls = $newImages;
+                $url        = 'lightbox[' . json_encode($data) . ']';
             }
-            $url = 'lightbox[' . implode(',', $newImages) . ']' . $matches[3];
         }
 
         return $url;

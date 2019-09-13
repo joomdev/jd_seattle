@@ -112,6 +112,13 @@ class N2StyleRenderer {
             'borderradius'    => '0',
             'extra'           => '',
         ), $tabs[0]);
+
+        for ($i = 0; $i < count(self::$mode[$mode]['tabs']); $i++) {
+            if (!isset($tabs[$i])) {
+                $tabs[$i] = array();
+            }
+        }
+
         foreach ($tabs AS $k => $tab) {
             $search[]  = '@tab' . $k;
             $replace[] = self::$style->style($tab);
@@ -241,8 +248,8 @@ N2StyleRenderer::$mode = array(
         ),
         'preview'       => '<div><div class="{styleClassName}" style="display: inline-block; margin: 3px;"></div><div class="{styleClassName} n2-active" style="display: inline-block; margin: 3px;"></div><div class="{styleClassName}" style="display: inline-block; margin: 3px;"></div></div>',
         'selectors'     => array(
-            '@pre@selector'                                => '@tab0',
-            '@pre@selector.n2-active, @pre@selector:HOVER' => '@tab1'
+            '@pre@selector'                                                     => '@tab0',
+            '@pre@selector.n2-active, @pre@selector:HOVER, @pre@selector:FOCUS' => '@tab1'
         )
     ),
     'highlight'      => array(

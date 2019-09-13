@@ -158,10 +158,16 @@ class N2SmartSliderFeatureSlideBackground {
 
         if (!empty($backgroundColorStyle)) {
 
-            return N2Html::tag('div', array(
+            $attributes = array(
                 'class' => 'n2-ss-slide-background-color',
                 "style" => $backgroundColorStyle
-            ), '');
+            );
+
+            if ($slide->parameters->get('backgroundColorOverlay', 0)) {
+                $attributes['data-overlay'] = 1;
+            }
+
+            return N2Html::tag('div', $attributes, '');
         }
 
         return '';
@@ -222,14 +228,30 @@ class N2SmartSliderFeatureSlideBackground {
 
         $opacity = min(100, max(0, $slide->parameters->get('backgroundImageOpacity', 100)));
 
-        $attributes = $deviceAttributes + array(
-                "data-blur"    => $backgroundImageBlur,
-                "data-opacity" => $opacity,
-                "data-x"       => $x,
-                "data-y"       => $y
-            ) + $imageAttributes;
+        $style = array();
+        if ($opacity < 100) {
+            $style[] = 'opacity:' . ($opacity / 100);
+        }
 
-        return N2Html::image($this->getDefaultImage($src, $deviceAttributes), $alt, $attributes);
+        if ($x != '50' || $y != '50') {
+            $style[] = 'background-position: ' . $x . '% ' . $y . '%';
+        }
+
+        $attributes = $deviceAttributes + array(
+                "class"     => 'n2-ss-slide-background-image',
+                "data-blur" => $backgroundImageBlur
+            );
+        if (!empty($style)) {
+            $attributes['style'] = implode(';', $style);
+        }
+
+        if ($slide->isCurrentlyEdited()) {
+            $attributes['data-opacity'] = $opacity;
+            $attributes['data-x']       = $x;
+            $attributes['data-y']       = $y;
+        }
+
+        return N2HTML::tag('div', $attributes, $this->getDefaultImage($src, $alt, $imageAttributes, $deviceAttributes));
     }
 
     private function getDeviceAttributes($image, $imageData) {
@@ -264,12 +286,12 @@ class N2SmartSliderFeatureSlideBackground {
         return $attributes;
     }
 
-    private function getDefaultImage($src, $deviceAttributes) {
+    private function getDefaultImage($src, $alt, $imageAttributes, $deviceAttributes) {
         if (count($deviceAttributes) > 2 || $this->slider->features->lazyLoad->isEnabled > 0) {
-            return N2Image::base64Transparent();
-        } else {
-            return N2ImageHelper::fixed($src);
+            return '';
         }
+
+        return N2Html::image(N2ImageHelper::fixed($src), $alt, $imageAttributes);
     }
 
     private function renderBackgroundVideo($slide) {

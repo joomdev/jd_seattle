@@ -17,7 +17,11 @@ class N2SmartsliderBackendSlidesController extends N2SmartSliderController {
         N2Localization::addJS(array(
             'In animation',
             'Loop animation',
-            'Out animation'
+            'Out animation',
+            'Add Keyframe',
+            'Layer Animation - Basic',
+            'Split Text In',
+            'Split Text Out',
         ));
 
         N2SS3::$forceDesktop = true;

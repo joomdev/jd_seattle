@@ -12,7 +12,7 @@ $app = JFactory::getApplication();
 
 /** @var JDocumentHtml $this */
 JLoader::import('joomla.filesystem.file');
-JHtml::_('behavior.framework', true);
+// JHtml::_('behavior.framework', true);
 $lib = JPATH_SITE . '/libraries/astroid/framework/template.php';
 if (file_exists($lib)) {
    jimport('astroid.framework.astroid');
@@ -22,7 +22,6 @@ if (file_exists($lib)) {
    die('Please install and activate <a href="https://www.astroidframework.com/" target="_blank">Astroid Framework</a> in order to use this template.');
 }
 $template = AstroidFramework::getTemplate();
-
 // Output as HTML5
 $this->setHtml5(true);
 
@@ -31,16 +30,16 @@ JHtml::_('stylesheet', 'templates/system/css/system.css', array('version' => 'au
 
 // Astroid Assets
 $template->loadTemplateCSS('custom.css');
+$template->_loadFontAwesome();
 ?>
 <!DOCTYPE html>
-<html lang="<?php echo $template->language; ?>" dir="<?php echo $template->direction; ?>">
+<html lang="<?php echo $this->language; ?>" dir="<?php echo $this->direction; ?>">
    <head>
       <meta http-equiv="X-UA-Compatible" content="IE=edge" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <meta name="HandheldFriendly" content="true" />
       <meta name="apple-mobile-web-app-capable" content="YES" />
-      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v<?php echo AstroidFrameworkConstants::$fontawesome_version; ?>/css/all.css" >
-      <link rel="stylesheet" href="https://cdn.lineicons.com/1.0.1/LineIcons.min.css">
+      <link rel="stylesheet" href="https://cdn.lineicons.com/1.0.1/LineIcons.min.css"> <!-- Only For JD Seattle -->
    <jdoc:include type="head" />
    <?php
    /*
@@ -50,7 +49,20 @@ $template->loadTemplateCSS('custom.css');
    if (!empty($favicon = $template->params->get('favicon', ''))) {
       $doc->addFavicon(JURI::root() . 'images/' . $favicon, '');
    }
-// Adding basic Scripts, jQuery & Bootstrap JS
+   // Let's add the Smooth Scroll JD is enabled.
+    $enable_smooth_scroll = $template->params->get('enable_smooth_scroll', '');
+	if($enable_smooth_scroll == '1') {
+		$smooth_scroll_speed = $template->params->get('smooth_scroll_speed', '');
+		$template->loadTemplateJS('vendor/smooth-scroll.polyfills.min.js');
+		$smoothashell = '
+			var scroll = new SmoothScroll(\'a[href*="#"]\', {
+            speed: '.$smooth_scroll_speed.',
+            header: ".astroid-header"
+			});
+		';
+		$template->addScriptDeclaration($smoothashell);
+	}
+	// Adding basic Scripts, jQuery & Bootstrap JS
 
    if (isset($doc->_scripts[JURI::root(true) . '/media/jui/js/jquery.min.js'])) {
       $template->loadTemplateJS('vendor/jquery.easing.min.js,vendor/bootstrap/popper.min.js,vendor/bootstrap/bootstrap.min.js,vendor/jquery.astroidmobilemenu.js,vendor/jquery.jdmegamenu.js,vendor/jquery.offcanvas.js');
@@ -72,7 +84,7 @@ $template->loadTemplateCSS('custom.css');
       // Let's add the image styles only if an image is selected.
       if ($template->params->get('basic_background_image')) {
          $styles .= '
-				background-image: url("' . JURI::root() . 'images/' . $template->params->get('basic_background_image') . '");
+				background-image: url("' . JURI::root() .$template->SeletedMedia(). '/' . $template->params->get('basic_background_image') . '");
 				background-repeat: ' . $template->params->get('basic_background_repeat') . ';
 				background-size: ' . $template->params->get('basic_background_size') . ';
 				background-position: ' . str_replace('_', ' ', $template->params->get('basic_background_position')) . ';

@@ -14,7 +14,7 @@
         margin: 0 5px 10px;
         font-size: 1rem;
         cursor: pointer;
-        @include transition(all 0.3s ease);
+        @include transition(all .3s ease);
       }
       &.active,
       &:hover {
@@ -28,8 +28,8 @@
   .sp-simpleportfolio-item {
     .sp-simpleportfolio-overlay-wrapper {
       .sp-simpleportfolio-overlay {
-        @include transition(all 0.4s ease);
-        background: rgba($white, 0.8);
+        @include transition(all .4s ease);
+        background: rgba($white, .8);
         .sp-simpleportfolio-btns a {
           font-size: 0;
           padding: 8px 20px;

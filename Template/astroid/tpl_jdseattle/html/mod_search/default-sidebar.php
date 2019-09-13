@@ -25,7 +25,7 @@ else
 	$width = '';
 }
 ?>
-<div class="search<?php echo $moduleclass_sfx; ?> input-group mb-3">
+<div class="search<?php echo $moduleclass_sfx; ?> input-group">
 	<form action="<?php echo JRoute::_('index.php'); ?>" method="post" class="form-inline">
 		<?php
 		    $output = '<input type="text" class="form-control" name="searchword" id="mod-search-searchword' . $module->id . '">';
@@ -38,7 +38,7 @@ else
 
 			if ($button) :
 				if ($imagebutton) :
-					$btn_output = ' <input type="image" alt="' . $button_text . '" class="button" src="' . $img . '" onclick="this.form.searchword.focus();"/>';
+					$btn_output = ' <input type="image" alt="' . $button_text . '" class="button search-btn" src="' . $img . '" onclick="this.form.searchword.focus();"/>';
 				else :
 					$btn_output = ' <button class="button btn btn-primary" onclick="this.form.searchword.focus();">' . $button_text . '</button>';
 				endif;

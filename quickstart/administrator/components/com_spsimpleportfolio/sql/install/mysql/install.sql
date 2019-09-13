@@ -6,6 +6,7 @@ CREATE TABLE IF NOT EXISTS `#__spsimpleportfolio_items` (
   `image` text NOT NULL,
   `video` text NOT NULL,
   `description` mediumtext,
+  `client` varchar(100) NOT NULL DEFAULT '',
   `tagids` text NOT NULL,
   `url` text NOT NULL,
   `published` tinyint(3) NOT NULL DEFAULT '1',

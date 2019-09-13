@@ -118,6 +118,12 @@ class N2FontRenderer {
             'extra'         => ''
         ), $tabs[0]);
 
+        for ($i = 0; $i < count(self::$mode[$mode]['tabs']); $i++) {
+            if (!isset($tabs[$i])) {
+                $tabs[$i] = array();
+            }
+        }
+
         if (self::$mode[$mode]['renderOptions']['combined']) {
             for ($i = 1; $i < count($tabs); $i++) {
                 $tabs[$i] = array_merge($tabs[$i - 1], $tabs[$i]);

@@ -86,7 +86,7 @@ abstract class N2SmartSliderType {
     private function getFontSizeAttributes() {
 
         return $this->slider->features->responsive->getMinimumFontSizeAttributes() + array(
-                'style'         => "font-size: " . $this->slider->fontSize . "px;",
+                'style'         => "font-size: 1rem;",
                 'data-fontsize' => $this->slider->fontSize
             );
     }

@@ -21,7 +21,7 @@
             align-items: center;
             @include media-breakpoint-down(xs) {
                 font-size: 12px;
-                padding: .5rem 0.75rem;
+                padding: .5rem .75rem;
             }
             &:hover {
                 z-index: 2;

@@ -64,9 +64,4 @@ class N2JS {
         }
     
     }
-
-    public static function modernizr() {
-        self::addFile(N2LIBRARYASSETS . '/js/modernizr/modernizr.js', "nextend-frontend");
-    }
-
 } 

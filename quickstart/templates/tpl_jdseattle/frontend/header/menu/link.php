@@ -23,6 +23,9 @@ $item = $params['item'];
 $active = $params['active'];
 $header = @$params['header'];
 $is_mobile_menu = $params['mobilemenu'];
+$slidemenu = @$params['slidemenu'];
+$slidemenu = ($slidemenu == 1 ? true : false);
+
 if ($item->type == "heading") {
    $item->flink = 'javascript:void(0);';
 }
@@ -90,6 +93,21 @@ foreach ($attributes as $key => $attribute) {
 }
 ?>
 <!--menu link starts-->
+<?php
+// One Page Coding Starts
+// Valid conditions
+// Must start with #
+// Length must be more than 1
+if($item->type == 'url'){
+   // Let's search for #
+   $validonepagelink = strpos($item->link,"#");
+   if($validonepagelink === 0 && (strlen($item->link) > 1)){
+      // Default we assume that you only want the one page for the homepage. If you want one page to work on other pages, please go ahead and hard code the full page URL i.e. https://yoursite.com/pageurl#onepageblockid
+      // $item->link = JURI::root().$item->link;
+      $item->link = JUri::getInstance().$item->link;
+   }
+}
+?>
 <a href="<?php echo $item->flink; ?>" <?php echo implode(' ', $attr); ?>>
    <span class="nav-title">
       <?php if (!empty($options->icon)) { ?>
@@ -121,7 +139,9 @@ foreach ($attributes as $key => $attribute) {
          <?php } ?>
       <?php } ?>
       <?php if (!$is_mobile_menu && $item->level == 1 && (($item->parent && $item->deeper == 1) || $options->megamenu)) { ?>
-         <i class="fa fa-chevron-down nav-item-caret"></i>
+         <?php if($template->params->get('dropdown_arrow', 0)) {  ?>  
+            <i class="fa fa-chevron-down nav-item-caret"></i>
+          <?php } ?>
       <?php } elseif (!$is_mobile_menu && $item->parent && !($item->type == "heading" || $item->type == "separator")) { ?>
          <i class="fa fa-chevron-right nav-item-caret"></i>
       <?php } ?>
@@ -130,4 +150,7 @@ foreach ($attributes as $key => $attribute) {
       <small class="nav-subtitle"><?php echo $options->subtitle ?></small>
    <?php } ?>
 </a>
+<?php if ($slidemenu && ($item->parent && $item->deeper == 1)) { ?>
+   <i class="fa fa-plus nav-item-caret<?php echo $active ? ' open' : ''; ?>"></i>
+<?php } ?>
 <!--menu link ends-->

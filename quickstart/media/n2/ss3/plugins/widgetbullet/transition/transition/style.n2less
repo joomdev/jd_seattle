@@ -50,14 +50,12 @@
     height: 100%;
   }
 
-  .nextend-bullet-bar > div {
-    display: inline-block;
+  .nextend-bullet-bar .n2-bullet {
     cursor: pointer;
     transition: background-color 0.4s;
-    vertical-align: top;
   }
 
-  .nextend-bullet-bar > div.n2-active {
+  .nextend-bullet-bar .n2-bullet.n2-active {
     cursor: default;
   }
 

@@ -4,7 +4,6 @@ class N2SmartSliderFrontendHomeController extends N2Controller
 {
 
     public function initialize() {
-        parent::initialize();
 
         N2Loader::import(array(
             'models.Sliders',

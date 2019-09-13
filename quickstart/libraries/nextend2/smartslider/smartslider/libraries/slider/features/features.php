@@ -61,11 +61,15 @@ class N2SmartSliderFeatures {
      */
     public $slideBackground;
 
-
     /**
      * @var N2SmartSliderFeaturePostBackgroundAnimation
      */
     public $postBackgroundAnimation;
+
+    /**
+     * @var N2SmartSliderFeatureFocus
+     */
+    public $focus;
 
     /**
      * @var N2SmartSliderFeatureSpinner
@@ -95,6 +99,7 @@ class N2SmartSliderFeatures {
         $this->translateUrl    = new N2SmartSliderFeatureTranslateUrl($slider);
         $this->layerMode       = new N2SmartSliderFeatureLayerMode($slider);
         $this->slideBackground = new N2SmartSliderFeatureSlideBackground($slider);
+        $this->focus           = new N2SmartSliderFeatureFocus($slider);
         $this->loadSpinner = new N2SmartSliderFeatureSpinner($slider);
     }
 
@@ -135,6 +140,7 @@ class N2SmartSliderFeatures {
         $this->autoplay->makeJavaScriptProperties($properties);
         $this->layerMode->makeJavaScriptProperties($properties);
         $this->slideBackground->makeJavaScriptProperties($properties);
+        $this->focus->makeJavaScriptProperties($properties);
         $properties['initCallbacks'] = &$this->slider->initCallbacks;
     }
 

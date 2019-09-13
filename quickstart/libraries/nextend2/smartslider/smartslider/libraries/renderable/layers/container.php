@@ -78,7 +78,6 @@ class  N2SSLayersContainer {
                 'bgimage'                   => '',
                 'bgimagex'                  => 50,
                 'bgimagey'                  => 50,
-                'bgimageparallax'           => 0,
                 'bgcolor'                   => '00000000',
                 'bgcolorgradient'           => 'off',
                 'verticalalign'             => 'center',

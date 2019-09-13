@@ -145,13 +145,12 @@ class N2SSPluginWidgetAutoplayImage extends N2SSPluginWidgetAbstract {
                     'class'      => $displayClass . $styleClass . 'nextend-autoplay n2-ow nextend-autoplay-image' . ($isNormalFlow ? '' : ' n2-ib'),
                     'style'      => $style,
                     'role'       => 'button',
-                    'aria-label' => 'Pause autoplay'
+                    'aria-label' => n2_('Pause autoplay'),
+                    'tabindex'   => '0'
                 ), N2Html::image($play, 'Play', N2HTML::addExcludeLazyLoadAttributes(array(
-                    'class'    => 'nextend-autoplay-play n2-ow',
-                    'tabindex' => '0'
+                    'class' => 'nextend-autoplay-play n2-ow'
                 ))) . N2Html::image($pause, 'Pause', N2HTML::addExcludeLazyLoadAttributes(array(
-                    'class'    => 'nextend-autoplay-pause n2-ow',
-                    'tabindex' => '0'
+                    'class' => 'nextend-autoplay-pause n2-ow'
                 ))));
         }
 

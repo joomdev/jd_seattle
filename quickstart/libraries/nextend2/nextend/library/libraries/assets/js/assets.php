@@ -29,7 +29,7 @@ class N2AssetsJs extends N2AssetsAbstract {
         }
 
         foreach ($this->urls AS $url) {
-            $output .= N2Html::scriptFile($url, $scriptAttributes) . "\n";
+            $output .= N2Html::scriptFile($this->filterSrc($url), $scriptAttributes) . "\n";
         }
 
         if (!N2Platform::$isAdmin && N2Settings::get('combine-js', '0')) {
@@ -40,16 +40,16 @@ class N2AssetsJs extends N2AssetsAbstract {
             $combinedFile = $jsCombined->make();
 
             if (substr($combinedFile, 0, 2) == '//') {
-                $output .= N2Html::scriptFile($combinedFile, $scriptAttributes) . "\n";
+                $output .= N2Html::scriptFile($this->filterSrc($combinedFile), $scriptAttributes) . "\n";
             } else {
-                $output .= N2Html::scriptFile(N2Uri::pathToUri($combinedFile, $needProtocol), $scriptAttributes) . "\n";
+                $output .= N2Html::scriptFile($this->filterSrc(N2Uri::pathToUri($combinedFile, $needProtocol)), $scriptAttributes) . "\n";
             }
         } else {
             foreach ($this->getFiles() AS $file) {
                 if (substr($file, 0, 2) == '//') {
-                    $output .= N2Html::scriptFile($file, $scriptAttributes) . "\n";
+                    $output .= N2Html::scriptFile($this->filterSrc($file), $scriptAttributes) . "\n";
                 } else {
-                    $output .= N2Html::scriptFile(N2Uri::pathToUri($file, $needProtocol) . '?' . filemtime($file), $scriptAttributes) . "\n";
+                    $output .= N2Html::scriptFile($this->filterSrc(N2Uri::pathToUri($file, $needProtocol) . '?' . filemtime($file)), $scriptAttributes) . "\n";
                 }
             }
         }
@@ -58,6 +58,10 @@ class N2AssetsJs extends N2AssetsAbstract {
         $output .= N2Html::script(self::minify_js(N2Localization::toJS() . "\n" . $this->getInlineScripts() . "\n"));
 
         return $output;
+    }
+
+    private function filterSrc($src) {
+        return N2Pluggable::applyFilters('n2_script_loader_src', $src);
     }
 
     public function get() {

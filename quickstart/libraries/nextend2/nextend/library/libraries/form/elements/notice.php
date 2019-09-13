@@ -2,12 +2,11 @@
 
 N2Loader::import('libraries.form.elements.list');
 
-class N2ElementNotice extends N2ElementList {
+class N2ElementNotice extends N2ElementHidden {
 
-    public function __construct($parent, $parameter) {
+    protected function fetchElement() {
         echo N2Html::tag('div', array(
-            'class' => 'n2-label',
-            'style' => 'background:rgba(255,0,0,0.4); width:100%; box-sizing: border-box;padding-bottom:3px;'
-        ), N2Html::tag('div', array(), $parameter));
+            'class' => 'n2-ss-editor-window-notice'
+        ), N2Html::tag('div', array(), $this->name));
     }
 }

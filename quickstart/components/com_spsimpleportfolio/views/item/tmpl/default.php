@@ -39,22 +39,22 @@ if($this->item->video) {
 <div id="sp-simpleportfolio" class="sp-simpleportfolio sp-simpleportfolio-view-item">
 	<div class="sp-simpleportfolio-image">
 		<?php if($this->item->video) { ?>
-		<div class="sp-simpleportfolio-embed">
-			<iframe src="<?php echo $video_src; ?>" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
-		</div>
+			<div class="sp-simpleportfolio-embed">
+				<iframe src="<?php echo $video_src; ?>" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+			</div>
 		<?php } else { ?>
-		<?php if($this->item->image) { ?>
-		<img class="sp-simpleportfolio-img" src="<?php echo $this->item->image; ?>" alt="<?php echo $this->item->title; ?>">
-		<?php } else { ?>
-		<img class="sp-simpleportfolio-img" src="<?php echo $this->item->thumbnail; ?>" alt="<?php echo $this->item->title; ?>">
-		<?php } ?>
+			<?php if($this->item->image) { ?>
+				<img class="sp-simpleportfolio-img" src="<?php echo $this->item->image; ?>" alt="<?php echo $this->item->title; ?>">
+			<?php } else { ?>
+				<img class="sp-simpleportfolio-img" src="<?php echo $this->item->thumbnail; ?>" alt="<?php echo $this->item->title; ?>">
+			<?php } ?>
 		<?php } ?>
 	</div>
 
 	<div class="sp-simpleportfolio-details clearfix">
 		<div class="sp-simpleportfolio-description">
 			<h2><?php echo $this->item->title; ?></h2>
-			<?php echo $this->item->description; ?>
+			<?php echo JHtml::_('content.prepare', $this->item->description); ?>
 		</div>
 		<div class="sp-simpleportfolio-meta">
 			<?php if(isset($this->item->client) && $this->item->client){ ?>

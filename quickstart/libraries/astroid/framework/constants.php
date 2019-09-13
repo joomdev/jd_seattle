@@ -10,17 +10,35 @@ defined('_JEXEC') or die;
 
 class AstroidFrameworkConstants {
 
-   public static $astroid_version = '2.1.0';
-   public static $fontawesome_version = '5.7.2';
+   public static $astroid_version = '2.2.3';
+   public static $fontawesome_version = '5.9.0';
    public static $animatecss_version = '3.7.0';
    public static $forum_link = 'https://www.joomdev.com/forum/astroid-framework';
-   public static $documentation_link = 'https://www.joomdev.com/documentation/astroid-framework';
+   public static $documentation_link = 'https://docs.joomdev.com/category/astroid-user-manual/';
    public static $github_link = 'https://github.com/joomdev/astroid-framework';
    public static $download_link = 'https://github.com/joomdev/Astroid-Framework/releases/latest';
    public static $releases_link = 'https://github.com/joomdev/Astroid-Framework/releases';
    public static $joomdev_link = 'https://www.joomdev.com';
    public static $joomdev_products_link = 'https://www.joomdev.com/products';
    public static $joomdev_templates_link = 'https://www.joomdev.com/products/templates';
+   public static $jd_builder_link = 'https://www.joomdev.com/jd-builder';
+   public static $bootstrap_colors = [
+       'blue' => 'TPL_COLOR_BLUE',
+       'indigo' => 'TPL_COLOR_INDIGO',
+       'purple' => 'TPL_COLOR_PURPLE',
+       'pink' => 'TPL_COLOR_PINK',
+       'red' => 'TPL_COLOR_RED',
+       'orange' => 'TPL_COLOR_ORANGE',
+       'yellow' => 'TPL_COLOR_YELLOW',
+       'green' => 'TPL_COLOR_GREEN',
+       'teal' => 'TPL_COLOR_TEAL',
+       'cyan' => 'TPL_COLOR_CYAN',
+       'white' => 'TPL_COLOR_WHITE',
+       'gray100' => 'TPL_COLOR_LIGHT_GREY',
+       'gray600' => 'TPL_COLOR_GREY',
+       'gray800' => 'TPL_COLOR_GREY_DARK'
+   ];
+   
    public static $animations = [
        '' => ['' => 'None'],
        'Attention Seekers' => [
@@ -254,14 +272,102 @@ class AstroidFrameworkConstants {
            'code' => '<div class="sk-cube-grid"><div class="sk-cube sk-cube1"></div><div class="sk-cube sk-cube2"></div><div class="sk-cube sk-cube3"></div><div class="sk-cube sk-cube4"></div><div class="sk-cube sk-cube5"></div><div class="sk-cube sk-cube6"></div><div class="sk-cube sk-cube7"></div><div class="sk-cube sk-cube8"></div><div class="sk-cube sk-cube9"></div></div>',
        ],
        'bouncing-loader' => [
-        'name' => 'bouncing-loader',
-        'code' => '<div class="bouncing-loader"><div></div><div></div><div></div></div>',
+           'name' => 'bouncing-loader',
+           'code' => '<div class="bouncing-loader"><div></div><div></div><div></div></div>',
        ],
        'donut' => [
-        'name' => 'donut',
-        'code' => '<div class="donut"></div>',
+           'name' => 'donut',
+           'code' => '<div class="donut"></div>',
        ],
    ];
+
+   public static $preloadersFont = [
+        'spinner' => [
+            'name' => 'fas fa-spinner fa-spin',
+            'code' => '<div class="icon-center fas fa-spinner fa-spin" style="font-size: 40px; margin: 0 auto;"></div>',
+        ],
+        'circle-notch' =>[
+            'name' => 'fas fa-circle-notch fa-spin',
+            'code' => '<div class="icon-center fas fa-circle-notch fa-spin" style="font-size: 40px;margin: 0 auto;"></div>',
+        ],
+        'sync' => [
+            'name' => 'fas fa-sync fa-spin',
+            'code' => '<div class="icon-center fas fa-sync fa-spin fa-spin" style="font-size: 40px;margin: 0 auto;"></div>',
+        ],
+        'cog' => [
+            'name' => 'fas fa-cog fa-spin',
+            'code' => '<div class="icon-center fas fa-cog fa-spin" style="font-size: 40px;margin: 0 auto;"></div>',
+        ],
+        'spinner fa-pulse' =>[
+            'name' => 'fas fa-spinner fa-pulse',
+            'code' => '<div class="icon-center fas fa-spinner fa-pulse" style="font-size: 40px;margin: 0 auto;"></div>',
+        ],
+        'stroopwafel' =>[
+            'name' => 'fas fa-stroopwafel fa-spin',
+            'code' => '<div class="icon-center fas fa-stroopwafel fa-spin" style="font-size: 40px;margin: 0 auto;"></div>',
+        ],
+        'sun' =>[
+            'name' => 'fas fa-sun fa-spin',
+            'code' => '<div class="icon-center fas fa-sun fa-spin" style="font-size: 40px;margin: 0 auto;"></div>'
+        ],
+        'sun-fr' =>[
+            'name' => 'far fa-sun fa-spin',
+            'code' => '<div class="icon-center far fa-sun fa-spin" style="font-size: 40px;margin: 0 auto;"></div>'
+        ],
+        'asterisk' =>[
+            'name' => 'fas fa-asterisk fa-spin',
+            'code' => '<div class="icon-center fas fa-asterisk fa-spin" style="font-size: 40px;margin: 0 auto;"></div>'
+        ],
+        'atom' =>[
+            'name' => 'fas fa-atom fa-spin',
+            'code' => '<div class="icon-center fas fa-atom fa-spin" style="font-size: 40px;margin: 0 auto;"></div>'
+        ],
+        'certificate' =>[
+            'name' => 'fas fa-certificate fa-spin',
+            'code' => '<div class="icon-center fas fa-certificate fa-spin" style="font-size: 40px;margin: 0 auto;"></div>'
+        ],
+        'compact-disc' =>[
+            'name' => 'fas fa-compact-disc fa-spin',
+            'code' => '<div class="icon-center fas fa-compact-disc fa-spin" style="font-size: 40px;margin: 0 auto;"></div>'
+        ],
+        'compass' =>[
+            'name' => 'fas fa-compass fa-spin',
+            'code' => '<div class="icon-center fas fa-compact-compass fa-spin" style="font-size: 40px;margin: 0 auto;"></div>'
+        ],
+        'compass' =>[
+            'name' => 'far fa-compass fa-spin',
+            'code' => '<div class="icon-center far fa-compass fa-spin" style="font-size: 40px;margin: 0 auto;"></div>'
+        ],
+        'crosshairs' =>[
+            'name' => 'fas fa-crosshairs fa-spin',
+            'code' => '<div class="icon-center fas fa-crosshairs fa-spin" style="font-size: 40px;margin: 0 auto;"></div>'
+        ],
+        'dharmachakra' =>[
+            'name' => 'fas fa-dharmachakra fa-spin',
+            'code' => '<div class="icon-center fas fa-dharmachakra fa-spin" style="font-size: 40px;margin: 0 auto;"></div>'
+        ],
+        'haykal' =>[
+            'name' => 'fas fa-haykal fa-spin',
+            'code' => '<div class="icon-center fas fa-haykal fa-spin" style="font-size: 40px;margin: 0 auto;"></div>'
+        ],
+        'life-ring' =>[
+            'name' => 'fas fa-life-ring fa-spin',
+            'code' => '<div class="icon-center fas fa-life-ring fa-spin" style="font-size: 40px;margin: 0 auto;"></div>'
+        ],
+        'life-ring' =>[
+            'name' => 'fas fa-life-ring fa-spin',
+            'code' => '<div class="icon-center fas fa-life-ring fa-spin" style="font-size: 40px;margin: 0 auto;"></div>'
+        ],
+        'yin-yang' =>[
+            'name' => 'fas fa-yin-yang fa-spin',
+            'code' => '<div class="icon-center fas fa-yin-yang fa-spin" style="font-size: 40px;margin: 0 auto;"></div>'
+        ],
+        'sync-alt' =>[
+            'name' => 'fas fa-sync-alt fa-spin',
+            'code' => '<div class="icon-center fas fa-sync-alt fa-spin" style="font-size: 40px;margin: 0 auto;"></div>'
+        ],
+
+    ];
    public static $layout_grids = [
        [12],
        [10, 2],
@@ -275,4 +381,13 @@ class AstroidFrameworkConstants {
        [3, 3, 3, 3],
        [2, 2, 2, 2, 2, 2]
    ];
+
+   public function getConstant($variable) {
+      if (isset($this->{"$" . $variable})) {
+         return $this->{"$" . $variable};
+      } else {
+         return null;
+      }
+   }
+
 }
