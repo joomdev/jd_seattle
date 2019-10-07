@@ -9,9 +9,9 @@ JD Seattle - Free Multipurpose Business Joomla Template
 ![JD Seattle mockup](https://cdn.joomdev.com/images/jd-seattle-desktop-thumb.jpg)
 
 # Requirements
-* Joomla: 3.8 +
+* Joomla: 3.9.11
 * PHP : 5.6+
-* Astroid Framework : 1.2+
+* Astroid Framework : 2.2.3
 
 # Browser Support
 | ![Chrome](https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png)|![Firefox](https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png)|![Edge](https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png)|![Safari](https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png)|
