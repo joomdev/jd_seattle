@@ -1,12 +1,4 @@
 <?php
-/**
- * @package	AcyMailing for Joomla
- * @version	6.2.2
- * @author	acyba.com
- * @copyright	(C) 2009-2019 ACYBA S.A.R.L. All rights reserved.
- * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
- */
-
 defined('_JEXEC') or die('Restricted access');
 ?><?php
 
@@ -16,6 +8,7 @@ class ArchiveController extends acymController
     {
         parent::__construct();
         $this->setDefaultTask('view');
+        $this->authorizedFrontTasks = ['view', 'listing', 'showArchive'];
     }
 
     public function view()
@@ -81,10 +74,21 @@ class ArchiveController extends acymController
         if (strpos($oneMail->body, 'acym__wysid__template') !== false) {
             acym_addStyle(false, ACYM_CSS.'libraries/foundation_email.min.css?v='.filemtime(ACYM_MEDIA.'css'.DS.'libraries'.DS.'foundation_email.min.css'));
         }
-        acym_addStyle(false, ACYM_CSS.'email.min.css?v='.filemtime(ACYM_MEDIA.'css'.DS.'email.min.css'));
+        acym_addStyle(true, acym_getEmailCssFixes());
         if (!empty($oneMail->stylesheet)) {
             acym_addStyle(true, $oneMail->stylesheet);
         }
+        $editorHelper = acym_get('helper.editor');
+        $settings = json_decode($oneMail->settings, true);
+        if (!empty($settings)) {
+            $settings = $editorHelper->getSettingsStyle($settings);
+
+            if (!empty($settings)) {
+                acym_addStyle(true, $settings);
+            }
+        }
+
+        $oneMail->body = preg_replace('#background\-image: url\(&quot;([^)]*)&quot;\)#Uis', 'background-image: url($1)', $oneMail->body);
 
         $data = [
             'mail' => $oneMail,
@@ -102,14 +106,6 @@ class ArchiveController extends acymController
         acym_setVar('layout', 'listing');
 
         $menu = acym_getMenu();
-        $campaignClass = acym_get('class.campaign');
-        $userClass = acym_get('class.user');
-        $pagination = acym_get('helper.pagination');
-
-        $page = acym_getVar('int', 'page', 1);
-
-        $paramsJoomla = [];
-
         if (!is_object($menu)) {
             acym_redirect(acym_rootURI());
 
@@ -117,8 +113,8 @@ class ArchiveController extends acymController
         }
 
         $menuParams = new acymParameter($menu->params);
-        $nbNewsletters = $menuParams->get('archiveNbNewsletters', '0');
 
+        $paramsJoomla = [];
         $paramsJoomla['suffix'] = $menuParams->get('pageclass_sfx', '');
         $paramsJoomla['page_heading'] = $menuParams->get('page_heading');
         $paramsJoomla['show_page_heading'] = $menuParams->get('show_page_heading', 0);
@@ -126,48 +122,66 @@ class ArchiveController extends acymController
         if ($menuParams->get('menu-meta_description')) {
             acym_addMetadata('description', $menuParams->get('menu-meta_description'));
         }
+
         if ($menuParams->get('menu-meta_keywords')) {
             acym_addMetadata('keywords', $menuParams->get('menu-meta_keywords'));
         }
+
         if ($menuParams->get('robots')) {
             acym_addMetadata('robots', $menuParams->get('robots'));
         }
 
-        $currentUser = $userClass->identify(true);
+        $nbNewsletters = $menuParams->get('archiveNbNewsletters', '0');
+        $listsSent = $menuParams->get('lists', '');
+        $popup = $menuParams->get('popup', '1');
+
+        $viewParams = [
+            'nbNewsletters' => $nbNewsletters,
+            'listsSent' => $listsSent,
+            'popup' => $popup,
+            'paramsCMS' => $paramsJoomla,
+        ];
+
+        $this->showArchive($viewParams);
+    }
+
+    public function showArchive($viewParams)
+    {
+        acym_setVar('layout', 'listing');
 
         $params = [];
 
         $userId = false;
-
+        $userClass = acym_get('class.user');
+        $currentUser = $userClass->identify(true);
         if (!empty($currentUser)) {
             $params['userId'] = $currentUser->id;
             $userId = $currentUser->id;
         }
 
-        if (!empty($nbNewsletters)) {
-            $params['limit'] = $nbNewsletters;
+        if (!empty($viewParams['nbNewsletters'])) {
+            $params['limit'] = $viewParams['nbNewsletters'];
         }
 
-        $params['page'] = $page;
+        if (!empty($viewParams['listsSent'])) {
+            $params['lists'] = $viewParams['listsSent'];
+        }
 
+        $params['page'] = acym_getVar('int', 'page', 1);
         $params['numberPerPage'] = acym_getCMSConfig('list_limit', 10);
 
-
+        $campaignClass = acym_get('class.campaign');
         $returnLastNewsletters = $campaignClass->getLastNewsletters($params);
-
-        $matchingNewsletters = $returnLastNewsletters['matchingNewsletters'];
-
-        $countNewsletters = $returnLastNewsletters['count'];
-
-        $pagination->setStatus($countNewsletters, $page, $params['numberPerPage']);
+        $pagination = acym_get('helper.pagination');
+        $pagination->setStatus($returnLastNewsletters['count'], $params['page'], $params['numberPerPage']);
 
         $data = [
-            'newsletters' => $matchingNewsletters,
-            'paramsJoomla' => $paramsJoomla,
+            'newsletters' => $returnLastNewsletters['matchingNewsletters'],
+            'paramsJoomla' => $viewParams['paramsCMS'],
             'pagination' => $pagination,
             'userId' => $userId,
+            'popup' => '1' === $viewParams['popup'],
         ];
-
 
         acym_addScript(false, ACYM_JS.'front/frontarchive.min.js?v='.filemtime(ACYM_MEDIA.'js'.DS.'front'.DS.'frontarchive.min.js'));
 

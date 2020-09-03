@@ -1,12 +1,4 @@
 <?php
-/**
- * @package	AcyMailing for Joomla
- * @version	6.2.2
- * @author	acyba.com
- * @copyright	(C) 2009-2019 ACYBA S.A.R.L. All rights reserved.
- * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
- */
-
 defined('_JEXEC') or die('Restricted access');
 ?><form id="acym_form" action="<?php echo acym_completeLink(acym_getVar('cmd', 'ctrl')); ?>" method="post" name="acyForm" data-abide novalidate>
 	<input type="hidden" name="id" value="<?php echo !empty($data['automation']->id) ? intval($data['automation']->id) : ''; ?>">
@@ -16,13 +8,12 @@ defined('_JEXEC') or die('Restricted access');
         <?php
         $workflow = acym_get('helper.workflow');
         if (empty($data['automation']->id)) {
-            $this->edition = 1;
             $workflow->disabledAfter = 'info';
         }
-        echo $workflow->display($this->steps, $this->step, $this->edition);
+        echo $workflow->display($this->steps, $this->step);
         ?>
 		<div class="cell grid-x grid-margin-x">
-			<div class="medium-12 small-12 cell grid-x acym__content acym__automation__info__first">
+			<div class="medium-12 small-12 cell grid-x acym__content acym__automation__info__first margin-top-2">
 				<h6 class="cell acym__content__title__light-blue"><?php echo acym_translation('ACYM_INFORMATION'); ?></h6>
 				<label class="cell medium-6">
 					<h6 class=""><?php echo acym_translation('ACYM_NAME'); ?></h6>
@@ -38,7 +29,7 @@ defined('_JEXEC') or die('Restricted access');
 				<label class="cell">
 					<h6 id="acym__automation__info__desc__button" class="cursor-pointer"><?php echo acym_translation('ACYM_DESCRIPTION'); ?><i class="acymicon-keyboard_arrow_down"></i></h6>
                     <?php if (!empty($data['automation']->admin)) $data['automation']->description = acym_escape(acym_translation($data['automation']->description)); ?>
-					<textarea style="display: none" name="automation[description]" <?php echo empty($data['automation']->admin) ? '' : 'disabled'; ?>  rows="6" class="margin-top-1"><?php echo !empty($data['automation']->description) ? acym_escape($data['automation']->description) : ''; ?></textarea>
+					<textarea style="display: none" name="automation[description]" <?php echo empty($data['automation']->admin) ? '' : 'disabled'; ?>  rows="6" class="margin-top-1 acym__blue"><?php echo !empty($data['automation']->description) ? acym_escape($data['automation']->description) : ''; ?></textarea>
 				</label>
 			</div>
 			<div class="medium-12 cell grid-x acym__content acym__automation__info__trigger margin-top-2">
@@ -54,7 +45,7 @@ defined('_JEXEC') or die('Restricted access');
 						<h6 class="acym__content__title__light-blue"><?php echo acym_translation('ACYM_ALL_TRIGGER'); ?></h6>
 						<div class="cell acym__automation__all-trigger__classic grid-x">
                             <?php foreach ($data['classic'] as $key => $classic) {
-                                echo '<div '.(in_array($key, $data['defaultValues']) ? 'style="display: none"' : '').' class="acym__automation__trigger__droppable__classic margin-top-1 cell" data-trigger="'.acym_escape($key).'">'.$classic->name.'<span class="acym__automation__trigger__action">'.$classic->option.'</span></div>';
+                                echo '<div '.(in_array($key, $data['defaultValues']) ? 'style="display: none"' : '').' class="acym__automation__trigger__droppable__classic margin-top-1 cell" data-trigger="'.acym_escape($key).'"><span class="acym__automation__trigger__name">'.$classic->name.'</span><span class="acym__automation__trigger__action">'.$classic->option.'</span></div>';
                             } ?>
 						</div>
 					</div>
@@ -71,7 +62,7 @@ defined('_JEXEC') or die('Restricted access');
                                 ?>
 								<div class="acym__automation__droppable__trigger margin-top-1">
 									<div class="acym__automation__one__trigger">
-                                        <?php echo $classic->name; ?>
+										<span class="acym__automation__trigger__name"><?php echo $classic->name; ?></span>
 										<span class="acym__automation__trigger__action"><?php echo $classic->option; ?></span>
 									</div>
 									<i data-trigger-show="<?php echo acym_escape($key); ?>" class="acymicon-close acym__color__red acym__automation__delete__trigger cursor-pointer"></i>
@@ -88,7 +79,7 @@ defined('_JEXEC') or die('Restricted access');
 						<div class="cell acym__automation__all-trigger__action grid-x">
                             <?php
                             foreach ($data['user'] as $key => $triggerUser) {
-                                echo '<div '.(in_array($key, $data['defaultValues']) ? 'style="display: none"' : '').' class="acym__automation__trigger__droppable__action margin-top-1 cell" data-trigger="'.acym_escape($key).'">'.$triggerUser->name.'<span class="acym__automation__trigger__action">'.$triggerUser->option.'</span></div>';
+                                echo '<div '.(in_array($key, $data['defaultValues']) ? 'style="display: none"' : '').' class="acym__automation__trigger__droppable__action margin-top-1 cell" data-trigger="'.acym_escape($key).'"><span class="acym__automation__trigger__name">'.$triggerUser->name.'</span><span class="acym__automation__trigger__action">'.$triggerUser->option.'</span></div>';
                             }
                             ?>
 						</div>
@@ -105,7 +96,7 @@ defined('_JEXEC') or die('Restricted access');
                                 if (!in_array($key, $data['defaultValues'])) continue;
                                 ?>
 								<div class="acym__automation__droppable__trigger margin-top-1">
-									<div class="acym__automation__one__trigger"><?php echo $triggerUser->name; ?>
+									<div class="acym__automation__one__trigger"><span class="acym__automation__trigger__name"><?php echo $triggerUser->name; ?></span></b>
 										<span class="acym__automation__trigger__action"><?php echo $triggerUser->option; ?></span>
 									</div>
 									<i data-trigger-show="<?php echo acym_escape($key); ?>" class="acymicon-close acym__color__red acym__automation__delete__trigger cursor-pointer"></i>

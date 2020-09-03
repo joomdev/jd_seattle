@@ -7,31 +7,34 @@
 //
 // Base class takes care of all the key behavioral aspects.
 
-.custom-control {
+.jdb-custom-control {
   position: relative;
   display: block;
   min-height: $font-size-base * $line-height-base;
   padding-left: $custom-control-gutter + $custom-control-indicator-size;
 }
 
-.custom-control-inline {
+.jdb-custom-control-inline {
   display: inline-flex;
   margin-right: $custom-control-spacer-x;
 }
 
-.custom-control-input {
+.jdb-custom-control-input {
   position: absolute;
+  left: 0;
   z-index: -1; // Put the input behind the label so it doesn't overlay text
+  width: $custom-control-indicator-size;
+  height: ($font-size-base * $line-height-base + $custom-control-indicator-size) / 2;
   opacity: 0;
 
-  &:checked ~ .custom-control-label::before {
+  &:checked ~ .jdb-custom-control-label::before {
     color: $custom-control-indicator-checked-color;
     border-color: $custom-control-indicator-checked-border-color;
     @include gradient-bg($custom-control-indicator-checked-bg);
     @include box-shadow($custom-control-indicator-checked-box-shadow);
   }
 
-  &:focus ~ .custom-control-label::before {
+  &:focus ~ .jdb-custom-control-label::before {
     // the mixin is not used here to make sure there is feedback
     @if $enable-shadows {
       box-shadow: $input-box-shadow, $input-focus-box-shadow;
@@ -40,19 +43,21 @@
     }
   }
 
-  &:focus:not(:checked) ~ .custom-control-label::before {
+  &:focus:not(:checked) ~ .jdb-custom-control-label::before {
     border-color: $custom-control-indicator-focus-border-color;
   }
 
-  &:not(:disabled):active ~ .custom-control-label::before {
+  &:not(:disabled):active ~ .jdb-custom-control-label::before {
     color: $custom-control-indicator-active-color;
     background-color: $custom-control-indicator-active-bg;
     border-color: $custom-control-indicator-active-border-color;
     @include box-shadow($custom-control-indicator-active-box-shadow);
   }
 
+  // Use [disabled] and :disabled to work around https://github.com/twbs/bootstrap/issues/28247
+  &[disabled],
   &:disabled {
-    ~ .custom-control-label {
+    ~ .jdb-custom-control-label {
       color: $custom-control-label-disabled-color;
 
       &::before {
@@ -66,10 +71,12 @@
 //
 // Build the custom controls out of pseudo-elements.
 
-.custom-control-label {
+.jdb-custom-control-label {
   position: relative;
   margin-bottom: 0;
+  color: $custom-control-label-color;
   vertical-align: top;
+  cursor: $custom-control-cursor;
 
   // Background-color and (when enabled) gradient
   &::before {
@@ -104,33 +111,33 @@
 //
 // Tweak just a few things for checkboxes.
 
-.custom-checkbox {
-  .custom-control-label::before {
+.jdb-custom-checkbox {
+  .jdb-custom-control-label::before {
     @include border-radius($custom-checkbox-indicator-border-radius);
   }
 
-  .custom-control-input:checked ~ .custom-control-label {
+  .jdb-custom-control-input:checked ~ .jdb-custom-control-label {
     &::after {
-      background-image: $custom-checkbox-indicator-icon-checked;
+      background-image: escape-svg($custom-checkbox-indicator-icon-checked);
     }
   }
 
-  .custom-control-input:indeterminate ~ .custom-control-label {
+  .jdb-custom-control-input:indeterminate ~ .jdb-custom-control-label {
     &::before {
       border-color: $custom-checkbox-indicator-indeterminate-border-color;
       @include gradient-bg($custom-checkbox-indicator-indeterminate-bg);
       @include box-shadow($custom-checkbox-indicator-indeterminate-box-shadow);
     }
     &::after {
-      background-image: $custom-checkbox-indicator-icon-indeterminate;
+      background-image: escape-svg($custom-checkbox-indicator-icon-indeterminate);
     }
   }
 
-  .custom-control-input:disabled {
-    &:checked ~ .custom-control-label::before {
+  .jdb-custom-control-input:disabled {
+    &:checked ~ .jdb-custom-control-label::before {
       background-color: $custom-control-indicator-checked-disabled-bg;
     }
-    &:indeterminate ~ .custom-control-label::before {
+    &:indeterminate ~ .jdb-custom-control-label::before {
       background-color: $custom-control-indicator-checked-disabled-bg;
     }
   }
@@ -140,20 +147,20 @@
 //
 // Tweak just a few things for radios.
 
-.custom-radio {
-  .custom-control-label::before {
+.jdb-custom-radio {
+  .jdb-custom-control-label::before {
     // stylelint-disable-next-line property-blacklist
     border-radius: $custom-radio-indicator-border-radius;
   }
 
-  .custom-control-input:checked ~ .custom-control-label {
+  .jdb-custom-control-input:checked ~ .jdb-custom-control-label {
     &::after {
-      background-image: $custom-radio-indicator-icon-checked;
+      background-image: escape-svg($custom-radio-indicator-icon-checked);
     }
   }
 
-  .custom-control-input:disabled {
-    &:checked ~ .custom-control-label::before {
+  .jdb-custom-control-input:disabled {
+    &:checked ~ .jdb-custom-control-label::before {
       background-color: $custom-control-indicator-checked-disabled-bg;
     }
   }
@@ -164,10 +171,10 @@
 //
 // Tweak a few things for switches
 
-.custom-switch {
+.jdb-custom-switch {
   padding-left: $custom-switch-width + $custom-control-gutter;
 
-  .custom-control-label {
+  .jdb-custom-control-label {
     &::before {
       left: -($custom-switch-width + $custom-control-gutter);
       width: $custom-switch-width;
@@ -177,8 +184,8 @@
     }
 
     &::after {
-      top: calc(#{(($font-size-base * $line-height-base - $custom-control-indicator-size) / 2)} + #{$custom-control-indicator-border-width * 2});
-      left: calc(#{-($custom-switch-width + $custom-control-gutter)} + #{$custom-control-indicator-border-width * 2});
+      top: add(($font-size-base * $line-height-base - $custom-control-indicator-size) / 2, $custom-control-indicator-border-width * 2);
+      left: add(-($custom-switch-width + $custom-control-gutter), $custom-control-indicator-border-width * 2);
       width: $custom-switch-indicator-size;
       height: $custom-switch-indicator-size;
       background-color: $custom-control-indicator-border-color;
@@ -188,15 +195,15 @@
     }
   }
 
-  .custom-control-input:checked ~ .custom-control-label {
+  .jdb-custom-control-input:checked ~ .jdb-custom-control-label {
     &::after {
       background-color: $custom-control-indicator-bg;
       transform: translateX($custom-switch-width - $custom-control-indicator-size);
     }
   }
 
-  .custom-control-input:disabled {
-    &:checked ~ .custom-control-label::before {
+  .jdb-custom-control-input:disabled {
+    &:checked ~ .jdb-custom-control-label::before {
       background-color: $custom-control-indicator-checked-disabled-bg;
     }
   }
@@ -209,7 +216,7 @@
 // https://primer.github.io/.
 //
 
-.custom-select {
+.jdb-custom-select {
   display: inline-block;
   width: 100%;
   height: $custom-select-height;
@@ -220,8 +227,7 @@
   line-height: $custom-select-line-height;
   color: $custom-select-color;
   vertical-align: middle;
-  background: $custom-select-background;
-  background-color: $custom-select-bg;
+  background: $custom-select-bg $custom-select-background;
   border: $custom-select-border-width solid $custom-select-border-color;
   @include border-radius($custom-select-border-radius, 0);
   @include box-shadow($custom-select-box-shadow);
@@ -231,8 +237,9 @@
     border-color: $custom-select-focus-border-color;
     outline: 0;
     @if $enable-shadows {
-      box-shadow: $custom-select-box-shadow, $custom-select-focus-box-shadow;
+      @include box-shadow($custom-select-box-shadow, $custom-select-focus-box-shadow);
     } @else {
+      // Avoid using mixin so we can pass custom focus shadow properly
       box-shadow: $custom-select-focus-box-shadow;
     }
 
@@ -263,9 +270,15 @@
   &::-ms-expand {
     display: none;
   }
+
+  // Remove outline from select box in FF
+  &:-moz-focusring {
+    color: transparent;
+    text-shadow: 0 0 0 $custom-select-color;
+  }
 }
 
-.custom-select-sm {
+.jdb-custom-select-sm {
   height: $custom-select-height-sm;
   padding-top: $custom-select-padding-y-sm;
   padding-bottom: $custom-select-padding-y-sm;
@@ -273,7 +286,7 @@
   @include font-size($custom-select-font-size-sm);
 }
 
-.custom-select-lg {
+.jdb-custom-select-lg {
   height: $custom-select-height-lg;
   padding-top: $custom-select-padding-y-lg;
   padding-bottom: $custom-select-padding-y-lg;
@@ -286,7 +299,7 @@
 //
 // Custom file input.
 
-.custom-file {
+.jdb-custom-file {
   position: relative;
   display: inline-block;
   width: 100%;
@@ -294,7 +307,7 @@
   margin-bottom: 0;
 }
 
-.custom-file-input {
+.jdb-custom-file-input {
   position: relative;
   z-index: 2;
   width: 100%;
@@ -302,27 +315,29 @@
   margin: 0;
   opacity: 0;
 
-  &:focus ~ .custom-file-label {
+  &:focus ~ .jdb-custom-file-label {
     border-color: $custom-file-focus-border-color;
     box-shadow: $custom-file-focus-box-shadow;
   }
 
-  &:disabled ~ .custom-file-label {
+  // Use [disabled] and :disabled to work around https://github.com/twbs/bootstrap/issues/28247
+  &[disabled] ~ .jdb-custom-file-label,
+  &:disabled ~ .jdb-custom-file-label {
     background-color: $custom-file-disabled-bg;
   }
 
   @each $lang, $value in $custom-file-text {
-    &:lang(#{$lang}) ~ .custom-file-label::after {
+    &:lang(#{$lang}) ~ .jdb-custom-file-label::after {
       content: $value;
     }
   }
 
-  ~ .custom-file-label[data-browse]::after {
+  ~ .jdb-custom-file-label[data-browse]::after {
     content: attr(data-browse);
   }
 }
 
-.custom-file-label {
+.jdb-custom-file-label {
   position: absolute;
   top: 0;
   right: 0;
@@ -363,9 +378,9 @@
 // elements cannot be mixed. As such, there are no shared styles for focus or
 // active states on prefixed selectors.
 
-.custom-range {
+.jdb-custom-range {
   width: 100%;
-  height: calc(#{$custom-range-thumb-height} + #{$custom-range-thumb-focus-box-shadow-width * 2});
+  height: add($custom-range-thumb-height, $custom-range-thumb-focus-box-shadow-width * 2);
   padding: 0; // Need to reset padding
   background-color: transparent;
   appearance: none;
@@ -500,8 +515,8 @@
   }
 }
 
-.custom-control-label::before,
-.custom-file-label,
-.custom-select {
+.jdb-custom-control-label::before,
+.jdb-custom-file-label,
+.jdb-custom-select {
   @include transition($custom-forms-transition);
 }

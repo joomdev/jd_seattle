@@ -6,29 +6,40 @@
    <author>JoomDev</author>
    <authorEmail>info@joomdev.com</authorEmail>
    <authorUrl>https://www.joomdev.com</authorUrl>
-   <copyright>Copyright (C) 2019 Joomdev, Inc. All rights reserved.</copyright>
+   <copyright>Copyright (C) 2020 Joomdev, Inc. All rights reserved.</copyright>
    <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
    <version>1.0</version>
    <description>Element Description Here</description>
-   
+   <documentation>https://docs.joomdev.com/article/content-element/</documentation>
    <form>
       <fields>
-         <fieldset name="general" label="General">
-            <field type="group" name="basic" label="Basic"></field>
-            <field type="group" name="typography" label="JDBUILDER_ELE_TAB_STYLE_TAB_CONTENT_TYPO_LABEL" description="JDBUILDER_ELE_TAB_STYLE_TAB_CONTENT_TYPO_DESC"></field>
-            <!--  Element Options -->
-            <field type="editor" language="html" name="content" label="JDBUILDER_ELE_CONTENT_LABEL" default="" description="JDBUILDER_ELE_CONTENT_DESC" group="basic" />
-            <field
-               name="contentTypography"
-               type="typography"
-               label="JDBUILDER_ELE_CONTENT_TYPOGRAPHY_LABEL"
-               description="JDBUILDER_ELE_CONTENT_TYPOGRAPHY_DESC"
-               group="typography"
-               default=""
-               responsive="true"
-               >
+         <fieldset name="general" label="JDB_GENERAL_TITLE">
+            <field type="group" name="basic" label="JDB_BASIC_TITLE"></field>
+            <!-- Element Options -->
+            <field type="editor" language="html" name="content" label="JDB_CONTENT_CONTENT" default="" group="basic" />
+         </fieldset>
+
+         <fieldset name="design" ordering="9" label="JDB_DESIGN_TITLE">
+            <field type="group" name="typography" label="JDB_TYPOGRAPHY"></field>
+            
+            <!-- Element Options -->
+            <field name="contentTypography" type="typography" label="JDB_TYPOGRAPHY" group="typography" default="" responsive="true">
             </field>
-         </fieldset> 
+
+            <field name="dropcap" type="switch" label="JDB_CONTENT_DROP_CAP" default="false" group="typography">
+            </field>
+
+            <field type="spacer" showon="params.dropcap==true" label="JDB_CONTENT_DROP_CAP_OPTIONS_SPACER" group="typography"></field>
+
+            <field type="color" showon="params.dropcap==true" name="dropcapColor" label="JDB_COLOR" default="" width="6" group="typography">
+            </field>
+
+            <field type="color" showon="params.dropcap==true" name="dropcapBackground" label="JDB_BACKGROUND" default="" width="6" group="typography">
+            </field>
+
+            <field type="typography" showon="params.dropcap==true" responsive="true" name="dropcapTypography" label="JDB_TYPOGRAPHY_LABEL" default="" group="typography">
+            </field>
+         </fieldset>
       </fields>
    </form>
 </element>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fieldsgroup>
+    <field type="list" name="style" label="JDB_BORDER_TYPE" default="" search="true">
+        <option value="">JDB_BORDER_DEFAULT</option>
+        <option value="none">JDB_BORDER_NONE</option>
+        <option value="dotted">JDB_BORDER_DOTTED</option>
+        <option value="dashed">JDB_BORDER_DASHED</option>
+        <option value="solid">JDB_BORDER_SOLID</option>
+        <option value="double">JDB_BORDER_DOUBLE</option>
+        <option value="groove">JDB_BORDER_GROOVE</option>
+    </field>
+    <field type="spacing" name="width" label="JDB_BORDER_WIDTH" showon="params._fgStyle!='none'[AND]params._fgStyle!=''" default='{"unit":"px","lock":1,"top":"","left":"","right":"","bottom":""}' units="px,%,em" responsive="true">
+    </field>
+    <field type="color" name="color" label="JDB_BORDER_COLOR" showon="params._fgStyle!='none'[AND]params._fgStyle!=''" default="">
+    </field>
+    <field type="spacing" name="radius" label="JDB_BORDER_RADIUS" default='{"unit":"px","lock":1,"top":"","left":"","right":"","bottom":""}' corners="true" units="px,%,em" responsive="true">
+    </field>
+    <field type="boxshadow" name="shadow" label="JDB_BOX_SHADOW" default="" responsive="true">
+    </field>
+</fieldsgroup>

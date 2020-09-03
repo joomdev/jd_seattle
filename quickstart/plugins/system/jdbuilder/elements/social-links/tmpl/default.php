@@ -1,8 +1,9 @@
 <?php
+
 /**
  * @package    JD Builder
  * @author     Team Joomdev <info@joomdev.com>
- * @copyright  2019 www.joomdev.com
+ * @copyright  2020 www.joomdev.com
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 defined('_JEXEC') or die;
@@ -44,7 +45,7 @@ $invertedColors = $element->params->get('brandColorInverted', false);
       $linkNoFollow = (isset($profile->linkNoFollow) && $profile->linkNoFollow) ? ' rel="nofollow"' : '';
       ?>
       <li class="jdb-social-link-<?php echo $index; ?> <?php echo $animation; ?>">
-         <a data-brand="<?php echo str_replace(" ", "-", $profile->icon); ?>" title="<?php echo $profile->title; ?>" class="brand-<?php echo $invertedColors ? 'inverted' : 'static'; ?>" href="<?php echo $profile->link; ?>"<?php echo $linkTargetBlank; ?><?php echo $linkNoFollow; ?>>
+         <a data-brand="<?php echo str_replace(" ", "-", $profile->icon); ?>" title="<?php echo $profile->title; ?>" class="brand-<?php echo $invertedColors ? 'inverted' : 'static'; ?>" href="<?php echo $profile->link; ?>" <?php echo $linkTargetBlank; ?><?php echo $linkNoFollow; ?>>
             <span class="jdb-sl-icon">
                <span class="<?php echo $profile->icon; ?>"></span>
             </span>
@@ -95,7 +96,8 @@ $spaceBetween = $element->params->get('slSpaceBetween', null);
 if (!empty($spaceBetween)) {
    foreach (\JDPageBuilder\Helper::$devices as $deviceKey => $device) {
       if (isset($spaceBetween->{$deviceKey}) && JDPageBuilder\Helper::checkSliderValue($spaceBetween->{$deviceKey})) {
-         $linkStyle->addCss("margin-right", $spaceBetween->{$deviceKey}->value . 'px', $device);
+         $linkStyle->addCss("margin-right", 'calc(' . $spaceBetween->{$deviceKey}->value . 'px / 2)', $device);
+         $linkStyle->addCss("margin-left", 'calc(' . $spaceBetween->{$deviceKey}->value . 'px / 2)', $device);
       }
    }
 }

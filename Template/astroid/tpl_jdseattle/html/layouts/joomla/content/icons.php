@@ -2,7 +2,7 @@
 /**
  * @package   Astroid Framework
  * @author    JoomDev https://www.joomdev.com
- * @copyright Copyright (C) 2009 - 2019 JoomDev.
+ * @copyright Copyright (C) 2009 - 2020 JoomDev.
  * @license https://www.gnu.org/licenses/gpl-2.0.html GNU/GPLv2 or Later
  */
 
@@ -19,7 +19,7 @@ $articleId = $displayData['item']->id;
 	<?php if (empty($displayData['print'])) : ?>
 
 		<?php if ($canEdit || $displayData['params']->get('show_print_icon') || $displayData['params']->get('show_email_icon')) : ?>
-			<div class="btn-group float-right">
+			<div class="btn-group content-edit-dropdown float-right">
 				<button class="btn dropdown-toggle py-1 px-2" type="button" id="dropdownMenuButton-<?php echo $articleId; ?>" aria-label="<?php echo JText::_('JUSER_TOOLS'); ?>"
 				data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					<span class="fas fa-cog fa-sm" aria-hidden="true"></span>

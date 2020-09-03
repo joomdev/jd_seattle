@@ -49,4 +49,3 @@ foreach ($list as $item) : ?>
 		<?php endif; ?>
 	</li>
 <?php endforeach; ?>
-

@@ -1,12 +1,4 @@
 <?php
-/**
- * @package	AcyMailing for Joomla
- * @version	6.2.2
- * @author	acyba.com
- * @copyright	(C) 2009-2019 ACYBA S.A.R.L. All rights reserved.
- * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
- */
-
 defined('_JEXEC') or die('Restricted access');
 ?><?php
 
@@ -19,7 +11,7 @@ class acymmailStatClass extends acymClass
     {
         $column = [];
         $valueColumn = [];
-        $columnName = acym_getColumns("mail_stat");
+        $columnName = acym_getColumns('mail_stat');
 
         if (!is_array($mailStat)) {
             $mailStat = (array)$mailStat;
@@ -32,36 +24,36 @@ class acymmailStatClass extends acymClass
             }
         }
 
-        $query = "#__acym_mail_stat (".implode(',', $column).") VALUES (".implode(',', $valueColumn).")";
+        $query = '#__acym_mail_stat ('.implode(',', $column).') VALUES ('.implode(',', $valueColumn).')';
 
         $onDuplicate = [];
 
         if (!empty($mailStat['sent'])) {
-            $onDuplicate[] = " sent = sent + ".intval($mailStat['sent']);
+            $onDuplicate[] = ' sent = sent + '.intval($mailStat['sent']);
         }
 
         if (!empty($mailStat['fail'])) {
-            $onDuplicate[] = " fail = fail + ".intval($mailStat['fail']);
+            $onDuplicate[] = ' fail = fail + '.intval($mailStat['fail']);
         }
 
         if (!empty($mailStat['open_unique'])) {
-            $onDuplicate[] = "open_unique = open_unique + 1";
+            $onDuplicate[] = 'open_unique = open_unique + 1';
         }
 
         if (!empty($mailStat['open_total'])) {
-            $onDuplicate[] = "open_total = open_total + 1";
+            $onDuplicate[] = 'open_total = open_total + 1';
         }
 
         if (!empty($mailStat['total_subscribers'])) {
-            $onDuplicate[] = "total_subscribers = ".intval($mailStat['total_subscribers']);
+            $onDuplicate[] = 'total_subscribers = '.intval($mailStat['total_subscribers']);
         }
 
         if (!empty($onDuplicate)) {
-            $query .= " ON DUPLICATE KEY UPDATE ";
+            $query .= ' ON DUPLICATE KEY UPDATE ';
             $query .= implode(',', $onDuplicate);
-            $query = "INSERT INTO ".$query;
+            $query = 'INSERT INTO '.$query;
         } else {
-            $query = "INSERT IGNORE INTO ".$query;
+            $query = 'INSERT IGNORE INTO '.$query;
         }
 
         acym_query($query);
@@ -69,14 +61,14 @@ class acymmailStatClass extends acymClass
 
     public function getTotalSubscribersByMailId($mailId)
     {
-        $result = acym_loadResult("SELECT total_subscribers FROM #__acym_mail_stat WHERE mail_id = ".intval($mailId)." LIMIT 1");
+        $result = acym_loadResult('SELECT total_subscribers FROM #__acym_mail_stat WHERE mail_id = '.intval($mailId));
 
         return $result === null ? 0 : $result;
     }
 
-    function getOneByMailId($id = '')
+    public function getOneByMailId($id = '')
     {
-        $query = 'SELECT SUM(sent) as sent, SUM(fail) as fail FROM #__acym_mail_stat';
+        $query = 'SELECT SUM(sent) AS sent, SUM(fail) AS fail FROM #__acym_mail_stat';
         $query .= empty($id) ? '' : ' WHERE `mail_id` = '.intval($id);
 
         return acym_loadObject($query);
@@ -89,7 +81,7 @@ class acymmailStatClass extends acymClass
             $mailsIds[] = 0;
         }
 
-        $result = acym_loadObjectList("SELECT * FROM #__acym_mail_stat WHERE mail_id IN (".implode(",", $mailsIds).")", "mail_id");
+        $result = acym_loadObjectList('SELECT * FROM #__acym_mail_stat WHERE mail_id IN ('.implode(',', $mailsIds).')', 'mail_id');
 
         return $result === null ? 0 : $result;
     }
@@ -101,14 +93,39 @@ class acymmailStatClass extends acymClass
         return acym_loadObject($query);
     }
 
-    public function getAllMailsForStats()
+    public function getAllMailsForStats($search = '')
     {
         $mailClass = acym_get('class.mail');
 
-        $query = 'SELECT mail.* FROM #__acym_mail_stat AS mail_stat LEFT JOIN #__acym_mail AS mail ON mail.id = mail_stat.mail_id';
+        $query = 'SELECT mail.* 
+                  FROM #__acym_mail AS mail 
+                  JOIN #__acym_mail_stat AS mail_stat ON mail.id = mail_stat.mail_id';
+
+        $querySearch = '';
+
+        if (!empty($search)) {
+            $querySearch .= ' AND mail.name LIKE '.acym_escapeDB('%'.$search.'%').' ';
+        }
+
+        $query .= ' WHERE mail.parent_id IS NULL '.$querySearch;
+
+        $query .= ' ORDER BY mail_stat.send_date DESC LIMIT 20';
 
         return $mailClass->decode(acym_loadObjectList($query));
     }
 
+    public function getCumulatedStatsByMailIds($mailsIds = [])
+    {
+        acym_arrayToInteger($mailsIds);
+        $condMailIds = '';
+        if (!empty($mailsIds)) {
+            $condMailIds = 'WHERE mail_id IN ('.implode(',', $mailsIds).')';
+        }
+
+        $query = 'SELECT SUM(sent) AS sent, SUM(open_unique) AS open, SUM(fail) AS fails, SUM(bounce_unique) AS bounces FROM #__acym_mail_stat '.$condMailIds;
+        $result = acym_loadObject($query);
+
+        return $result;
+    }
 }
 

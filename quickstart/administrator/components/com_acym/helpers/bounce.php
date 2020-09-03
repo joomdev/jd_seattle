@@ -1,16 +1,8 @@
 <?php
-/**
- * @package	AcyMailing for Joomla
- * @version	6.2.2
- * @author	acyba.com
- * @copyright	(C) 2009-2019 ACYBA S.A.R.L. All rights reserved.
- * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
- */
-
 defined('_JEXEC') or die('Restricted access');
 ?><?php
 
-class acymbounceHelper
+class acymbounceHelper extends acymObject
 {
     var $server;
     var $username;
@@ -24,7 +16,6 @@ class acymbounceHelper
     var $allowed_extensions = [];
     var $nbMessages = 0;
     var $report = false;
-    var $config;
     var $mailer;
     var $mailbox;
     var $_message;
@@ -42,9 +33,9 @@ class acymbounceHelper
 
     public function __construct()
     {
-        $this->config = acym_config();
+        parent::__construct();
+
         $this->mailer = acym_get('helper.mailer');
-        $this->bounceClass = acym_get('class.bounce');
         $this->ruleClass = acym_get('class.rule');
         $this->mailer->report = false;
         $this->mailer->alreadyCheckedAddresses = true;
@@ -145,7 +136,7 @@ class acymbounceHelper
         if (!$this->mailbox->connect($serverName, $port)) {
             $warnings = ob_get_clean();
             if ($this->report) {
-                acym_enqueueMessage(acym_translation_sprintf("ACYM_ERROR_CONNECTING", $this->server." : ".$port), 'error');
+                acym_enqueueMessage(acym_translation_sprintf('ACYM_ERROR_CONNECTING', $this->server.' : '.$port), 'error');
             }
             if (!empty($warnings) && $this->report) {
                 acym_display($warnings, 'warning');
@@ -205,16 +196,25 @@ class acymbounceHelper
             }
         }
 
-
         if (!empty($port)) {
             $serverName .= ':'.$port;
         }
+
         if (!empty($secure)) {
             $serverName .= '/'.$secure;
         }
+
+        $email = trim($this->username);
+        if (strpos($email, '\\') !== false) {
+            list($user, $authuser) = explode('\\', $email);
+            list($x, $domain) = explode('@', $user);
+            $serverName .= '/authuser='.$user.'/user='.$authuser.'@'.$domain;
+        }
+
         if ($this->selfSigned) {
             $serverName .= '/novalidate-cert';
         }
+
         if (!empty($protocol)) {
             $serverName .= '/service='.$protocol;
         }
@@ -324,14 +324,14 @@ class acymbounceHelper
                                 }
 
                                 if (strpos($onePart, "Content-Type: text/plain") !== false) {
-                                    $this->_message->text = $content;
+                                    $this->_message->text .= ' '.$content;
                                 }
                                 if (strpos($onePart, "Content-Type: text/html") !== false) {
-                                    $this->_message->html = $content;
+                                    $this->_message->html .= ' '.$content;
                                 }
                             }
                         } else {
-                            $this->_message->html = trim(preg_replace('#(charset=".*?\r\n)|Content-(Type|ID|Disposition|Transfer-Encoding):.*?\r\n#is', "", $segment));
+                            $this->_message->html .= ' '.trim(preg_replace('#(charset=".*?\r\n)|Content-(Type|ID|Disposition|Transfer-Encoding):.*?\r\n#is', "", $segment));
                         }
                     } elseif (preg_match("#Content-Type: .*?/(png|jpg|jpeg|gif)#i", $segment) !== false) {
                         preg_match('#name="([^"]+)"#i', $segment, $filename);
@@ -509,7 +509,7 @@ class acymbounceHelper
             }
         }
 
-        $rules = $this->ruleClass->getAll(true);
+        $rules = $this->ruleClass->getAll(null, true);
 
         $msgNB = $maxMessages;
         $listClass = acym_get('class.list');

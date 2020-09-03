@@ -1,39 +1,25 @@
 <?php
-/**
- * @package	AcyMailing for Joomla
- * @version	6.2.2
- * @author	acyba.com
- * @copyright	(C) 2009-2019 ACYBA S.A.R.L. All rights reserved.
- * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
- */
-
 defined('_JEXEC') or die('Restricted access');
 ?><?php
 
-class acymregacyHelper
+class acymregacyHelper extends acymObject
 {
     var $options = [];
 
     var $label = '';
     var $lists = null;
 
-    function __construct()
-    {
-    }
-
     public function prepareLists($options)
     {
         $this->options = $options;
 
-        $config = acym_config();
-
-        $visibleLists = $config->get('regacy_lists');
+        $visibleLists = $this->config->get('regacy_lists');
         if (empty($visibleLists)) return false;
         $visibleLists = explode(',', $visibleLists);
         acym_arrayToInteger($visibleLists);
 
         $listsClass = acym_get('class.list');
-        $allLists = $listsClass->getAll();
+        $allLists = $listsClass->getAllWIthoutManagement();
 
         $isAdmin = acym_isAdmin();
         foreach ($visibleLists as $i => $oneListId) {
@@ -43,7 +29,7 @@ class acymregacyHelper
         if (empty($visibleLists)) return false;
 
 
-        $checkedLists = explode(',', $config->get('regacy_checkedlists'));
+        $checkedLists = explode(',', $this->config->get('regacy_checkedlists'));
         acym_arrayToInteger($checkedLists);
         $userClass = acym_get('class.user');
 
@@ -71,7 +57,7 @@ class acymregacyHelper
         }
 
 
-        $this->label = $config->get('regacy_text');
+        $this->label = $this->config->get('regacy_text');
         if (empty($this->label)) $this->label = 'ACYM_SUBSCRIPTION';
         $this->label = acym_translation($this->label);
 
@@ -102,6 +88,7 @@ class acymregacyHelper
         }
         $result .= '</table>';
         $result .= '<input type="hidden" value="'.implode(',', array_keys($this->lists)).'" name="regacy_visible_lists" />';
+        $result .= '<input type="hidden" value="'.ACYM_CMS.' registration form" name="acy_source" />';
         $this->lists = $result;
     }
 }

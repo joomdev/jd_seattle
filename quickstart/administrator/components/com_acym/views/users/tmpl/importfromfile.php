@@ -1,18 +1,11 @@
 <?php
-/**
- * @package	AcyMailing for Joomla
- * @version	6.2.2
- * @author	acyba.com
- * @copyright	(C) 2009-2019 ACYBA S.A.R.L. All rights reserved.
- * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
- */
-
 defined('_JEXEC') or die('Restricted access');
-?><div id="acym__users__import__from_file" class="grid-x acym_area padding-vertical-2 padding-horizontal-2">
+?><div id="acym__users__import__from_file" class="grid-x padding-vertical-2 padding-horizontal-2">
 	<div class="cell grid-x text-center">
 		<h6 class="cell">
             <?php echo acym_translation('ACYM_CHOOSE_FILE_WITH_USER_DATA'); ?>
 		</h6>
+		<p class="acym__color__dark-gray cell text-center"><?php echo acym_translation('ACYM_IMPORT_USER_FROM_FILE_INFORMATION_MESSAGE_BELOW_CHOOSE_FILE_BUTTON'); ?></p>
 		<div class="cell grid-x acym__users__import__from_file__choose">
 			<div class="cell medium-auto"></div>
             <?php
@@ -22,7 +15,7 @@ defined('_JEXEC') or die('Restricted access');
             ?>
 			<input type="hidden" name="MAX_FILE_SIZE" value="<?php echo acym_escape($maxupload); ?>" />
 			<input type="file" name="import_file" class="show-for-sr" id="acym__users__import__from_file__import__input" accept=".csv">
-			<label for="acym__users__import__from_file__import__input" class="cell acym__color__blue medium-shrink margin-top-2 acym__users__import__from_file__import__label">
+			<label for="acym__users__import__from_file__import__input" class="cell acym__color__blue medium-shrink margin-top-1 acym__users__import__from_file__import__label">
                 <?php echo acym_translation('ACYM_CHOOSE_FILE'); ?>
 			</label>
 			<div class="cell medium-auto"></div>
@@ -35,13 +28,16 @@ defined('_JEXEC') or die('Restricted access');
 			</div>
 			<div class="cell medium-auto"></div>
 		</div>
-		<div class="cell grid-x">
-			<div class="cell medium-auto"></div>
-			<button class="cell button medium-shrink margin-top-2 acym__users__import__from_file__button-valid" disabled><?php echo acym_translation('ACYM_IMPORT_THIS_FILE'); ?></button>
-			<div class="cell medium-auto"></div>
+
+		<div class="cell grid-x grid-margin-x margin-top-2">
+			<div class="cell hide-for-small-only medium-auto"></div>
+            <?php echo acym_cancelButton('ACYM_CANCEL', '', 'button medium-6 large-shrink margin-bottom-0'); ?>
+			<button class="cell button medium-shrink margin-bottom-0 acym__users__import__from_file__button-valid" disabled>
+                <?php echo acym_translation('ACYM_IMPORT_THIS_FILE'); ?>
+			</button>
+			<div class="cell hide-for-small-only medium-auto"></div>
 		</div>
 	</div>
-	<p class="acym__color__dark-gray cell text-center"><?php echo acym_translation('ACYM_IMPORT_USER_FROM_FILE_INFORMATION_MESSAGE_BELOW_CHOOSE_FILE_BUTTON'); ?></p>
 </div>
 
 

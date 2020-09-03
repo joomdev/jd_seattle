@@ -1,0 +1,558 @@
+$selectr-color: #f7f7f7;
+
+.jdb-phone-country-selector {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.jdb-country-container {
+    position: relative;
+}
+
+.jdb-country-container li {
+    list-style: none;
+}
+
+.jdb-country-hidden {
+    position: absolute;
+    overflow: hidden;
+    clip: rect(0px, 0px, 0px, 0px);
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0 none;
+}
+
+.jdb-country-visible {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    z-index: 11;
+    font-size: 14px;
+}
+
+.jdb-country-desktop.multiple .jdb-country-visible {
+    display: none;
+}
+
+.jdb-country-desktop.multiple.native-open .jdb-country-visible {
+    top: 100%;
+    min-height: 200px !important;
+    height: auto;
+    opacity: 1;
+    display: block;
+}
+
+.jdb-country-container.multiple.jdb-country-mobile .jdb-country-selected {
+    z-index: 0;
+}
+
+.jdb-country-selected {
+    position: relative;
+    z-index: 1;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 7px 28px 7px 14px;
+    cursor: pointer;
+    border: 0;
+    border-radius: 0.25rem 0px 0px 0.25rem;
+    padding: 0 18px 0 5px;
+    line-height: 38px;
+    outline: none;
+    box-shadow: none;
+}
+
+.jdb-country-selected::before {
+    position: absolute;
+    top: 50%;
+    right: 5px;
+    width: 0;
+    height: 0;
+    content: '';
+    -o-transform: rotate(0deg) translate3d(0px, -50%, 0px);
+    -ms-transform: rotate(0deg) translate3d(0px, -50%, 0px);
+    -moz-transform: rotate(0deg) translate3d(0px, -50%, 0px);
+    -webkit-transform: rotate(0deg) translate3d(0px, -50%, 0px);
+    transform: rotate(0deg) translate3d(0px, -50%, 0px);
+    border-width: 4px 4px 0 4px;
+    border-style: solid;
+    border-color: #282a3a transparent transparent;
+}
+
+.jdb-country-container.open .jdb-country-selected::before,
+.jdb-country-container.native-open .jdb-country-selected::before {
+    border-width: 0 4px 4px 4px;
+    border-style: solid;
+    border-color: transparent transparent #282a3a;
+}
+
+.jdb-country-label {
+    display: none;
+    overflow: hidden;
+    width: 100%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.jdb-country-placeholder {
+    color: #282a3a;
+}
+
+.jdb-country-tags {
+    margin: 0;
+    padding: 0;
+    white-space: normal;
+}
+
+.has-selected .jdb-country-tags {
+    margin: 0 0 -2px;
+}
+
+.jdb-country-tag {
+    list-style: none;
+    position: relative;
+    float: left;
+    padding: 2px 25px 2px 8px;
+    margin: 0 2px 2px 0;
+    cursor: default;
+    color: #fff;
+    border: medium none;
+    border-radius: 10px;
+    background: #acb7bf none repeat scroll 0 0;
+}
+
+.jdb-country-container.multiple.has-selected .jdb-country-selected {
+    padding: 5px 28px 5px 5px;
+}
+
+.jdb-country-options-container {
+    position: absolute;
+    z-index: 10000;
+    top: calc(100% + 5px);
+    left: 0;
+    display: none;
+    box-sizing: border-box;
+    width: 100%;
+    border-width: 1px;
+    border-style: solid;
+    border-color: $selectr-color;
+    border-radius: 3px;
+    background-color: $selectr-color;
+    width: 350px;
+
+    &:after {
+        border: 5px solid transparent;
+        border-bottom: 5px solid #34374a;
+        content: "";
+        height: 5px;
+        left: 25px !important;
+        margin-left: -5px;
+        position: absolute;
+        top: -10px;
+    }
+}
+
+.jdb-country-container.open .jdb-country-options-container {
+    display: block;
+}
+
+.jdb-country-input-container {
+    position: relative;
+    display: none;
+    padding: 8px;
+}
+
+.jdb-country-clear,
+.jdb-country-input-clear,
+.jdb-country-tag-remove {
+    position: absolute;
+    top: 50%;
+    right: 16px;
+    width: 20px;
+    margin-top: 1px;
+    height: 20px;
+    padding: 0;
+    cursor: pointer;
+    -o-transform: translate3d(0px, -50%, 0px);
+    -ms-transform: translate3d(0px, -50%, 0px);
+    -moz-transform: translate3d(0px, -50%, 0px);
+    -webkit-transform: translate3d(0px, -50%, 0px);
+    transform: translate3d(0px, -50%, 0px);
+    border: medium none;
+    background-color: transparent;
+    z-index: 11;
+}
+
+.jdb-country-clear,
+.jdb-country-input-clear {
+    display: none;
+}
+
+.jdb-country-container.has-selected .jdb-country-clear,
+.jdb-country-input-container.active .jdb-country-input-clear {
+    display: block;
+}
+
+.jdb-country-selected .jdb-country-tag-remove {
+    right: 2px;
+}
+
+.jdb-country-clear::before,
+.jdb-country-clear::after,
+.jdb-country-input-clear::before,
+.jdb-country-input-clear::after,
+.jdb-country-tag-remove::before,
+.jdb-country-tag-remove::after {
+    position: absolute;
+    top: 5px;
+    left: 9px;
+    width: 2px;
+    height: 10px;
+    content: ' ';
+    background-color: #282a3a;
+}
+
+.jdb-country-tag-remove::before,
+.jdb-country-tag-remove::after {
+    top: 4px;
+    width: 3px;
+    height: 12px;
+    background-color: #fff;
+}
+
+.jdb-country-clear:before,
+.jdb-country-input-clear::before,
+.jdb-country-tag-remove::before {
+    -o-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.jdb-country-clear:after,
+.jdb-country-input-clear::after,
+.jdb-country-tag-remove::after {
+    -o-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+}
+
+.jdb-country-input-container.active,
+.jdb-country-input-container.active .jdb-country-clear {
+    display: block;
+}
+
+.jdb-form {
+    .jdb-country-input-container {
+        .jdb-country-input {
+            top: 5px;
+            left: 5px;
+            box-sizing: border-box;
+            width: 100%;
+            padding: 5px 10px 5px 10px;
+            border: 0 !important;
+            border-radius: 3px;
+            line-height: 32px;
+            background-color: darken($selectr-color, 5%) !important;
+            border: 0 !important;
+            outline: none !important;
+            box-shadow: none !important;
+            color: color-yiq($selectr-color);
+            height: auto;
+            margin-bottom: 0;
+            font-size: inherit;
+        }
+    }
+}
+
+.jdb-country-notice {
+    display: none;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 8px 16px;
+    border-top: 1px solid #999;
+    border-radius: 0 0 3px 3px;
+    background-color: #fff;
+}
+
+.jdb-country-container.notice .jdb-country-notice {
+    display: block;
+}
+
+.jdb-country-container.notice .jdb-country-selected {
+    border-radius: 3px 3px 0 0;
+}
+
+.jdb-country-options {
+    position: relative;
+    top: calc(100% + 2px);
+    display: none;
+    overflow-x: auto;
+    overflow-y: scroll;
+    max-height: 200px;
+    margin: 0;
+    padding: 0;
+}
+
+.jdb-country-container.open .jdb-country-options,
+.jdb-country-container.open .jdb-country-input-container,
+.jdb-country-container.notice .jdb-country-options-container {
+    display: block;
+}
+
+.jdb-country-option {
+    position: relative;
+    display: block;
+    padding: 5px 20px;
+    list-style: outside none none;
+    cursor: pointer;
+    font-weight: normal;
+    color: color-yiq($selectr-color);
+}
+
+.jdb-country-options.optgroups>.jdb-country-option {
+    padding-left: 25px;
+}
+
+.jdb-country-optgroup {
+    font-weight: bold;
+    padding: 0;
+}
+
+.jdb-country-optgroup--label {
+    font-weight: bold;
+    margin-top: 10px;
+    padding: 5px 15px;
+}
+
+.jdb-country-match {
+    text-decoration: underline;
+}
+
+.jdb-country-option.selected {
+    background-color: color-yiq($selectr-color);
+    color: $selectr-color;
+}
+
+.jdb-country-option.active {
+    background-color: color-yiq(lighten($selectr-color, 10%));
+    color: $selectr-color;
+}
+
+.jdb-country-option.disabled {
+    opacity: 0.4;
+}
+
+.jdb-country-option.excluded {
+    display: none;
+}
+
+.jdb-country-container.open .jdb-country-selected {
+    border-color: #999 #999 transparent #999;
+    border-radius: 3px 3px 0 0;
+}
+
+.jdb-country-container.open .jdb-country-selected::after {
+    -o-transform: rotate(180deg) translate3d(0px, 50%, 0px);
+    -ms-transform: rotate(180deg) translate3d(0px, 50%, 0px);
+    -moz-transform: rotate(180deg) translate3d(0px, 50%, 0px);
+    -webkit-transform: rotate(180deg) translate3d(0px, 50%, 0px);
+    transform: rotate(180deg) translate3d(0px, 50%, 0px);
+}
+
+.jdb-country-disabled {
+    opacity: .6;
+}
+
+.jdb-country-empty,
+.has-selected .jdb-country-placeholder {
+    display: none;
+}
+
+.has-selected .jdb-country-label {
+    display: block;
+}
+
+/* TAGGABLE */
+.taggable .jdb-country-selected {
+    padding: 4px 28px 4px 4px;
+}
+
+.taggable .jdb-country-selected::after {
+    display: table;
+    content: " ";
+    clear: both;
+}
+
+.taggable .jdb-country-label {
+    width: auto;
+}
+
+.taggable .jdb-country-tags {
+    float: left;
+    display: block;
+}
+
+.taggable .jdb-country-placeholder {
+    display: none;
+}
+
+.input-tag {
+    float: left;
+    min-width: 90px;
+    width: auto;
+}
+
+.jdb-country-tag-input {
+    border: medium none;
+    padding: 3px 10px;
+    width: 100%;
+    font-family: inherit;
+    font-weight: inherit;
+    font-size: inherit;
+}
+
+.jdb-country-input-container.loading::after {
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    width: 20px;
+    height: 20px;
+    content: '';
+    -o-transform: translate3d(0px, -50%, 0px);
+    -ms-transform: translate3d(0px, -50%, 0px);
+    -moz-transform: translate3d(0px, -50%, 0px);
+    -webkit-transform: translate3d(0px, -50%, 0px);
+    transform: translate3d(0px, -50%, 0px);
+
+    -o-transform-origin: 50% 0 0;
+    -ms-transform-origin: 50% 0 0;
+    -moz-transform-origin: 50% 0 0;
+    -webkit-transform-origin: 50% 0 0;
+    transform-origin: 50% 0 0;
+
+    -moz-animation: 500ms linear 0s normal forwards infinite running spin;
+    -webkit-animation: 500ms linear 0s normal forwards infinite running spin;
+    animation: 500ms linear 0s normal forwards infinite running spin;
+    border-width: 3px;
+    border-style: solid;
+    border-color: #aaa #ddd #ddd;
+    border-radius: 50%;
+}
+
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg) translate3d(0px, -50%, 0px);
+        transform: rotate(0deg) translate3d(0px, -50%, 0px);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg) translate3d(0px, -50%, 0px);
+        transform: rotate(360deg) translate3d(0px, -50%, 0px);
+    }
+}
+
+@keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg) translate3d(0px, -50%, 0px);
+        transform: rotate(0deg) translate3d(0px, -50%, 0px);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg) translate3d(0px, -50%, 0px);
+        transform: rotate(360deg) translate3d(0px, -50%, 0px);
+    }
+}
+
+.jdb-country-container.open.inverted .jdb-country-selected {
+    border-color: transparent #999 #999;
+    border-radius: 0 0 3px 3px;
+}
+
+.jdb-country-container.inverted .jdb-country-options-container {
+    top: auto;
+    bottom: calc(100% + 5px);
+
+    &:after {
+        border: 5px solid transparent;
+        border-top: 5px solid $selectr-color;
+        content: "";
+        height: 5px;
+        left: 25px !important;
+        margin-left: -5px;
+        position: absolute;
+        top: calc(100% + 1px);
+    }
+}
+
+.jdb-country-container ::-webkit-input-placeholder {
+    color: #282a3a;
+    opacity: 1;
+}
+
+.jdb-country-container ::-moz-placeholder {
+    color: #282a3a;
+    opacity: 1;
+}
+
+.jdb-country-container :-ms-input-placeholder {
+    color: #282a3a;
+    opacity: 1;
+}
+
+.jdb-country-container ::placeholder {
+    color: #282a3a;
+    opacity: 1;
+}
+
+
+span.flag-icon {
+    width: 35px;
+    height: 30px;
+    display: inline-block
+}
+
+img.flag-icon {
+    width: 30px
+}
+
+.jdb-country-option-item {
+    line-height: 30px;
+    display: flex;
+    height: 30px;
+
+    span {
+        &:not(.flag-icon) {
+            margin-left: 8px;
+        }
+    }
+}
+
+.jdb-country-option-selected {
+    display: flex;
+    text-align: center;
+    width: 100%;
+    justify-content: center;
+    line-height: 39px;
+    align-items: center;
+
+    span {
+        &:not(.flag-icon) {
+            margin-left: 4px;
+        }
+
+        &.flag-icon {
+            transform: scale(.8);
+        }
+    }
+}
+
+@import "flag-icon";

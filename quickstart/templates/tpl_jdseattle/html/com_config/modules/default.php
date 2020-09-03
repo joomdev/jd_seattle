@@ -56,13 +56,13 @@ JFactory::getDocument()->addScriptDeclaration("
 					<button type="button" class="btn mr-2"
 						onclick="Joomla.submitbutton('config.save.modules.save')">
 						<i class="fas fa-save"></i>
-						<?php echo JText::_('JSAVE'); ?>
+						<?php echo JText::_('ASTROID_SAVE'); ?>
 					</button>
 				</div>
 				<div class="btn-group">
 					<button type="button" class="btn "
 						onclick="Joomla.submitbutton('config.cancel.modules')">
-						<i class="fa fa-times-circle"></i>
+						<i class="fas fa-times-circle"></i>
 						<?php echo JText::_('JCANCEL'); ?>
 					</button>
 				</div>

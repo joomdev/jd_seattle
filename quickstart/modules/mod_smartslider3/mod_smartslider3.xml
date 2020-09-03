@@ -1,16 +1,21 @@
-<extension type="module" version="1.5.0" method="upgrade" client="site">
-    <name>Smart Slider 3</name>
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="3.9.0" method="upgrade" client="site">
+    <name>Smart Slider 3 Module</name>
     <author>Nextendweb</author>
-    <copyright>Copyright (C) Nextendweb.com</copyright>
-    <authorEmail>support@nextendweb.com</authorEmail>
+    <creationDate>2020-08-26</creationDate>
+    <copyright>Copyright (C) 2020 Nextendweb.com. All rights reserved.</copyright>
+    <license>http://www.gnu.org/licenses/gpl-3.0.txt GNU General Public License</license>
+    <authorEmail>roland@nextendweb.com</authorEmail>
     <authorUrl>https://smartslider3.com</authorUrl>
-    <version>3.3.22</version>
-    <description>This module displays sliders from Smart Slider 3. You can create the sliders in the Smart Slider 3 component!</description>
+    <version>3.4.1.9</version>
+    <description>This module displays sliders from Smart Slider 3. You can create the sliders in the Smart Slider 3
+        component!
+    </description>
     <config>
         <fields name="params">
-            <fieldset name="basic" addfieldpath="/modules/mod_smartslider3/models/fields">
+            <fieldset name="basic" addfieldpath="/modules/mod_smartslider3/fields">
                 <field name="slider" type="sql" default="1" label="Select a slider"
-                       query="SELECT id, CONCAT('#', id, ' - ', title) AS title FROM #__nextend2_smartslider3_sliders ORDER BY time DESC "
+                       query="SELECT id, CONCAT('#', id, ' - ', title) AS title FROM #__nextend2_smartslider3_sliders WHERE status = 'published' ORDER BY time DESC "
                        key_field="id"
                        value_field="title"/>
                 <field name="editslider" type="editslider" default="" label=""/>
@@ -22,13 +27,10 @@
             </fieldset>
         </fields>
     </config>
-    <creationDate>2017.08.03.</creationDate>
-    <license>http://www.gnu.org/licenses/gpl-3.0.txt GNU/GPL</license>
-    <releaseDate>2017.08.03.</releaseDate>
     <files>
         <filename module="mod_smartslider3">mod_smartslider3.php</filename>
         <filename>mod_smartslider3.xml</filename>
-        <folder>models</folder>
+        <folder>fields</folder>
         <filename>index.html</filename>
     </files>
 </extension>

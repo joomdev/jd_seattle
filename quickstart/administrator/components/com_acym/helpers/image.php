@@ -1,35 +1,23 @@
 <?php
-/**
- * @package	AcyMailing for Joomla
- * @version	6.2.2
- * @author	acyba.com
- * @copyright	(C) 2009-2019 ACYBA S.A.R.L. All rights reserved.
- * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
- */
-
 defined('_JEXEC') or die('Restricted access');
 ?><?php
 
-class acymimageHelper
+class acymimageHelper extends acymObject
 {
     var $error;
     var $maxHeight;
     var $maxWidth;
     var $destination;
 
-    function __construct()
+    public function removePictures($text)
     {
-    }
-
-    function removePictures($text)
-    {
-        $return = preg_replace('#< *img[^>]*>#Ui', '', $text);
+        $return = preg_replace('#< *img((?!content_main_image)[^>])*>#Ui', '', $text);
         $return = preg_replace('#< *div[^>]*class="jce_caption"[^>]*>[^<]*(< *div[^>]*>[^<]*<\/div>)*[^<]*<\/div>#Ui', '', $return);
 
         return $return;
     }
 
-    function available()
+    public function available()
     {
         if (!function_exists('gd_info')) {
             $this->error = 'The GD library is not installed.';
@@ -50,7 +38,7 @@ class acymimageHelper
         return true;
     }
 
-    function resizePictures($input)
+    public function resizePictures($input)
     {
         $this->destination = ACYM_MEDIA.'resized'.DS;
         acym_createDir($this->destination);
@@ -119,8 +107,10 @@ class acymimageHelper
         return $input;
     }
 
-    function generateThumbnail($picturePath)
+    public function generateThumbnail($picturePath)
     {
+        $paramsPos = strpos($picturePath, '?');
+        if ($paramsPos !== false) $picturePath = substr($picturePath, 0, $paramsPos);
 
         list($currentwidth, $currentheight) = getimagesize($picturePath);
         if (empty($currentwidth) || empty($currentheight)) {

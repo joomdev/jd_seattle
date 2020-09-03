@@ -1,13 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <metadata>
+	
+	<fields name="request">
+		<fieldset name="request" addfieldpath="/administrator/components/com_spsimpleportfolio/models/fields">
+			<field name="catid" type="category" extension="com_spsimpleportfolio" default="" label="COM_SPSIMPLEPORTFOLIO_CATEGORY" description="COM_SPSIMPLEPORTFOLIO_CATEGORY_DESC" >
+				<option value="">COM_SPSIMPLEPORTFOLIO_CATEGORY_ALL</option>
+			</field>
+		</fieldset>
+	</fields>
+
 	<fields name="params">
 		<fieldset name="basic" label="COM_SPSIMPLEPORTFOLIO_FIELDSET_PORTFOLIO">
 			<field name="show_filter" type="radio" class="btn-group" default="1" label="COM_SPSIMPLEPORTFOLIO_SHOW_FILTER_BUTTONS" description="COM_SPSIMPLEPORTFOLIO_SHOW_FILTER_BUTTONS_DESC">
 					<option value="1">JYES</option>
 					<option value="0">JNO</option>
 			</field>
-			<field name="catid" type="category" extension="com_spsimpleportfolio" default="" label="COM_SPSIMPLEPORTFOLIO_CATEGORY" description="COM_SPSIMPLEPORTFOLIO_CATEGORY_DESC" >
-				<option value="">COM_SPSIMPLEPORTFOLIO_CATEGORY_ALL</option>
+			<field name="ordering" type="list" default="ordering:ASC" label="COM_SPSIMPLEPORTFOLIO_FIELD_ORDERING" description="COM_SPSIMPLEPORTFOLIO_FIELD_ORDERING_DESC">
+				<option value="ordering:ASC">COM_SPSIMPLEPORTFOLIO_FIELD_ORDERING_ORDER_ASCENDING</option>
+				<option value="ordering:DESC">COM_SPSIMPLEPORTFOLIO_FIELD_ORDERING_ORDER_DESCENDING</option>
+				<option value="title:ASC">COM_SPSIMPLEPORTFOLIO_FIELD_ORDERING_TITLE_ASCENDING</option>
+				<option value="title:DESC">COM_SPSIMPLEPORTFOLIO_FIELD_ORDERING_TITLE_DESCENDING</option>
 			</field>
 			<field name="layout_type" type="list" default="default" label="COM_SPSIMPLEPORTFOLIO_FIELD_LAYOUT_TYPES" description="COM_SPSIMPLEPORTFOLIO_FIELD_LAYOUT_TYPES_DESC">
 				<option value="default">COM_SPSIMPLEPORTFOLIO_FIELD_LAYOUT_DEFAULT</option>

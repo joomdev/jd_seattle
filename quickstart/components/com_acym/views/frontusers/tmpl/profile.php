@@ -1,12 +1,4 @@
 <?php
-/**
- * @package	AcyMailing for Joomla
- * @version	6.2.2
- * @author	acyba.com
- * @copyright	(C) 2009-2019 ACYBA S.A.R.L. All rights reserved.
- * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
- */
-
 defined('_JEXEC') or die('Restricted access');
 ?><div id="acym_fulldiv_acyprofileform" class="acym_front_page">
     <?php
@@ -19,7 +11,7 @@ defined('_JEXEC') or die('Restricted access');
     }
     ?>
 
-	<form enctype="multipart/form-data" action="<?php echo acym_frontendLink('frontusers', true, acym_isNoTemplate()); ?>" method="post" name="acyprofileform" id="acyprofileform" onsubmit="this.querySelector('input[type=submit]').click(); return false;">
+	<form enctype="multipart/form-data" action="<?php echo acym_frontendLink('frontusers'.(acym_isNoTemplate() ? '&'.acym_noTemplate() : '')); ?>" method="post" name="acyprofileform" id="acyprofileform" onsubmit="this.querySelector('input[type=submit]').click(); return false;">
 		<fieldset class="adminform acy_user_info">
 			<legend><span><?php echo acym_translation('ACYM_USER_INFORMATION'); ?></span></legend>
             <?php
@@ -59,8 +51,8 @@ defined('_JEXEC') or die('Restricted access');
 			</div>
 
             <?php
-            $exportButton = $data['config']->get('gdpr_export', 0);
-            $deleteButton = $data['config']->get('gdpr_delete', 0);
+            $exportButton = $this->config->get('gdpr_export', 0);
+            $deleteButton = $this->config->get('gdpr_delete', 0);
             if (!empty($data['user']->id) && !(empty($exportButton) && empty($deleteButton))) {
                 ?>
 				<div id="acyuseractions">
@@ -119,7 +111,14 @@ defined('_JEXEC') or die('Restricted access');
                             }
 
                             echo '<div class="acym_list">
-                                    <div class="acystatus">'.acym_radio($values, "data[listsub][".$row->id."][status]", $row->status, 'status'.$k++).'</div>
+                                    <div class="acystatus">'.acym_radio(
+                                    $values,
+                                    'data[listsub]['.$row->id.'][status]',
+                                    $row->status,
+                                    [],
+                                    ['id' => 'status'.$k++],
+                                    true
+                                ).'</div>
                                     <div class="list_name">'.$row->name.'</div>
                                 </div>';
                         }
@@ -159,14 +158,14 @@ defined('_JEXEC') or die('Restricted access');
         }
 
         if (!empty($data['source'])) {
-            echo '<input type="hidden" name="acy_source" value="'.$data['source'].'" />';
+            echo '<input type="hidden" name="acy_source" value="'.acym_escape($data['source']).'" />';
         }
 
         if (!empty($data['Itemid'])) {
-            echo '<input type="hidden" name="Itemid" value="'.$data['Itemid'].'" />';
+            echo '<input type="hidden" name="Itemid" value="'.acym_escape($data['Itemid']).'" />';
         }
 
-        if (acym_getVar('cmd', 'tmpl') == 'component') {
+        if (acym_isNoTemplate()) {
             echo '<input type="hidden" name="tmpl" value="component"/>';
         }
 

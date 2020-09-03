@@ -1,17 +1,15 @@
 <?php
-/**
- * @package	AcyMailing for Joomla
- * @version	6.2.2
- * @author	acyba.com
- * @copyright	(C) 2009-2019 ACYBA S.A.R.L. All rights reserved.
- * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
- */
-
 defined('_JEXEC') or die('Restricted access');
 ?><?php
 
 class FrontUrlController extends acymController
 {
+    public function __construct()
+    {
+        parent::__construct();
+        $this->authorizedFrontTasks = ['click'];
+    }
+
     public function click()
     {
         $urlid = acym_getVar('int', 'urlid');
@@ -25,6 +23,21 @@ class FrontUrlController extends acymController
 
         if (empty($urlObject->id)) {
             return acym_raiseError(E_ERROR, 404, acym_translation('Page not found'));
+        }
+
+        $mailClass = acym_get('class.mail');
+        $mail = $mailClass->getOneById($mailid);
+        if (empty($mail)) {
+            $urlObject->url = preg_replace(
+                [
+                    '#&idU=[0-9]+#Uis',
+                    '#idU=[0-9]+&#Uis',
+                    '#\?idU=[0-9]+#Uis',
+                ],
+                '',
+                $urlObject->url
+            );
+            acym_redirect($urlObject->url);
         }
 
         $urlClickClass = acym_get('class.urlclick');
@@ -53,7 +66,6 @@ class FrontUrlController extends acymController
                 $mailStatClass->save($mailStatToInsert);
             }
         }
-
 
         acym_redirect($urlObject->url);
     }

@@ -2,11 +2,11 @@
 
    var JDBuilderElementSeparator = function (element) {
       element.addClass('jdb-divider');
-      var style = JDBRenderer.ElementStyle('> hr');
+      var style = JDBRenderer.ElementStyle('.jdb-divider-main');
       element.addChildStyle(style);
 
-      style.addCss("border-style", element.params.get('separatorType', 'solid'));
-      style.addCss("border-color", element.params.get('separatorColor', ''));
+      style.addCss("border-top-style", element.params.get('separatorType', 'solid'));
+      style.addCss("border-top-color", element.params.get('separatorColor', ''));
 
       var weight = element.params.get('separatorWeight', null);
       if (weight != null) {
@@ -59,8 +59,17 @@
             }
          });
       }
-      
-      return '<hr />';
+
+      const borderRadius = element.params.get('separatorRadius', null);
+      if (borderRadius != null) {
+         JDBRenderer.DEVICES.forEach(function (_deviceObj) {
+            if (_deviceObj.key in borderRadius) {
+               style.addStyle(JDBRenderer.Helper.spacingValue(borderRadius[_deviceObj.key], "radius"), _deviceObj.type);
+            }
+         });
+      }
+
+      return '<div class="jdb-divider-main"></div>';
    }
 
    window.JDBuilderElementSeparator = JDBuilderElementSeparator;

@@ -1,12 +1,4 @@
 <?php
-/**
- * @package	AcyMailing for Joomla
- * @version	6.2.2
- * @author	acyba.com
- * @copyright	(C) 2009-2019 ACYBA S.A.R.L. All rights reserved.
- * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
- */
-
 defined('_JEXEC') or die('Restricted access');
 ?><?php
 
@@ -22,9 +14,9 @@ class QueueController extends acymController
     public function campaigns()
     {
         acym_setVar('layout', 'campaigns');
+        $pagination = acym_get('helper.pagination');
 
-        $config = acym_config();
-        if (acym_level(1) && $config->get('cron_last', 0) < (time() - 43200)){
+        if (acym_level(1) && $this->config->get('cron_last', 0) < (time() - 43200)) {
             acym_enqueueMessage(acym_translation('ACYM_CREATE_CRON_REMINDER').' <a id="acym__queue__configure-cron" href="'.acym_completeLink('configuration&tab=queue').'">'.acym_translation('ACYM_GOTO_CONFIG').'</a>', 'warning');
         }
 
@@ -32,7 +24,7 @@ class QueueController extends acymController
         $tagFilter = acym_getVar('string', 'cqueue_tag', '');
         $status = acym_getVar('string', 'cqueue_status', '');
 
-        $campaignsPerPage = acym_getCMSConfig('list_limit', 20);
+        $campaignsPerPage = $pagination->getListLimit();
         $page = acym_getVar('int', 'cqueue_pagination_page', 1);
 
         $queueClass = acym_get('class.queue');
@@ -46,7 +38,8 @@ class QueueController extends acymController
             ]
         );
 
-        $pagination = acym_get('helper.pagination');
+        $campaignClass = acym_get('class.campaign');
+
         $pagination->setStatus($matchingElements['total'], $page, $campaignsPerPage);
 
         $viewData = [
@@ -57,6 +50,8 @@ class QueueController extends acymController
             'tags' => acym_get('class.tag')->getAllTagsByType('mail'),
             'numberPerStatus' => $matchingElements['status'],
             'status' => $status,
+            'campaignClass' => $campaignClass,
+            'languages' => acym_getLanguages(),
         ];
 
         $this->breadcrumb[acym_translation('ACYM_CAMPAIGNS')] = acym_completeLink('queue');
@@ -70,11 +65,12 @@ class QueueController extends acymController
     public function detailed()
     {
         acym_setVar("layout", "detailed");
+        $pagination = acym_get('helper.pagination');
 
         $searchFilter = acym_getVar('string', 'dqueue_search', '');
         $tagFilter = acym_getVar('string', 'dqueue_tag', '');
 
-        $elementsPerPage = acym_getCMSConfig('list_limit', 20);
+        $elementsPerPage = $pagination->getListLimit();
         $page = acym_getVar('int', 'dqueue_pagination_page', 1);
 
         $queueClass = acym_get('class.queue');
@@ -87,7 +83,6 @@ class QueueController extends acymController
             ]
         );
 
-        $pagination = acym_get('helper.pagination');
         $pagination->setStatus($matchingElements['total'], $page, $elementsPerPage);
 
         $viewData = [
@@ -110,9 +105,7 @@ class QueueController extends acymController
 
     public function continuesend()
     {
-        $config = acym_config();
-
-        if ($config->get('queue_type') == 'onlyauto') {
+        if ($this->config->get('queue_type') == 'onlyauto') {
             acym_setNoTemplate();
             acym_display(acym_translation('ACYM_ONLYAUTOPROCESS'), 'warning');
 
@@ -120,10 +113,10 @@ class QueueController extends acymController
         }
 
         $newcrontime = time() + 120;
-        if ($config->get('cron_next') < $newcrontime) {
+        if ($this->config->get('cron_next') < $newcrontime) {
             $newValue = new stdClass();
             $newValue->cron_next = $newcrontime;
-            $config->save($newValue);
+            $this->config->save($newValue);
         }
 
         $mailid = acym_getCID('id');
@@ -144,7 +137,7 @@ class QueueController extends acymController
         $helperQueue->report = true;
         $helperQueue->total = $totalSend;
         $helperQueue->start = $alreadySent;
-        $helperQueue->pause = $config->get('queue_pause');
+        $helperQueue->pause = $this->config->get('queue_pause');
         $helperQueue->process();
 
         acym_setNoTemplate();
@@ -161,12 +154,14 @@ class QueueController extends acymController
             $result = [];
 
             $result[] = acym_query('DELETE FROM #__acym_queue WHERE mail_id = '.intval($mailId));
+            $result[] = acym_query('UPDATE #__acym_mail_stat SET total_subscribers = sent WHERE mail_id = '.intval($mailId));
+            $result[] = acym_query('UPDATE #__acym_campaign SET active = 1 WHERE mail_id = '.intval($mailId));
             if (empty($hasStat)) {
                 $result[] = acym_query('UPDATE #__acym_campaign SET draft = "1", sent = "0", sending_date = NULL WHERE mail_id = '.intval($mailId));
                 $result[] = acym_query('DELETE FROM #__acym_mail_stat WHERE mail_id = '.intval($mailId));
             }
         } else {
-            acym_enqueueNotification(acym_translation("ACYM_ERROR_QUEUE_CANCEL_CAMPAIGN"), "error", 10000);
+            acym_enqueueMessage(acym_translation('ACYM_ERROR_QUEUE_CANCEL_CAMPAIGN'), "error");
         }
         $this->campaigns();
     }
@@ -181,9 +176,9 @@ class QueueController extends acymController
             $queueClass->unpauseCampaign($campaignId, $active);
         } else {
             if (!empty($active)) {
-                acym_enqueueNotification(acym_translation("ACYM_ERROR_QUEUE_RESUME"), "error", 10000);
+                acym_enqueueMessage(acym_translation('ACYM_ERROR_QUEUE_RESUME'), "error");
             } else {
-                acym_enqueueNotification(acym_translation("ACYM_ERROR_QUEUE_PAUSE"), "error", 10000);
+                acym_enqueueMessage(acym_translation('ACYM_ERROR_QUEUE_PAUSE'), "error");
             }
         }
 
@@ -196,7 +191,7 @@ class QueueController extends acymController
 
         $queueClass = acym_get('class.queue');
         $deleted = $queueClass->emptyQueue();
-        acym_enqueueNotification(acym_translation_sprintf('ACYM_EMAILS_REMOVED_QUEUE', $deleted));
+        acym_enqueueMessage(acym_translation_sprintf('ACYM_EMAILS_REMOVED_QUEUE', $deleted));
 
         $this->campaigns();
     }

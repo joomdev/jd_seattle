@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.1" type="plugin" group="system" method="upgrade">
+	<name>System - JD Admin Bar</name>
+	<author>JoomDev</author>
+	<creationDate>April 2020</creationDate>
+	<copyright>Copyright (C) 2009 - 2020 JoomDev. All rights reserved.</copyright>
+	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+	<authorEmail>info@joomdev.com</authorEmail>
+	<authorUrl>www.joomdev.com</authorUrl>
+	<version>1.2</version>
+	<description>JD Admin Bar Plugin - Enable Top bar for you to start editing your pages right from the frontend. Supports core Joomla Articles, category and 3rd party, JD Builder, Hikashop, Virtuemart, Easyblog and J2Store</description>
+	<files>
+		<filename plugin="jdadminbar">jdadminbar.php</filename>
+		<folder>assets</folder>
+	</files>
+	<updateservers>
+      <server type="extension" priority="1" name="JD Admin Bar">https://cdn.joomdev.com/updates/jd_adminbar.xml</server>
+   </updateservers>
+	<config>
+	</config>
+</extension>

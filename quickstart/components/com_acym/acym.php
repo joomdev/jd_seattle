@@ -1,12 +1,4 @@
 <?php
-/**
- * @package	AcyMailing for Joomla
- * @version	6.2.2
- * @author	acyba.com
- * @copyright	(C) 2009-2019 ACYBA S.A.R.L. All rights reserved.
- * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
- */
-
 defined('_JEXEC') or die('Restricted access');
 ?><?php
 if (version_compare(PHP_VERSION, '5.4.0', '<')) {
@@ -14,15 +6,15 @@ if (version_compare(PHP_VERSION, '5.4.0', '<')) {
     exit;
 }
 
-if (!include_once(rtrim(JPATH_ADMINISTRATOR, DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR.'components'.DIRECTORY_SEPARATOR.'com_acym'.DIRECTORY_SEPARATOR.'helpers'.DIRECTORY_SEPARATOR.'helper.php')) {
-    echo "Could not load Acy helper file";
+$helperFile = rtrim(JPATH_ADMINISTRATOR, DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR.'components'.DIRECTORY_SEPARATOR.'com_acym'.DIRECTORY_SEPARATOR.'helpers'.DIRECTORY_SEPARATOR.'helper.php';
+if (!include_once $helperFile) {
+    echo 'Could not load AcyMailing helper file';
 
     return;
 }
+acym_loadLanguage();
 
-if (acym_isDebug()) {
-    acym_displayErrors();
-}
+if (acym_isDebug()) acym_displayErrors();
 
 global $Itemid;
 if (empty($Itemid)) {
@@ -33,8 +25,7 @@ if (empty($Itemid)) {
 }
 
 $ctrl = acym_getVar('cmd', 'ctrl', acym_getVar('cmd', 'view', ''));
-
-if (!include_once(ACYM_CONTROLLER_FRONT.$ctrl.'.php')) {
+if (!include_once ACYM_CONTROLLER_FRONT.$ctrl.'.php') {
     acym_redirect(acym_rootURI());
 
     return;
@@ -50,15 +41,5 @@ if (empty($task)) {
 }
 acym_setVar('task', $task);
 
-acym_addScript(true, 'var ACYM_JS_TXT = '.acym_getJSMessages().';');
-
-acym_addScript(false, ACYM_JS.'global.min.js?v='.filemtime(ACYM_MEDIA.'js'.DS.'global.min.js'));
-acym_addStyle(false, ACYM_CSS.'front_global.min.css?v='.filemtime(ACYM_MEDIA.'css'.DS.'front_global.min.css'));
-acym_addScript(false, ACYM_JS.'front_global.min.js?v='.filemtime(ACYM_MEDIA.'js'.DS.'front_global.min.js'));
-if (file_exists(ACYM_MEDIA.'js'.DS.'front'.DS.$ctrl.'.min.js')) {
-    acym_addScript(false, ACYM_JS.'front/'.$ctrl.'.min.js?v='.filemtime(ACYM_MEDIA.'js'.DS.'front'.DS.$ctrl.'.min.js'));
-}
-
-$controller->loadScripts($task);
-$controller->$task();
+$controller->checkTaskFront($task);
 

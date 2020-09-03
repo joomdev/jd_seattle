@@ -1,12 +1,4 @@
 <?php
-/**
- * @package	AcyMailing for Joomla
- * @version	6.2.2
- * @author	acyba.com
- * @copyright	(C) 2009-2019 ACYBA S.A.R.L. All rights reserved.
- * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
- */
-
 defined('_JEXEC') or die('Restricted access');
 ?><?php
 
@@ -16,7 +8,7 @@ class acymruleClass extends acymClass
     var $pkey = 'id';
     var $errors = [];
 
-    public function getAll($active = false)
+    public function getAll($key = null, $active = false)
     {
         $rules = acym_loadObjectList('SELECT * FROM `#__acym_rule` '.($active ? 'WHERE active = 1' : '').' ORDER BY `ordering` ASC');
 
@@ -29,7 +21,7 @@ class acymruleClass extends acymClass
 
     public function getOneById($id)
     {
-        $rule = acym_loadObject('SELECT * FROM `#__acym_rule` WHERE `id` = '.intval($id).' LIMIT 1');
+        $rule = acym_loadObject('SELECT * FROM `#__acym_rule` WHERE `id` = '.intval($id));
 
         return $this->_prepareRule($rule);
     }
@@ -58,6 +50,18 @@ class acymruleClass extends acymClass
     public function delete($ids)
     {
         return parent::delete($ids);
+    }
+
+    public function getOrderingNumber()
+    {
+        $query = 'SELECT COUNT(id) FROM #__acym_rule';
+
+        return acym_loadResult($query);
+    }
+
+    public function cleanTable()
+    {
+        acym_query('TRUNCATE TABLE `#__acym_rule`');
     }
 }
 

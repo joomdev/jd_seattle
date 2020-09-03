@@ -1,12 +1,4 @@
 <?php
-/**
- * @package	AcyMailing for Joomla
- * @version	6.2.2
- * @author	acyba.com
- * @copyright	(C) 2009-2019 ACYBA S.A.R.L. All rights reserved.
- * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
- */
-
 defined('_JEXEC') or die('Restricted access');
 ?><?php
 
@@ -39,12 +31,13 @@ acym_arrayToInteger($allfields);
 $listClass = acym_get('class.list');
 $fieldClass = acym_get('class.field');
 
-$allLists = $listClass->getAll();
+$allLists = $listClass->getAllWIthoutManagement();
 $visibleLists = array_intersect($visibleLists, array_keys($allLists));
 $hiddenLists = array_intersect($hiddenLists, array_keys($allLists));
 $allfields = $fieldClass->getFieldsByID($allfields);
 $fields = [];
 foreach ($allfields as $field) {
+    if ($field->active === '0') continue;
     $fields[$field->id] = $field;
 }
 
@@ -164,9 +157,9 @@ echo "<script type=\"text/javascript\">
                     $app = JFactory::getApplication('site');
                     $template = $app->getTemplate();
                     if (file_exists(str_replace(DS, '/', ACYM_ROOT).'templates/'.$template.'/html/mod_acym/'.$view)) {
-                        include(ACYM_ROOT.'templates'.DS.$template.DS.'html'.DS.'mod_acym'.DS.$view);
+                        include ACYM_ROOT.'templates'.DS.$template.DS.'html'.DS.'mod_acym'.DS.$view;
                     } else {
-                        include(__DIR__.DS.'tmpl'.DS.$view);
+                        include __DIR__.DS.'tmpl'.DS.$view;
                     }
 
                     ?>
@@ -188,10 +181,11 @@ echo "<script type=\"text/javascript\">
                 ?>
 
 				<input type="hidden" name="ajax" value="<?php echo acym_escape($ajax); ?>" />
-				<input type="hidden" name="acy_source" value="<?php echo acym_escape($params->get('source', '')); ?>" />
+				<input type="hidden" name="acy_source" value="<?php echo acym_escape($params->get('source', 'Module n°'.$module->id)); ?>" />
 				<input type="hidden" name="hiddenlists" value="<?php echo implode(',', $hiddenLists); ?>" />
 				<input type="hidden" name="fields" value="<?php echo 'name,email'; ?>" />
 				<input type="hidden" name="acyformname" value="<?php echo acym_escape($formName); ?>" />
+				<input type="hidden" name="acysubmode" value="mod_acym" />
 
                 <?php
                 $postText = $params->get('posttext', '');

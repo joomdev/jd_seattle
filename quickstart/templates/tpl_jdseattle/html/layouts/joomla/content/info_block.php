@@ -59,5 +59,6 @@ if (!isset($displayData['astroidArticle'])) {
       <?php if ($displayData['params']->get('show_hits')) : ?>
          <?php echo $this->sublayout('hits', $displayData); ?>
       <?php endif; ?>
+
    <?php endif; ?>
 </dl>

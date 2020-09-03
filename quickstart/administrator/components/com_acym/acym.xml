@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="component" version="2.5" method="upgrade">
 	<name>Acym</name>
-	<creationDate>September 2019</creationDate>
-	<version>6.2.2</version>
+	<creationDate>August 2020</creationDate>
+	<version>6.14.1</version>
 	<level>starter</level>
 	<author>Acyba</author>
 	<authorEmail>dev@acyba.com</authorEmail>
 	<authorUrl>https://www.acyba.com</authorUrl>
-	<copyright>Copyright (C) 2009-2019 ACYBA SAS - All rights reserved.</copyright>
+	<copyright>Copyright (C) 2009-2020 ACYBA SAS - All rights reserved.</copyright>
 	<description>Manage your Mailing lists and e-mail marketing campaigns</description>
-	<license>GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html</license>
+	<license>GNU/GPLv3 https://www.gnu.org/licenses/gpl-3.0.html</license>
 	<languages folder="language">
 		<language tag="en-GB">en-GB.com_acym.ini</language>
 		<language tag="en-US">en-US.com_acym.ini</language>
@@ -25,6 +25,7 @@
 		<folder>inc</folder>
 		<folder>views</folder>
 		<folder>params</folder>
+		<folder>router</folder>
 		<filename>acym.php</filename>
 		<filename>index.html</filename>
 		<filename>router.php</filename>
@@ -43,6 +44,7 @@
 			<folder>extensions</folder>
 			<folder>helpers</folder>
 			<folder>library</folder>
+			<folder>partial</folder>
 			<folder>types</folder>
 			<folder>views</folder>
 			<folder>templates</folder>
@@ -53,15 +55,18 @@
 		</files>
 		<menu img="../media/com_acym/images/icons/logo_acym.png" link="option=com_acym">COM_ACYM</menu>
 		<submenu>
+			<menu link="option=com_acym&amp;ctrl=dashboard">ACYM_DASHBOARD</menu>
 			<menu link="option=com_acym&amp;ctrl=users">ACYM_USERS</menu>
 			<menu link="option=com_acym&amp;ctrl=fields">ACYM_CUSTOM_FIELDS</menu>
 			<menu link="option=com_acym&amp;ctrl=lists">ACYM_LISTS</menu>
-			<menu link="option=com_acym&amp;ctrl=campaigns">ACYM_CAMPAIGNS</menu>
+			<menu link="option=com_acym&amp;ctrl=campaigns">ACYM_EMAILS</menu>
 			<menu link="option=com_acym&amp;ctrl=mails">ACYM_TEMPLATES</menu>
 			<menu link="option=com_acym&amp;ctrl=automation">ACYM_AUTOMATION</menu>
 			<menu link="option=com_acym&amp;ctrl=queue">ACYM_QUEUE</menu>
 			<menu link="option=com_acym&amp;ctrl=stats">ACYM_STATISTICS</menu>
 			<menu link="option=com_acym&amp;ctrl=bounces">ACYM_BOUNCE_HANDLING</menu>
+			<menu link="option=com_acym&amp;ctrl=plugins">ACYM_ADD_ONS</menu>
+			<menu link="option=com_acym&amp;ctrl=forms">ACYM_SUBSCRIPTION_FORMS</menu>
 			<menu link="option=com_acym&amp;ctrl=configuration">ACYM_CONFIGURATION</menu>
 		</submenu>
 	</administration>

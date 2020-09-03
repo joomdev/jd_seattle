@@ -1,12 +1,4 @@
 <?php
-/**
- * @package	AcyMailing for Joomla
- * @version	6.2.2
- * @author	acyba.com
- * @copyright	(C) 2009-2019 ACYBA S.A.R.L. All rights reserved.
- * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
- */
-
 defined('_JEXEC') or die('Restricted access');
 ?><?php
 
@@ -52,13 +44,15 @@ class acymurlClickClass extends acymClass
         acym_query($query);
     }
 
-    public function getClickRate($mailid = '')
+    public function getNumberUsersClicked($mailid = '')
     {
-        $query = 'SELECT COUNT(DISTINCT user_id) as click FROM #__acym_url_click ';
-        $query .= empty($mailid) ? '' : ' WHERE `mail_id` = '.intval($mailid);
-        $query .= ' ORDER BY user_id';
+        $query = 'SELECT COUNT(DISTINCT user_id) FROM #__acym_url_click AS url_click';
+        $isMultilingual = acym_isMultilingual();
+        if ($isMultilingual && !empty($mailid)) $query .= ' LEFT JOIN #__acym_mail AS mail ON `mail`.`id` = `url_click`.`mail_id` WHERE `mail`.`id` = '.intval($mailid).' OR  `mail`.`parent_id` = '.intval($mailid);
+        if (!$isMultilingual && !empty($mailid)) $query .= ' WHERE `url_click`.`mail_id` = '.intval($mailid);
+        $clickNb = acym_loadResult($query);
 
-        return acym_loadObject($query);
+        return empty($clickNb) ? 0 : $clickNb;
     }
 
     public function getAllClickByMailMonth($mailid = '', $start = '', $end = '')
@@ -119,6 +113,18 @@ class acymurlClickClass extends acymClass
         ];
 
         return $return;
+    }
+
+    public function getClickRateByMailIds($mailsIds = [])
+    {
+        $conditionMailId = '';
+        if (!empty($mailsIds)) {
+            acym_arrayToInteger($mailsIds);
+            $conditionMailId = 'WHERE mail_id IN ('.implode(',', $mailsIds).')';
+        }
+        $query = 'SELECT COUNT(groupStat.user_id) AS nbClick FROM (SELECT user_id FROM #__acym_url_click '.$conditionMailId.' GROUP BY mail_id, user_id) AS groupStat';
+
+        return acym_loadResult($query);
     }
 }
 

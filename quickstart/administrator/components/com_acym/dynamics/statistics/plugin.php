@@ -1,12 +1,4 @@
 <?php
-/**
- * @package	AcyMailing for Joomla
- * @version	6.2.2
- * @author	acyba.com
- * @copyright	(C) 2009-2019 ACYBA S.A.R.L. All rights reserved.
- * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
- */
-
 defined('_JEXEC') or die('Restricted access');
 ?><?php
 
@@ -16,27 +8,41 @@ class plgAcymStatistics extends acymPlugin
     {
         $id = acym_getVar('int', 'id');
         if (!empty($id)) {
-            $subject = acym_loadResult('SELECT `subject` FROM #__acym_mail WHERE `id` = '.intval($id));
-            if (empty($subject)) $subject = '';
-            echo json_encode(['value' => $subject.' ['.acym_translation('ACYM_ID').' '.$id.']']);
+            $mail = acym_loadObject(
+                'SELECT mail.`subject`, campaign.`id` AS campaignId 
+                FROM #__acym_mail AS mail 
+                LEFT JOIN #__acym_campaign AS campaign ON mail.`id` = campaign.`mail_id` 
+                WHERE mail.`id` = '.intval($id)
+            );
+            if (empty($mail)) {
+                $subject = '';
+            } else {
+                $subject = $mail->subject;
+                if (!empty($mail->campaignId)) {
+                    $subject .= ' ['.acym_translation('ACYM_ID').' '.$mail->campaignId.']';
+                }
+            }
+            echo json_encode(['value' => $subject]);
             exit;
         }
 
         $return = [];
-        $search = acym_getVar('cmd', 'search', '');
+        $search = acym_getVar('string', 'search', '');
 
         $mails = acym_loadObjectList(
-            'SELECT `id`, `subject` 
-            FROM #__acym_mail 
-            WHERE `subject` LIKE '.acym_escapeDB('%'.$search.'%').' 
-            ORDER BY `subject` ASC'
+            'SELECT mail.`id`, mail.`subject`, campaign.`id` AS campaignId 
+            FROM #__acym_mail AS mail 
+            LEFT JOIN #__acym_campaign AS campaign ON mail.`id` = campaign.`mail_id` 
+            WHERE mail.`subject` LIKE '.acym_escapeDB('%'.$search.'%').' OR mail.`name` LIKE '.acym_escapeDB('%'.$search.'%').' 
+            ORDER BY mail.`subject` ASC'
         );
 
         $mailClass = acym_get('class.mail');
         $mails = $mailClass->decode($mails);
 
         foreach ($mails as $oneMail) {
-            $return[] = [$oneMail->id, $oneMail->subject.' ['.acym_translation('ACYM_ID').' '.$oneMail->id.']'];
+            $campaignId = empty($oneMail->campaignId) ? '' : ' ['.acym_translation('ACYM_ID').' '.$oneMail->campaignId.']';
+            $return[] = [$oneMail->id, $oneMail->subject.$campaignId];
         }
 
         echo json_encode($return);
@@ -49,6 +55,7 @@ class plgAcymStatistics extends acymPlugin
             acym_selectOption('opened', 'ACYM_OPENED'),
             acym_selectOption('notopen', 'ACYM_NOTOPEN'),
             acym_selectOption('failed', 'ACYM_FAILED'),
+            acym_selectOption('sent', 'ACYM_SENT'),
             acym_selectOption('notsent', 'ACYM_NOTSENT'),
             acym_selectOption('bounced', 'ACYM_BOUNCED'),
         ];
@@ -64,7 +71,7 @@ class plgAcymStatistics extends acymPlugin
             [],
             'acym_action[filters][__numor__][__numand__][statistics][mail]',
             null,
-            'class="acym__select acym_select2_ajax" data-placeholder="'.acym_translation('ACYM_SELECT_A_MAIL', true).'" data-params="'.acym_escape($ajaxParams).'"'
+            'class="acym__select acym_select2_ajax" data-placeholder="'.acym_translation('ACYM_SELECT_AN_EMAIL', true).'" data-params="'.acym_escape($ajaxParams).'"'
         );
         $filters['statistics']->option .= '</div>';
     }
@@ -84,7 +91,7 @@ class plgAcymStatistics extends acymPlugin
             return;
         }
 
-        if (empty($options['status']) || !in_array($options['status'], ['opened', 'notopen', 'failed', 'bounced', 'notsent'])) {
+        if (empty($options['status']) || !in_array($options['status'], ['opened', 'notopen', 'failed', 'bounced', 'notsent', 'sent'])) {
             acym_enqueueMessage(acym_translation_sprintf('ACYM_UNKNOWN_OPERATOR', $options['status']), 'warning');
 
             return;
@@ -105,9 +112,11 @@ class plgAcymStatistics extends acymPlugin
             $where = $alias.'.`bounce` > 0';
         } elseif ($options['status'] == 'notsent') {
             $where = $alias.'.`user_id` IS NULL';
+        } elseif ($options['status'] == 'sent') {
+            $where = $alias.'.`user_id` IS NOT NULL';
         }
 
-        $query->where[] = $where;
+        if (!empty($where)) $query->where[] = $where;
     }
 
     public function onAcymDeclareSummary_filters(&$automationFilter)

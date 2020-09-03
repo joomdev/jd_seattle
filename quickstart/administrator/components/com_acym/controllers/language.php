@@ -1,22 +1,9 @@
 <?php
-/**
- * @package	AcyMailing for Joomla
- * @version	6.2.2
- * @author	acyba.com
- * @copyright	(C) 2009-2019 ACYBA S.A.R.L. All rights reserved.
- * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
- */
-
 defined('_JEXEC') or die('Restricted access');
 ?><?php
 
 class LanguageController extends acymController
 {
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
     public function saveLanguage($fromShare = false)
     {
         acym_checkToken();
@@ -24,32 +11,32 @@ class LanguageController extends acymController
         $code = acym_getVar('cmd', 'code');
         acym_setVar('code', $code);
 
-        $content = acym_getVar('string', 'content', '', '', ACYM_ALLOWHTML);
+        $content = acym_getVar('string', 'content', '', '', ACYM_ALLOWRAW);
         $content = str_replace('</textarea>', '', $content);
 
         if (empty($code) || empty($content)) {
             return $this->displayLanguage();
         }
 
-        $customcontent = acym_getVar('string', 'customcontent', '', '', ACYM_ALLOWHTML);
+        $customcontent = acym_getVar('string', 'customcontent', '', '', ACYM_ALLOWRAW);
         $customcontent = str_replace('</textarea>', '', $customcontent);
 
         $path = acym_getLanguagePath(ACYM_ROOT, $code).DS.$code.'.com_acym.ini';
         $result = acym_writeFile($path, $content);
         if ($result) {
-            acym_enqueueNotification(acym_translation('ACYM_SUCCESSFULLY_SAVED'), 'success');
-            acym_addScript(true, "window.top.document.getElementById('image$code').innerHTML = 'edit'");
+            acym_enqueueMessage(acym_translation('ACYM_SUCCESSFULLY_SAVED'), 'success');
+            acym_addScript(true, 'let langIcon = window.top.document.getElementById("image'.$code.'"); langIcon.className = langIcon.className.replace("acymicon-add", "") + " acymicon-edit"');
 
             $updateHelper = acym_get('helper.update');
             $updateHelper->installBackLanguages($code);
         } else {
-            acym_enqueueNotification(acym_translation_sprintf('ACYM_FAIL_SAVE', $path), 'error');
+            acym_enqueueMessage(acym_translation_sprintf('ACYM_FAIL_SAVE_FILE', $path), 'error');
         }
 
         $custompath = acym_getLanguagePath(ACYM_ROOT, $code).DS.$code.'.com_acym_custom.ini';
         $customresult = acym_writeFile($custompath, $customcontent);
         if (!$customresult) {
-            acym_enqueueNotification(acym_translation_sprintf('ACYM_FAIL_SAVE', $custompath), 'error');
+            acym_enqueueMessage(acym_translation_sprintf('ACYM_FAIL_SAVE_FILE', $custompath), 'error');
         }
 
         if ($code == acym_getLanguageTag()) {
@@ -99,10 +86,9 @@ class LanguageController extends acymController
             return;
         }
 
-        $config = acym_config();
         $mailer = acym_get('helper.mailer');
         $mailer->Subject = '[ACYMAILING LANGUAGE FILE] '.$code;
-        $mailer->Body = 'The website '.ACYM_LIVE.' using AcyMailing '.$config->get('level').' '.$config->get('version').' sent a language file : '.$code;
+        $mailer->Body = 'The website '.ACYM_LIVE.' using AcyMailing '.$this->config->get('level').' '.$this->config->get('version').' sent a language file : '.$code;
         $mailer->Body .= "\n\n\n".$bodyEmail;
 
         $file = acym_getLanguagePath(ACYM_ROOT, $code).DS.$code.'.com_acym.ini';
@@ -151,9 +137,9 @@ class LanguageController extends acymController
         $result = $mailer->Send();
 
         if ($result) {
-            acym_enqueueNotification(acym_translation('ACYM_THANK_YOU_SHARING').'<br>'.acym_translation('ACYM_MESSAGE_SENT'), 'success');
+            acym_enqueueMessage(acym_translation('ACYM_THANK_YOU_SHARING').'<br>'.acym_translation('ACYM_MESSAGE_SENT'), 'success');
         } else {
-            acym_enqueueNotification($mailer->reportMessage, 'error');
+            acym_enqueueMessage($mailer->reportMessage, 'error');
         }
 
         $this->displayLanguage();
@@ -161,7 +147,7 @@ class LanguageController extends acymController
 
     public function displayLanguage()
     {
-        acym_setVar("layout", "default");
+        acym_setVar('layout', 'default');
 
         $code = acym_getVar('string', 'code');
         if (empty($code)) {
@@ -199,7 +185,7 @@ class LanguageController extends acymController
 
         if ($loadLatest || acym_getVar('cmd', 'task') == 'latest') {
             if (file_exists(acym_getLanguagePath(ACYM_ROOT, $code))) {
-                acym_addScript(false, ACYM_UPDATEMEURL.'update&component=acym&task=languageload&code='.acym_getVar('cmd', 'code'));
+                acym_addScript(false, ACYM_UPDATEURL.'languageload&component=acym&code='.acym_getVar('cmd', 'code'));
             } else {
                 acym_enqueueMessage('The specified language "'.acym_escape($code).'" is not installed on your site', 'warning');
             }

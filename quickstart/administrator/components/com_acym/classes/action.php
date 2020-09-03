@@ -1,12 +1,4 @@
 <?php
-/**
- * @package	AcyMailing for Joomla
- * @version	6.2.2
- * @author	acyba.com
- * @copyright	(C) 2009-2019 ACYBA S.A.R.L. All rights reserved.
- * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
- */
-
 defined('_JEXEC') or die('Restricted access');
 ?><?php
 
@@ -29,8 +21,32 @@ class acymactionClass extends acymClass
         return acym_loadObjectList($query);
     }
 
-    public function getAll()
+    public function getAllActionsIdByConditionsId($elements)
     {
-        return acym_loadObjectList('SELECT * FROM #__acym_action');
+        acym_arrayToInteger($elements);
+        $actions = acym_loadResultArray('SELECT id FROM #__acym_action WHERE condition_id IN ('.implode(',', $elements).')');
+
+        return $actions;
+    }
+
+    public function delete($elements)
+    {
+        acym_arrayToInteger($elements);
+        $actions = acym_loadObjectList('SELECT * FROM #__acym_action WHERE id IN ('.implode(',', $elements).')');
+        if (empty($actions)) return;
+
+        $mailClass = acym_get('class.mail');
+
+        foreach ($actions as $action) {
+            $action->actions = json_decode($action->actions, true);
+            if (!empty($action->actions)) {
+                foreach ($action->actions as $innerAction) {
+                    if (!empty($innerAction['acy_add_queue']) && !empty($innerAction['acy_add_queue']['mail_id'])) $mailClass->delete($innerAction['acy_add_queue']['mail_id']);
+                }
+            }
+        }
+
+        parent::delete($elements);
     }
 }
+

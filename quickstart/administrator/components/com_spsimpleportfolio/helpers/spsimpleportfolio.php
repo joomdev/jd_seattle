@@ -50,6 +50,10 @@ class SpsimpleportfolioHelper {
 
   // Create thumbs
   public static function createThumbs($src, $sizes = array(), $folder, $base_name, $ext) {
+    
+    // Get params
+    $params = JComponentHelper::getParams('com_spsimpleportfolio');
+    $img_crop_position = $params->get('crop_position', 'center');
 
     list($originalWidth, $originalHeight) = getimagesize($src);
 
@@ -77,12 +81,22 @@ class SpsimpleportfolioHelper {
         if ($ratio_original >= $ratio_thumb) {
           $height = $originalHeight;
           $width = ceil(($height*$targetWidth)/$targetHeight);
-          $x = ceil(($originalWidth-$width)/2);
+          if( $img_crop_position == 'topleft' ) {
+            $x = 0;
+          } elseif( $img_crop_position == 'topright' ) {
+            $x = ceil($originalWidth-$width);
+          } else {
+            $x = ceil(($originalWidth-$width)/2);
+          }
           $y = 0;
         } else {
           $width = $originalWidth;
           $height = ceil(($width*$targetHeight)/$targetWidth);
-          $y = ceil(($originalHeight-$height)/2);
+          if($img_crop_position == 'topleft') {
+            $y = 0;  
+          } else {
+            $y = ceil(($originalHeight-$height)/2);
+          }
           $x = 0;
         }
 

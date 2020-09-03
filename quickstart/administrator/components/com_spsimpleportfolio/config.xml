@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
+	<fieldset name="basic" label="COM_SPPORTFOLIO_BASIC_LABEL">
+		<field name="sef_advanced" type="radio" class="btn-group btn-group-yesno btn-group-reversed" default="0" label="JGLOBAL_SEF_ADVANCED_LABEL" description="JGLOBAL_SEF_ADVANCED_DESC" filter="integer" >
+			<option value="0">JGLOBAL_SEF_ADVANCED_LEGACY</option>
+			<option value="1">JGLOBAL_SEF_ADVANCED_MODERN</option>
+		</field>
+
+		<field name="sef_ids" type="radio" class="btn-group btn-group-yesno" default="0" label="JGLOBAL_SEF_NOIDS_LABEL" description="JGLOBAL_SEF_NOIDS_DESC" filter="integer">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+	</fieldset>
 	<fieldset name="media" label="COM_SPPORTFOLIO_THUMBNAIL_LABEL" addfieldpath="/administrator/components/com_spsimpleportfolio/models/fields/">
+		<field name="crop_position" type="list" default="center" label="COM_SPSIMPLEPORTFOLIO_FIELD_IMAGE_CROP_POSITION" description="COM_SPSIMPLEPORTFOLIO_FIELD_IMAGE_CROP_POSITION_DESC">
+			<option value="center">COM_SPSIMPLEPORTFOLIO_FIELD_IMAGE_CROP_POSITION_CENTER</option>
+			<option value="topleft">COM_SPSIMPLEPORTFOLIO_FIELD_IMAGE_CROP_POSITION_TOP_LEFT</option>
+			<option value="topright">COM_SPSIMPLEPORTFOLIO_FIELD_IMAGE_CROP_POSITION_TOP_RIGHT</option>
+		</field>
 		<field name="square" type="text" label="COM_SPPORTFOLIO_THUMBNAIL_SQAURE" description="COM_SPPORTFOLIO_THUMBNAIL_SQAURE_DESC" default="600x600" />
 		<field name="rectangle" type="text" label="COM_SPPORTFOLIO_THUMBNAIL_RECTANGLE" description="COM_SPPORTFOLIO_THUMBNAIL_RECTANGLE_DESC" default="600x400" />
 		<field name="tower" type="text" label="COM_SPPORTFOLIO_THUMBNAIL_TOWER" description="COM_SPPORTFOLIO_THUMBNAIL_TOWER_DESC" default="600X800" />

@@ -1,12 +1,4 @@
 <?php
-/**
- * @package	AcyMailing for Joomla
- * @version	6.2.2
- * @author	acyba.com
- * @copyright	(C) 2009-2019 ACYBA S.A.R.L. All rights reserved.
- * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
- */
-
 defined('_JEXEC') or die('Restricted access');
 ?><?php
 
@@ -25,16 +17,13 @@ class plgAcymSubscription extends acymPlugin
 
         global $acymCmsUserVars;
         $this->cmsUserVars = $acymCmsUserVars;
+
+        $this->pluginDescription->name = acym_translation('ACYM_SUBSCRIPTION');
     }
 
     public function dynamicText()
     {
-        $onePlugin = new stdClass();
-        $onePlugin->name = acym_translation('ACYM_SUBSCRIPTION');
-        $onePlugin->plugin = __CLASS__;
-        $onePlugin->help = 'plugin-subscription';
-
-        return $onePlugin;
+        return $this->pluginDescription;
     }
 
     public function textPopup()
@@ -100,10 +89,20 @@ class plgAcymSubscription extends acymPlugin
                     <h1 class="acym__popup__plugin__title cell">'.acym_translation('ACYM_SUBSCRIPTION').'</h1>
                     <div class="medium-1"></div>
                     <div class="medium-10 text-left">';
-        $text .= acym_modal_pagination_lists('', '', '', '', '', false, 'acym__popup__subscription__change', '', false, 'style="display: none;" id="acym__popup__plugin__subscription__lists__modal"');
+        $text .= acym_modal_pagination_lists(
+            '',
+            '',
+            '',
+            '',
+            '',
+            'acym__popup__subscription__change',
+            '',
+            false,
+            'style="display: none;" id="acym__popup__plugin__subscription__lists__modal"'
+        );
         $text .= '  </div>
                     <div class="medium-1"></div>
-					<div class="grid-x medium-12 cell acym__listing__row text-left">
+					<div class="grid-x medium-12 cell acym__row__no-listing text-left">
                         <div class="grid-x cell medium-5 small-12 acym__listing__title acym__listing__title__dynamics acym__subscription__subscription">
                             <label class="small-3" style="line-height: 40px;" for="acym__popup__subscription__tagtext">'.acym_translation('ACYM_TEXT').': </label>
                             <input class="small-9" type="text" name="tagtext" id="acym__popup__subscription__tagtext" onchange="setSubscriptionTag();">
@@ -122,7 +121,7 @@ class plgAcymSubscription extends acymPlugin
             if ($tagname == 'subscribe') {
                 $onclick .= 'displayLists();return false;';
             }
-            $text .= '<div class="grid-x small-12 cell acym__listing__row acym__listing__row__popup text-left"  onclick="'.$onclick.'" id="tr_'.$tagname.'" ><div class="cell small-12 acym__listing__title acym__listing__title__dynamics">'.$tag['name'].'</div></div>';
+            $text .= '<div class="grid-x small-12 cell acym__row__no-listing acym__listing__row__popup text-left"  onclick="'.$onclick.'" id="tr_'.$tagname.'" ><div class="cell small-12 acym__listing__title acym__listing__title__dynamics">'.$tag['name'].'</div></div>';
         }
         $text .= '</div></div>';
 
@@ -136,7 +135,7 @@ class plgAcymSubscription extends acymPlugin
 					<div class="cell grid-x">';
 
         foreach ($others as $tagname => $tag) {
-            $text .= '<div class="grid-x medium-12 cell acym__listing__row acym__listing__row__popup text-left" onclick="setTag(\'{list:'.$tagname.'}\', jQuery(this));" id="tr_'.$tagname.'" >
+            $text .= '<div class="grid-x medium-12 cell acym__row__no-listing acym__listing__row__popup text-left" onclick="setTag(\'{list:'.$tagname.'}\', jQuery(this));" id="tr_'.$tagname.'" >
                         <div class="cell medium-12 small-12 acym__listing__title acym__listing__title__dynamics">'.$tag.'</div>
                       </div>';
         }
@@ -149,8 +148,22 @@ class plgAcymSubscription extends acymPlugin
         $othersMail = ['campaignid', 'subject'];
 
         foreach ($othersMail as $tag) {
-            $text .= '<div class="grid-x medium-12 cell acym__listing__row acym__listing__row__popup text-left" onclick="setTag(\'{mail:'.$tag.'}\', jQuery(this));" id="tr_'.$tag.'" >
+            $text .= '<div class="grid-x medium-12 cell acym__row__no-listing acym__listing__row__popup text-left" onclick="setTag(\'{mail:'.$tag.'}\', jQuery(this));" id="tr_'.$tag.'" >
                         <div class="cell medium-12 small-12 acym__listing__title acym__listing__title__dynamics">'.$tag.'</div>
+                      </div>';
+        }
+        $text .= '</div></div>';
+
+        $text .= '<div class="acym__popup__listing text-center grid-x">
+					<span class="acym__popup__plugin__title cell">'.acym_translation('ACYM_AUTO').' '.acym_translation('ACYM_CAMPAIGNS').'</span>
+					<div class="cell grid-x">';
+        $autoMail = ['number_generated' => ['name' => acym_translation('ACYM_ISSUE_NB'), 'default' => '#1']];
+
+        foreach ($autoMail as $tag => $oneTag) {
+            $tagInserted = $tag;
+            if (!empty($oneTag['default'])) $tagInserted = $tag.'|default:'.$oneTag['default'];
+            $text .= '<div class="grid-x medium-12 cell acym__row__no-listing acym__listing__row__popup text-left" onclick="setTag(\'{automail:'.$tagInserted.'}\', jQuery(this));" id="tr_'.$tag.'" >
+                        <div class="cell medium-12 small-12 acym__listing__title acym__listing__title__dynamics">'.$oneTag['name'].'</div>
                       </div>';
         }
         $text .= '</div></div>';
@@ -166,16 +179,16 @@ class plgAcymSubscription extends acymPlugin
             return;
         }
 
-        $lang = empty($email->lang) ? '' : '&lang='.$email->lang;
-        $myLink = acym_frontendLink('frontusers&subid='.intval($user->id).'&task=unsubscribe&id='.$email->id.'&key='.urlencode($user->key).$lang.'&'.acym_noTemplate());
+        $link = 'frontusers&subid='.intval($user->id).'&task=unsubscribe&id='.$email->id.'&key='.urlencode($user->key).'&'.acym_noTemplate();
+        $link .= $this->getLanguage($email->links_language);
+        $myLink = acym_frontendLink($link);
 
         $this->listunsubscribe = true;
         if (!empty($email->replyemail)) {
             $mailto = $email->replyemail;
         }
         if (empty($mailto)) {
-            $config = acym_config();
-            $mailto = $config->get('replyto_email');
+            $mailto = $this->config->get('replyto_email');
         }
         $email->addCustomHeader('List-Unsubscribe: <'.$myLink.'>, <mailto:'.$mailto.'?subject=unsubscribe_user_'.$user->id.'&body=Please%20unsubscribe%20user%20ID%20'.$user->id.'>');
     }
@@ -184,11 +197,12 @@ class plgAcymSubscription extends acymPlugin
     {
         $this->_replaceSubscriptionTags($email);
         $this->_replacemailtags($email);
+        $this->replacAutomailTags($email);
     }
 
     private function _replacemailtags(&$email)
     {
-        $result = $this->acympluginHelper->extractTags($email, 'mail');
+        $result = $this->pluginHelper->extractTags($email, 'mail');
         $tags = [];
 
         foreach ($result as $key => $oneTag) {
@@ -199,19 +213,64 @@ class plgAcymSubscription extends acymPlugin
             $field = $oneTag->id;
             if (!empty($email) && !empty($email->$field)) {
                 $text = $email->$field;
-                $this->acympluginHelper->formatString($text, $oneTag);
+                $this->pluginHelper->formatString($text, $oneTag);
+                $tags[$key] = $text;
+            } elseif (substr($field, 0, 8) == 'campaign') {
+                $this->getCampaignTags($email, $tags, $oneTag, $key);
+            } else {
+                $tags[$key] = $oneTag->default;
+            }
+        }
+
+        $this->pluginHelper->replaceTags($email, $tags);
+    }
+
+    private function getCampaignTags(&$email, &$tags, $oneTag, $key)
+    {
+        $campaignClass = acym_get('class.campaign');
+        $campaignFromMail = $campaignClass->getOneCampaignByMailId($email->id);
+        $campaignField = substr($oneTag->id, 8);
+        if (!empty($campaignFromMail) && !empty($campaignFromMail->$campaignField)) {
+            $text = $campaignFromMail->$campaignField;
+            $this->pluginHelper->formatString($text, $oneTag);
+            $tags[$key] = $text;
+        } else {
+            $tags[$key] = $oneTag->default;
+        }
+
+        return;
+    }
+
+    private function replacAutomailTags(&$email)
+    {
+        $result = $this->pluginHelper->extractTags($email, 'automail');
+        $tags = [];
+
+        foreach ($result as $key => $oneTag) {
+            if (isset($tags[$key])) {
+                continue;
+            }
+
+            $field = $oneTag->id;
+
+            $campaignClass = acym_get('class.campaign');
+            $autoCampaignFromMail = $campaignClass->getAutoCampaignFromGeneratedMailId($email->id);
+
+            if (!empty($autoCampaignFromMail) && !empty($autoCampaignFromMail->sending_params[$field])) {
+                $text = $autoCampaignFromMail->sending_params[$field];
+                $this->pluginHelper->formatString($text, $oneTag);
                 $tags[$key] = $text;
             } else {
                 $tags[$key] = $oneTag->default;
             }
         }
 
-        $this->acympluginHelper->replaceTags($email, $tags);
+        $this->pluginHelper->replaceTags($email, $tags);
     }
 
     private function _replacelisttags(&$email, &$user, $send)
     {
-        $tags = $this->acympluginHelper->extractTags($email, 'list');
+        $tags = $this->pluginHelper->extractTags($email, 'list');
         if (empty($tags)) {
             return;
         }
@@ -227,7 +286,7 @@ class plgAcymSubscription extends acymPlugin
             }
         }
 
-        $this->acympluginHelper->replaceTags($email, $replaceTags, true);
+        $this->pluginHelper->replaceTags($email, $replaceTags, true);
     }
 
     private function _getAttachedListid($email, $subid)
@@ -389,44 +448,37 @@ class plgAcymSubscription extends acymPlugin
 
     private function _replaceSubscriptionTags(&$email)
     {
-        $match = '#(?:{|%7B)(confirm[^}]*|unsubscribe(?:\|[^}]*)?|subscribe[^}]*)(?:}|%7D)(.*)(?:{|%7B)/(confirm|unsubscribe|subscribe)(?:}|%7D)#Uis';
+        $match = '#(?:{|%7B)(confirm|unsubscribe|subscribe(?:\|[^}]+)*)(?:}|%7D)(.*)(?:{|%7B)/(confirm|unsubscribe|subscribe)(?:}|%7D)#Uis';
         $variables = ['subject', 'body'];
         $found = false;
         $results = [];
         foreach ($variables as $var) {
-            if (empty($email->$var)) {
-                continue;
-            }
+            if (empty($email->$var)) continue;
+
             $found = preg_match_all($match, $email->$var, $results[$var]) || $found;
-            if (empty($results[$var][0])) {
-                unset($results[$var]);
-            }
+            if (empty($results[$var][0])) unset($results[$var]);
         }
 
-        if (!$found) {
-            return;
-        }
+        if (!$found) return;
 
         $tags = [];
         $this->listunsubscribe = false;
         foreach ($results as $var => $allresults) {
             foreach ($allresults[0] as $i => $oneTag) {
-                if (isset($tags[$oneTag])) {
-                    continue;
-                }
+                if (isset($tags[$oneTag])) continue;
+
                 $tags[$oneTag] = $this->_replaceSubscriptionTag($allresults, $i, $email);
             }
         }
 
-        $this->acympluginHelper->replaceTags($email, $tags);
+        $this->pluginHelper->replaceTags($email, $tags);
     }
 
     private function _replaceSubscriptionTag(&$allresults, $i, &$email)
     {
-        $config = acym_config();
-        $lang = empty($email->lang) ? '' : '&lang='.$email->lang;
+        $parameters = $this->pluginHelper->extractTag($allresults[1][$i]);
 
-        $parameters = $this->acympluginHelper->extractTag($allresults[1][$i]);
+        $lang = $this->getLanguage($email->links_language);
 
         if ($parameters->id == 'confirm') {
             $myLink = acym_frontendLink('frontusers&task=confirm&id={subtag:id}&key={subtag:key|urlencode}'.$lang);
@@ -437,11 +489,11 @@ class plgAcymSubscription extends acymPlugin
             return '<a target="_blank" href="'.$myLink.'">'.$allresults[2][$i].'</a>';
         } elseif ($parameters->id == 'subscribe') {
             if (empty($parameters->lists)) {
-                return 'You must select at least one list';
+                return acym_translation('ACYM_EXPORT_SELECT_LIST');
             }
             $lists = explode(',', $parameters->lists);
             acym_arrayToInteger($lists);
-            $captchaKey = $config->get('captcha', '') == 1 ? '&seckey='.$config->get('security_key', '') : '';
+            $captchaKey = $this->config->get('captcha', '') == 1 ? '&seckey='.$this->config->get('security_key', '') : '';
             $myLink = acym_frontendLink('frontusers&task=subscribe&hiddenlists='.implode(',', $lists).'&user[email]={subtag:email|urlencode}'.$lang.$captchaKey);
             if (empty($allresults[2][$i])) {
                 return $myLink;
@@ -573,7 +625,7 @@ class plgAcymSubscription extends acymPlugin
         $actions['acy_list']->option .= '</div>';
     }
 
-    public function onAcymProcessCondition_acy_list(&$query, &$options, $num, &$conditionNotValid)
+    private function _processConditionAcyLists(&$query, &$options, $num)
     {
         $otherConditions = '';
         if (!empty($options['date-min'])) {
@@ -582,7 +634,7 @@ class plgAcymSubscription extends acymPlugin
                 $options['date-min'] = strtotime($options['date-min']);
             }
             if (!empty($options['date-min'])) {
-                $otherConditions .= ' AND userlist'.$num.'.'.acym_secureDBColumn($options['date-type']).' > '.acym_escapeDB(acym_date($options['date-min'], "Y-m-d H:i:s"));
+                $otherConditions .= ' AND userlist'.$num.'.'.acym_secureDBColumn($options['date-type']).' > '.acym_escapeDB(acym_date($options['date-min'], "Y-m-d H:i:s", false));
             }
         }
         if (!empty($options['date-max'])) {
@@ -591,7 +643,7 @@ class plgAcymSubscription extends acymPlugin
                 $options['date-max'] = strtotime($options['date-max']);
             }
             if (!empty($options['date-max'])) {
-                $otherConditions .= ' AND userlist'.$num.'.'.acym_secureDBColumn($options['date-type']).' < '.acym_escapeDB(acym_date($options['date-max'], "Y-m-d H:i:s"));
+                $otherConditions .= ' AND userlist'.$num.'.'.acym_secureDBColumn($options['date-type']).' < '.acym_escapeDB(acym_date($options['date-max'], "Y-m-d H:i:s", false));
             }
         }
 
@@ -603,87 +655,38 @@ class plgAcymSubscription extends acymPlugin
             $query->where[] = 'userlist'.$num.'.status = '.intval($status);
         }
 
-        $affectedRows = $query->count();
+        return $query->count();
+    }
+
+    public function onAcymProcessCondition_acy_list(&$query, &$options, $num, &$conditionNotValid)
+    {
+        $affectedRows = $this->_processConditionAcyLists($query, $options, $num);
         if (empty($affectedRows)) $conditionNotValid++;
     }
 
     public function onAcymProcessCondition_acy_list_all(&$query, &$options, $num, &$conditionNotValid)
     {
-        $otherConditions = '';
-        if (!empty($options['date-min'])) {
-            $options['date-min'] = acym_replaceDate($options['date-min']);
-            if (!is_numeric($options['date-min'])) {
-                $options['date-min'] = strtotime($options['date-min']);
-            }
-            if (!empty($options['date-min'])) {
-                $otherConditions .= ' AND userlist'.$num.'.'.acym_secureDBColumn($options['date-type']).' > '.acym_escapeDB(acym_date($options['date-min'], "Y-m-d H:i:s"));
-            }
-        }
-        if (!empty($options['date-max'])) {
-            $options['date-max'] = acym_replaceDate($options['date-max']);
-            if (!is_numeric($options['date-max'])) {
-                $options['date-max'] = strtotime($options['date-max']);
-            }
-            if (!empty($options['date-max'])) {
-                $otherConditions .= ' AND userlist'.$num.'.'.acym_secureDBColumn($options['date-type']).' < '.acym_escapeDB(acym_date($options['date-max'], "Y-m-d H:i:s"));
-            }
-        }
+        $affectedRows = $this->_processConditionAcyLists($query, $options, $num);
 
-        $query->leftjoin['list'.$num] = '#__acym_user_has_list as userlist'.$num.' ON user.id = userlist'.$num.'.user_id AND userlist'.$num.'.list_id = '.intval($options['list']).$otherConditions;
-        if ($options['action'] == 'notsub') {
-            $query->where[] = 'userlist'.$num.'.user_id IS NULL';
-        } else {
-            $status = $options['action'] == 'sub' ? '1' : '0';
-            $query->where[] = 'userlist'.$num.'.status = '.intval($status);
-        }
-
-        $numberReturn = $query->count();
         $res = false;
-
         switch ($options['operator']) {
             case '=' :
-                $res = $numberReturn == $options['number'];
+                $res = $affectedRows == $options['number'];
                 break;
             case '>' :
-                $res = $numberReturn > $options['number'];
+                $res = $affectedRows > $options['number'];
                 break;
             case '<' :
-                $res = $numberReturn < $options['number'];
+                $res = $affectedRows < $options['number'];
                 break;
         }
 
         if (!$res) $conditionNotValid++;
     }
 
-    public function onAcymProcessFilter_acy_list(&$query, &$filterOptions, $num)
+    public function onAcymProcessFilter_acy_list(&$query, &$options, $num)
     {
-        $otherConditions = '';
-        if (!empty($filterOptions['date-min'])) {
-            $filterOptions['date-min'] = acym_replaceDate($filterOptions['date-min']);
-            if (!is_numeric($filterOptions['date-min'])) {
-                $filterOptions['date-min'] = strtotime($filterOptions['date-min']);
-            }
-            if (!empty($filterOptions['date-min'])) {
-                $otherConditions .= ' AND userlist'.$num.'.'.acym_secureDBColumn($filterOptions['date-type']).' > '.acym_escapeDB(acym_date($filterOptions['date-min'], "Y-m-d H:i:s"));
-            }
-        }
-        if (!empty($filterOptions['date-max'])) {
-            $filterOptions['date-max'] = acym_replaceDate($filterOptions['date-max']);
-            if (!is_numeric($filterOptions['date-max'])) {
-                $filterOptions['date-max'] = strtotime($filterOptions['date-max']);
-            }
-            if (!empty($filterOptions['date-max'])) {
-                $otherConditions .= ' AND userlist'.$num.'.'.acym_secureDBColumn($filterOptions['date-type']).' < '.acym_escapeDB(acym_date($filterOptions['date-max'], "Y-m-d H:i:s"));
-            }
-        }
-
-        $query->leftjoin['list'.$num] = '#__acym_user_has_list as userlist'.$num.' ON user.id = userlist'.$num.'.user_id AND userlist'.$num.'.list_id = '.intval($filterOptions['list']).$otherConditions;
-        if ($filterOptions['action'] == 'notsub') {
-            $query->where[] = 'userlist'.$num.'.user_id IS NULL';
-        } else {
-            $status = $filterOptions['action'] == 'sub' ? '1' : '0';
-            $query->where[] = 'userlist'.$num.'.status = '.intval($status);
-        }
+        $this->_processConditionAcyLists($query, $options, $num);
     }
 
     public function onAcymProcessFilterCount_acy_list(&$query, $options, $num)
@@ -715,104 +718,76 @@ class plgAcymSubscription extends acymPlugin
         return acym_translation_sprintf('ACYM_ACTION_LIST_'.strtoupper($action['list_actions']), $nbAffected);
     }
 
-    public function onAcymDeclareSummary_conditions(&$automationCondition)
+    private function _summaryDate($automation, $finalText)
     {
-        if (!empty($automationCondition['acy_list'])) {
-            $finalText = '';
-            $listClass = acym_get('class.list');
-            $automationCondition['acy_list']['list'] = $listClass->getOneById($automationCondition['acy_list']['list']);
-            if (empty($automationCondition['acy_list']['list'])) {
-                $automationCondition = '<span class="acym__color__red">'.acym_translation('ACYM_SELECT_A_LIST').'</span>';
+        if (!empty($automation['date-min']) || !empty($automation['date-max'])) {
+            $finalText .= acym_translation_sprintf('ACYM_WHERE_DATE_ACY_LIST_SUMMARY', strtolower(acym_translation('ACYM_'.strtoupper($automation['date-type']))));
 
-                return;
+            $dates = [];
+            if (!empty($automation['date-min'])) {
+                $automation['date-min'] = acym_replaceDate($automation['date-min']);
+                $dates[] = acym_translation_sprintf('ACYM_WHERE_DATE_MIN_ACY_LIST_SUMMARY', acym_date($automation['date-min'], 'd M Y H:i'));
             }
-            if ($automationCondition['acy_list']['action'] == 'sub') $automationCondition['acy_list']['action'] = 'ACYM_IS_SUBSCRIBED';
-            if ($automationCondition['acy_list']['action'] == 'unsub') $automationCondition['acy_list']['action'] = 'ACYM_IS_UNSUBSCRIBED';
-            if ($automationCondition['acy_list']['action'] == 'notsub') $automationCondition['acy_list']['action'] = 'ACYM_IS_NOT_SUBSCRIBED';
-            $finalText .= acym_translation_sprintf('ACYM_CONDITION_ACY_LIST_SUMMARY', acym_translation($automationCondition['acy_list']['action']), $automationCondition['acy_list']['list']->name).' ';
-            if (!empty($automationCondition['acy_list']['date-min']) || !empty($automationCondition['acy_list']['date-max'])) {
-                $finalText .= acym_translation_sprintf('ACYM_WHERE_DATE_ACY_LIST_SUMMARY', strtolower(acym_translation('ACYM_'.strtoupper($automationCondition['acy_list']['date-type']))));
-
-                $dates = [];
-                if (!empty($automationCondition['acy_list']['date-min'])) {
-                    $automationCondition['acy_list']['date-min'] = acym_replaceDate($automationCondition['acy_list']['date-min']);
-                    $dates[] = acym_translation_sprintf('ACYM_WHERE_DATE_MIN_ACY_LIST_SUMMARY', acym_date($automationCondition['acy_list']['date-min'], 'd M Y H:i'));
-                }
-                if (!empty($automationCondition['acy_list']['date-max'])) {
-                    $automationCondition['acy_list']['date-max'] = acym_replaceDate($automationCondition['acy_list']['date-max']);
-                    $dates[] = acym_translation_sprintf('ACYM_WHERE_DATE_MAX_ACY_LIST_SUMMARY', acym_date($automationCondition['acy_list']['date-max'], 'd M Y H:i'));
-                }
-
-                $finalText .= ' '.implode(' '.strtolower(acym_translation('ACYM_AND')).' ', $dates);
+            if (!empty($automation['date-max'])) {
+                $automation['date-max'] = acym_replaceDate($automation['date-max']);
+                $dates[] = acym_translation_sprintf('ACYM_WHERE_DATE_MAX_ACY_LIST_SUMMARY', acym_date($automation['date-max'], 'd M Y H:i'));
             }
-            $automationCondition = $finalText;
+
+            $finalText .= ' '.implode(' '.strtolower(acym_translation('ACYM_AND')).' ', $dates);
         }
 
-
-        if (!empty($automationCondition['acy_list_all'])) {
-            $operators = ['=' => acym_translation('ACYM_EXACTLY'), '>' => acym_translation('ACYM_MORE_THAN'), '<' => acym_translation('ACYM_LESS_THAN')];
-            $finalText = acym_translation('ACYM_THERE_IS').' '.strtolower($operators[$automationCondition['acy_list_all']['operator']]).' '.$automationCondition['acy_list_all']['number'].' '.acym_translation('ACYM_ACYMAILING_USERS').' ';
-            $listClass = acym_get('class.list');
-            $automationCondition['acy_list_all']['list'] = $listClass->getOneById($automationCondition['acy_list_all']['list']);
-            if (empty($automationCondition['acy_list_all']['list'])) {
-                $automationCondition = '<span class="acym__color__red">'.acym_translation('ACYM_SELECT_A_LIST').'</span>';
-
-                return;
-            }
-            if ($automationCondition['acy_list_all']['action'] == 'sub') $automationCondition['acy_list_all']['action'] = 'ACYM_SUBSCRIBED';
-            if ($automationCondition['acy_list_all']['action'] == 'unsub') $automationCondition['acy_list_all']['action'] = 'ACYM_UNSUBSCRIBED';
-            if ($automationCondition['acy_list_all']['action'] == 'notsub') $automationCondition['acy_list_all']['action'] = 'ACYM__NOT_SUBSCRIBED';
-            $finalText .= acym_translation_sprintf('ACYM_CONDITION_ACY_LIST_SUMMARY', acym_translation($automationCondition['acy_list_all']['action']), $automationCondition['acy_list_all']['list']->name).' ';
-            if (!empty($automationCondition['acy_list_all']['date-min']) || !empty($automationCondition['acy_list_all']['date-max'])) {
-                $finalText .= acym_translation_sprintf('ACYM_WHERE_DATE_ACY_LIST_SUMMARY', strtolower(acym_translation('ACYM_'.strtoupper($automationCondition['acy_list_all']['date-type']))));
-
-                $dates = [];
-                if (!empty($automationCondition['acy_list_all']['date-min'])) {
-                    $automationCondition['acy_list_all']['date-min'] = acym_replaceDate($automationCondition['acy_list_all']['date-min']);
-                    $dates[] = acym_translation_sprintf('ACYM_WHERE_DATE_MIN_ACY_LIST_SUMMARY', acym_date($automationCondition['acy_list_all']['date-min'], 'd M Y H:i'));
-                }
-                if (!empty($automationCondition['acy_list_all']['date-max'])) {
-                    $automationCondition['acy_list_all']['date-max'] = acym_replaceDate($automationCondition['acy_list_all']['date-max']);
-                    $dates[] = acym_translation_sprintf('ACYM_WHERE_DATE_MAX_ACY_LIST_SUMMARY', acym_date($automationCondition['acy_list_all']['date-max'], 'd M Y H:i'));
-                }
-
-                $finalText .= ' '.implode(' '.strtolower(acym_translation('ACYM_AND')).' ', $dates);
-            }
-            $automationCondition = $finalText;
-        }
+        return $finalText;
     }
 
-    public function onAcymDeclareSummary_filters(&$automationFilter)
+    public function onAcymDeclareSummary_conditions(&$automation)
     {
-        if (!empty($automationFilter['acy_list'])) {
-            $finalText = '';
+        if (!empty($automation['acy_list_all'])) {
+            $operators = ['=' => acym_translation('ACYM_EXACTLY'), '>' => acym_translation('ACYM_MORE_THAN'), '<' => acym_translation('ACYM_LESS_THAN')];
+            $finalText = acym_translation('ACYM_THERE_IS').' '.strtolower($operators[$automation['acy_list_all']['operator']]).' '.$automation['acy_list_all']['number'].' '.acym_translation('ACYM_ACYMAILING_USERS').' ';
             $listClass = acym_get('class.list');
-            $automationFilter['acy_list']['list'] = $listClass->getOneById($automationFilter['acy_list']['list']);
-            if (empty($automationFilter['acy_list']['list'])) {
-                $automationFilter = '<span class="acym__color__red">'.acym_translation('ACYM_SELECT_A_LIST').'</span>';
+            $automation['acy_list_all']['list'] = $listClass->getOneById($automation['acy_list_all']['list']);
+            if (empty($automation['acy_list_all']['list'])) {
+                $automation = '<span class="acym__color__red">'.acym_translation('ACYM_SELECT_A_LIST').'</span>';
 
                 return;
             }
-            if ($automationFilter['acy_list']['action'] == 'sub') $automationFilter['acy_list']['action'] = 'ACYM_SUBSCRIBED';
-            if ($automationFilter['acy_list']['action'] == 'unsub') $automationFilter['acy_list']['action'] = 'ACYM_UNSUBSCRIBED';
-            if ($automationFilter['acy_list']['action'] == 'notsub') $automationFilter['acy_list']['action'] = 'ACYM_NOT_SUBSCRIBED';
-            $finalText .= acym_translation_sprintf('ACYM_FILTER_ACY_LIST_SUMMARY', acym_translation($automationFilter['acy_list']['action']), $automationFilter['acy_list']['list']->name).' ';
-            if (!empty($automationFilter['acy_list']['date-min']) || !empty($automationFilter['acy_list']['date-max'])) {
-                $finalText .= acym_translation_sprintf('ACYM_WHERE_DATE_ACY_LIST_SUMMARY', strtolower(acym_translation('ACYM_'.strtoupper($automationFilter['acy_list']['date-type']))));
+            if ($automation['acy_list_all']['action'] == 'sub') $automation['acy_list_all']['action'] = 'ACYM_SUBSCRIBED';
+            if ($automation['acy_list_all']['action'] == 'unsub') $automation['acy_list_all']['action'] = 'ACYM_UNSUBSCRIBED';
+            if ($automation['acy_list_all']['action'] == 'notsub') $automation['acy_list_all']['action'] = 'ACYM__NOT_SUBSCRIBED';
+            $finalText .= acym_translation_sprintf('ACYM_CONDITION_ACY_LIST_SUMMARY', acym_translation($automation['acy_list_all']['action']), $automation['acy_list_all']['list']->name).' ';
 
-                $dates = [];
-                if (!empty($automationFilter['acy_list']['date-min'])) {
-                    $automationFilter['acy_list']['date-min'] = acym_replaceDate($automationFilter['acy_list']['date-min']);
-                    $dates[] = acym_translation_sprintf('ACYM_WHERE_DATE_MIN_ACY_LIST_SUMMARY', acym_date($automationFilter['acy_list']['date-min'], 'd M Y H:i'));
-                }
-                if (!empty($automationFilter['acy_list']['date-max'])) {
-                    $automationFilter['acy_list']['date-max'] = acym_replaceDate($automationFilter['acy_list']['date-max']);
-                    $dates[] = acym_translation_sprintf('ACYM_WHERE_DATE_MAX_ACY_LIST_SUMMARY', acym_date($automationFilter['acy_list']['date-max'], 'd M Y H:i'));
-                }
+            $automation = $this->_summaryDate($automation['acy_list_all'], $finalText);
+        }
 
-                $finalText .= ' '.implode(' '.strtolower(acym_translation('ACYM_AND')).' ', $dates);
+        $this->onAcymDeclareSummary_conditionsFilters($automation, 'ACYM_CONDITION_ACY_LIST_SUMMARY', 'ACYM_IS_SUBSCRIBED', 'ACYM_IS_UNSUBSCRIBED', 'ACYM_IS_NOT_SUBSCRIBED');
+    }
+
+    public function onAcymDeclareSummary_filters(&$automation)
+    {
+        $this->onAcymDeclareSummary_conditionsFilters($automation, 'ACYM_FILTER_ACY_LIST_SUMMARY', 'ACYM_SUBSCRIBED', 'ACYM_UNSUBSCRIBED', 'ACYM_NOT_SUBSCRIBED');
+    }
+
+    private function onAcymDeclareSummary_conditionsFilters(&$automation, $key, $keySub, $keyUnsub, $keyNotSub)
+    {
+        if (!empty($automation['acy_list'])) {
+            $finalText = '';
+            $listClass = acym_get('class.list');
+            $automation['acy_list']['list'] = $listClass->getOneById($automation['acy_list']['list']);
+            if (empty($automation['acy_list']['list'])) {
+                $automation = '<span class="acym__color__red">'.acym_translation('ACYM_SELECT_A_LIST').'</span>';
+
+                return;
             }
-            $automationFilter = $finalText;
+            if ($automation['acy_list']['action'] == 'sub') $automation['acy_list']['action'] = $keySub;
+            if ($automation['acy_list']['action'] == 'unsub') $automation['acy_list']['action'] = $keyUnsub;
+            if ($automation['acy_list']['action'] == 'notsub') $automation['acy_list']['action'] = $keyNotSub;
+            $finalText .= acym_translation_sprintf(
+                    $key,
+                    acym_translation($automation['acy_list']['action']),
+                    $automation['acy_list']['list']->name
+                ).' ';
+
+            $automation = $this->_summaryDate($automation['acy_list'], $finalText);
         }
     }
 
@@ -824,15 +799,24 @@ class plgAcymSubscription extends acymPlugin
             if ($automationAction['acy_list']['list_actions'] == 'sub') $automationAction['acy_list']['list_actions'] = 'ACYM_SUBSCRIBED_TO';
             if ($automationAction['acy_list']['list_actions'] == 'unsub') $automationAction['acy_list']['list_actions'] = 'ACYM_UNSUBSCRIBE_FROM';
             if ($automationAction['acy_list']['list_actions'] == 'remove') $automationAction['acy_list']['list_actions'] = 'ACYM_REMOVE_FROM';
-            $automationAction = empty($list) ? '<span class="acym__color__red">'.acym_translation('ACYM_SELECT_A_LIST').'</span>' : acym_translation_sprintf('ACYM_ACTION_LIST_SUMMARY', acym_translation($automationAction['acy_list']['list_actions']), $list->name);
+            if (empty($list)) {
+                $automationAction = '<span class="acym__color__red">'.acym_translation('ACYM_SELECT_A_LIST').'</span>';
+            } else {
+                $automationAction = acym_translation_sprintf('ACYM_ACTION_LIST_SUMMARY', acym_translation($automationAction['acy_list']['list_actions']), $list->name);
+            }
         }
     }
-
 
     public function onAcymAfterUserSubscribe(&$user, $lists)
     {
         $automationClass = acym_get('class.automation');
         $automationClass->trigger('user_subscribe', ['userId' => $user->id]);
+    }
+
+    public function onAcymAfterUserUnsubscribe(&$user, $lists)
+    {
+        $automationClass = acym_get('class.automation');
+        $automationClass->trigger('user_unsubscribe', ['userId' => $user->id]);
     }
 }
 

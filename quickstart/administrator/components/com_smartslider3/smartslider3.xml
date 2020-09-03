@@ -1,34 +1,57 @@
-<extension type="component" version="2.5.0" method="upgrade">
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" version="2.9.0" method="upgrade">
     <name>Smart Slider 3</name>
     <author>Nextendweb</author>
-    <copyright>Copyright (C) Nextendweb.com</copyright>
-    <authorEmail>support@nextendweb.com</authorEmail>
-    <authorUrl>http://smartslider3.com</authorUrl>
-    <creationDate>2015-11-01</creationDate>
-    <license>http://www.gnu.org/licenses/gpl-3.0.txt GNU/GPL</license>
-    <releaseDate>2017-08-03</releaseDate>
-    <version>3.3.22</version>
-    <description>Component for Smart Slider 3.</description>
-    <files folder="site">
-        <filename>index.html</filename>
+    <creationDate>2020-08-26</creationDate>
+    <copyright>Copyright (C) 2020 Nextendweb.com. All rights reserved.</copyright>
+    <license>http://www.gnu.org/licenses/gpl-3.0.txt GNU General Public License</license>
+    <authorEmail>roland@nextendweb.com</authorEmail>
+    <authorUrl>https://smartslider3.com</authorUrl>
+    <version>3.4.1.9</version>
+
+    <scriptfile>script.smartslider3.php</scriptfile>
+
+    <install> <!-- Runs on install -->
+        <sql>
+            <file driver="mysql" charset="utf8">sql/install.mysql.utf8.sql</file>
+        </sql>
+    </install>
+    <uninstall> <!-- Runs on uninstall -->
+        <sql>
+            <file driver="mysql" charset="utf8">sql/uninstall.mysql.utf8.sql</file>
+        </sql>
+    </uninstall>
+
+    <media folder="media">
+        <folder>smartslider3</folder>
+    </media>
+
+    <files folder="frontend">
+        <filename>smartslider3.php</filename>
     </files>
+
     <administration>
-        <menu img="components/com_smartslider3/icon16.png">COM_SMARTSLIDER3</menu>
-        <files>
+        <menu>COM_SMARTSLIDER3</menu>
+
+        <files folder="backend">
+            <folder>sql</folder>
             <filename>smartslider3.php</filename>
             <filename>icon16.png</filename>
             <filename>config.xml</filename>
             <filename>access.xml</filename>
-            <folder>language</folder>
             <filename>index.html</filename>
         </files>
+
         <languages folder="language">
             <language tag="en-GB">en-GB/en-GB.com_smartslider3.ini</language>
             <language tag="en-GB">en-GB/en-GB.com_smartslider3.sys.ini</language>
             <language tag="en-GB">en-GB/en-GB.com_smartslider3.menu.ini</language>
         </languages>
     </administration>
+
     <updateservers>
-        <server type="extension" name="Smart Slider 3 Updates">https://secure.nextendweb.com/api/api.php?action=joomla_version&amp;platform=joomla&amp;product=smartslider3&amp;pro=0</server>
+        <server type="extension" name="Smart Slider 3 Updates">
+            <![CDATA[https://api.nextendweb.com/v1/?action=joomla_version&platform=joomla&product=smartslider3&pro=0&channel=stable]]>
+        </server>
     </updateservers>
 </extension>

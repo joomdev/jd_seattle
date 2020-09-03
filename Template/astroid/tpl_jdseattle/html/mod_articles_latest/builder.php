@@ -2,30 +2,29 @@
 /**
  * @package   Astroid Framework
  * @author    JoomDev https://www.joomdev.com
- * @copyright Copyright (C) 2009 - 2019 JoomDev.
+ * @copyright Copyright (C) 2009 - 2020 JoomDev.
  * @license https://www.gnu.org/licenses/gpl-2.0.html GNU/GPLv2 or Later
  */
 
 defined('_JEXEC') or die;
 ?>
-<div class="items-row row-0 row clearfix">
+<div class="items-row row-0 row clearfix view-builder">
 <?php foreach ($list as $item) : $image = json_decode($item->images); ?>
 	<div class="col-lg-4 p-3">
 		<div class="card h-100">
-			<article class="item column-1" itemprop="blogPost" itemscope=""
-				itemtype="https://schema.org/BlogPosting">
+			<article class="item column-1" itemprop="blogPost" itemscope="" itemtype="https://schema.org/BlogPosting">
 				<div class="pull-none item-image">
-				<a  href="<?php echo $item->link; ?>"><img src="<?php echo $image->image_intro ?>" alt="" itemprop="thumbnailUrl"></a>
+				<a href="<?php echo $item->link; ?>"><img src="<?php echo $image->image_intro ?>" alt="" itemprop="thumbnailUrl"></a>
 				</div>
 				<div class="card-body">
 					<div class="item-title">
 
 						<div class="page-header">
-							<h2 itemprop="name">
-								<a href="<?php echo $item->link; ?>"
-									itemprop="url">
-									<?php echo $item->title; ?> </a>
-							</h2>
+							<h4 itemprop="name">
+								<a href="<?php echo $item->link; ?>" itemprop="url">
+									<?php echo $item->title; ?>
+								</a>
+							</h4>
 						</div>
 					</div>
 					<dl class="article-info muted">
@@ -36,8 +35,7 @@ defined('_JEXEC') or die;
 					</dl>
 					<?php echo $item->introtext; ?>
 					<div class="readmore">
-						<a class="btn btn-primary readmore-btn" href="<?php echo $item->link; ?>" itemprop="url" aria-label="Read more:  <?php echo $item->title; ?>">
-							Read more ... </a>
+						<a class="btn btn-primary readmore-btn" href="<?php echo $item->link; ?>" itemprop="url"><?php echo JText::_('ASTROID_READ_MORE'); ?> </a>
 					</div>
 				</div>
 			</article>

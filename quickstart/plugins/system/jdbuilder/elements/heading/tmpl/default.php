@@ -1,8 +1,9 @@
 <?php
+
 /**
  * @package    JD Builder
  * @author     Team Joomdev <info@joomdev.com>
- * @copyright  2019 www.joomdev.com
+ * @copyright  2020 www.joomdev.com
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 defined('_JEXEC') or die;
@@ -24,10 +25,15 @@ $linkTarget = $linkTargetBlank ? ' target="_blank"' : "";
 $linkNoFollow = $element->params->get('linkNoFollow', false);
 $linkRel = $linkNoFollow ? ' rel="nofollow"' : "";
 
-$headingAlignment = $element->params->get('headingAlignment', "");
-if (!empty($headingAlignment)) {
-   $element->addCss("text-align", $headingAlignment);
+$alignment = $element->params->get('headingAlignment', null);
+if (!empty($alignment)) {
+   foreach (JDPageBuilder\Helper::$devices as $deviceKey => $device) {
+      if (isset($alignment->{$deviceKey}) && !empty($alignment->{$deviceKey})) {
+         $element->addCss('text-align', $alignment->{$deviceKey}, $device);
+      }
+   }
 }
+
 $subtitlePosition = $element->params->get('subtitlePosition', 'below');
 
 $headingHtmlTag = $element->params->get("headingHtmlTag", "h3");
@@ -42,20 +48,20 @@ if ($subtitlePosition == "above") {
 ?>
 <<?php echo $headingHtmlTag; ?> class="jdb-heading-heading">
 
-<?php
-if (!empty($link)) {
-   ?> 
-   <a title="<?php echo $title; ?>" href="<?php echo $link; ?>"<?php echo $linkTarget; ?><?php echo $linkRel; ?>>
+   <?php
+   if (!empty($link)) {
+   ?>
+      <a title="<?php echo $title; ?>" href="<?php echo $link; ?>" <?php echo $linkTarget; ?><?php echo $linkRel; ?>>
       <?php
    }
 
    echo $title;
    if (!empty($link)) {
       ?>
-   </a>
+      </a>
    <?php
-}
-?>
+   }
+   ?>
 </<?php echo $headingHtmlTag; ?>>
 
 <?php
@@ -67,6 +73,18 @@ foreach (['heading', 'subheading'] as $heading) {
 
    $style = new JDPageBuilder\Element\ElementStyle("> .jdb-heading-" . $heading);
    $element->addChildStyle($style);
+
+   if ($heading == 'heading') {
+      $headingSpacing = $element->params->get('headingSpacing', null);
+      if ($headingSpacing != null) {
+         foreach (\JDPageBuilder\Helper::$devices as $deviceKey => $device) {
+            if (isset($headingSpacing->{$deviceKey}) && \JDPageBuilder\Helper::checkSliderValue($headingSpacing->{$deviceKey})) {
+               $mPos = $element->params->get('subtitlePosition', 'below') == 'below' ? 'margin-bottom' : 'margin-top';
+               $style->addCss($mPos, $headingSpacing->{$deviceKey}->value . "px", $device);
+            }
+         }
+      }
+   }
 
    // color
    $style->addCss("color", $element->params->get($heading . "FontColor", ""));

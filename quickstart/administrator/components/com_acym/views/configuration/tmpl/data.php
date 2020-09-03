@@ -1,17 +1,9 @@
 <?php
-/**
- * @package	AcyMailing for Joomla
- * @version	6.2.2
- * @author	acyba.com
- * @copyright	(C) 2009-2019 ACYBA S.A.R.L. All rights reserved.
- * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
- */
-
 defined('_JEXEC') or die('Restricted access');
 ?><div class="acym__content acym_area padding-vertical-1 padding-horizontal-2 margin-bottom-2">
 	<div class="acym_area_title"><?php echo acym_translation('ACYM_CONFIDENTIALITY'); ?></div>
 	<div class="grid-x grid-margin-x">
-        <?php echo acym_switch('config[gdpr_export]', $data['config']->get('gdpr_export'), acym_translation('ACYM_GDPR_EXPORT_BUTTON'), [], 'xlarge-3 medium-5 small-9', "auto", "tiny", 'export_config'); ?>
+        <?php echo acym_switch('config[gdpr_export]', $this->config->get('gdpr_export'), acym_translation('ACYM_GDPR_EXPORT_BUTTON'), [], 'xlarge-3 medium-5 small-9', "auto", "tiny", 'export_config'); ?>
 	</div>
 </div>
 
@@ -24,7 +16,7 @@ defined('_JEXEC') or die('Restricted access');
 		</label>
 
 		<div class="cell auto">
-            <?php $trackingMode = $data['config']->get('trackingsystem', 'acymailing'); ?>
+            <?php $trackingMode = $this->config->get('trackingsystem', 'acymailing'); ?>
 
 			<input
 					type="checkbox"
@@ -49,7 +41,18 @@ defined('_JEXEC') or die('Restricted access');
 	</div>
 
 	<div class="grid-x grid-margin-x">
-        <?php echo acym_switch('config[trackingsystemexternalwebsite]', $data['config']->get('trackingsystemexternalwebsite'), acym_translation('ACYM_TRACKINGSYSTEM_EXTERNAL_LINKS'), [], 'xlarge-3 medium-5 small-9', "auto", "tiny", 'external_config'); ?>
+        <?php
+        echo acym_switch(
+            'config[trackingsystemexternalwebsite]',
+            $this->config->get('trackingsystemexternalwebsite'),
+            acym_translation('ACYM_TRACKINGSYSTEM_EXTERNAL_LINKS'),
+            [],
+            'xlarge-3 medium-5 small-9',
+            "auto",
+            "tiny",
+            'external_config'
+        );
+        ?>
 	</div>
 </div>
 

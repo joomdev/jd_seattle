@@ -2,7 +2,7 @@
 /**
  * @package   Astroid Framework
  * @author    JoomDev https://www.joomdev.com
- * @copyright Copyright (C) 2009 - 2019 JoomDev.
+ * @copyright Copyright (C) 2009 - 2020 JoomDev.
  * @license https://www.gnu.org/licenses/gpl-2.0.html GNU/GPLv2 or Later
  */
 defined('_JEXEC') or die;
@@ -58,8 +58,13 @@ if($option == 'com_media' && $tmpl =='component'){
 if($view == 'article' && $option == 'com_content' && $layout == 'pagebreak' && $e_name=='jform_articletext'){
 	$addtemplatejs = true;
 }
+//Content History
+if($view == 'history' && $option == 'com_contenthistory' && $layout == 'modal'){
+	$addtemplatejs = true;
+}
  
 if($addtemplatejs){
+	JHtml::_('script', juri::root().'media/jui/js/bootstrap.min.js', array('version' => 'auto', 'relative' => true));
 	JHtml::_('script', 'isis.js', array('version' => 'auto', 'relative' => true));
 	JHtml::_('stylesheet', 'isis/isis.css', array('version' => 'auto', 'relative' => true));  
 }

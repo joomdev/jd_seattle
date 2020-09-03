@@ -1,12 +1,4 @@
 <?php
-/**
- * @package	AcyMailing for Joomla
- * @version	6.2.2
- * @author	acyba.com
- * @copyright	(C) 2009-2019 ACYBA S.A.R.L. All rights reserved.
- * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
- */
-
 defined('_JEXEC') or die('Restricted access');
 ?><?php
 
@@ -20,10 +12,21 @@ class FieldsController extends acymController
 
     public function listing()
     {
+        $data = [];
 
         if (!acym_level(2)) {
-            acym_redirect(acym_completeLink('dashboard&task=upgrade&version=enterprise', false, true));
+            acym_setVar('layout', 'splashscreen');
         }
+
+        return parent::display($data);
+    }
+
+    protected function prepareToolbar(&$data)
+    {
+        $toolbarHelper = acym_get('helper.toolbar');
+        $toolbarHelper->addButton(acym_translation('ACYM_CREATE'), ['data-task' => 'edit'], 'add', true);
+
+        $data['toolbar'] = $toolbarHelper;
     }
 
     public function edit()
@@ -42,12 +45,10 @@ class FieldsController extends acymController
             $field->option = '';
             $field->default_value = '';
             $field->required = 0;
-            $field->backend_profile = 1;
+            $field->backend_edition = 1;
             $field->backend_listing = 0;
-            $field->backend_filter = 1;
-            $field->frontend_form = 1;
-            $field->frontend_profile = 1;
-            $field->frontend_filter = 1;
+            $field->frontend_edition = 1;
+            $field->frontend_listing = 0;
             $field->access = 1;
             $field->fieldDB = new stdClass();
         } else {
@@ -76,12 +77,6 @@ class FieldsController extends acymController
             $this->breadcrumb[acym_translation('ACYM_NEW_CUSTOM_FIELD')] = acym_completeLink('fields&task=edit');
         }
 
-        $allDatabases = acym_loadResultArray('SHOW DATABASES');
-        $databases = [];
-        foreach ($allDatabases as $database) {
-            $databases[$database] = $database;
-        }
-
         $allFields = $fieldClass->getAllfields();
 
         $allFieldsName = [];
@@ -91,7 +86,7 @@ class FieldsController extends acymController
 
         $data = [
             'field' => $field,
-            'database' => $databases,
+            'database' => acym_getDatabases(),
             'allFields' => $allFieldsName,
         ];
 
@@ -132,31 +127,27 @@ class FieldsController extends acymController
 
     public function apply()
     {
-        $fieldClass = acym_get('class.field');
-        $newField = $this->setFieldToSave();
-        $id = $fieldClass->save($newField);
-        if (!empty($id)) {
-            acym_setVar('id', $id);
-            acym_enqueueNotification(acym_translation('ACYM_SUCCESSFULLY_SAVED'), 'success', 5000);
-        } else {
-            acym_enqueueNotification(acym_translation('ACYM_ERROR_SAVING'), 'error', 5000);
-        }
-
+        $this->saveField();
         $this->edit();
     }
 
     public function save()
+    {
+        $this->saveField();
+        $this->listing();
+    }
+
+    protected function saveField()
     {
         $fieldClass = acym_get('class.field');
         $newField = $this->setFieldToSave();
         $id = $fieldClass->save($newField);
         if (!empty($id)) {
             acym_setVar('id', $id);
-            acym_enqueueNotification(acym_translation('ACYM_SUCCESSFULLY_SAVED'), 'success', 5000);
+            acym_enqueueMessage(acym_translation('ACYM_SUCCESSFULLY_SAVED'), 'success');
         } else {
-            acym_enqueueNotification(acym_translation('ACYM_ERROR_SAVING'), 'error', 5000);
+            acym_enqueueMessage(acym_translation('ACYM_ERROR_SAVING'), 'error');
         }
-        $this->listing();
     }
 
     private function setFieldToSave()
@@ -192,6 +183,7 @@ class FieldsController extends acymController
                 $i++;
             }
         }
+        $field['name'] = strip_tags($field['name'], '<i><b><strong>');
 
         $field['namekey'] = empty($field['namekey']) ? $fieldClass->generateNamekey($field['name']) : $field['namekey'];
         $field['option']['format'] = ($field['type'] == 'date' && empty($field['option']['format'])) ? '%d%m%y' : strtolower($field['option']['format']);
@@ -210,15 +202,15 @@ class FieldsController extends acymController
         $newField->option = json_encode($field['option']);
         $newField->value = $field['value'];
         $newField->default_value = $field['default_value'];
-        $newField->frontend_form = $field['frontend_form'];
-        $newField->frontend_profile = $field['frontend_profile'];
-        $newField->backend_profile = $field['backend_profile'];
+        if (ACYM_CMS == 'joomla') {
+            $newField->frontend_edition = $field['frontend_edition'];
+            $newField->frontend_listing = $field['frontend_listing'];
+        }
+        $newField->backend_edition = $field['backend_edition'];
         $newField->backend_listing = $field['backend_listing'];
-        $newField->backend_filter = 1;
-        $newField->frontend_filter = 1;
         $newField->access = 'all';
         if (empty($id)) {
-            $newField->ordering = $fieldClass->getOrdering()->ordering_number + 1;
+            $newField->ordering = $fieldClass->getOrdering() + 1;
         } else {
             $newField->id = $id;
         }
@@ -248,7 +240,7 @@ class FieldsController extends acymController
     {
         $ids = acym_getVar('cmd', 'elements_checked');
         if (in_array('1', $ids) || in_array('2', $ids)) {
-            acym_enqueueNotification(acym_translation('ACYM_CANT_DELETE'), 'error', 5000);
+            acym_enqueueMessage(acym_translation('ACYM_CANT_DELETE'), 'error');
             $this->listing();
 
             return;

@@ -1,14 +1,7 @@
 <?php
-/**
- * @package	AcyMailing for Joomla
- * @version	6.1.2
- * @author	acyba.com
- * @copyright	(C) 2009-2019 ACYBA S.A.R.L. All rights reserved.
- * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
- */
-
 defined('_JEXEC') or die('Restricted access');
 ?><?php
+
 $listsContent = '';
 if (!empty($visibleLists)) {
     $listsContent .= '<table class="acym_lists">';
@@ -38,7 +31,7 @@ if ($listPosition == 'before') echo $listsContent;
             $fieldDB = empty($field->option->fieldDB) ? '' : json_decode($field->option->fieldDB);
             $field->value = empty($field->value) ? '' : json_decode($field->value);
             $field->option = json_decode($field->option);
-            $valuesArray = array();
+            $valuesArray = [];
             if (!empty($field->value)) {
                 foreach ($field->value as $value) {
                     $valueTmp = new stdClass();
@@ -85,14 +78,15 @@ if ($listPosition == 'before') echo $listsContent;
 		<td <?php if ($displayOutside && !$displayInline) echo 'colspan="2"'; ?> class="acysubbuttons">
 			<noscript>
 				<div class="onefield fieldacycaptcha">
-                    <?php echo acym_translation('ACYM_NO_JAVASCRIPT') ?>
+                    <?php echo acym_translation('ACYM_NO_JAVASCRIPT'); ?>
 				</div>
 			</noscript>
-			<input type="button" class="btn btn-primary button subbutton" value="<?php echo acym_translation($subscribeText, true); ?>" name="Submit" onclick="try{ return submitAcymForm('subscribe','<?php echo $formName; ?>'); }catch(err){alert('The form could not be submitted '+err);return false;}"/>
+			<input type="button" class="btn btn-primary button subbutton" value="<?php echo acym_translation($subscribeText, true); ?>" name="Submit" onclick="try{ return submitAcymForm('subscribe','<?php echo $formName; ?>', 'acySubmitSubForm'); }catch(err){alert('The form could not be submitted '+err);return false;}" />
             <?php if ($params->get('unsub', '0') == '1' && !empty($countUnsub)) { ?>
 				<span style="display: none;"></span>
-				<input type="button" class="btn button unsubbutton" value="<?php echo acym_translation($unsubscribeText, true); ?>" name="Submit" onclick="try{ return submitAcymForm('unsubscribe','<?php echo $formName; ?>'); }catch(err){alert('The form could not be submitted '+err);return false;}"/>
+				<input type="button" class="btn button unsubbutton" value="<?php echo acym_translation($unsubscribeText, true); ?>" name="Submit" onclick="try{ return submitAcymForm('unsubscribe','<?php echo $formName; ?>', 'acySubmitSubForm'); }catch(err){alert('The form could not be submitted '+err);return false;}" />
             <?php } ?>
 		</td>
 	</tr>
 </table>
+

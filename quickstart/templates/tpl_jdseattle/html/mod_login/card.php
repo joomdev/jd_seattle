@@ -2,7 +2,7 @@
 /**
  * @package   Astroid Framework
  * @author    JoomDev https://www.joomdev.com
- * @copyright Copyright (C) 2009 - 2019 JoomDev.
+ * @copyright Copyright (C) 2009 - 2020 JoomDev.
  * @license https://www.gnu.org/licenses/gpl-2.0.html GNU/GPLv2 or Later
  */
 defined('_JEXEC') or die;
@@ -25,7 +25,7 @@ JHtml::_('bootstrap.tooltip');
                <label for="modlgn-username" class="sr-only"><?php echo JText::_('MOD_LOGIN_VALUE_USERNAME'); ?></label>
                <div class="input-group mb-3">
                   <div class="input-group-prepend">
-                     <span class="input-group-text"><span class="fa fa-user hasTooltip" title="<?php echo JText::_('MOD_LOGIN_VALUE_USERNAME'); ?>"></span></span>
+                     <span class="input-group-text"><span class="far fa-user hasTooltip" title="<?php echo JText::_('MOD_LOGIN_VALUE_USERNAME'); ?>"></span></span>
                   </div>
                   <input id="modlgn-username" type="text" name="username" class="form-control" tabindex="0" size="18" placeholder="<?php echo JText::_('MOD_LOGIN_VALUE_USERNAME'); ?>" />
                </div>
@@ -42,7 +42,7 @@ JHtml::_('bootstrap.tooltip');
                <label for="modlgn-passwd" class="sr-only"><?php echo JText::_('JGLOBAL_PASSWORD'); ?></label>
                <div class="input-group mb-3">
                   <div class="input-group-prepend">
-                     <span class="input-group-text"><span class="fa fa-lock hasTooltip" title="<?php echo JText::_('JGLOBAL_PASSWORD'); ?>"></span></span>
+                     <span class="input-group-text"><span class="fas fa-lock hasTooltip" title="<?php echo JText::_('JGLOBAL_PASSWORD'); ?>"></span></span>
                   </div>
                   <input id="modlgn-passwd" type="password" name="password" class="form-control" tabindex="0" size="18" placeholder="<?php echo JText::_('JGLOBAL_PASSWORD'); ?>" />
                </div>
@@ -81,7 +81,7 @@ JHtml::_('bootstrap.tooltip');
                </label>
             </div>
          <?php endif; ?>
-         <button class="btn btn-lg btn-primary btn-block" type="submit"><?php echo JText::_('JLOGIN'); ?></button>
+         <button class="btn btn-lg btn-primary w-100" type="submit"><?php echo JText::_('JLOGIN'); ?></button>
          <?php if ($params->get('posttext')) : ?>
             <div class="posttext">
                <p class="my-3 text-muted"><?php echo $params->get('posttext'); ?></p>
@@ -93,11 +93,11 @@ JHtml::_('bootstrap.tooltip');
          <?php echo JHtml::_('form.token'); ?>
 
          <?php $usersConfig = JComponentHelper::getParams('com_users'); ?>
-         <ul class="list-group mt-3">
+         <ul class="list-group">
             <?php if ($usersConfig->get('allowUserRegistration')) : ?>
                <li class="list-group-item">
                   <a href="<?php echo JRoute::_('index.php?option=com_users&view=registration'); ?>">
-                     <?php echo JText::_('MOD_LOGIN_REGISTER'); ?> <span class="icon-arrow-right"></span></a>
+                     <?php echo JText::_('MOD_LOGIN_REGISTER'); ?></a>
                </li>
             <?php endif; ?>
             <li class="list-group-item">

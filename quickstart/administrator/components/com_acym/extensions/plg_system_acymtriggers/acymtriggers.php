@@ -1,18 +1,11 @@
 <?php
-/**
- * @package	AcyMailing for Joomla
- * @version	6.2.2
- * @author	acyba.com
- * @copyright	(C) 2009-2019 ACYBA S.A.R.L. All rights reserved.
- * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
- */
-
 defined('_JEXEC') or die('Restricted access');
 ?><?php
 
 class plgSystemAcymtriggers extends JPlugin
 {
     var $oldUser = null;
+    var $formToDisplay = [];
 
     public function initAcy()
     {
@@ -47,6 +40,7 @@ class plgSystemAcymtriggers extends JPlugin
     {
         if (is_object($user)) $user = get_object_vars($user);
         if ($success === false || empty($user['email']) || !$this->initAcy()) return true;
+
 
         $userClass = acym_get('class.user');
         if (!method_exists($userClass, 'synchDeleteCmsUser')) return true;
@@ -83,9 +77,45 @@ class plgSystemAcymtriggers extends JPlugin
         acym_trigger('onAfterOrderUpdate', [&$order], 'plgAcymHikashop');
     }
 
+    public function onBeforeCompileHead()
+    {
+        if (!$this->initAcy()) return;
+        $isPreview = acym_getVar('bool', 'acym_preview', false);
+        if ($isPreview) return;
+
+        $app = JFactory::getApplication();
+        if ($app->getName() != 'site') return;
+
+        $formClass = acym_get('class.form');
+        $forms = $formClass->getAllFormsToDisplay();
+        if (empty($forms)) return;
+
+        $menu = acym_getMenu();
+        if (empty($menu)) return;
+
+        foreach ($forms as $form) {
+            if (!empty($form->pages) && (in_array($menu->id, $form->pages) || in_array('all', $form->pages))) $this->formToDisplay[] = $formClass->renderForm($form);
+        }
+
+        if (!empty($this->formToDisplay)) acym_initModule();
+    }
+
+    private function displayForms()
+    {
+        if (empty($this->formToDisplay)) return;
+
+        $buffer = JFactory::getApplication()->getBody();
+
+        $buffer = preg_replace('/(<body.*>)/Ui', '$1'.implode('', $this->formToDisplay), $buffer);
+
+        JFactory::getApplication()->setBody($buffer);
+    }
+
     public function onAfterRender()
     {
         if (!$this->initAcy()) return;
+
+        $this->displayForms();
 
         $config = acym_config();
         if (!$config->get('regacy', 0)) return;
@@ -196,6 +226,14 @@ class plgSystemAcymtriggers extends JPlugin
             }
 
             $i++;
+        }
+    }
+
+    public function onAfterRoute()
+    {
+        if (!empty($_REQUEST['author']) && 'acymailing' === $_REQUEST['author'] && !empty($_REQUEST['task']) && 'file.upload' === $_REQUEST['task'] && !empty($_REQUEST['option']) && 'com_media' === $_REQUEST['option']) {
+            $session = JFactory::getSession();
+            $session->set('com_media.return_url', 'index.php?option=com_media&view=images&tmpl=component');
         }
     }
 }

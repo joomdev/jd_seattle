@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @package     Joomla.Plugin
  * @subpackage  Content.vote
@@ -18,14 +19,15 @@ defined('_JEXEC') or die;
  * @var   string   $path     Path to this file
  */
 jimport('astroid.framework.template');
-$template = new AstroidFrameworkTemplate(JFactory::getApplication()->getTemplate(true));
+$template = Astroid\Framework::getTemplate();
+
 if (!$template->params->get('article_rating', 1)) {
-   if ($context == 'com_content.categories') {
+   if ($context == 'com_content.category' || $context == 'com_content.featured') {
       return;
    }
    $rating = (int) $row->rating;
 
-// Look for images in template if available
+   // Look for images in template if available
    $starImageOn = '<i class="fas fa-star mr-1"></i>';
    $starImageOff = '<i class="far fa-star mr-1"></i>';
 
@@ -37,7 +39,7 @@ if (!$template->params->get('article_rating', 1)) {
    for ($i = $rating; $i < 5; $i++) {
       $img .= $starImageOff;
    }
-   ?>
+?>
    <div class="content_rating" itemprop="aggregateRating" itemscope itemtype="https://schema.org/AggregateRating">
       <p class="unseen element-invisible sr-only">
          <?php echo JText::sprintf('PLG_VOTE_USER_RATING', '<span itemprop="ratingValue">' . $rating . '</span>', '<span itemprop="bestRating">5</span>'); ?>

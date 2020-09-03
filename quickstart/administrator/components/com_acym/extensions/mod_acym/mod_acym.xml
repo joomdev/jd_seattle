@@ -2,12 +2,12 @@
 <extension type="module" version="2.5" client="site" method="upgrade">
 	<name>AcyMailing subscription form</name>
 	<creationDate>August 2018</creationDate>
-	<version>1.0.0</version>
+	<version>6.14.1</version>
 	<author>Acyba</author>
 	<authorEmail>dev@acyba.com</authorEmail>
 	<authorUrl>https://www.acyba.com</authorUrl>
-	<copyright>Copyright (C) 2009-2019 ACYBA SAS - All rights reserved.</copyright>
-	<license>GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html</license>
+	<copyright>Copyright (C) 2009-2020 ACYBA SAS - All rights reserved.</copyright>
+	<license>GNU/GPLv3 https://www.gnu.org/licenses/gpl-3.0.html</license>
 	<description>Subscribe to / Unsubscribe from AcyMailing lists</description>
 	<files>
 		<filename module="mod_acym">mod_acym.php</filename>
@@ -26,7 +26,7 @@
 				</field>
 				<field name="hiddenlists" type="lists" default="None" label="ACYM_AUTO_SUBSCRIBE_TO" description="ACYM_AUTO_SUBSCRIBE_TO_DESC"/>
 				<field name="displists" type="lists" default="None" label="ACYM_DISPLAYED_LISTS" description="ACYM_DISPLAYED_LISTS_DESC"/>
-				<field name="listschecked" type="lists" default="None" label="ACYM_CHECKED_LISTS" description="ACYM_CHECKED_LISTS_DESC"/>
+				<field name="listschecked" type="lists" default="None" label="ACYM_LISTS_CHECKED_DEFAULT" description="ACYM_LISTS_CHECKED_DEFAULT_DESC"/>
 
 				<field name="listposition" type="list" default="before" label="ACYM_LIST_POSITION">
 					<option value="before">ACYM_BEFORE_FIELDS</option>
@@ -75,6 +75,10 @@
 
 				<field name="moduleclass_sfx" type="text" default="" label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL" description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC"/>
 				<field name="formclass" type="text" size="50" default="" label="ACYM_FORM_CLASS" description="ACYM_FORM_CLASS_DESC" filter="SAFEHTML"/>
+				<field name="includejs" type="list" default="header" label="ACYM_MODULE_JS" description="ACYM_MODULE_JS_DESC">
+					<option value="header">ACYM_IN_HEADER</option>
+					<option value="module">ACYM_ON_THE_MODULE</option>
+				</field>
 			</fieldset>
 		</fields>
 	</config>

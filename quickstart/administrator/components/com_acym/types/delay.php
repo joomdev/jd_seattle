@@ -1,22 +1,14 @@
 <?php
-/**
- * @package	AcyMailing for Joomla
- * @version	6.2.2
- * @author	acyba.com
- * @copyright	(C) 2009-2019 ACYBA S.A.R.L. All rights reserved.
- * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
- */
-
 defined('_JEXEC') or die('Restricted access');
 ?><?php
 
-class delayType extends acymClass
+class delayType extends acymObject
 {
     var $values = [];
     var $num = 0;
     var $onChange = '';
 
-    function __construct()
+    public function __construct()
     {
         parent::__construct();
 
@@ -40,7 +32,7 @@ class delayType extends acymClass
         acym_addScript(true, $js);
     }
 
-    function display($map, $value, $type = 1)
+    public function display($map, $value, $type = 1)
     {
         if ($type == 0) {
             $this->values[] = acym_selectOption('second', 'ACYM_SECONDS');
@@ -70,7 +62,7 @@ class delayType extends acymClass
         return $delayValue.acym_select($this->values, 'delaytype'.$this->num, $return->type, 'class="intext_select" onchange="updateDelay'.$this->num.'();'.$this->onChange.'"', 'value', 'text', 'delaytype'.$this->num).$delayVar;
     }
 
-    function get($value, $type)
+    public function get($value, $type)
     {
 
         $return = new stdClass();

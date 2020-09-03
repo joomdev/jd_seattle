@@ -4,8 +4,8 @@ acym_cmsLoaded();
 
 
 /**
- * @copyright    Copyright (C) 2009-2019 ACYBA SAS - All rights reserved.
- * @license        GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
+ * @copyright      Copyright (C) 2009-2020 ACYBA SAS - All rights reserved.
+ * @license        GNU/GPLv3 https://www.gnu.org/licenses/gpl-3.0.html
  */
 class acyElasticemail
 {
@@ -109,17 +109,13 @@ class acyElasticemail
             $data .= "&encodingtype=3";
         }
 
-        if (!empty($object->sendHTML) || !empty($object->AltBody)) {
-            $data .= "&body_html=".urlencode($object->Body);
-            if (!empty($object->AltBody)) {
-                $data .= "&body_text=".urlencode($object->AltBody);
-            }
-        } else {
-            $data .= "&body_text=".urlencode($object->Body);
+        $data .= "&body_html=".urlencode($object->Body);
+        if (!empty($object->AltBody)) {
+            $data .= "&body_text=".urlencode($object->AltBody);
         }
 
         if ($object->attachment) {
-            $ArrayID = array();
+            $ArrayID = [];
             foreach ($object->attachment as $oneAttachment) {
                 $oneID = $this->uploadAttachment($oneAttachment[0], $oneAttachment[2]);
                 if (!$oneID) {

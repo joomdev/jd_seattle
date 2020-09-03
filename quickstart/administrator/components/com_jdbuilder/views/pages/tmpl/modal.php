@@ -1,4 +1,12 @@
 <?php
+
+/**
+ * @package    JD Builder
+ * @author     Team Joomdev <info@joomdev.com>
+ * @copyright  2020 www.joomdev.com
+ * @license    GNU General Public License version 2 or later; see LICENSE.txt
+ */
+
 // No direct access
 defined('_JEXEC') or die('Restricted access');
 
@@ -72,7 +80,7 @@ $function = JFactory::getApplication()->input->getCmd('function', 'jSelectBook')
                   <a style="cursor: pointer;" class="pointer" onclick="if (window.parent)
 									window.parent.<?php echo $this->escape($function); ?>('<?php echo $item->id; ?>', '<?php echo $this->escape(addslashes($item->title)); ?>');"><?php echo $this->escape($item->title); ?></a>
 							<div class="small">
-								<?php echo JText::_('JCATEGORY') . ': ' . $this->escape($item->category_id); ?>
+								<?php echo JText::_('JDB_CATEGORY') . ': ' . $this->escape($item->category_id); ?>
 							</div>
                </td>
                <td align="center"><?php echo $item->access; ?></td>

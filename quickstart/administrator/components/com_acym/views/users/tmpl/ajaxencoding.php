@@ -1,15 +1,6 @@
 <?php
-/**
- * @package	AcyMailing for Joomla
- * @version	6.2.2
- * @author	acyba.com
- * @copyright	(C) 2009-2019 ACYBA S.A.R.L. All rights reserved.
- * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
- */
-
 defined('_JEXEC') or die('Restricted access');
 ?><?php
-$config = acym_config();
 $encodingHelper = acym_get('helper.encoding');
 $filename = strtolower(acym_getVar('cmd', 'filename'));
 $encoding = acym_getVar('cmd', 'encoding');
@@ -23,7 +14,6 @@ if (!file_exists($uploadPath)) {
     return;
 }
 
-$this->config = acym_config();
 $this->content = file_get_contents($uploadPath);
 
 if (empty($encoding)) {
@@ -155,8 +145,10 @@ $nbLines = count($this->lines);
 
         $userClass = acym_get('class.user');
         $fields = $userClass->getAllColumnsUserAndCustomField();
-        $fields['listids'] = 'listids';
-        $fields['listname'] = 'listname';
+        if (acym_isAdmin()) {
+            $fields['listids'] = 'listids';
+            $fields['listname'] = 'listname';
+        }
 
         $cleanFields = [];
         foreach ($fields as $value => $label) {
@@ -205,7 +197,14 @@ $nbLines = count($this->lines);
 
             $alreadyFound[] = $selectedField;
 
-            echo '<td valign="top">'.acym_select($fieldAssignment, 'fieldAssignment'.$key, $selectedField, 'class="fieldAssignment"', 'value', 'text').'<br />';
+            echo '<td valign="top">'.acym_select(
+                    $fieldAssignment,
+                    'fieldAssignment'.$key,
+                    $selectedField,
+                    'class="fieldAssignment"',
+                    'value',
+                    'text'
+                ).'<br />';
         }
         echo '</tr>';
 

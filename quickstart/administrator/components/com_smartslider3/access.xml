@@ -5,7 +5,5 @@
         <action name="smartslider.config" title="Smart Slider - Config" description=""/>
         <action name="smartslider.edit" title="Smart Slider - Edit" description=""/>
         <action name="smartslider.delete" title="Smart Slider - Delete" description=""/>
-        <action name="nextend.visual.edit" title="Visual - Edit" description=""/>
-        <action name="nextend.visual.delete" title="Visual - Delete" description=""/>
     </section>
 </access>

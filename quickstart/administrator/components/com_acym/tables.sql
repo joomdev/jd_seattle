@@ -8,9 +8,11 @@ CREATE TABLE IF NOT EXISTS `#__acym_user` (
 	`source` VARCHAR(255) NULL,
 	`confirmed` TINYINT(1) NOT NULL DEFAULT 0,
 	`key` VARCHAR(255) NULL,
-	`automation` VARCHAR(50) NOT NULL,
+	`automation` VARCHAR(50) NOT NULL DEFAULT '',
 	`confirmation_date` DATETIME DEFAULT NULL,
 	`confirmation_ip` VARCHAR(16) DEFAULT NULL,
+	`tracking` TINYINT(1) NOT NULL DEFAULT 1,
+	`language` VARCHAR(10) NOT NULL DEFAULT '',
 	PRIMARY KEY (`id`),
 	UNIQUE INDEX `email_UNIQUE`(`email` ASC)
 )
@@ -44,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `#__acym_mail` (
 	`thumbnail` LONGTEXT NULL,
 	`drag_editor` TINYINT(1) NULL,
 	`library` TINYINT(1) NULL,
-	`type` VARCHAR(200) NOT NULL,
+	`type` VARCHAR(30) NOT NULL,
 	`body` LONGTEXT NOT NULL,
 	`subject` VARCHAR(255) NULL,
 	`template` TINYINT(1) NOT NULL,
@@ -57,11 +59,22 @@ CREATE TABLE IF NOT EXISTS `#__acym_mail` (
 	`stylesheet` TEXT NULL,
 	`attachments` TEXT NULL,
 	`creator_id` INT NOT NULL,
-	`media_folder` VARCHAR(255) NULL,
+	`media_folder` VARCHAR(100) NULL,
 	`headers` TEXT NULL,
 	`autosave` LONGTEXT NULL,
 	`preheader` VARCHAR(255) NULL,
-	PRIMARY KEY (`id`)
+	`links_language` VARCHAR(10) NOT NULL DEFAULT '',
+	`access` VARCHAR(50) NOT NULL DEFAULT '',
+	`tracking` TINYINT(1) NOT NULL DEFAULT 1,
+	`language` VARCHAR(10) NOT NULL DEFAULT '',
+	`parent_id` INT NULL,
+	PRIMARY KEY (`id`),
+	INDEX `fk_#__acym_mail1`(`parent_id` ASC),
+	CONSTRAINT `fk_#__acym_mail1`
+		FOREIGN KEY (`parent_id`)
+			REFERENCES `#__acym_mail`(`id`)
+			ON DELETE NO ACTION
+			ON UPDATE NO ACTION
 )
 	ENGINE = InnoDB
 	/*!40100
@@ -83,6 +96,10 @@ CREATE TABLE IF NOT EXISTS `#__acym_list` (
 	`welcome_id` INT NULL,
 	`unsubscribe_id` INT NULL,
 	`cms_user_id` INT NOT NULL,
+	`front_management` INT NULL,
+	`access` VARCHAR(50) NOT NULL DEFAULT '',
+	`description` TEXT NOT NULL,
+	`tracking` TINYINT(1) NOT NULL DEFAULT 1,
 	PRIMARY KEY (`id`),
 	INDEX `fk_#__acym_list_has_mail1`(`welcome_id` ASC),
 	INDEX `fk_#__acym_list_has_mail2`(`unsubscribe_id` ASC),
@@ -112,8 +129,12 @@ CREATE TABLE IF NOT EXISTS `#__acym_campaign` (
 	`draft` TINYINT(1) NULL,
 	`active` TINYINT(1) NOT NULL DEFAULT 1,
 	`mail_id` INT NULL,
-	`scheduled` TINYINT(1) NOT NULL DEFAULT 0,
 	`sent` TINYINT(1) NOT NULL DEFAULT 0,
+	`sending_type` VARCHAR(16) DEFAULT NULL,
+	`sending_params` TEXT DEFAULT NULL,
+	`parent_id` INT DEFAULT NULL,
+	`last_generated` INT DEFAULT NULL,
+	`next_trigger` INT DEFAULT NULL,
 	PRIMARY KEY (`id`),
 	INDEX `fk_#__acym_campaign_has_mail1`(`mail_id` ASC),
 	CONSTRAINT `fk_#__acym_campaign_has_mail1`
@@ -341,13 +362,13 @@ CREATE TABLE IF NOT EXISTS `#__acym_url_click` (
 	`click` INT NOT NULL DEFAULT 0,
 	`date_click` DATETIME NULL,
 	PRIMARY KEY (`mail_id`, `url_id`, `user_id`),
-	INDEX `fk_#__acym_url_click_#__acym_url1_idx`(`url_id` ASC),
-	CONSTRAINT `fk_#__acym_url_click_#__acym_mail1`
+	INDEX `fk_#__acym_url_has_url1`(`url_id` ASC),
+	CONSTRAINT `fk_#__acym_url_click_has_mail`
 		FOREIGN KEY (`mail_id`)
 			REFERENCES `#__acym_mail`(`id`)
 			ON DELETE NO ACTION
 			ON UPDATE NO ACTION,
-	CONSTRAINT `fk_#__acym_url_click_#__acym_url1`
+	CONSTRAINT `fk_#__acym_url_has_url`
 		FOREIGN KEY (`url_id`)
 			REFERENCES `#__acym_url`(`id`)
 			ON DELETE NO ACTION
@@ -373,13 +394,10 @@ CREATE TABLE IF NOT EXISTS `#__acym_field` (
 	`ordering` INT NOT NULL,
 	`option` LONGTEXT NULL,
 	`core` TINYINT(3) NULL,
-	`backend_profile` TINYINT(3) NULL,
+	`backend_edition` TINYINT(3) NULL,
 	`backend_listing` TINYINT(3) NULL,
-	`backend_filter` TINYINT(3) NULL,
-	`frontend_form` TINYINT(3) NULL,
-	`frontend_profile` TINYINT(3) NULL,
+	`frontend_edition` TINYINT(3) NULL,
 	`frontend_listing` TINYINT(3) NULL,
-	`frontend_filter` TINYINT(3) NULL,
 	`access` VARCHAR(255) NULL,
 	`namekey` VARCHAR(255) NOT NULL,
 	PRIMARY KEY (`id`)
@@ -445,8 +463,8 @@ CREATE TABLE IF NOT EXISTS `#__acym_rule` (
 CREATE TABLE IF NOT EXISTS `#__acym_history` (
 	`user_id` INT NOT NULL,
 	`date` INT NOT NULL,
-	`ip` varchar(16) DEFAULT NULL,
-	`action` varchar(50) NOT NULL,
+	`ip` VARCHAR(16) DEFAULT NULL,
+	`action` VARCHAR(50) NOT NULL,
 	`data` text,
 	`source` text,
 	`mail_id` MEDIUMINT DEFAULT NULL,
@@ -479,7 +497,7 @@ CREATE TABLE IF NOT EXISTS `#__acym_condition` (
 
 
 -- -----------------------------------------------------
--- Table `#__acym_condition`
+-- Table `#__acym_action`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `#__acym_action` (
 	`id` INT NOT NULL AUTO_INCREMENT,
@@ -493,6 +511,54 @@ CREATE TABLE IF NOT EXISTS `#__acym_action` (
 			REFERENCES `#__acym_condition`(`id`)
 			ON DELETE NO ACTION
 			ON UPDATE NO ACTION
+)
+	ENGINE = InnoDB
+	/*!40100
+	DEFAULT CHARACTER SET utf8
+	COLLATE utf8_general_ci*/;
+
+
+-- -----------------------------------------------------
+-- Table `#__acym_plugin`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `#__acym_plugin` (
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`title` VARCHAR(100) NOT NULL,
+	`folder_name` VARCHAR(100) NOT NULL,
+	`version` VARCHAR(10) NULL,
+	`active` INT NOT NULL,
+	`category` VARCHAR(100) NOT NULL,
+	`level` VARCHAR(50) NOT NULL,
+	`uptodate` INT NOT NULL,
+	`features` VARCHAR(255) NOT NULL,
+	`description` LONGTEXT NOT NULL,
+	`latest_version` VARCHAR(10) NOT NULL,
+	`settings` LONGTEXT NULL,
+	`core` TINYINT(1) NOT NULL DEFAULT 0,
+	PRIMARY KEY (`id`)
+)
+	ENGINE = InnoDB
+	/*!40100
+	DEFAULT CHARACTER SET utf8
+	COLLATE utf8_general_ci*/;
+
+-- -----------------------------------------------------
+-- Table `#__acym_form`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `#__acym_form` (
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`name` VARCHAR(255) NOT NULL,
+	`creation_date` DATETIME NOT NULL,
+	`active` TINYINT(1) NOT NULL DEFAULT 1,
+	`type` VARCHAR(20) NOT NULL,
+	`lists_options` LONGTEXT,
+	`fields_options` LONGTEXT,
+	`style_options` LONGTEXT,
+	`button_options` LONGTEXT,
+	`image_options` LONGTEXT,
+	`delay` SMALLINT(10),
+	`pages` TEXT,
+	PRIMARY KEY (`id`)
 )
 	ENGINE = InnoDB
 	/*!40100

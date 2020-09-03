@@ -1,16 +1,8 @@
 <?php
-/**
- * @package	AcyMailing for Joomla
- * @version	6.2.2
- * @author	acyba.com
- * @copyright	(C) 2009-2019 ACYBA S.A.R.L. All rights reserved.
- * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
- */
-
 defined('_JEXEC') or die('Restricted access');
 ?><?php
 
-class acymcronHelper
+class acymcronHelper extends acymObject
 {
     var $report = false;
     var $messages = [];
@@ -28,10 +20,9 @@ class acymcronHelper
 
     var $emailtypes = [];
 
-    function cron()
+    public function cron()
     {
         $time = time();
-        $config = acym_config();
 
         $firstMessage = acym_translation_sprintf('ACYM_CRON_TRIGGERED', acym_date('now', 'd F Y H:i'));
         $this->messages[] = $firstMessage;
@@ -39,14 +30,14 @@ class acymcronHelper
             acym_display($firstMessage, 'info');
         }
 
-        if ($config->get('cron_next') > $time) {
-            if ($config->get('cron_next') > ($time + $config->get('cron_frequency'))) {
+        if ($this->config->get('cron_next') > $time) {
+            if ($this->config->get('cron_next') > ($time + $this->config->get('cron_frequency'))) {
                 $newConfig = new stdClass();
-                $newConfig->cron_next = $time + $config->get('cron_frequency');
-                $config->save($newConfig);
+                $newConfig->cron_next = $time + $this->config->get('cron_frequency');
+                $this->config->save($newConfig);
             }
 
-            $nottime = acym_translation_sprintf('ACYM_CRON_NEXT', acym_getDate($config->get('cron_next')));
+            $nottime = acym_translation_sprintf('ACYM_CRON_NEXT', acym_date($this->config->get('cron_next'), 'd F Y H:i'));
             $this->messages[] = $nottime;
             if ($this->report) {
                 acym_display($nottime, 'info');
@@ -61,13 +52,13 @@ class acymcronHelper
         $newConfig = new stdClass();
         $newConfig->cron_last = $time;
         $newConfig->cron_fromip = acym_getIP();
-        $newConfig->cron_next = $config->get('cron_next') + $config->get('cron_frequency');
+        $newConfig->cron_next = $this->config->get('cron_next') + $this->config->get('cron_frequency');
 
-        if ($newConfig->cron_next <= $time || $newConfig->cron_next > $time + $config->get('cron_frequency')) {
-            $newConfig->cron_next = $time + $config->get('cron_frequency');
+        if ($newConfig->cron_next <= $time || $newConfig->cron_next > $time + $this->config->get('cron_frequency')) {
+            $newConfig->cron_next = $time + $this->config->get('cron_frequency');
         }
 
-        $config->save($newConfig);
+        $this->config->save($newConfig);
 
 
         if (!in_array('schedule', $this->skip)) {
@@ -80,18 +71,18 @@ class acymcronHelper
             }
         }
 
-        if ($config->get('require_confirmation', 1) == 1) {
-            $deletedNb = $queueClass->removeUnconfirmedUsersEmails();
+        if (!in_array('cleanqueue', $this->skip)) {
+            $deletedNb = $queueClass->cleanQueue();
 
             if (!empty($deletedNb)) {
-                $this->messages[] = acym_translation_sprintf('ACYM_EMAILS_REMOVED_QUEUE_UNCONFIRMED', $deletedNb);
+                $this->messages[] = acym_translation_sprintf('ACYM_EMAILS_REMOVED_QUEUE_CLEAN', $deletedNb);
                 $this->processed = true;
             }
         }
 
-        if ($config->get('queue_type') != 'manual' && !in_array('send', $this->skip)) {
+        if ($this->config->get('queue_type') != 'manual' && !in_array('send', $this->skip)) {
             $queueHelper = acym_get('helper.queue');
-            $queueHelper->send_limit = (int)$config->get('queue_nbmail_auto');
+            $queueHelper->send_limit = (int)$this->config->get('queue_nbmail_auto');
             $queueHelper->report = false;
             $queueHelper->emailtypes = $this->emailtypes;
             $queueHelper->process();
@@ -112,12 +103,12 @@ class acymcronHelper
             }
         }
 
-        if (!in_array('bounce', $this->skip) && acym_level(2) && $config->get('auto_bounce', 0) && $time > (int)$config->get('auto_bounce_next', 0) && (empty($queueHelper->stoptime) || time() < $queueHelper->stoptime - 5)) {
+        if (!in_array('bounce', $this->skip) && acym_level(2) && $this->config->get('auto_bounce', 0) && $time > (int)$this->config->get('auto_bounce_next', 0) && (empty($queueHelper->stoptime) || time() < $queueHelper->stoptime - 5)) {
 
             $newConfig = new stdClass();
-            $newConfig->auto_bounce_next = $time + (int)$config->get('auto_bounce_frequency', 0);
+            $newConfig->auto_bounce_next = $time + (int)$this->config->get('auto_bounce_frequency', 0);
             $newConfig->auto_bounce_last = $time;
-            $config->save($newConfig);
+            $this->config->save($newConfig);
             $bounceClass = acym_get('helper.bounce');
             $bounceClass->report = false;
             $bounceClass->stoptime = $queueHelper->stoptime;
@@ -143,7 +134,7 @@ class acymcronHelper
                 $this->processed = true;
                 $this->errorDetected = true;
             }
-            $config->save($newConfig);
+            $this->config->save($newConfig);
 
             if (!empty($queueHelper->stoptime) && time() > $queueHelper->stoptime) {
                 return true;
@@ -153,6 +144,11 @@ class acymcronHelper
         if (!in_array('automation', $this->skip) && acym_level(2)) {
             $automationClass = acym_get('class.automation');
             $automationClass->trigger('classic');
+
+            $userStatusCheckTriggers = [];
+            acym_trigger('onAcymDefineUserStatusCheckTriggers', [&$userStatusCheckTriggers]);
+            $automationClass->trigger($userStatusCheckTriggers);
+
             if (!empty($automationClass->report)) {
                 if ($automationClass->didAnAction) $this->processed = true;
                 $this->messages = array_merge($this->messages, $automationClass->report);
@@ -163,14 +159,21 @@ class acymcronHelper
             }
         }
 
+        if (!in_array('campaign', $this->skip) && acym_level(2)) {
+            $campaignClass = acym_get('class.campaign');
+            $campaignClass->triggerAutoCampaign();
+            if (!empty($campaignClass->messages)) {
+                $this->messages = array_merge($this->messages, $campaignClass->messages);
+                $this->processed = true;
+            }
+        }
+
         return true;
     }
 
-    function report()
+    public function report()
     {
-        $config = acym_config();
-
-        $sendreport = $config->get('cron_sendreport');
+        $sendreport = $this->config->get('cron_sendreport');
         $mailer = acym_get('helper.mailer');
 
         if (($sendreport == 2 && $this->processed) || $sendreport == 1 || ($sendreport == 3 && $this->errorDetected)) {
@@ -181,7 +184,7 @@ class acymcronHelper
             $mailer->addParam('mainreport', $this->mainmessage);
             $mailer->addParam('detailreport', implode('<br />', $this->detailMessages));
 
-            $receiverString = $config->get('cron_sendto');
+            $receiverString = $this->config->get('cron_sendto');
             $receivers = [];
             if (substr_count($receiverString, '@') > 1) {
                 $receivers = explode(' ', trim(preg_replace('# +#', ' ', str_replace([';', ','], ' ', $receiverString))));
@@ -209,18 +212,17 @@ class acymcronHelper
         if (strlen($newConfig->cron_report) > 800) {
             $newConfig->cron_report = substr($newConfig->cron_report, 0, 795).'...';
         }
-        $config->save($newConfig);
+        $this->config->save($newConfig);
     }
 
-    function saveReport()
+    public function saveReport()
     {
-        $config = acym_config();
-        $saveReport = $config->get('cron_savereport');
+        $saveReport = $this->config->get('cron_savereport');
         if (empty($saveReport)) {
             return;
         }
 
-        $reportPath = $config->get('cron_savepath');
+        $reportPath = $this->config->get('cron_savepath');
         if (empty($reportPath)) {
             return;
         }

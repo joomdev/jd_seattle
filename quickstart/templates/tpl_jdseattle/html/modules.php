@@ -2,7 +2,7 @@
 /**
  * @package   Astroid Framework
  * @author    JoomDev https://www.joomdev.com
- * @copyright Copyright (C) 2009 - 2019 JoomDev.
+ * @copyright Copyright (C) 2009 - 2020 JoomDev.
  * @license https://www.gnu.org/licenses/gpl-2.0.html GNU/GPLv2 or Later
  */
 defined('_JEXEC') or die;
@@ -51,7 +51,7 @@ function modChrome_border_layout($module, &$params, &$attribs) {
 
    // Temporarily store header class in variable
    $headerClass = $params->get('header_class');
-   $headerClass = $headerClass ? ' class="module-title' . htmlspecialchars($headerClass, ENT_COMPAT, 'UTF-8') . '"' : ' class="module-title"';
+   $headerClass = $headerClass ? ' class="module-title ' . htmlspecialchars($headerClass, ENT_COMPAT, 'UTF-8') . '"' : ' class="module-title"';
 
    $content = trim($module->content);
 
@@ -59,7 +59,7 @@ function modChrome_border_layout($module, &$params, &$attribs) {
       ?>
       <<?php echo $moduleTag; ?> class="moduletable <?php echo htmlspecialchars($params->get('moduleclass_sfx'), ENT_COMPAT, 'UTF-8') . $moduleClass; ?>">
       <?php
-      echo '<div class="border rounded p-3 mb-4">';
+      echo '<div class="border-layout">';
       ?>
       <?php if ($module->showtitle != 0) : ?>
          <<?php echo $headerTag . $headerClass . '>' . $module->title; ?></<?php echo $headerTag; ?>>
@@ -82,7 +82,7 @@ function modChrome_astroidxhtml($module, &$params, &$attribs) {
 
    // Temporarily store header class in variable
    $headerClass = $params->get('header_class');
-   $headerClass = $headerClass ? ' class="module-title' . htmlspecialchars($headerClass, ENT_COMPAT, 'UTF-8') . '"' : ' class="module-title"';
+   $headerClass = $headerClass ? ' class="module-title ' . htmlspecialchars($headerClass, ENT_COMPAT, 'UTF-8') . '"' : ' class="module-title"';
 
    $content = trim($module->content);
 

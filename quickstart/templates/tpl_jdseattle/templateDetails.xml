@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE install PUBLIC "-//Joomla! 2.5//DTD template 1.0//EN" "https://www.joomla.org/xml/dtd/1.6/template-install.dtd">
 <extension version="3.1" type="template" client="site" method="upgrade">
    <name>tpl_jdseattle</name>
-   <creationDate>August 2019</creationDate>
+   <creationDate>May 2020</creationDate>
    <author>JoomDev</author>
    <authorEmail>info@joomdev.com</authorEmail>
    <authorUrl>https://www.joomdev.com</authorUrl>
-   <copyright>Copyright (C) 2019 Joomdev, Inc. All rights reserved.</copyright>
+   <copyright>Copyright (C) 2020 Joomdev, Inc. All rights reserved.</copyright>
    <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
-   <version>1.5</version>
+   <version>1.6</version>
    <description>JD Seattle - Free Multipurpose Business Joomla Template</description>
+   <updateservers>
+      <server type="extension" name="tpl_jdseattle" priority="1">https://cdn.joomdev.com/updates/tpl_jdseattle.xml</server>
+   </updateservers>
+
    <files>
       <folder>css</folder>
       <folder>scss</folder>
@@ -18,15 +21,15 @@
       <folder>images</folder>
       <folder>js</folder>
       <folder>language</folder>
-      <folder>frontend</folder>
       <filename>index.php</filename>
+      <filename>helper.php</filename>
       <filename>templateDetails.xml</filename>
       <filename>template_preview.png</filename>
       <filename>template_thumbnail.png</filename>
       <filename>component.php</filename>
       <filename>error.php</filename>
+      <filename>offline.php</filename>
    </files>
-
    <positions>
       <position>header</position>
       <position>header-top-1</position>

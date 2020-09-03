@@ -1,16 +1,8 @@
 <?php
-/**
- * @package	AcyMailing for Joomla
- * @version	6.2.2
- * @author	acyba.com
- * @copyright	(C) 2009-2019 ACYBA S.A.R.L. All rights reserved.
- * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
- */
-
 defined('_JEXEC') or die('Restricted access');
 ?><?php
 
-class acymView
+class acymView extends acymObject
 {
     var $name = '';
     var $steps = [];
@@ -19,8 +11,7 @@ class acymView
 
     public function __construct()
     {
-        global $acymCmsUserVars;
-        $this->cmsUserVars = $acymCmsUserVars;
+        parent::__construct();
 
         $classname = get_class($this);
         $viewpos = strpos($classname, 'View');
@@ -29,7 +20,6 @@ class acymView
         if (empty($this->step)) {
             $this->step = acym_getVar('string', 'step', '');
         }
-        $this->edition = acym_getVar('string', 'edition', '0') === '1';
     }
 
     public function getName()
@@ -47,57 +37,63 @@ class acymView
         acym_setVar('layout', $value);
     }
 
-    public function display($data = [])
+    public function display($controller, $data = [])
     {
         $name = $this->getName();
         $view = $this->getLayout();
-        $config = acym_config();
         if (method_exists($this, $view)) $this->$view();
 
         $viewFolder = acym_isAdmin() ? ACYM_VIEW : ACYM_VIEW_FRONT;
         if (!file_exists($viewFolder.$name.DS.'tmpl'.DS.$view.'.php')) $view = 'listing';
         if (ACYM_CMS === 'wordpress') echo ob_get_clean();
 
+        if (ACYM_CMS !== 'wordpress' || ($name === 'frontusers' && ($view === 'unsubscribe' || $view === 'unsubscribepage')) || !defined('DOING_AJAX') || !DOING_AJAX) {
+            acym_loadAssets($name, $view);
+            $controller->loadScripts($view);
+        }
+
         if (!empty($_SESSION['acynotif'])) {
             echo implode('', $_SESSION['acynotif']);
             $_SESSION['acynotif'] = [];
         }
 
-
-        $outsideForm = $name == 'mails' && $view == 'edit';
+        $outsideForm = (strpos($name, 'mails') !== false && $view == 'edit') || (strpos($name, 'campaigns') !== false && $view == 'edit_email');
         if ($outsideForm) echo '<form id="acym_form" action="'.acym_completeLink(acym_getVar('cmd', 'ctrl')).'" class="acym__form__mail__edit" method="post" name="acyForm" data-abide novalidate>';
 
-        $class = empty($config->get('small_display', 0)) ? '' : 'acym__wrapper__small';
-
-        if (acym_getVar('cmd', 'task') != 'ajaxEncoding') echo '<div id="acym_wrapper" class="'.$name.'_'.$view.' '.$class.'">';
+        if (acym_getVar('cmd', 'task') != 'ajaxEncoding') echo '<div id="acym_wrapper" class="'.$name.'_'.$view.'">';
 
         if (acym_isLeftMenuNecessary()) echo acym_getLeftMenu($name).'<div id="acym_content">';
 
         if (!empty($data['header'])) echo $data['header'];
 
-        acym_displayMessages();
-
-        echo '<div id="acym__callout__container"></div>';
-
-        $overridePath = acym_getPageOverride($name, $view);
-
-        if (!empty($overridePath) && file_exists($overridePath)) {
-            include $overridePath;
-        } else {
-            include $viewFolder.$name.DS.'tmpl'.DS.$view.'.php';
+        $remindme = json_decode($this->config->get('remindme', '[]'), true);
+        if (acym_isAdmin() && !in_array('multilingual', $remindme) && acym_level(1) && $this->config->get('multilingual', '0') === '0') {
+            if (count(acym_getLanguages(true)) > 1) {
+                $message = acym_translation('ACYM_MULTILINGUAL_OPTIONS_PROMPT');
+                $message .= ' <a id="acym__multilingual__reminder" href="'.acym_completeLink('configuration&task=multilingual').'">'.acym_translation('ACYM_YES').'</a>';
+                $message .= ' / <a href="#" class="acym__do__not__remindme" title="multilingual">'.acym_translation('ACYM_NO').'</a>';
+                acym_display($message, 'info', false);
+            } else {
+                $remindme[] = 'multilingual';
+                $this->config->save(['remindme' => json_encode($remindme)]);
+            }
         }
+
+        if (acym_isAdmin()) acym_displayMessages();
+
+        include acym_getView($name, $view);
 
         if (acym_isLeftMenuNecessary()) echo '</div>';
         if (acym_getVar('cmd', 'task') != 'ajaxEncoding') echo '</div>';
 
         if ($outsideForm) echo '</form>';
 
-        $remind = json_decode($config->get('remindme', '[]'));
+        $remind = json_decode($this->config->get('remindme', '[]'));
         if (ACYM_CMS == 'wordpress' && !in_array('reviews', $remind) && acym_isAdmin()) {
             echo '<div id="acym__reviews__footer" style="margin: 0 0 30px 30px;">';
             echo acym_translation_sprintf(
                 'ACYM_REVIEW_FOOTER',
-                '<a title="reviews" id="acym__reviews__footer__link" target="_blank" href="https://wordpress.org/support/plugin/acymailing/reviews/?rate=5#new-post"><i class="fa fa-star acym__color__light-blue"></i><i class="fa fa-star acym__color__light-blue"></i><i class="fa fa-star acym__color__light-blue"></i><i class="fa fa-star acym__color__light-blue"></i><i class="fa fa-star acym__color__light-blue"></i></a>'
+                '<a title="reviews" id="acym__reviews__footer__link" target="_blank" href="https://wordpress.org/support/plugin/acymailing/reviews/?rate=5#new-post"><i class="acymicon-star acym__color__light-blue"></i><i class="acymicon-star acym__color__light-blue"></i><i class="acymicon-star acym__color__light-blue"></i><i class="acymicon-star acym__color__light-blue"></i><i class="acymicon-star acym__color__light-blue"></i></a>'
             );
             echo '</div>';
         }

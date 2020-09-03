@@ -1,12 +1,4 @@
 <?php
-/**
- * @package	AcyMailing for Joomla
- * @version	6.2.2
- * @author	acyba.com
- * @copyright	(C) 2009-2019 ACYBA S.A.R.L. All rights reserved.
- * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
- */
-
 defined('_JEXEC') or die('Restricted access');
 ?><?php
 
@@ -18,10 +10,10 @@ class acymautomationClass extends acymClass
     var $didAnAction = false;
     var $report = [];
 
-    public function getMatchingAutomations($settings)
+    public function getMatchingElements($settings = [])
     {
         $query = 'SELECT * FROM #__acym_automation';
-        $queryCount = 'SELECT COUNT(id) FROM #__acym_automation';
+        $queryCount = 'SELECT COUNT(id) AS total, SUM(active) AS totalActive FROM #__acym_automation';
         $filters = [];
 
         if (!empty($settings['search'])) {
@@ -33,24 +25,31 @@ class acymautomationClass extends acymClass
             $queryCount .= ' WHERE ('.implode(') AND (', $filters).')';
         }
 
+        if (!empty($settings['status'])) {
+            $query .= empty($filters) ? ' WHERE ' : ' AND ';
+            $query .= 'active = '.($settings['status'] == 'active' ? '1' : '0');
+        }
+
         if (!empty($settings['ordering']) && !empty($settings['ordering_sort_order'])) {
             $query .= ' ORDER BY '.acym_secureDBColumn($settings['ordering']).' '.acym_secureDBColumn(strtoupper($settings['ordering_sort_order']));
         } else {
             $query .= ' ORDER BY id asc';
         }
-        $results['automations'] = acym_loadObjectList($query, '', $settings['offset'], $settings['automationsPerPage']);
 
+        if (empty($settings['offset']) || $settings['offset'] < 0) {
+            $settings['offset'] = 0;
+        }
 
-        $results['total'] = acym_loadResult($queryCount);
+        if (empty($settings['elementsPerPage']) || $settings['elementsPerPage'] < 1) {
+            $pagination = acym_get('helper.pagination');
+            $settings['elementsPerPage'] = $pagination->getListLimit();
+        }
+
+        $results['elements'] = acym_loadObjectList($query, '', $settings['offset'], $settings['elementsPerPage']);
+
+        $results['total'] = acym_loadObject($queryCount);
 
         return $results;
-    }
-
-    public function getOneById($id)
-    {
-        $query = 'SELECT * FROM #__acym_automation WHERE `id` = '.intval($id);
-
-        return acym_loadObject($query);
     }
 
     public function save($automation)
@@ -90,7 +89,7 @@ class acymautomationClass extends acymClass
 
     public function trigger($trigger, $data = [])
     {
-        if (!acym_level(2)) return;
+        if (!acym_level(2) || empty($trigger)) return;
 
         $stepClass = acym_get('class.step');
         $actionClass = acym_get('class.action');
@@ -105,7 +104,7 @@ class acymautomationClass extends acymClass
                 $execute = true;
             }
 
-            acym_trigger('onAcymExecuteTrigger', [&$step, &$execute, $data]);
+            acym_trigger('onAcymExecuteTrigger', [&$step, &$execute, &$data]);
 
             $data['automation'] = $this->getOneById($step->automation_id);
 
@@ -132,6 +131,7 @@ class acymautomationClass extends acymClass
 
     public function execute($action, $data = [])
     {
+        $usersTriggeringAction = empty($data['userIds']) ? [] : $data['userIds'];
         $userTriggeringAction = empty($data['userId']) ? 0 : $data['userId'];
         $action->actions = json_decode($action->actions, true);
         if (empty($action->actions)) return false;
@@ -147,13 +147,19 @@ class acymautomationClass extends acymClass
         if (empty($action->filters)) return false;
 
 
-        $query = acym_get('class.query');
-
         $initialWhere = ['1 = 1'];
+        $query = acym_get('class.query');
         $query->removeFlag($action->id);
 
         if (!empty($action->filters['type_filter']) && $action->filters['type_filter'] == 'user') {
-            $initialWhere = ['user.id = '.intval($userTriggeringAction)];
+            if (empty($usersTriggeringAction)) {
+                if (empty($userTriggeringAction)) return false;
+
+                $initialWhere = ['user.id = '.intval($userTriggeringAction)];
+            } else {
+                acym_arrayToInteger($usersTriggeringAction);
+                $initialWhere = ['user.id IN ('.implode(', ', $usersTriggeringAction).')'];
+            }
         }
 
         $typeFilter = $action->filters['type_filter'];
@@ -210,12 +216,20 @@ class acymautomationClass extends acymClass
     {
         if (empty($conditions)) return true;
         $userTriggeringAction = empty($data['userId']) ? 0 : $data['userId'];
+        $usersTriggeringAction = empty($data['userIds']) ? [] : $data['userIds'];
 
         $conditions = json_decode($conditions, true);
         $query = acym_get('class.query');
         $initialWhere = ['1 = 1'];
         if (!empty($conditions['type_condition']) && $conditions['type_condition'] == 'user') {
-            $initialWhere = ['user.id = '.intval($userTriggeringAction)];
+            if (empty($usersTriggeringAction)) {
+                if (empty($userTriggeringAction)) return false;
+
+                $initialWhere = ['user.id = '.intval($userTriggeringAction)];
+            } else {
+                acym_arrayToInteger($usersTriggeringAction);
+                $initialWhere = ['user.id IN ('.implode(', ', $usersTriggeringAction).')'];
+            }
         }
         unset($conditions['type_condition']);
 

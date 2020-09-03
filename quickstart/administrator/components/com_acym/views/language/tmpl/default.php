@@ -1,12 +1,4 @@
 <?php
-/**
- * @package	AcyMailing for Joomla
- * @version	6.2.2
- * @author	acyba.com
- * @copyright	(C) 2009-2019 ACYBA S.A.R.L. All rights reserved.
- * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
- */
-
 defined('_JEXEC') or die('Restricted access');
 ?><form id="acym_form" action="<?php echo acym_completeLink(acym_getVar('cmd', 'ctrl')); ?>" method="post" name="acyForm">
 	<div id="acym_content" class="acym__language__modal popup_size">
@@ -26,12 +18,12 @@ defined('_JEXEC') or die('Restricted access');
 					<a href="#customcontent" id="edit_translation" class="button margin-left-1"><?php echo acym_translation('ACYM_EDIT'); ?></a>
 				</div>
 			</div>
-			<textarea readonly rows="18" name="content" id="translation" class="acym__language__modal__existing__translation"><?php echo $data['file']->content; ?></textarea>
+			<textarea readonly rows="18" name="content" id="translation" class="acym__language__modal__existing__translation acym__blue"><?php echo str_replace('&', '&amp;', $data['file']->content); ?></textarea>
 		</div>
 		<div class="acym__content acym__language__modal__custom margin-top-2" id="customcontent">
 			<h6 class="acym__language__modal__title"><?php echo acym_translation('ACYM_CUSTOM_TRANS'); ?></h6>
             <?php echo acym_translation('ACYM_CUSTOM_TRANS_DESC'); ?>
-			<textarea rows="10" name="customcontent" class="acym__language__modal__body"><?php echo $data['file']->customcontent; ?></textarea>
+			<textarea rows="10" name="customcontent" class="acym__language__modal__body acym__blue"><?php echo str_replace('&', '&amp;', $data['file']->customcontent); ?></textarea>
 
 			<div class="cell grid-x align-right">
 				<button id="copy_translations" class="button"><?php echo acym_translation('ACYM_COPY_DEFAULT_TRANSLATIONS'); ?></button>

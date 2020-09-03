@@ -17,6 +17,10 @@ class SpsimpleportfolioModelItems extends JModelList {
 	protected function getListQuery() {
 		$app = JFactory::getApplication();
 		$user = JFactory::getUser();
+		// Get Params
+		$params   	= $app->getMenu()->getActive()->params;
+		// params item
+		$ordering 	= explode(':', $params->get('ordering', 'ordering:ASC'));
 
 		// Create a new query object.
 		$db = $this->getDbo();
@@ -42,7 +46,11 @@ class SpsimpleportfolioModelItems extends JModelList {
 		// Filter by language
 		$query->where('a.language in (' . $db->quote(JFactory::getLanguage()->getTag()) . ',' . $db->quote('*') . ')');
 		$query->where('a.published = 1');
-		$query->order('a.ordering ASC');
+		if(is_array($ordering)) {
+			$query->order('a.'. $ordering[0] . ' ' .$ordering[1]);
+		} else {
+			$query->order('a.ordering ASC');
+		}
 
 		return $query;
 	}
@@ -59,7 +67,12 @@ class SpsimpleportfolioModelItems extends JModelList {
 			$limitstart = $app->input->get('limitstart', 0, 'uint');
 			$this->setState('list.start', $limitstart);
 
-			$catid = $params->get('catid', 0);
+			$catid = $app->input->get('catid', 0, 'uint');
+			// keeping bc
+			if(!$catid) {
+				$catid = $params->get('catid', 0);
+			}
+
 			$this->setState('category.id', $catid);
 		}
 	}
@@ -72,8 +85,8 @@ class SpsimpleportfolioModelItems extends JModelList {
 		$app = JFactory::getApplication();
 		$params = $app->getParams();
 		$itemId = '';
-		if($menu) {
-			$itemId = '&Itemid=' . $menu->id;
+
+		if ($menu) {
 			$params->merge($menu->params);
 		}
 
@@ -132,7 +145,13 @@ class SpsimpleportfolioModelItems extends JModelList {
 				$item->popup_img_url = JURI::base() . $item->image;
 			}
 
-			$item->url = JRoute::_('index.php?option=com_spsimpleportfolio&view=item&id='. $item->id . ':' . $item->alias . $itemId);
+			$itemId = self::getItemid($item->catid);
+
+			if ($menu && !$itemId) {
+				$itemId = $menu->id;
+			}
+
+			$item->url = JRoute::_('index.php?option=com_spsimpleportfolio&view=item&id='. $item->id . ':' . $item->alias . '&Itemid=' . $itemId);
 
 			$i++;
 			if($i==11) {
@@ -190,6 +209,30 @@ class SpsimpleportfolioModelItems extends JModelList {
 		}
 
 		return array();
+	}
+
+	public static function getItemid($catid = 0) {
+		$match = 'option=com_spsimpleportfolio&view=items';
+		if ($catid) {
+			$match .= '&catid=' . (int) $catid;
+		}
+		$db = JFactory::getDbo();
+		$query = $db->getQuery(true);
+		$query->select($db->quoteName(array('id')));
+		$query->from($db->quoteName('#__menu'));
+		$query->where($db->quoteName('link') . ' LIKE ' . $db->quote('%' . $match . '%'));
+		$query->where($db->quoteName('published') . ' = ' . $db->quote('1'));
+
+		$db->setQuery($query);
+		$result = $db->loadResult();
+
+		if ($result) {
+			return $result;
+		} else {
+			return self::getItemid();
+		}
+
+		return;
 	}
 
 }

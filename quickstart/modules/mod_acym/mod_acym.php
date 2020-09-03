@@ -1,12 +1,4 @@
 <?php
-/**
- * @package	AcyMailing for Joomla
- * @version	6.1.2
- * @author	acyba.com
- * @copyright	(C) 2009-2019 ACYBA S.A.R.L. All rights reserved.
- * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
- */
-
 defined('_JEXEC') or die('Restricted access');
 ?><?php
 
@@ -25,9 +17,9 @@ if ($params->get('userinfo', '1') == '1' && !empty($currentUserEmail)) {
     $identifiedUser = $userClass->getOneByEmail($currentUserEmail);
 }
 
-$visibleLists = $params->get('displists', array());
-$hiddenLists = $params->get('hiddenlists', array());
-$fields = $params->get('fields', array());
+$visibleLists = $params->get('displists', []);
+$hiddenLists = $params->get('hiddenlists', []);
+$fields = $params->get('fields', []);
 $allfields = is_array($fields) ? $fields : explode(',', $fields);
 if (!in_array('2', $allfields)) {
     $allfields[] = 2;
@@ -39,10 +31,13 @@ acym_arrayToInteger($allfields);
 $listClass = acym_get('class.list');
 $fieldClass = acym_get('class.field');
 
-$allLists = $listClass->getAll();
+$allLists = $listClass->getAllWIthoutManagement();
+$visibleLists = array_intersect($visibleLists, array_keys($allLists));
+$hiddenLists = array_intersect($hiddenLists, array_keys($allLists));
 $allfields = $fieldClass->getFieldsByID($allfields);
-$fields = array();
+$fields = [];
 foreach ($allfields as $field) {
+    if($field->active === '0') continue;
     $fields[$field->id] = $field;
 }
 
@@ -55,18 +50,18 @@ if (!empty($visibleLists) && !empty($hiddenLists)) {
 }
 
 if (empty($identifiedUser->id)) {
-    $checkedLists = $params->get('listschecked', array());
+    $checkedLists = $params->get('listschecked', []);
     if (!is_array($checkedLists)) {
         if (strtolower($checkedLists) == 'all') {
             $checkedLists = $visibleLists;
         } elseif (strpos($checkedLists, ',') || is_numeric($checkedLists)) {
             $checkedLists = explode(',', $checkedLists);
         } else {
-            $checkedLists = array();
+            $checkedLists = [];
         }
     }
 } else {
-    $checkedLists = array();
+    $checkedLists = [];
     $userLists = $userClass->getUserSubscriptionById($identifiedUser->id);
 
     $countSub = 0;
@@ -101,8 +96,18 @@ $formClass = $params->get('formclass', '');
 $alignment = $params->get('alignment', 'none');
 $style = $alignment == 'none' ? '' : 'style="text-align: '.$alignment.'"';
 
-$termsURL = acym_getArticleURL($params->get('termscontent', 0), $params->get('articlepopup', 1), 'ACYM_TERMS_CONDITIONS');
-$privacyURL = acym_getArticleURL($params->get('privacypolicy', 0), $params->get('articlepopup', 1), 'ACYM_PRIVACY_POLICY');
+$termsURL = acym_getArticleURL(
+    $params->get('termscontent', 0),
+    $params->get('articlepopup', 1),
+    'ACYM_TERMS_CONDITIONS',
+    acym_translation('ACYM_TERMS_CONDITIONS')
+);
+$privacyURL = acym_getArticleURL(
+    $params->get('privacypolicy', 0),
+    $params->get('articlepopup', 1),
+    'ACYM_PRIVACY_POLICY',
+    acym_translation('ACYM_PRIVACY_POLICY')
+);
 
 if (empty($termsURL) && empty($privacyURL)) {
     $termslink = '';
@@ -118,12 +123,14 @@ if (empty($termsURL) && empty($privacyURL)) {
 $formName = acym_getModuleFormName();
 $formAction = htmlspecialchars_decode(acym_completeLink('frontusers', true, true));
 
-$js = "\n"."acymModule['excludeValues".$formName."'] = [];";
-$fieldsToDisplay = array();
+$js = "window.addEventListener('DOMContentLoaded', (event) => {";
+$js .= "\n"."acymModule['excludeValues".$formName."'] = [];";
+$fieldsToDisplay = [];
 foreach ($fields as $field) {
     $fieldsToDisplay[$field->id] = $field->name;
-    $js .= "\n"."acymModule['excludeValues".$formName."']['".$field->id."'] = '".$field->name."';";
+    $js .= "\n"."acymModule['excludeValues".$formName."']['".$field->id."'] = '".acym_translation($field->name, true)."';";
 }
+$js .= "  });";
 echo "<script type=\"text/javascript\">
         <!--
         $js
@@ -132,7 +139,7 @@ echo "<script type=\"text/javascript\">
 ?>
 	<div class="acym_module <?php echo acym_escape($formClass); ?>" id="acym_module_<?php echo $formName; ?>">
 		<div class="acym_fulldiv" id="acym_fulldiv_<?php echo $formName; ?>" <?php echo $style; ?>>
-			<form id="<?php echo $formName; ?>" name="<?php echo $formName ?>" method="POST" action="<?php echo $formAction; ?>" onsubmit="return submitAcymForm('subscribe','<?php echo $formName; ?>')">
+			<form enctype="multipart/form-data" id="<?php echo acym_escape($formName); ?>" name="<?php echo acym_escape($formName); ?>" method="POST" action="<?php echo acym_escape($formAction); ?>" onsubmit="return submitAcymForm('subscribe','<?php echo $formName; ?>', 'acySubmitSubForm')">
 				<div class="acym_module_form">
                     <?php
                     $introText = $params->get('introtext', '');
@@ -150,17 +157,17 @@ echo "<script type=\"text/javascript\">
                     $app = JFactory::getApplication('site');
                     $template = $app->getTemplate();
                     if (file_exists(str_replace(DS, '/', ACYM_ROOT).'templates/'.$template.'/html/mod_acym/'.$view)) {
-                        include(ACYM_ROOT.'templates'.DS.$template.DS.'html'.DS.'mod_acym'.DS.$view);
+                        include ACYM_ROOT.'templates'.DS.$template.DS.'html'.DS.'mod_acym'.DS.$view;
                     } else {
-                        include(__DIR__.DS.'tmpl'.DS.$view);
+                        include __DIR__.DS.'tmpl'.DS.$view;
                     }
 
                     ?>
 				</div>
 
-				<input type="hidden" name="ctrl" value="frontusers"/>
-				<input type="hidden" name="task" value="notask"/>
-				<input type="hidden" name="option" value="<?php echo ACYM_COMPONENT ?>"/>
+				<input type="hidden" name="ctrl" value="frontusers" />
+				<input type="hidden" name="task" value="notask" />
+				<input type="hidden" name="option" value="<?php echo acym_escape(ACYM_COMPONENT); ?>" />
 
                 <?php
                 $currentEmail = acym_currentUserEmail();
@@ -173,11 +180,12 @@ echo "<script type=\"text/javascript\">
 
                 ?>
 
-				<input type="hidden" name="ajax" value="<?php echo $ajax; ?>"/>
-				<input type="hidden" name="acy_source" value="<?php echo htmlspecialchars($params->get('source', '')); ?>"/>
-				<input type="hidden" name="hiddenlists" value="<?php echo implode(',', $hiddenLists); ?>"/>
-				<input type="hidden" name="fields" value="<?php echo 'name,email'; ?>"/>
-				<input type="hidden" name="acyformname" value="<?php echo $formName; ?>"/>
+				<input type="hidden" name="ajax" value="<?php echo acym_escape($ajax); ?>" />
+				<input type="hidden" name="acy_source" value="<?php echo acym_escape($params->get('source', 'mod_'.$module->id)); ?>" />
+				<input type="hidden" name="hiddenlists" value="<?php echo implode(',', $hiddenLists); ?>" />
+				<input type="hidden" name="fields" value="<?php echo 'name,email'; ?>" />
+				<input type="hidden" name="acyformname" value="<?php echo acym_escape($formName); ?>" />
+				<input type="hidden" name="acysubmode" value="mod_acym" />
 
                 <?php
                 $postText = $params->get('posttext', '');

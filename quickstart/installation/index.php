@@ -2,7 +2,7 @@
 /**
  * @package    Joomla.Installation
  *
- * @copyright  Copyright (C) 2005 - 2019 Open Source Matters, Inc. All rights reserved.
+ * @copyright  Copyright (C) 2005 - 2020 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
@@ -10,7 +10,7 @@
  * Define the application's minimum supported PHP version as a constant so it can be referenced within the application.
  */
 define('JOOMLA_MINIMUM_PHP', '5.3.10');
-ini_set('max_execution_time', 300);
+ini_set('max_execution_time', 600);
 if (version_compare(PHP_VERSION, JOOMLA_MINIMUM_PHP, '<'))
 {
 	die('Your host needs to use PHP ' . JOOMLA_MINIMUM_PHP . ' or higher to run this version of Joomla!');

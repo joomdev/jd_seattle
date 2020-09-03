@@ -1,23 +1,20 @@
 <?php
-/**
- * @package	AcyMailing for Joomla
- * @version	6.2.2
- * @author	acyba.com
- * @copyright	(C) 2009-2019 ACYBA S.A.R.L. All rights reserved.
- * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
- */
-
 defined('_JEXEC') or die('Restricted access');
 ?><?php
 
 class AutomationController extends acymController
 {
+    var $regexSwitches = '#(switch_[0-9]*".*)(data\-switch=")(switch_.+id=")(switch_.+for=")(switch_)#Uis';
+
     public function __construct()
     {
         parent::__construct();
         $this->breadcrumb[acym_translation('ACYM_AUTOMATION')] = acym_completeLink('automation');
         $this->loadScripts = [
-            'all' => ['datepicker'],
+            'info' => ['datepicker'],
+            'condition' => ['datepicker'],
+            'action' => ['datepicker'],
+            'filter' => ['datepicker'],
         ];
         acym_setVar('edition', '1');
     }
@@ -28,6 +25,16 @@ class AutomationController extends acymController
             acym_redirect(acym_completeLink('dashboard&task=upgrade&version=enterprise', false, true));
         }
 
+    }
+
+    public function prepareToolbar(&$data)
+    {
+        $toolbarHelper = acym_get('helper.toolbar');
+        $toolbarHelper->addSearchBar($data['search'], 'automation_search', 'ACYM_SEARCH');
+        $toolbarHelper->addButton(acym_translation('ACYM_NEW_MASS_ACTION'), ['data-task' => 'edit', 'data-step' => 'action'], 'cog');
+        $toolbarHelper->addButton(acym_translation('ACYM_CREATE'), ['data-task' => 'edit', 'data-step' => 'info'], 'add', true);
+
+        $data['toolbar'] = $toolbarHelper;
     }
 
     public function info()
@@ -56,7 +63,7 @@ class AutomationController extends acymController
 
     public function switches($matches)
     {
-        return $matches[1].'__numand__'.$matches[2].'__numand__'.$matches[3].'__numand__'.$matches[4];
+        return '__numand__'.$matches[1].$matches[2].'__numand__'.$matches[3].'__numand__'.$matches[4].'__numand__'.$matches[5];
     }
 
     public function action()
@@ -104,7 +111,7 @@ class AutomationController extends acymController
         }
 
         if (empty($stepAutomation['triggers'][$typeTrigger])) {
-            acym_enqueueNotification(acym_translation('ACYM_PLEASE_SELECT_ONE_TRIGGER'), 'error', 5000);
+            acym_enqueueMessage(acym_translation('ACYM_PLEASE_SELECT_ONE_TRIGGER'), 'error');
 
             $this->info();
 
@@ -330,7 +337,7 @@ class AutomationController extends acymController
             }
 
             if (empty($stepAutomation['triggers'][$typeTrigger])) {
-                acym_enqueueNotification(acym_translation('ACYM_PLEASE_SELECT_ONE_TRIGGER'), 'error', 5000);
+                acym_enqueueMessage(acym_translation('ACYM_PLEASE_SELECT_ONE_TRIGGER'), 'error');
 
                 $this->info();
 
@@ -374,7 +381,7 @@ class AutomationController extends acymController
             $stepAutomation['filters'] = json_encode($stepAutomation['filters']);
         } elseif ($from == 'actions') {
             if (empty($stepAutomation['actions'])) {
-                acym_enqueueNotification(acym_translation('ACYM_PLEASE_SET_ACTIONS'), 'error', 5000);
+                acym_enqueueMessage(acym_translation('ACYM_PLEASE_SET_ACTIONS'), 'error');
                 if (!empty($automationId)) acym_setVar('id', $automationId);
                 $this->action();
 
@@ -428,7 +435,7 @@ class AutomationController extends acymController
             return;
         }
 
-        acym_enqueueNotification(acym_translation('ACYM_SUCCESSFULLY_SAVED'), 'success', 8000);
+        acym_enqueueMessage(acym_translation('ACYM_SUCCESSFULLY_SAVED'), 'success');
 
         acym_setVar('id', $ids['automationId']);
         acym_setVar('stepId', $ids['stepId']);
@@ -456,7 +463,7 @@ class AutomationController extends acymController
             return;
         }
 
-        acym_enqueueNotification(acym_translation('ACYM_SUCCESSFULLY_SAVED'), 'success', 8000);
+        acym_enqueueMessage(acym_translation('ACYM_SUCCESSFULLY_SAVED'), 'success');
 
         $this->listing();
     }
@@ -483,7 +490,7 @@ class AutomationController extends acymController
             return;
         }
 
-        acym_enqueueNotification(acym_translation('ACYM_SUCCESSFULLY_SAVED'), 'success', 8000);
+        acym_enqueueMessage(acym_translation('ACYM_SUCCESSFULLY_SAVED'), 'success');
 
         $this->listing();
     }
@@ -510,7 +517,7 @@ class AutomationController extends acymController
             return;
         }
 
-        acym_enqueueNotification(acym_translation('ACYM_SUCCESSFULLY_SAVED'), 'success', 8000);
+        acym_enqueueMessage(acym_translation('ACYM_SUCCESSFULLY_SAVED'), 'success');
 
         $this->listing();
     }
@@ -536,10 +543,10 @@ class AutomationController extends acymController
         $automation->active = 1;
         $saved = $automationClass->save($automation);
         if (!empty($saved)) {
-            acym_enqueueNotification(acym_translation('ACYM_SUCCESSFULLY_SAVED'), 'success', 8000);
+            acym_enqueueMessage(acym_translation('ACYM_SUCCESSFULLY_SAVED'), 'success');
             $this->listing();
         } else {
-            acym_enqueueNotification(acym_translation('ACYM_ERROR_SAVING'), 'error', 5000);
+            acym_enqueueMessage(acym_translation('ACYM_ERROR_SAVING'), 'error');
             $this->listing();
         }
     }
@@ -558,7 +565,7 @@ class AutomationController extends acymController
         $this->filter();
     }
 
-    function processMassAction()
+    public function processMassAction()
     {
         acym_session();
         $automationClass = acym_get('class.automation');
@@ -571,7 +578,7 @@ class AutomationController extends acymController
 
             if (!empty($automationClass->report)) {
                 foreach ($automationClass->report as $oneReport) {
-                    acym_enqueueNotification($oneReport, 'info', 5000);
+                    acym_enqueueMessage($oneReport, 'info');
                 }
             }
         }
@@ -620,7 +627,6 @@ class AutomationController extends acymController
         $query = acym_get('class.query');
 
         if (!empty($stepAutomation) && !empty($stepAutomation['filters'][$or])) {
-
             foreach ($stepAutomation['filters'][$or] as $and => $andValues) {
                 $and = intval($and);
                 foreach ($andValues as $filterName => $options) {
@@ -634,7 +640,5 @@ class AutomationController extends acymController
         echo acym_translation_sprintf('ACYM_SELECTED_USERS_TOTAL', $result);
         exit;
     }
-
-
 }
 

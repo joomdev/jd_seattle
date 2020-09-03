@@ -2,10 +2,10 @@
 <extension type="module" version="3.1" client="site" method="upgrade">
    <name>mod_jdsimplecontactform</name>
    <author>JoomDev</author>
-   <version>1.3</version>
-   <creationDate>Apr 2019</creationDate>
+   <version>1.6</version>
+   <creationDate>May 2020</creationDate>
    <url>https://www.joomdev.com</url>
-   <copyright>Copyright (C) 2019 Joomdev, Inc. All rights reserved.</copyright>
+   <copyright>Copyright (C) 2020 Joomdev, Inc. All rights reserved.</copyright>
    <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
    <authorEmail>info@joomdev.com</authorEmail>
    <authorUrl>https://www.joomdev.com</authorUrl>
@@ -13,6 +13,8 @@
    <languages folder="language">
       <language tag="en-GB">en-GB/en-GB.mod_jdsimplecontactform.ini</language>
       <language tag="en-GB">en-GB/en-GB.mod_jdsimplecontactform.sys.ini</language>
+      <language tag="nl-NL">nl-NL/nl-NL.mod_jdsimplecontactform.ini</language>
+      <language tag="nl-NL">nl-NL/nl-NL.mod_jdsimplecontactform.sys.ini</language>
    </languages>   
    <files>
       <filename>mod_jdsimplecontactform.xml</filename>
@@ -20,6 +22,7 @@
       <filename>helper.php</filename>
       <folder>tmpl</folder>
       <folder>layouts</folder>
+      <folder>fields</folder>
       <folder>forms</folder>
    </files>
    <media folder="media" destination="mod_jdsimplecontactform">
@@ -27,8 +30,9 @@
       <folder>assets/js</folder>
    </media>
    <config>
-      <fields name="params">
+      <fields name="params" addfieldpath="/modules/mod_jdsimplecontactform/fields/">
          <fieldset name="basic">
+		 	<field name="help" type="help" default="module" label="Help" description="Click on the help button to get some help"/>
             <field
                name="title"
                type="text"
@@ -65,6 +69,17 @@
                <option value="1">JYES</option>
                <option value="0">JNO</option>
             </field>
+            <field 
+               name="captchaPlugins"
+               type="plugins"
+               label="MOD_JDSCF_CAPTCHA_TYPE_LBL"
+               description="MOD_JDSCF_CAPTCHA_TYPE_DESC"
+               folder="captcha"
+               filter="cmd"
+               useglobal="true"
+               showon="params.captcha:1"
+               >
+		</field>
             <field
                name="submittext"
                type="text"
@@ -82,9 +97,11 @@
             <field
                name="submit_btn_width"
                type="list"
+               default="12"
                label="MOD_JDSCF_SUBMIT_WIDTH_LBL"
                description="MOD_JDSCF_SUBMIT_WIDTH_DESC"
                >
+               <option value="auto">JGLOBAL_AUTO</option>
                <option value="12">12</option>
                <option value="10">10</option>
                <option value="9">9</option>
@@ -109,6 +126,26 @@
                label="MOD_JDSCF_REDIRECT_LBL"
                description="MOD_JDSCF_REDIRECT_DESC"
             />
+            <field
+              name="ip_info"
+              type="radio"
+              label="MOD_JDSCF_IPADDR_LBL"
+              description="MOD_JDSCF_IPADDR_DESC"
+              class="btn-group btn-group-yesno"
+              default="0">
+              <option value="1">JYES</option>
+              <option value="0">JNO</option>
+           </field>
+           <field
+              name="source_url"
+              type="radio"
+              label="MOD_JDSCF_SRC_URL_LBL"
+              description="MOD_JDSCF_SRC_URL_DESC"
+              class="btn-group btn-group-yesno"
+              default="0">
+              <option value="1">JYES</option>
+              <option value="0">JNO</option>
+           </field>
          </fieldset>
          <fieldset name="fields" label="MOD_JDSCF_FORM_FIELDS_OPTIONS_LBL">
             <field name="fields" type="subform" formsource="modules/mod_jdsimplecontactform/forms/fielditem.xml" multiple="true" label="MOD_JDSCF_FIELDS_LBL" />
@@ -156,7 +193,7 @@
                label="MOD_JDSCF_EMAIL_BCC_LBL"
                description="MOD_JDSCF_EMAIL_BCC_DESC"
             />
-            <!-- For single email fields -->
+            <!-- For Send Copy Checkbox -->
             <field
                name="single_sendcopy_email"
                type="radio"
@@ -165,16 +202,16 @@
                default="0"
                class="btn-group"
             >
-               <option value="1">Yes</option>
-               <option value="0">No</option>
+               <option value="1">JYES</option>
+               <option value="0">JNO</option>
             </field>
             <field
                showon="single_sendcopy_email:1"
                name="singleSendCopyEmail_field"
                default=""
                type="text"
-               label="MOD_JDSCF_SINGLE_SEND_COPY_EMAIL_FIELD" 
-               description=""
+               label="MOD_JDSCF_SINGLE_SEND_COPY_EMAIL_FIELD_LABEL" 
+               description="MOD_JDSCF_SINGLE_SEND_COPY_EMAIL_FIELD_DESC"
             />
             <field
                showon="single_sendcopy_email:1"
@@ -182,37 +219,9 @@
                default=""
                type="text"
                label="MOD_JDSCF_SINGLE_SEND_COPY_LABEL" 
-               description=""
-            />
-            <!-- For multiple email fields -->
-            <field
-               name="sendcopy_email"
-               type="radio"
-               label="MOD_JDSCF_SEND_COPY"
-               description="MOD_JDSCF_SEND_COPY_DESCRIPTION"
-               default="0"
-               class="btn-group"
-            >
-               <option value="1">Yes</option>
-               <option value="0">No</option>
-            </field>
-            <field
-               showon="sendcopy_email:1"
-               name="sendcopyemail_field"
-               default=""
-               type="text"
-               label="MOD_JDSCF_SEND_COPY_EMAIL_FIELD" 
-               description=""
-            />
-            <field
-               showon="sendcopy_email:1"
-               name="sendcopyemailfield_title"
-               default=""
-               type="text"
-               label="MOD_JDSCF_SEND_COPY_LABEL" 
-               description=""
-            />
-            
+               description="MOD_JDSCF_SINGLE_SEND_COPY_DESC"
+            />            
+            <!-- Custom Email Template -->
             <field
                name="email_template"
                type="radio"
@@ -248,7 +257,7 @@
                label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL"
                description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC"
                rows="3"
-            />            
+            />
          </fieldset>
       </fields>
    </config>

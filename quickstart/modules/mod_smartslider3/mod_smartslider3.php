@@ -1,8 +1,11 @@
 <?php
-$sliderId = intval($params->get('slider'));
 
-if (defined('LITESPEED_ESI_SUPPORT')) {
-    nextend_smartslider3($sliderId);
-} else {
-    echo 'smartslider3[' . $sliderId . ']';
+use Nextend\SmartSlider3\Platform\Joomla\JoomlaModule;
+
+defined('_JEXEC') or die;
+
+jimport("smartslider3.joomla");
+
+if (class_exists('\Nextend\SmartSlider3\Platform\Joomla\JoomlaModule')) {
+    new JoomlaModule($params);
 }

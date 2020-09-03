@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fieldsgroup>
+    <!--  Background Options -->
+    <field type="radio" name="type" label="JDB_BACKGROUND" default="none" radiotype="buttons">
+        <option value="none">JDB_NONE</option>
+        <option value="color">JDB_COLOR</option>
+        <option value="gradient">JDB_BACKGROUND_GRADIENT</option>
+        <option value="image">JDB_BACKGROUND_IMAGE</option>
+    </field>
+
+    <!--  Background Color -->
+    <field type="color" name="color" label="JDB_BACKGROUND_COLOR" showon="params._fgType=='color'[OR]params._fgType=='image'" default="">
+    </field>
+
+    <!--  Background Gradient  -->
+    <field type="gradient" name="gradient" label="JDB_BACKGROUND_GRADIENT_LABEL" showon="params._fgType=='gradient'" default="">
+    </field>
+
+    <!--  Background Image -->
+    <field type="image" name="image" label="JDB_BACKGROUND_UPLOAD_IMAGE_LABEL" showon="params._fgType=='image'" default="">
+    </field>
+
+    <field type="list" name="repeat" label="JDB_BACKGROUND_REPEAT_LABEL" showon="params._fgType=='image'[AND]params._fgImage!=''" width="6" default="">
+        <option value="">JDB_BACKGROUND_REPEAT_INHERIT</option>
+        <option value="no-repeat">JDB_BACKGROUND_NO_REPEAT</option>
+        <option value="repeat-x">JDB_BACKGROUND_REPEAT_X</option>
+        <option value="repeat-y">JDB_BACKGROUND_REPEAT_Y</option>
+        <option value="space">JDB_BACKGROUND_REPEAT_SPACE</option>
+        <option value="round">JDB_BACKGROUND_REPEAT_ROUND</option>
+    </field>
+    <field type="list" name="size" label="JDB_BACKGROUND_SIZE_LABEL" showon="params._fgType=='image'[AND]params._fgImage!=''" width="6" default="">
+        <option value="">JDB_BACKGROUND_SIZE_INHERIT</option>
+        <option value="cover">JDB_BACKGROUND_SIZE_COVER</option>
+        <option value="contain">JDB_BACKGROUND_SIZE_CONTAIN</option>
+    </field>
+    <field type="list" name="attachment" label="JDB_BACKGROUND_ATTACHMENT" showon="params._fgType=='image'[AND]params._fgImage!=''" width="6" default="">
+        <option value="">JDB_INHERIT</option>
+        <option value="fixed">JDB_BACKGROUND_FIXED</option>
+        <option value="scroll">JDB_BACKGROUND_SCROLL</option>
+    </field>
+    <field type="list" name="position" label="JDB_BACKGROUND_POSITION_LABEL" showon="params._fgType=='image'[AND]params._fgImage!=''" width="6" default="">
+        <option value="">JDB_BACKGROUND_POSITION_DEFAULT</option>
+        <option value="left top">JDB_BACKGROUND_POSITION_LEFT_TOP</option>
+        <option value="left center">JDB_BACKGROUND_POSITION_LEFT_CENTER</option>
+        <option value="left bottom">JDB_BACKGROUND_POSITION_LEFT_BOTTOM</option>
+        <option value="right top">JDB_BACKGROUND_POSITION_RIGHT_TOP</option>
+        <option value="right center">JDB_BACKGROUND_POSITION_RIGHT_CENTER</option>
+        <option value="right bottom">JDB_BACKGROUND_POSITION_RIGHT_BOTTOM</option>
+        <option value="center top">JDB_BACKGROUND_POSITION_CENTER_TOP</option>
+        <option value="center center">JDB_BACKGROUND_POSITION_LABEL_CENTER_CENTER</option>
+        <option value="center bottom">JDB_BACKGROUND_POSITION_CENTER_BOTTOM</option>
+    </field>
+</fieldsgroup>

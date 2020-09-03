@@ -1,19 +1,11 @@
 <?php
-/**
- * @package	AcyMailing for Joomla
- * @version	6.2.2
- * @author	acyba.com
- * @copyright	(C) 2009-2019 ACYBA S.A.R.L. All rights reserved.
- * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
- */
-
 defined('_JEXEC') or die('Restricted access');
 ?><?php
 
-require_once(ACYM_INC.'phpmailer'.DS.'exception.php');
-require_once(ACYM_INC.'phpmailer'.DS.'smtp.php');
-require_once(ACYM_INC.'phpmailer'.DS.'phpmailer.php');
-require_once(ACYM_INC.'emogrifier.php');
+require_once ACYM_INC.'phpmailer'.DS.'exception.php';
+require_once ACYM_INC.'phpmailer'.DS.'smtp.php';
+require_once ACYM_INC.'phpmailer'.DS.'phpmailer.php';
+require_once ACYM_INC.'emogrifier.php';
 
 use acyPHPMailer\acyException;
 use acyPHPMailer\acySMTP;
@@ -22,6 +14,11 @@ use acymEmogrifier\acymEmogrifier;
 
 class acymmailerHelper extends acyPHPMailer
 {
+    var $encodingHelper;
+    var $editorHelper;
+    var $userClass;
+    var $config;
+
     var $report = true;
     var $alreadyCheckedAddresses = false;
     var $errorNewTry = [1, 6];
@@ -42,12 +39,16 @@ class acymmailerHelper extends acyPHPMailer
     public $CustomHeader = [];
 
     public $stylesheet = '';
+    public $settings;
 
-    function __construct()
+    public $parameters = [];
+
+    public function __construct()
     {
         parent::__construct();
 
         $this->encodingHelper = acym_get('helper.encoding');
+        $this->editorHelper = acym_get('helper.editor');
         $this->userClass = acym_get('class.user');
         $this->config = acym_config();
         $this->setFrom($this->config->get('from_email'), $this->config->get('from_name'));
@@ -137,6 +138,8 @@ class acymmailerHelper extends acyPHPMailer
         @ini_set('pcre.backtrack_limit', 1000000);
 
         $this->SMTPOptions = ["ssl" => ["verify_peer" => false, "verify_peer_name" => false, "allow_self_signed" => true]];
+
+        $this->addParamInfo();
     }
 
     protected function elasticemailSend($MIMEHeader, $MIMEBody)
@@ -154,16 +157,17 @@ class acymmailerHelper extends acyPHPMailer
         if (!file_exists(ACYM_INC.'phpmailer'.DS.'phpmailer.php')) {
             $this->reportMessage = acym_translation_sprintf('ACYM_X_FILE_MISSING', 'phpmailer', ACYM_INC.'phpmailer'.DS);
             if ($this->report) {
-                acym_enqueueNotification($this->reportMessage, 'error');
+                acym_enqueueMessage($this->reportMessage, 'error');
             }
 
             return false;
         }
+
         if (empty($this->Subject) || empty($this->Body)) {
             $this->reportMessage = acym_translation('ACYM_SEND_EMPTY');
             $this->errorNumber = 8;
             if ($this->report) {
-                acym_enqueueNotification($this->reportMessage, 'error');
+                acym_enqueueMessage($this->reportMessage, 'error');
             }
 
             return false;
@@ -209,7 +213,7 @@ class acymmailerHelper extends acyPHPMailer
                 $this->reportMessage = acym_translation('ACYM_VALID_EMAIL').' ( '.acym_translation('ACYM_REPLYTO_EMAIL').' : '.(empty($this->ReplyTo) ? '' : $replyToTmp).' ) ';
                 $this->errorNumber = 9;
                 if ($this->report) {
-                    acym_enqueueNotification($this->reportMessage, 'error');
+                    acym_enqueueMessage($this->reportMessage, 'error');
                 }
 
                 return false;
@@ -219,7 +223,7 @@ class acymmailerHelper extends acyPHPMailer
                 $this->reportMessage = acym_translation('ACYM_VALID_EMAIL').' ( '.acym_translation('ACYM_FROM_EMAIL').' : '.$this->From.' ) ';
                 $this->errorNumber = 9;
                 if ($this->report) {
-                    acym_enqueueNotification($this->reportMessage, 'error');
+                    acym_enqueueMessage($this->reportMessage, 'error');
                 }
 
                 return false;
@@ -229,7 +233,7 @@ class acymmailerHelper extends acyPHPMailer
                 $this->reportMessage = acym_translation('ACYM_VALID_EMAIL').' ( '.acym_translation('ACYM_BOUNCE_EMAIL').' : '.$this->Sender.' ) ';
                 $this->errorNumber = 9;
                 if ($this->report) {
-                    acym_enqueueNotification($this->reportMessage, 'error');
+                    acym_enqueueMessage($this->reportMessage, 'error');
                 }
 
                 return false;
@@ -250,7 +254,11 @@ class acymmailerHelper extends acyPHPMailer
             $this->addCustomHeader('referral:2f0447bb-173a-459d-ab1a-ab8cbebb9aab');
         }
 
-        $this->Subject = str_replace(['’', '“', '”', '–'], ["'", '"', '"', '-'], $this->Subject);
+        $this->Subject = str_replace(
+            ['’', '“', '”', '–'],
+            ["'", '"', '"', '-'],
+            $this->Subject
+        );
 
         $this->Body = str_replace(" ", ' ', $this->Body);
 
@@ -265,12 +273,13 @@ class acymmailerHelper extends acyPHPMailer
             if (strpos($this->Body, 'acym__wysid__template') !== false) $style['foundation'] = $foundationCSS;
 
             static $emailFixes = null;
-            if (empty($emailFixes)) {
-                $emailFixes = acym_fileGetContent(ACYM_MEDIA.'css'.DS.'email.min.css');
-            }
+            if (empty($emailFixes)) $emailFixes = acym_getEmailCssFixes();
             $style[] = $emailFixes;
 
             if (!empty($this->stylesheet)) $style[] = $this->stylesheet;
+
+            $settingsStyles = $this->editorHelper->getSettingsStyle($this->settings);
+            if (!empty($settingsStyles)) $style[] = $settingsStyles;
 
             preg_match('@<[^>"t]*body[^>]*>@', $this->Body, $matches);
             if (empty($matches[0])) $this->Body = '<body>'.$this->Body.'</body>';
@@ -297,7 +306,7 @@ class acymmailerHelper extends acyPHPMailer
             $finalContent .= '<meta name="viewport" content="width=device-width, initial-scale=1.0" />'."\n";
             $finalContent .= '<title>'.$this->Subject.'</title>'."\n";
             $finalContent .= '<style type="text/css">'.implode('</style><style type="text/css">', $style).'</style>';
-            if (!empty($this->headers)) $finalContent .= $this->headers;
+            if (!empty($this->mailHeader)) $finalContent .= $this->mailHeader;
             $finalContent .= '</head>'.$this->Body.'</html>';
 
             $this->Body = $finalContent;
@@ -310,6 +319,8 @@ class acymmailerHelper extends acyPHPMailer
         if (!empty($warnings) && strpos($warnings, 'bloque')) {
             $result = false;
         }
+
+        $this->mailHeader = '';
 
         $receivers = [];
         foreach ($this->to as $oneReceiver) {
@@ -325,7 +336,11 @@ class acymmailerHelper extends acyPHPMailer
             }
             $this->errorNumber = 1;
             if ($this->report) {
-                $this->reportMessage = str_replace('Could not instantiate mail function', '<a target="_blank" href="'.ACYM_REDIRECT.'could-not-instantiate-mail-function">Could not instantiate mail function</a>', $this->reportMessage);
+                $this->reportMessage = str_replace(
+                    'Could not instantiate mail function',
+                    '<a target="_blank" href="'.ACYM_REDIRECT.'could-not-instantiate-mail-function">'.acym_translation('ACYM_COUND_NOT_INSTANCIATE_MAIL_FUCNTION').'</a>',
+                    $this->reportMessage
+                );
                 acym_enqueueMessage(nl2br($this->reportMessage), 'error');
             }
         } else {
@@ -335,7 +350,7 @@ class acymmailerHelper extends acyPHPMailer
             }
             if ($this->report) {
                 if (acym_isAdmin()) {
-                    acym_enqueueMessage(preg_replace('#(<br( ?/)?>){2}#', '<br />', nl2br($this->reportMessage)), 'message');
+                    acym_enqueueMessage(preg_replace('#(<br( ?/)?>){2}#', '<br />', nl2br($this->reportMessage)), 'info');
                 }
             }
         }
@@ -396,14 +411,32 @@ class acymmailerHelper extends acyPHPMailer
         return $this->defaultMail[$mailId];
     }
 
-    public function sendOne($mailId, $user, $isTest = false)
+    private function canTrack($mailId, $user)
+    {
+        if (empty($mailId) || empty($user) || $user->tracking != 1) return false;
+
+        $mailClass = acym_get('class.mail');
+
+        $mail = $mailClass->getOneById($mailId);
+        if (!empty($mail) && $mail->tracking != 1) return false;
+
+        $lists = $mailClass->getAllListsByMailIdAndUserId($mailId, $user->id);
+
+        foreach ($lists as $list) {
+            if ($list->tracking != 1) return false;
+        }
+
+        return true;
+    }
+
+    public function sendOne($mailId, $user, $isTest = false, $testNote = '')
     {
         $this->clearAll();
 
         if (!isset($this->defaultMail[$mailId]) && !$this->load($mailId)) {
             $this->reportMessage = 'Can not load the e-mail : '.acym_escape($mailId);
             if ($this->report) {
-                acym_enqueueNotification($this->reportMessage, 'error');
+                acym_enqueueMessage($this->reportMessage, 'error');
             }
             $this->errorNumber = 2;
 
@@ -418,6 +451,7 @@ class acymmailerHelper extends acyPHPMailer
                 $newUser->email = $user;
                 $this->userClass->checkVisitor = false;
                 $this->userClass->sendConf = false;
+                acym_setVar('acy_source', 'When sending a test');
                 $userId = $this->userClass->save($newUser);
                 $receiver = $this->userClass->getOneById($userId);
             }
@@ -430,7 +464,7 @@ class acymmailerHelper extends acyPHPMailer
         if (empty($receiver->email)) {
             $this->reportMessage = acym_translation_sprintf('ACYM_SEND_ERROR_USER', '<b><i>'.acym_escape($user).'</i></b>');
             if ($this->report) {
-                acym_enqueueNotification($this->reportMessage, 'error');
+                acym_enqueueMessage($this->reportMessage, 'error');
             }
             $this->errorNumber = 4;
 
@@ -452,6 +486,9 @@ class acymmailerHelper extends acyPHPMailer
 
         $this->Subject = $this->defaultMail[$mailId]->subject;
         $this->Body = $this->defaultMail[$mailId]->body;
+        if ($isTest && $testNote != '') {
+            $this->Body = '<div style="text-align: center; padding: 25px; font-family: Poppins; font-size: 20px">'.$testNote.'</div>'.$this->Body;
+        }
         $this->Preheader = $this->defaultMail[$mailId]->preheader;
 
         if ($this->config->get('multiple_part', false)) {
@@ -461,9 +498,10 @@ class acymmailerHelper extends acyPHPMailer
         if (!empty($this->defaultMail[$mailId]->stylesheet)) {
             $this->stylesheet = $this->defaultMail[$mailId]->stylesheet;
         }
+        $this->settings = json_decode($this->defaultMail[$mailId]->settings, true);
 
         if (!empty($this->defaultMail[$mailId]->headers)) {
-            $this->headers = $this->defaultMail[$mailId]->headers;
+            $this->mailHeader = $this->defaultMail[$mailId]->headers;
         }
 
         $this->setFrom($this->defaultMail[$mailId]->from_email, $this->defaultMail[$mailId]->from_name);
@@ -531,17 +569,20 @@ class acymmailerHelper extends acyPHPMailer
         $this->replyname = $this->defaultMail[$mailId]->reply_to_name;
         $this->replyemail = $this->defaultMail[$mailId]->reply_to_email;
         $this->id = $this->defaultMail[$mailId]->id;
+        $this->creator_id = $this->defaultMail[$mailId]->creator_id;
         $this->type = $this->defaultMail[$mailId]->type;
         $this->stylesheet = &$this->stylesheet;
+        $this->links_language = $this->defaultMail[$mailId]->links_language;
 
-        if (!$isTest) {
+        if (!$isTest && $this->canTrack($mailId, $receiver)) {
             $this->statPicture($this->id, $receiver->id);
+            $this->body = acym_absoluteURL($this->body);
             $this->statClick($this->id, $receiver->id);
         }
 
         $this->replaceParams();
 
-        if (strpos($receiver->email, '@mail-tester.com') !== false) {
+        if (strpos($receiver->email, '@mailtester.acyba.com') !== false) {
             $currentUser = $this->userClass->getOneByEmail(acym_currentUserEmail());
             if (empty($currentUser)) {
                 $currentUser = $receiver;
@@ -565,14 +606,14 @@ class acymmailerHelper extends acyPHPMailer
 
     public function statPicture($mailId, $userId)
     {
-        $pictureLink = acym_frontendLink('frontstats&action=acymailing_frontrouter&task=openStats&id='.$mailId.'&userid='.$userId);
+        $pictureLink = acym_frontendLink('frontstats&task=openStats&id='.$mailId.'&userid='.$userId);
 
         $widthsize = 50;
         $heightsize = 1;
         $width = empty($widthsize) ? '' : ' width="'.$widthsize.'" ';
         $height = empty($heightsize) ? '' : ' height="'.$heightsize.'" ';
 
-        $statPicture = '<img class="spict" alt="" src="'.$pictureLink.'"  border="0" '.$height.$width.'/>';
+        $statPicture = '<img class="spict" alt="Statistics image" src="'.$pictureLink.'"  border="0" '.$height.$width.'/>';
 
         if (strpos($this->body, '</body>')) {
             $this->body = str_replace('</body>', $statPicture.'</body>', $this->body);
@@ -581,29 +622,28 @@ class acymmailerHelper extends acyPHPMailer
         }
     }
 
-    public function statClick($mailId, $userid)
+    public function statClick($mailId, $userid, $fromStat = false)
     {
-        if (!in_array($this->type, ['standard', 'automation'])) {
-
-            return;
-        }
+        if (!$fromStat && !in_array($this->type, ['standard', 'automation'])) return;
 
         $urlClass = acym_get('class.url');
-
-        if ($urlClass === null) {
-            return;
-        }
+        if ($urlClass === null) return;
 
         $urls = [];
 
-        $config = acym_config();
-        $trackingSystemExternalWebsite = $config->get('trackingsystemexternalwebsite', 1);
+        $trackingSystemExternalWebsite = $this->config->get('trackingsystemexternalwebsite', 1);
+        $trackingSystem = $this->config->get('trackingsystem', 'acymailing');
+        if (false === strpos($trackingSystem, 'acymailing') && false === strpos($trackingSystem, 'google')) return;
+
+        if (strpos($trackingSystem, 'google') !== false) {
+            $mailClass = acym_get('class.mail');
+            $mail = $mailClass->getOneById($mailId);
+
+            $utmCampaign = acym_getAlias($mail->subject);
+        }
 
         preg_match_all('#href[ ]*=[ ]*"(?!mailto:|\#|ymsgr:|callto:|file:|ftp:|webcal:|skype:|tel:)([^"]+)"#Ui', $this->body, $results);
-
-        if (empty($results)) {
-            return;
-        }
+        if (empty($results)) return;
 
         $countLinks = array_count_values($results[1]);
         if (array_product($countLinks) != 1) {
@@ -623,7 +663,7 @@ class acymmailerHelper extends acyPHPMailer
                 }
 
                 $this->body = preg_replace('#href="('.preg_quote($url, '#').')"#Uis', 'href="'.$newURL.'"', $this->body, 1);
-                $this->altbody = preg_replace('#\( ('.preg_quote($url, '#').') \)#Uis', '( '.$newURL.' )', $this->altbody, 1);
+                if (!$fromStat) $this->altbody = preg_replace('#\( ('.preg_quote($url, '#').') \)#Uis', '( '.$newURL.' )', $this->altbody, 1);
 
                 $results[0][$key] = 'href="'.$newURL.'"';
                 $results[1][$key] = $newURL;
@@ -639,8 +679,6 @@ class acymmailerHelper extends acyPHPMailer
             $simplifiedWebsite = str_replace(['https://', 'http://', 'www.'], '', ACYM_LIVE);
             $internalUrl = strpos($simplifiedUrl, rtrim($simplifiedWebsite, '/')) === 0;
 
-            $isFile = false;
-
             $subfolder = false;
             if ($internalUrl) {
                 $urlWithoutBase = str_replace($simplifiedWebsite, '', $simplifiedUrl);
@@ -652,17 +690,15 @@ class acymmailerHelper extends acyPHPMailer
                 }
             }
 
+            if ((!$internalUrl || $subfolder) && $trackingSystemExternalWebsite != 1) {
+                continue;
+            }
 
-            $trackingSystem = $config->get('trackingsystem', 'acymailing');
-
-            if (strpos($url, 'utm_source') === false && !$isFile && strpos($trackingSystem, 'google') !== false) {
-                if ((!$internalUrl || $subfolder) && $trackingSystemExternalWebsite != 1) {
-                    continue;
-                }
+            if (strpos($url, 'utm_source') === false && strpos($trackingSystem, 'google') !== false) {
                 $args = [];
                 $args[] = 'utm_source=newsletter_'.$mailId;
                 $args[] = 'utm_medium=email';
-                $args[] = 'utm_campaign='.@$this->alias;
+                $args[] = 'utm_campaign='.$utmCampaign;
                 $anchor = '';
                 if (strpos($url, '#') !== false) {
                     $anchor = substr($url, strpos($url, '#'));
@@ -681,17 +717,11 @@ class acymmailerHelper extends acyPHPMailer
             }
 
             if (strpos($trackingSystem, 'acymailing') !== false) {
-                if ($trackingSystemExternalWebsite != 1) {
-                    continue;
-                }
-                if (preg_match('#subid|passw|modify|\{|%7B#i', $url)) {
-                    continue;
-                }
-                $mytracker = $urlClass->getUrl($url, $mailId, $userid);
+                if (preg_match('#subid|passw|modify|\{|%7B#i', $url)) continue;
 
-                if (empty($mytracker)) {
-                    continue;
-                }
+                if (!$fromStat) $mytracker = $urlClass->getUrl($url, $mailId, $userid);
+                if (empty($mytracker)) continue;
+
                 $urls[$results[0][$i]] = str_replace($results[1][$i], $mytracker, $results[0][$i]);
             }
         }
@@ -811,32 +841,27 @@ class acymmailerHelper extends acyPHPMailer
 
     private function replaceParams()
     {
-        if (empty($this->parameters)) {
-            return;
-        }
+        if (empty($this->parameters)) return;
 
         $helperPlugin = acym_get('helper.plugin');
 
         $this->generateAllParams();
-        $this->Subject = $helperPlugin->replaceDText($this->Subject, $this->parameters);
-        $this->Body = $helperPlugin->replaceDText($this->Body, $this->parameters);
-        if (!empty($this->AltBody)) {
-            $this->AltBody = $helperPlugin->replaceDText($this->AltBody, $this->parameters);
+
+        $vars = [
+            'Subject',
+            'Body',
+            'From',
+            'FromName',
+            'replyname',
+            'replyemail',
+        ];
+
+        foreach ($vars as $oneVar) {
+            if (!empty($this->$oneVar)) {
+                $this->$oneVar = $helperPlugin->replaceDText($this->$oneVar, $this->parameters);
+            }
         }
 
-        if (!empty($this->From)) {
-            $this->From = $helperPlugin->replaceDText($this->From, $this->parameters);
-        }
-        if (!empty($this->FromName)) {
-            $this->FromName = $helperPlugin->replaceDText($this->FromName, $this->parameters);
-        }
-
-        if (!empty($this->replyname)) {
-            $this->replyname = $helperPlugin->replaceDText($this->replyname, $this->parameters);
-        }
-        if (!empty($this->replyemail)) {
-            $this->replyemail = $helperPlugin->replaceDText($this->replyemail, $this->parameters);
-        }
         if (!empty($this->ReplyTo)) {
             foreach ($this->ReplyTo as $i => $replyto) {
                 foreach ($replyto as $a => $oneval) {
@@ -850,13 +875,12 @@ class acymmailerHelper extends acyPHPMailer
     {
         $result = '<table style="border:1px solid;border-collapse:collapse;" border="1" cellpadding="10"><tr><td>Tag</td><td>Value</td></tr>';
         foreach ($this->parameters as $name => $value) {
-            if (!is_string($value)) {
-                continue;
-            }
-            $result .= '<tr><td>'.$name.'</td><td>'.$value.'</td></tr>';
+            if (!is_string($value)) continue;
+
+            $result .= '<tr><td>'.trim($name, '{}').'</td><td>'.$value.'</td></tr>';
         }
         $result .= '</table>';
-        $this->addParam('alltags', $result);
+        $this->addParam('allshortcodes', $result);
     }
 
     public function addParamInfo()
@@ -930,6 +954,5 @@ class acymmailerHelper extends acyPHPMailer
     {
         return true;
     }
-
 }
 

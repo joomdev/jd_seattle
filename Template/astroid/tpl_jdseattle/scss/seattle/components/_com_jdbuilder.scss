@@ -2,7 +2,7 @@
 	height: 100%;
 }
 
-body .jdb-element:not(:last-child) {
+body .jdb-element:not(:last-child).jdb-element-default {
 	margin-bottom: 30px;
 }
 

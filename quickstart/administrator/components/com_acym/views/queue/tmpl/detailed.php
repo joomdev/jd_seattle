@@ -1,19 +1,11 @@
 <?php
-/**
- * @package	AcyMailing for Joomla
- * @version	6.2.2
- * @author	acyba.com
- * @copyright	(C) 2009-2019 ACYBA S.A.R.L. All rights reserved.
- * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
- */
-
 defined('_JEXEC') or die('Restricted access');
 ?><div id="acym__queue" class="acym__content">
 	<form id="acym_form" action="<?php echo acym_completeLink(acym_getVar('cmd', 'ctrl')); ?>" method="post" name="acyForm" data-abide novalidate>
 
         <?php
         $workflow = acym_get('helper.workflow');
-        echo $workflow->display($this->steps, 'detailed', 1, false);
+        echo $workflow->display($this->steps, 'detailed', false);
         ?>
 
         <?php if (empty($data['allElements']) && empty($data['search']) && empty($data['tag']) && empty($data['status'])) { ?>
@@ -24,7 +16,7 @@ defined('_JEXEC') or die('Restricted access');
         <?php } else { ?>
 			<div class="grid-x grid-margin-x">
 				<div class="cell medium-auto">
-                    <?php echo acym_filterSearch($data["search"], 'dqueue_search', 'ACYM_SEARCH_A_CAMPAIGN_NAME'); ?>
+                    <?php echo acym_filterSearch($data["search"], 'dqueue_search', 'ACYM_SEARCH'); ?>
 				</div>
 				<div class="cell medium-auto">
                     <?php
@@ -33,7 +25,14 @@ defined('_JEXEC') or die('Restricted access');
                     $allTags->value = '';
                     array_unshift($data["tags"], $allTags);
 
-                    echo acym_select($data["tags"], 'dqueue_tag', $data["tag"], 'class="acym__queue__filter__tags"', 'value', 'name');
+                    echo acym_select(
+                        $data["tags"],
+                        'dqueue_tag',
+                        $data["tag"],
+                        'class="acym__queue__filter__tags acym__select"',
+                        'value',
+                        'name'
+                    );
                     ?>
 				</div>
 				<div class="xxlarge-4 xlarge-3 large-2 hide-for-medium-only hide-for-small-only cell"></div>
@@ -71,7 +70,7 @@ defined('_JEXEC') or die('Restricted access');
 						</div>
 					</div>
                     <?php foreach ($data["allElements"] as $row) { ?>
-						<div elementid="<?php echo acym_escape($row->id.'_'.$row->user_id); ?>" class="cell grid-x acym__listing__row">
+						<div data-acy-elementid="<?php echo acym_escape($row->id.'_'.$row->user_id); ?>" class="cell grid-x acym__listing__row">
 							<div class="cell large-2 medium-3">
                                 <?php echo acym_date($row->sending_date, 'j F Y H:i'); ?>
 							</div>
@@ -95,7 +94,7 @@ defined('_JEXEC') or die('Restricted access');
                                 <?php echo $row->try; ?>
 							</div>
 							<div class="cell medium-1 text-center">
-								<i class="fa fa-trash-o acym_toggle_delete acym_delete_queue" table="queue" method="deleteOne" elementid="<?php echo acym_escape($row->id.'_'.$row->user_id); ?>" confirmation="1"></i>
+								<i class="acymicon-trash-o acym_toggle_delete acym_delete_queue" data-acy-table="queue" data-acy-method="deleteOne" data-acy-elementid="<?php echo acym_escape($row->id.'_'.$row->user_id); ?>" confirmation="1"></i>
 							</div>
 						</div>
                     <?php } ?>

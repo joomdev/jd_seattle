@@ -3,11 +3,17 @@
 /**
  * @package    JD Builder
  * @author     Team Joomdev <info@joomdev.com>
- * @copyright  2019 www.joomdev.com
+ * @copyright  2020 www.joomdev.com
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 namespace JDPageBuilder\Element;
+
+use JDPageBuilder\Builder;
+use JDPageBuilder\Helper;
+
+// No direct access
+defined('_JEXEC') or die('Restricted access');
 
 class BaseElement
 {
@@ -22,16 +28,13 @@ class BaseElement
    public $parent;
    public $authorised = false;
    public $style;
-   public $livepreview = false;
    public $childStyles = [];
+   public $indexMode = false;
 
-   public function __construct($object, $parent = null)
+   public function __construct($object, $parent = null, $indexMode = false)
    {
-      $request = \JDPageBuilder\Builder::request();
-      if ($request->get('jdb-preview', 0) || $request->get('task', '') == 'livePreview') {
-         $this->livepreview = true;
-      }
       $this->id = isset($object->id) ? $object->id : null;
+      $this->indexMode = $parent !== null ? $parent->indexMode : $indexMode;
       $this->parent = $parent;
       if (isset($object->type)) {
          $this->type = $object->type;
@@ -45,6 +48,11 @@ class BaseElement
       }
       $this->params = $params;
       if (!empty($this->id)) {
+         // custom id
+         $custom_id = $this->params->get('custom_id', '');
+         if (!empty($custom_id)) {
+            $this->id = $custom_id;
+         }
          $this->style = new ElementStyle('#' . $this->id);
       }
       // Design Options
@@ -93,6 +101,7 @@ class BaseElement
       $return[] = $end;
 
       $return = implode("", $return);
+      $return = Helper::renderHTML($return, $this->indexMode);
       $this->afterRender();
       if ($output) {
          echo $return;
@@ -167,10 +176,17 @@ class BaseElement
          $selector = [];
          foreach (explode(',', $childStyle->selector) as $childselector) {
             $glue = " ";
-            if (substr($childStyle->selector, 0, 2) === '::') {
+            if (substr($childselector, 0, 2) === '::') {
                $glue = "";
             }
-            $selector[] = $this->style->selector . $glue . $childStyle->selector;
+            if (substr($childselector, 0, 1) == '<') {
+               $selector[] = substr($childselector, 1);
+            } else {
+               if (substr($childselector, 0, 7) === '::hover' || substr($childselector, 0, 7) === '::active' || substr($childselector, 0, 7) === '::focus') {
+                  $childselector = substr($childselector, 1);
+               }
+               $selector[] = $this->style->selector . $glue . $childselector;
+            }
          }
          $childStyle->selector = implode(',', $selector);
       } else {
@@ -178,7 +194,16 @@ class BaseElement
          if (substr($childStyle->selector, 0, 2) === '::') {
             $glue = "";
          }
-         $childStyle->selector = $this->style->selector . $glue . $childStyle->selector;
+
+         if (substr($childStyle->selector, 0, 1) == '<') {
+            $childStyle->selector = substr($childStyle->selector, 1);
+         } else {
+            if (substr($childStyle->selector, 0, 7) === '::hover' || substr($childStyle->selector, 0, 7) === '::active' || substr($childStyle->selector, 0, 7) === '::focus') {
+               $childStyle->selector = substr($childStyle->selector, 1);
+            }
+
+            $childStyle->selector = $this->style->selector . $glue . $childStyle->selector;
+         }
       }
       $this->childStyles[] = $childStyle;
    }
@@ -208,16 +233,134 @@ class BaseElement
    public function getBackgroundVideo()
    {
       $background = $this->params->get('background', 'none');
+      $html = '';
+      if ($background == "video") {
+         $link = $this->params->get('backgroundVideoMedia', '');
+         if (!empty($link)) {
+            $this->addClass('jdb-has-video-background');
+            $html = '<div jdb-video-background data-src="' . \JDPageBuilder\Helper::mediaValue($link) . '"></div>';
+         }
+      }
+      return $html;
+   }
+
+   public function getParticlesBackground()
+   {
+      $background = $this->params->get('particlesBackground', false);
       $return = [];
 
-      if ($background == "video") {
-         $videoContent = \JDPageBuilder\Helper::getBGVideoContent($this->params);
-      }
-      if (!empty($videoContent)) {
-         $this->addClass('jdb-has-video-background');
-         $return[] = '<div class="jdb-video-background">';
-         $return[] = $videoContent;
-         $return[] = '</div>';
+      if ($background) {
+
+         $type = $this->params->get('particlesType', 'presets');
+         $color = $this->params->get('particlesColor', '');
+         $backgroundColor = $this->params->get('backgroundColor', '');
+         $background = $this->params->get('background', 'none');
+         $particlesShape = $this->params->get('particlesShape', '');
+
+         if ($type == 'presets' && $color == '' && ($background == 'none' || ($background == 'color' && $backgroundColor == '')) && $particlesShape != 'image') {
+            $this->addCss('background-color', '#073366');
+         }
+
+         if ($type == 'presets') {
+            $preset = $this->params->get('particlesPreset', '');
+
+            if (file_exists(JPATH_SITE . '/media/jdbuilder/data/particles-presets/' . $preset . '.json')) {
+               $params = file_get_contents(JPATH_SITE . '/media/jdbuilder/data/particles-presets/' . $preset . '.json');
+            } else {
+               $params = file_get_contents(JPATH_SITE . '/media/jdbuilder/data/particles-presets/default.json');
+            }
+
+            $params = \json_decode($params, true);
+
+            $size = $this->params->get('particlesSize', null);
+            if (\JDPageBuilder\Helper::checkSliderValue($size)) {
+               $params['particles']['size']['value'] = $size->value;
+            }
+
+            $count = $this->params->get('particlesCount', null);
+            if (\JDPageBuilder\Helper::checkSliderValue($count)) {
+               $params['particles']['number']['value'] = $count->value;
+            }
+
+            $speed = $this->params->get('particlesSpeed', null);
+            if (\JDPageBuilder\Helper::checkSliderValue($speed)) {
+               $params['particles']['move']['speed'] = $speed->value;
+            }
+
+            $direction = $this->params->get('particlesDirection', '');
+            if ($direction != '') {
+               $params['particles']['move']['direction'] = $direction;
+            }
+
+            $opacity = $this->params->get('particlesOpacity', null);
+            if (\JDPageBuilder\Helper::checkSliderValue($opacity)) {
+               $params['particles']['opacity']['value'] = ($opacity->value / 100);
+            }
+
+            if ($color != '') {
+               $params['particles']['color']['value'] = $color;
+            }
+
+            $link = $this->params->get('particlesLink', '');
+            if ($link == 'custom') {
+               $params['particles']['line_linked']['enable'] = true;
+               $linkOpacity = $this->params->get('particlesLinkOpacity', null);
+               if (\JDPageBuilder\Helper::checkSliderValue($linkOpacity)) {
+                  $params['particles']['line_linked']['opacity'] = ($linkOpacity->value / 100);
+               }
+               $linkDistance = $this->params->get('particlesLinkDistance', null);
+               if (\JDPageBuilder\Helper::checkSliderValue($linkDistance)) {
+                  $params['particles']['line_linked']['distance'] = $linkDistance->value;
+               }
+               $linkColor = $this->params->get('particlesLinkColor', '');
+               if ($linkColor != '') {
+                  $params['particles']['line_linked']['color'] = $linkColor;
+               }
+               $params['particles']['line_linked']['width'] = 1;
+            } else if ($link == 'none') {
+               $params['particles']['line_linked']['enable'] = false;
+            }
+
+            $particlesImage = $this->params->get('particlesImage', '');
+            if ($particlesShape != '') {
+               $params['particles']['shape']['type'] = $particlesShape;
+               if ($particlesShape == 'image' && $particlesImage != '') {
+                  $params['particles']['shape']['image'] = [
+                     'src' => \JDPageBuilder\Helper::mediaValue($particlesImage),
+                     'width' => $params['particles']['size']['value'],
+                     'height' => $params['particles']['size']['value']
+                  ];
+               } else if ($particlesShape == 'image') {
+                  $params['particles']['shape']['image'] = [
+                     'src' => ''
+                  ];
+               }
+            }
+
+            $params['interactivity'] = [
+               'events' => [
+                  'onhover' => [
+                     'enable' => false
+                  ],
+                  'onclick' => [
+                     'enable' => false
+                  ],
+                  'resize' => true
+               ]
+            ];
+         } else {
+            $particlesCustom = $this->params->get('particlesCustom', '');
+            if ($particlesCustom != '' && \JDPageBuilder\Helper::isValidJSON($particlesCustom)) {
+               $params = \json_decode($particlesCustom, true);
+            } else {
+               return '';
+            }
+         }
+
+         $this->addClass('jdb-has-particles-background');
+         $return[] = '<div class="jdb-particles-background"><div id="jdb-particles-' . $this->id . '"></div></div>';
+
+         Builder::loadParticleJS('jdb-particles-' . $this->id, $params);
       }
 
       return implode("", $return);
@@ -249,12 +392,6 @@ class BaseElement
       if (!empty($custom_class)) {
          $this->addClass($custom_class);
       }
-
-      // custom id
-      $custom_id = $this->params->get('custom_id', '');
-      if (!empty($custom_id)) {
-         $this->id = $custom_id;
-      }
    }
 
    public function backgroundOptions()
@@ -281,7 +418,18 @@ class BaseElement
                }
                $backgroundSize = $this->params->get('backgroundSize', '');
                if (!empty($backgroundSize)) {
-                  $this->addCss('background-size', $backgroundSize);
+                  if ($backgroundSize != 'custom') {
+                     $this->addCss('background-size', $backgroundSize);
+                  } else {
+                     $width = $this->params->get('backgroundWidth', null);
+                     if (!empty($width)) {
+                        foreach (\JDPageBuilder\Helper::$devices as $deviceKey => $device) {
+                           if (isset($width->{$deviceKey}) && \JDPageBuilder\Helper::checkSliderValue($width->{$deviceKey})) {
+                              $this->addCss('background-size', $width->{$deviceKey}->value . $width->{$deviceKey}->unit, $device);
+                           }
+                        }
+                     }
+                  }
                }
                $backgroundAttachment = $this->params->get('backgroundAttachment', '');
                if (!empty($backgroundAttachment)) {
@@ -289,7 +437,26 @@ class BaseElement
                }
                $backgroundPosition = $this->params->get('backgroundPosition', '');
                if (!empty($backgroundPosition)) {
-                  $this->addCss('background-position', $backgroundPosition);
+                  if ($backgroundPosition != 'custom') {
+                     $this->addCss('background-position', $backgroundPosition);
+                  } else {
+                     $position = $this->params->get('backgroundXPosition', null);
+                     if (!empty($position)) {
+                        foreach (\JDPageBuilder\Helper::$devices as $deviceKey => $device) {
+                           if (isset($position->{$deviceKey}) && \JDPageBuilder\Helper::checkSliderValue($position->{$deviceKey})) {
+                              $this->addCss('background-position-x', $position->{$deviceKey}->value . $position->{$deviceKey}->unit, $device);
+                           }
+                        }
+                     }
+                     $position = $this->params->get('backgroundYPosition', null);
+                     if (!empty($position)) {
+                        foreach (\JDPageBuilder\Helper::$devices as $deviceKey => $device) {
+                           if (isset($position->{$deviceKey}) && \JDPageBuilder\Helper::checkSliderValue($position->{$deviceKey})) {
+                              $this->addCss('background-position-y', $position->{$deviceKey}->value . $position->{$deviceKey}->unit, $device);
+                           }
+                        }
+                     }
+                  }
                }
             }
             break;
@@ -316,8 +483,8 @@ class BaseElement
             $backgroundOverlayOpacity = $this->params->get('backgroundOverlayOpacity', null);
 
             if (\JDPageBuilder\Helper::checkSliderValue($backgroundOverlayOpacity)) {
-
-               $overlayCSS->addCss('opacity', ($backgroundOverlayOpacity->value / 100));
+               $opacity = (int) $backgroundOverlayOpacity->value;
+               $overlayCSS->addCss('opacity', ($opacity / 100) . '');
             }
             if (!empty($backgroundOverlayColor)) {
                $overlayCSS->addCss('background-color', $backgroundOverlayColor);
@@ -330,15 +497,48 @@ class BaseElement
                }
                $backgroundOverlaySize = $this->params->get('backgroundOverlaySize', '');
                if (!empty($backgroundOverlaySize)) {
-                  $overlayCSS->addCss('background-size', $backgroundOverlaySize);
+                  if ($backgroundOverlaySize != 'custom') {
+                     $overlayCSS->addCss('background-size', $backgroundOverlaySize);
+                  } else {
+                     $width = $this->params->get('backgroundOverlayWidth', null);
+                     if (!empty($width)) {
+                        foreach (\JDPageBuilder\Helper::$devices as $deviceKey => $device) {
+                           if (isset($width->{$deviceKey}) && \JDPageBuilder\Helper::checkSliderValue($width->{$deviceKey})) {
+                              $overlayCSS->addCss('background-size', $width->{$deviceKey}->value . $width->{$deviceKey}->unit, $device);
+                           }
+                        }
+                     }
+                  }
                }
+
+
                $backgroundOverlayAttachment = $this->params->get('backgroundOverlayAttachment', '');
                if (!empty($backgroundOverlayAttachment)) {
                   $overlayCSS->addCss('background-attachment', $backgroundOverlayAttachment);
                }
+
                $backgroundOverlayPosition = $this->params->get('backgroundOverlayPosition', '');
                if (!empty($backgroundOverlayPosition)) {
-                  $overlayCSS->addCss('background-position', $backgroundOverlayPosition);
+                  if ($backgroundOverlayPosition != 'custom') {
+                     $overlayCSS->addCss('background-position', $backgroundOverlayPosition);
+                  } else {
+                     $position = $this->params->get('backgroundOverlayXPosition', null);
+                     if (!empty($position)) {
+                        foreach (\JDPageBuilder\Helper::$devices as $deviceKey => $device) {
+                           if (isset($position->{$deviceKey}) && \JDPageBuilder\Helper::checkSliderValue($position->{$deviceKey})) {
+                              $overlayCSS->addCss('background-position-x', $position->{$deviceKey}->value . $position->{$deviceKey}->unit, $device);
+                           }
+                        }
+                     }
+                     $position = $this->params->get('backgroundOverlayYPosition', null);
+                     if (!empty($position)) {
+                        foreach (\JDPageBuilder\Helper::$devices as $deviceKey => $device) {
+                           if (isset($position->{$deviceKey}) && \JDPageBuilder\Helper::checkSliderValue($position->{$deviceKey})) {
+                              $overlayCSS->addCss('background-position-y', $position->{$deviceKey}->value . $position->{$deviceKey}->unit, $device);
+                           }
+                        }
+                     }
+                  }
                }
             }
          }
@@ -347,48 +547,7 @@ class BaseElement
 
    public function borderOptions()
    {
-      $elementBorderStyle = $this->params->get('borderStyle', '');
-      if (!empty($elementBorderStyle)) {
-         $this->addCss('border-style', $elementBorderStyle);
-         $elementBorderWidth = $this->params->get('borderWidth', null);
-         if (!empty($elementBorderWidth) && $elementBorderStyle != 'none') {
-
-            foreach (\JDPageBuilder\Helper::$devices as $deviceKey => $device) {
-               if (isset($elementBorderWidth->{$deviceKey}) && !empty($elementBorderWidth->{$deviceKey})) {
-
-                  $css = \JDPageBuilder\Helper::spacingValue($elementBorderWidth->{$deviceKey}, "border");
-                  if (!empty($css)) {
-                     $this->addStyle($css, $device);
-                  }
-               }
-            }
-
-            $elementBorderColor = $this->params->get('borderColor', '');
-            if (!empty($elementBorderColor)) {
-               $this->addCss('border-color', $elementBorderColor);
-            }
-         }
-      }
-      $elementBorderRadius = $this->params->get('borderRadius', null);
-      if (!empty($elementBorderRadius)) {
-         foreach (\JDPageBuilder\Helper::$devices as $deviceKey => $device) {
-            if (isset($elementBorderRadius->{$deviceKey}) && !empty($elementBorderRadius->{$deviceKey})) {
-
-               $css = \JDPageBuilder\Helper::spacingValue($elementBorderRadius->{$deviceKey}, "radius");
-               if (!empty($css)) {
-                  $this->addStyle($css, $device);
-               }
-            }
-         }
-      }
-      $elementBoxShadow = $this->params->get('boxShadow', '');
-      if (!empty($elementBoxShadow)) {
-         foreach (\JDPageBuilder\Helper::$devices as $deviceKey => $device) {
-            if (isset($elementBoxShadow->{$deviceKey}) && !empty($elementBoxShadow->{$deviceKey})) {
-               $this->addCss('box-shadow', $elementBoxShadow->{$deviceKey}, $device);
-            }
-         }
-      }
+      \JDPageBuilder\Helper::applyBorderValue($this->style, $this->params, "border");
    }
 
    public function spacingOptions()
@@ -473,7 +632,7 @@ class BaseElement
       if (!empty($customCss)) {
          foreach (\JDPageBuilder\Helper::$devices as $deviceKey => $device) {
             if (isset($customCss->{$deviceKey}) && !empty($customCss->{$deviceKey})) {
-               $this->addStyle($customCss->{$deviceKey}, $device);
+               \JDPageBuilder\Helper::customCSS($customCss->{$deviceKey}, $this, $device);
             }
          }
       }
@@ -492,13 +651,6 @@ class BaseElement
 
    public function responsiveOptions()
    {
-
-      $request = \JDPageBuilder\Builder::request();
-
-      if ($request->get('task', '') == 'livePreview') {
-         return;
-      }
-
       $hideDesktop = $this->params->get('hideDesktop', false);
       if ($hideDesktop) {
          $this->addClass('jdb-hide-desktop');
@@ -524,134 +676,40 @@ class BaseElement
          $animationSpeed = $this->params->get('animationSpeed', '');
          if (!empty($animationSpeed)) {
             $options[] = "speed:{$animationSpeed}";
+         } else {
+            $options[] = "speed:";
          }
          $animationDelay = $this->params->get('animationDelay', '');
          if (!empty($animationDelay)) {
             $options[] = "delay:{$animationDelay}";
+         } else {
+            $options[] = "delay:";
          }
          $animationInfinite = $this->params->get('animationInfinite', false);
          if ($animationInfinite) {
             $options[] = "infinite:true";
+         } else {
+            $options[] = "infinite:false";
          }
 
          $this->addAttribute('jdb-animation', implode(';', $options));
+         Builder::loadAnimateCSS();
+      } else {
+         // $this->addAttribute('jdb-animation', 'type:none');
       }
    }
 
    public function aclOptions()
    {
-      $access = $this->params->get('access', []);
+      $access = $this->params->get('access', 1);
       $authorised = false;
-      $auh = \JDPageBuilder\Builder::authorised();
-      if (!empty($access)) {
-         foreach ($access as $acl) {
-            if (\in_array($acl, \JDPageBuilder\Builder::authorised())) {
-               $authorised = true;
-            }
-         }
-      } else {
+
+      $access = is_array($access) ? 1 : $access;
+      if (\in_array($access, \JDPageBuilder\Builder::authorised())) {
          $authorised = true;
+      } else {
+         $authorised = false;
       }
       $this->authorised = $authorised;
-   }
-}
-
-class ElementStyle
-{
-
-   protected $styles = ['desktop' => [], 'mobile' => [], 'tablet' => []];
-   protected $css = ['desktop' => [], 'mobile' => [], 'tablet' => []];
-   public $selector;
-
-   public function __construct($selector)
-   {
-      $this->selector = $selector;
-   }
-
-   public function addCss($property, $value, $device = "desktop")
-   {
-      if ($value === null || $value === "") {
-         return;
-      }
-      $value = htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
-      $this->styles[$device][$property] = $value;
-   }
-
-   public function addStyle($css, $device = "desktop")
-   {
-      if (empty($css)) {
-         return;
-      }
-      $this->css[$device][] = $css;
-   }
-
-   public function render($output = false)
-   {
-      $scss = [];
-
-      foreach (\JDPageBuilder\Helper::$devices as $deviceKey => $device) {
-         $scss[$device] = "";
-      }
-
-      foreach ($this->styles as $device => $styles) {
-         if (!empty($styles)) {
-            foreach ($styles as $property => $value) {
-               $scss[$device] .= "{$property}:{$value};";
-            }
-         }
-      }
-
-      foreach ($this->css as $device => $cssScripts) {
-         if (!empty($cssScripts)) {
-            $cssscript = "";
-            foreach ($cssScripts as $css) {
-               $cssscript .= $css;
-               if (substr($cssscript, -1) != ";") {
-                  $cssscript .= ';';
-               }
-            }
-            if (!empty($cssscript)) {
-               $scss[$device] .= $cssscript;
-            }
-         }
-      }
-
-      $inlineScss = [];
-      foreach ($scss as $device => $script) {
-         if ($script != '') {
-            $inlineScss[$device] = $this->selector . ' {' . $script . '}';
-         }
-      }
-
-      \JDPageBuilder\Builder::addStyle($inlineScss);
-
-      /*
-      foreach ($scss as $device => $cssscript) {
-         if (!empty($cssscript)) {
-            if ($device != "desktop") {
-               if ($device == "tablet") {
-                  $inlineScss .= '@media (min-width: 768px) and (max-width: 991.98px) {';
-               } else {
-                  $inlineScss .= '@media (max-width: 767.98px) {';
-               }
-            }
-            $inlineScss .= $cssscript;
-            if ($device != "desktop") {
-               $inlineScss .= '}';
-            }
-         }
-      }
-
-      if (empty($inlineScss)) {
-         return '';
-      }
-
-      $scss = $this->selector . " {" . $inlineScss . "}";
-      if (!$output) {
-         \JDPageBuilder\Builder::addStyle($scss);
-      } else {
-         return $scss;
-      }
-      */
    }
 }

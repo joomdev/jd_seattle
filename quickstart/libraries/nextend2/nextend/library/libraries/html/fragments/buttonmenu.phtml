@@ -1,1 +1,0 @@
-<div class="n2-button-menu-open"><i class="n2-i n2-i-buttonarrow"></i><?php echo $content; ?></div>

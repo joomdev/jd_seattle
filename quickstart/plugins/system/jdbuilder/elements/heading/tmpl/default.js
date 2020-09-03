@@ -17,10 +17,15 @@
       var linkNoFollow = element.params.get('linkNoFollow', false);
       var linkRel = linkNoFollow ? ' rel="nofollow"' : "";
 
-      var headingAlignment = element.params.get('headingAlignment', "");
-      if (headingAlignment != '') {
-         element.addCss("text-align", headingAlignment);
+      var alignment = element.params.get('headingAlignment', null);
+      if (alignment !== null && typeof alignment == 'object') {
+         JDBRenderer.DEVICES.forEach(function (_deviceObj) {
+            if (_deviceObj.key in alignment) {
+               element.addCss('text-align', alignment[_deviceObj.key], _deviceObj.type);
+            }
+         });
       }
+
       var subtitlePosition = element.params.get('subtitlePosition', 'below');
 
       var headingHtmlTag = element.params.get("headingHtmlTag", "h3");
@@ -57,6 +62,19 @@
       ['heading', 'subheading'].forEach(function (_heading) {
          var _style = JDBRenderer.ElementStyle("> .jdb-heading-" + _heading);
          element.addChildStyle(_style);
+
+         if (_heading == 'heading') {
+            let headingSpacing = element.params.get('headingSpacing', null);
+            if (headingSpacing != null) {
+               JDBRenderer.DEVICES.forEach(function (_deviceObj) {
+                  if ((_deviceObj.key in headingSpacing) && JDBRenderer.Helper.checkSliderValue(headingSpacing[_deviceObj.key])) {
+                     var mPos = element.params.get('subtitlePosition', 'below') == 'below' ? 'margin-bottom' : 'margin-top';
+                     _style.addCss(mPos, headingSpacing[_deviceObj.key].value + 'px', _deviceObj.type);
+                  }
+               });
+            }
+         }
+
          _style.addCss("color", element.params.get(_heading + "FontColor", ""));
          _style.addCss("text-shadow", element.params.get(_heading + "TextShadow", ""));
 

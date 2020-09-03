@@ -1,28 +1,21 @@
 <?php
-/**
- * @package	AcyMailing for Joomla
- * @version	6.2.2
- * @author	acyba.com
- * @copyright	(C) 2009-2019 ACYBA S.A.R.L. All rights reserved.
- * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
- */
-
 defined('_JEXEC') or die('Restricted access');
 ?><?php
 
 class plgAcymOnline extends acymPlugin
 {
-    function dynamicText()
+    public function __construct()
     {
-        $onePlugin = new stdClass();
-        $onePlugin->name = acym_translation('ACYM_WEBSITE_LINKS');
-        $onePlugin->plugin = __CLASS__;
-        $onePlugin->help = 'plugin-online';
-
-        return $onePlugin;
+        parent::__construct();
+        $this->pluginDescription->name = acym_translation('ACYM_WEBSITE_LINKS');
     }
 
-    function textPopup()
+    public function dynamicText()
+    {
+        return $this->pluginDescription;
+    }
+
+    public function textPopup()
     {
         $others = [];
         $others['readonline'] = ['default' => acym_translation('ACYM_VIEW_ONLINE', true), 'desc' => acym_translation('ACYM_VIEW_ONLINE_DESC')];
@@ -55,7 +48,7 @@ class plgAcymOnline extends acymPlugin
 		</script>
 
 		<div class="acym__popup__listing text-center grid-x">
-			<div class="grid-x medium-12 cell acym__listing__row text-left">
+			<div class="grid-x medium-12 cell acym__row__no-listing text-left">
 				<div class="grid-x cell medium-5 small-12 acym__listing__title acym__listing__title__dynamics">
 					<label class="small-3" style="line-height: 40px;" for="acym__popup__online__tagtext"><?php echo acym_translation('ACYM_TEXT'); ?>: </label>
 					<input class="small-9" type="text" name="tagtext" id="acym__popup__online__tagtext" onchange="setOnlineTag();">
@@ -66,7 +59,7 @@ class plgAcymOnline extends acymPlugin
             <?php
             foreach ($others as $tagname => $tag) {
                 $onclick = 'changeOnlineTag(\''.$tagname.'\');';
-                echo '<div class="grid-x small-12 cell acym__listing__row acym__listing__row__popup text-left"  onclick="'.$onclick.'" id="tr_'.$tagname.'" ><div class="cell small-12 acym__listing__title acym__listing__title__dynamics">'.$tag['desc'].'</div></div>';
+                echo '<div class="grid-x small-12 cell acym__row__no-listing acym__listing__row__popup text-left"  onclick="'.$onclick.'" id="tr_'.$tagname.'" ><div class="cell small-12 acym__listing__title acym__listing__title__dynamics">'.$tag['desc'].'</div></div>';
             }
             ?>
 		</div>
@@ -74,61 +67,34 @@ class plgAcymOnline extends acymPlugin
         <?php
     }
 
-    function replaceContent(&$email, $send = true)
+    public function replaceContent(&$email, $send = true)
     {
-        $match = '#(?:{|%7B)(readonline)([^}]*)(?:}|%7D)(.*)(?:{|%7B)/(readonline)(?:}|%7D)#Uis';
-        $variables = ['body'];
-        $found = false;
-        $results = [];
-        foreach ($variables as $var) {
-            if (empty($email->$var)) continue;
+        if (empty($email->body)) return;
 
-            $found = preg_match_all($match, $email->$var, $results[$var]) || $found;
-            if (empty($results[$var][0])) unset($results[$var]);
-        }
+        $match = '#(?:{|%7B)readonline(?:}|%7D)(.*)(?:{|%7B)/readonline(?:}|%7D)#Uis';
+        $results = [];
+        $found = preg_match_all($match, $email->body, $results);
 
         if (!$found) return;
 
         $tags = [];
+        foreach ($results[0] as $i => $oneTag) {
+            if (isset($tags[$oneTag])) continue;
 
-        foreach ($results as $var => $allresults) {
-            foreach ($allresults[0] as $i => $oneTag) {
-                if (isset($tags[$oneTag])) {
-                    continue;
-                }
-                $arguments = explode('|', strip_tags(str_replace('%7C', '|', $allresults[2][$i])));
-                $tag = new stdClass();
-                $tag->type = $allresults[1][$i];
-                for ($j = 0, $a = count($arguments) ; $j < $a ; $j++) {
-                    $args = explode(':', $arguments[$j]);
-                    $arg0 = trim($args[0]);
-                    if (empty($arg0)) {
-                        continue;
-                    }
-                    if (isset($args[1])) {
-                        $tag->$arg0 = $args[1];
-                    } else {
-                        $tag->$arg0 = true;
-                    }
-                }
+            $link = 'archive&task=view&id='.$email->id.'&userid={subtag:id}-{subtag:key}&'.acym_noTemplate();
+            $link .= $this->getLanguage($email->links_language);
+            if (!empty($email->key)) $link .= '&key='.$email->key;
 
-                $addkey = empty($email->key) ? '' : '&key='.$email->key;
-                $lang = empty($email->lang) ? '' : '&lang='.$email->lang;
+            $link = acym_frontendLink($link);
 
-                $link = '';
-                if ($tag->type == 'readonline') {
-                    $link = acym_frontendLink('archive&task=view&id='.$email->id.'&userid={subtag:id}-{subtag:key}'.$addkey.$lang.'&'.acym_noTemplate());
-                }
-
-                if (empty($allresults[3][$i])) {
-                    $tags[$oneTag] = $link;
-                } else {
-                    $tags[$oneTag] = '<a style="text-decoration:none;" href="'.$link.'" target="_blank"><span class="acym_online">'.$allresults[3][$i].'</span></a>';
-                }
+            if (empty($results[1][$i])) {
+                $tags[$oneTag] = $link;
+            } else {
+                $tags[$oneTag] = '<a style="text-decoration:none;" href="'.$link.'" target="_blank"><span class="acym_online">'.$results[1][$i].'</span></a>';
             }
         }
 
-        $this->acympluginHelper->replaceTags($email, $tags);
+        $this->pluginHelper->replaceTags($email, $tags);
     }
 }
 

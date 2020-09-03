@@ -1,42 +1,108 @@
 <?php
-
 /**
-* @package     SP Simple Portfolio
-*
-* @copyright   Copyright (C) 2010 - 2018 JoomShaper. All rights reserved.
-* @license     GNU General Public License version 2 or later.
+* @package com_spsimpleportfolio
+* @author JoomShaper http://www.joomshaper.com
+* @copyright Copyright (c) 2010 - 2020 JoomShaper
+* @license http://www.gnu.org/licenses/gpl-2.0.html GNU/GPLv2 or later
 */
 
-defined('_JEXEC') or die();
+// No Direct Access
+defined ('_JEXEC') or die('Restricted Access');
 
-function SpsimpleportfolioBuildRoute(&$query) {
-	$segments = array();
+class SpsimpleportfolioRouter extends JComponentRouterView {
+	
+	protected $noIDs = false;
 
-	if (isset($query['view'])) {
-		$segments[] = $query['view'];
-		unset($query['view']);
+	public function __construct($app = null, $menu = null){
+
+		$params = JComponentHelper::getParams('com_spsimpleportfolio');
+		$this->noIDs = (bool) $params->get('sef_ids', 1);
+
+		// Portfolio Items
+		$items = new JComponentRouterViewconfiguration('items');
+		$this->registerView($items);
+		$item = new JComponentRouterViewconfiguration('item');
+		$item->setKey('id')->setParent($items);
+		$this->registerView($item);
+
+		// generate rules
+		parent::__construct($app, $menu);	
+		$this->attachRule(new JComponentRouterRulesNomenu($this));
+		if ($params->get('sef_advanced', 0)) {
+			$this->attachRule(new JComponentRouterRulesMenu($this));
+			$this->attachRule(new JComponentRouterRulesStandard($this));
+		} else {
+			JLoader::register('SpsimpleportfolioRouterRulesLegacy', __DIR__ . '/helpers/legacyrouter.php');
+			$this->attachRule(new SpsimpleportfolioRouterRulesLegacy($this));
+		}
+
 	}
 
-	if (isset($query['id'])) {
-		$segments[] = $query['id'];
-		unset($query['id']);
-	}
+	// Item
+	public function getItemSegment($id, $query) {
+		if (!strpos($id, ':')) {
+			$db = JFactory::getDbo();
+			$dbquery = $db->getQuery(true);
+			$dbquery->select($dbquery->qn('alias'))
+			->from($dbquery->qn('#__spsimpleportfolio_items'))
+			->where('id = ' . $dbquery->q($id));
+			$db->setQuery($dbquery);
 
-	return $segments;
+			$id .= ':' . $db->loadResult();
+		}
+
+		if ($this->noIDs) {
+			list($void, $segment) = explode(':', $id, 2);
+			return array($void => $segment);
+		}
+		return array((int) $id => $id);
+	}
+	public function getItemId($segment, $query) {
+
+		if ($this->noIDs) {
+			$db = JFactory::getDbo();
+			$dbquery = $db->getQuery(true);
+			$dbquery->select($dbquery->qn('id'))
+				->from($dbquery->qn('#__spsimpleportfolio_items'))
+				->where('alias = ' . $dbquery->q($segment));
+			$db->setQuery($dbquery);
+			return (int) $db->loadResult();
+		}
+		return (int) $segment;
+	}
 }
 
+/**
+ * Users router functions
+ *
+ * These functions are proxys for the new router interface
+ * for old SEF extensions.
+ *
+ * @param   array  &$query  REQUEST query
+ *
+ * @return  array  Segments of the SEF url
+ *
+ * @deprecated  4.0  Use Class based routers instead
+ */
+function spmedicalBuildRoute(&$query){
+	$app = JFactory::getApplication();
+	$router = new SpmedicalRouter($app, $app->getMenu());
 
-function SpsimpleportfolioParseRoute($segments) {
+	return $router->build($query);
+}
 
-	$vars 	= array();
-	$app 	= JFactory::getApplication();
-	$menu 	= $app->getMenu();
-	$item 	= $menu->getActive();
-	$count 	= count($segments);
+/**
+ * Convert SEF URL segments into query variables
+ *
+ * @param   array  $segments  Segments in the current URL
+ *
+ * @return  array  Query variables
+ *
+ * @deprecated  4.0  Use Class based routers instead
+ */
+function spmedicalParseRoute($segments){
+	$app = JFactory::getApplication();
+	$router = new SpmedicalRouter($app, $app->getMenu());
 
-	$vars['view'] = 'item';
-	$id 	= explode(':', $segments[$count-1]);
-	$vars['id'] = (int) $id[0];
-
-	return $vars;
+	return $router->parse($segments);
 }

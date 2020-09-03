@@ -1,12 +1,4 @@
 <?php
-/**
- * @package	AcyMailing for Joomla
- * @version	6.2.2
- * @author	acyba.com
- * @copyright	(C) 2009-2019 ACYBA S.A.R.L. All rights reserved.
- * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
- */
-
 defined('_JEXEC') or die('Restricted access');
 ?><form id="acym_form" enctype="multipart/form-data" action="<?php echo acym_completeLink(acym_getVar('cmd', 'ctrl')); ?>" method="post" name="acyForm">
 	<div id="acym__file__select">
@@ -30,7 +22,7 @@ defined('_JEXEC') or die('Restricted access');
                         }
 
                         if (in_array($ext, $data['imageExtensions'])) {
-                            $srcImg = ACYM_LIVE.$data['uploadFolder'].'/'.$file;
+                            $srcImg = ACYM_LIVE.rtrim($data['uploadFolder'], DS).'/'.$file;
                         } else {
                             $srcImg = ACYM_LIVE.ACYM_MEDIA_FOLDER.'/images/file.png';
                         }

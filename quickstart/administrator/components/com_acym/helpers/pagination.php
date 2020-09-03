@@ -1,82 +1,104 @@
 <?php
-/**
- * @package	AcyMailing for Joomla
- * @version	6.2.2
- * @author	acyba.com
- * @copyright	(C) 2009-2019 ACYBA S.A.R.L. All rights reserved.
- * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
- */
-
 defined('_JEXEC') or die('Restricted access');
 ?><?php
 
-class acympaginationHelper
+class acympaginationHelper extends acymObject
 {
     var $total;
     var $page;
     var $nbPerPage;
 
-    function setStatus($total, $page, $nbPerPage)
+    public function setStatus($total, $page, $nbPerPage)
     {
         $this->total = $total;
         $this->page = $page;
         $this->nbPerPage = $nbPerPage;
     }
 
-    function display($page, $suffix = '')
+    public function display($page, $suffix = '', $dynamics = false)
     {
         $name = empty($page) ? 'pagination_page_ajax' : $page.'_pagination_page';
-        $pagination = '<input type="hidden" id="acym_pagination'.$suffix.'" name="'.$name.'" value="'.$this->page.'"/>';
 
         $nbPages = ceil($this->total / $this->nbPerPage);
 
-        $pagination .= '<div class="pagination text-center cell grid-x" role="navigation" aria-label="Pagination">
-                            <div class="small-auto large-shrink medium-shrink pagination_container cell margin-auto">';
+        $class = $dynamics ? 'margin-bottom-1' : '';
 
-        $pagination .= '<div class="pagination-previous pagination_one_pagination ';
+        $pagination = '<div class="pagination text-center cell grid-x '.$class.'" role="navigation" aria-label="Pagination">
+                            <div class="small-auto medium-shrink pagination_container cell margin-auto grid-x acym_vcenter">';
+
+        if (!$dynamics) {
+            $pagination .= '<div class="cell shrink pagination-turbo-left pagination_one_pagination ';
+            $pagination .= $this->page > 1 ? 'acym__pagination__page'.$suffix.'" page="1' : 'pagination_disabled';
+            $pagination .= '"><i class="acymicon-play_arrow rotate180deg pagination__i"></i><i class="acymicon-play_arrow rotate180deg pagination__i"></i></div>';
+            $pagination .= '<div class="cell shrink pagination_border_left"></div>';
+        }
+
+        $pagination .= '<div class="cell shrink pagination-previous pagination_one_pagination ';
         $pagination .= $this->page > 1 ? 'acym__pagination__page'.$suffix.'" page="'.($this->page - 1) : 'pagination_disabled';
         $pagination .= '"><i class="acymicon-play_arrow rotate180deg pagination__i"></i></div>';
 
-        $ellipsis = false;
-        for ($i = 1 ; $i <= $nbPages ; $i++) {
-            if ($i > 2 && $i < $nbPages - 1 && ($i < $this->page - 1 || $i > $this->page + 1)) {
-                if (!$ellipsis) {
-                    $ellipsis = true;
-                    $pagination .= '<div class="pagination_border_left"></div><div class="ellipsis pagination_one_pagination"></div><div class="pagination_border_right"></div>';
-                }
-                continue;
-            }
-
-            $ellipsis = false;
-
-            if ($i == $this->page) {
-                $pagination .= '<div class="pagination_border_left"></div><div class="pagination_current pagination_one_pagination">'.$this->page.'</div><div class="pagination_border_right"></div>';
-            } else {
-                $pagination .= '<div class="pagination_border_left"></div><div class="pagination_one_pagination acym__pagination__page'.$suffix.'" page="'.$i.'">'.$i.'</div><div class="pagination_border_right"></div>';
-            }
-        }
+        $pagination .= '<div class="cell shrink pagination_border_left"></div>';
+        $pagination .= '<input type="number" name="'.$name.'" min="1" max="'.(empty($nbPages) ? 1 : $nbPages).'" value="'.$this->page.'" class="cell shrink pagination_input" id="acym_pagination'.$suffix.'">';
+        $pagination .= '<p class="cell shrink pagination_text">'.acym_translation('ACYM_OUT_OF').' '.$nbPages.'</p>';
+        $pagination .= '<div class="cell shrink pagination_border_right"></div>';
 
         if ($this->page < $nbPages) {
-            $pagination .= '<div class="pagination-next pagination_one_pagination acym__pagination__page'.$suffix.'" page="'.($this->page + 1).'"><i class="acymicon-play_arrow pagination__i"></i></div>';
+            $paramsNext = 'acym__pagination__page'.$suffix.'" page="'.($this->page + 1);
+            $paramsTurboNext = 'acym__pagination__page'.$suffix.'" page="'.$nbPages;
         } else {
-            $pagination .= '<div class="pagination-next pagination_one_pagination pagination_disabled"><i class="acymicon-play_arrow pagination__i"></i></div>';
+            $paramsNext = 'pagination_disabled';
+            $paramsTurboNext = 'pagination_disabled';
+        }
+
+        $pagination .= '<div class="cell shrink pagination-next pagination_one_pagination '.$paramsNext.'"><i class="acymicon-play_arrow pagination__i"></i></div>';
+
+        if (!$dynamics) {
+            $pagination .= '<div class="cell shrink pagination_border_right"></div>';
+            $pagination .= '<div class="cell shrink pagination-turbo-right pagination_one_pagination '.$paramsTurboNext.'">
+                                    <i class="acymicon-play_arrow pagination__i"></i>
+                                    <i class="acymicon-play_arrow pagination__i"></i>
+                                </div>';
         }
 
         $pagination .= '</div></div>';
 
+        if (!$dynamics) {
+            $nbPagesOptions = [
+                '5' => '5',
+                '10' => '10',
+                '15' => '15',
+                '20' => '20',
+                '30' => '30',
+                '50' => '50',
+                '100' => '100',
+                '200' => '200',
+            ];
+            $pagination .= '<div class="cell grid-x align-center acym_vcenter margin-top-1">';
+
+            $paginationNumberEntries = '<div class="acym__select__pagination">'.acym_select(
+                    $nbPagesOptions,
+                    'acym_pagination_element_per_page',
+                    $this->getListLimit(),
+                    ['class' => 'acym__select__pagination__dropdown']
+                ).'</div>';
+
+            $pagination .= '<p class="cell shrink">'.acym_translation_sprintf('ACYM_DISPLAY_NUMBER_ENTRIES', $paginationNumberEntries).'</p>';
+            $pagination .= '</div>';
+        }
+
         return $pagination;
     }
 
-    function displayAjax()
+    public function displayAjax($dynamics = false)
     {
-        return $this->display('', '__ajax');
+        return $this->display('', '__ajax', $dynamics);
     }
 
-    function displayFront()
+    public function displayFront()
     {
         $nbPages = ceil($this->total / $this->nbPerPage);
 
-        $pagination = "";
+        $pagination = '';
 
         if ($nbPages < 2) {
             return $pagination;
@@ -88,13 +110,35 @@ class acympaginationHelper
 
         $pagination .= '<div class="acym__front__pagination">';
 
-        $pagination .= $this->page == 1 ? "" : "<span class='acym__front__pagination__element' onclick='acym_changePageFront(1)'><</span>"."<span class='acym__front__pagination__element' onclick='acym_changePageFront($previousPage)'>".$previousPage."</span>";
-        $pagination .= "<b>".$this->page."</b>";
-        $pagination .= $this->page == $nbPages ? "" : "<span class='acym__front__pagination__element' onclick='acym_changePageFront(".$nextPage.")'>".$nextPage."</span><span class='acym__front__pagination__element' onclick='acym_changePageFront(".$nbPages.")'>></span>";
+        if ($this->page != 1) {
+            $pagination .= '<span class="acym__front__pagination__element" onclick="acym_changePageFront(1)"><</span>';
+            $pagination .= '<span class="acym__front__pagination__element" onclick="acym_changePageFront($previousPage)">'.$previousPage.'</span>';
+        }
+        $pagination .= '<b>'.$this->page.'</b>';
+        if ($this->page != $nbPages) {
+            $pagination .= '<span class="acym__front__pagination__element" onclick="acym_changePageFront('.$nextPage.')">'.$nextPage.'</span>';
+            $pagination .= '<span class="acym__front__pagination__element" onclick="acym_changePageFront('.$nbPages.')">></span>';
+        }
 
         $pagination .= '</div>';
 
         return $pagination;
+    }
+
+    public function getListLimit()
+    {
+        $currentUserId = acym_currentUserId();
+        if (empty($currentUserId)) $currentUserId = 0;
+
+        $currentConfig = $this->config->get('list_limit_'.$currentUserId, 20);
+        $listLimitSelect = acym_getVar('int', 'acym_pagination_element_per_page', 0);
+
+        if (!empty($listLimitSelect) && $listLimitSelect != $currentConfig) {
+            $this->config->save(['list_limit_'.$currentUserId => $listLimitSelect]);
+            $currentConfig = $listLimitSelect;
+        }
+
+        return $currentConfig;
     }
 }
 

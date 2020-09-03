@@ -1,25 +1,18 @@
 <?php
-/**
- * @package	AcyMailing for Joomla
- * @version	6.2.2
- * @author	acyba.com
- * @copyright	(C) 2009-2019 ACYBA S.A.R.L. All rights reserved.
- * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
- */
-
 defined('_JEXEC') or die('Restricted access');
 ?><?php
 
 class plgAcymTime extends acymPlugin
 {
+    public function __construct()
+    {
+        parent::__construct();
+        $this->pluginDescription->name = acym_translation('ACYM_TIME');
+    }
+
     public function dynamicText()
     {
-        $onePlugin = new stdClass();
-        $onePlugin->name = acym_translation('ACYM_TIME');
-        $onePlugin->plugin = __CLASS__;
-        $onePlugin->help = 'plugin-time';
-
-        return $onePlugin;
+        return $this->pluginDescription;
     }
 
     public function textPopup()
@@ -40,7 +33,7 @@ class plgAcymTime extends acymPlugin
 
         $k = 0;
         foreach ($others as $tagname => $tag) {
-            $text .= '<div class="grid-x medium-12 cell acym__listing__row acym__listing__row__popup text-left" onclick="setTag(\''.$tagname.'\', jQuery(this));" >
+            $text .= '<div class="grid-x medium-12 cell acym__row__no-listing acym__listing__row__popup text-left" onclick="setTag(\''.$tagname.'\', jQuery(this));" >
                         <div class="cell medium-6 small-12 acym__listing__title acym__listing__title__dynamics">'.$tag.'</div>
                         <div class="cell medium-6 small-12 acym__listing__title acym__listing__title__dynamics">'.acym_getDate(time(), acym_translation($tag)).'</div>
                      </div>';
@@ -54,7 +47,7 @@ class plgAcymTime extends acymPlugin
 
     public function replaceContent(&$email, $send = true)
     {
-        $extractedTags = $this->acympluginHelper->extractTags($email, 'date');
+        $extractedTags = $this->pluginHelper->extractTags($email, 'date');
         if (empty($extractedTags)) {
             return;
         }
@@ -83,7 +76,7 @@ class plgAcymTime extends acymPlugin
             $tags[$i] = acym_getDate($time, $oneTag->id);
         }
 
-        $this->acympluginHelper->replaceTags($email, $tags);
+        $this->pluginHelper->replaceTags($email, $tags);
     }
 
     public function onAcymDeclareTriggers(&$triggers, &$defaultValues)
@@ -149,16 +142,15 @@ class plgAcymTime extends acymPlugin
         $triggers['classic']['every']->option .= '</div>';
     }
 
-    public function onAcymExecuteTrigger(&$step, &$execute, $data)
+    public function onAcymExecuteTrigger(&$step, &$execute, &$data)
     {
         $time = $data['time'];
-        $triggers = json_decode($step->triggers, true);
+        $triggers = $step->triggers;
 
         $nextExecutionDate = [];
 
-        $config = acym_config();
-        $dailyHour = $config->get('daily_hour', '12');
-        $dailyMinute = $config->get('daily_minute', '00');
+        $dailyHour = $this->config->get('daily_hour', '12');
+        $dailyMinute = $this->config->get('daily_minute', '00');
 
 
         if (!empty($triggers['asap'])) {
@@ -167,11 +159,14 @@ class plgAcymTime extends acymPlugin
         }
 
         if (!empty($triggers['day'])) {
-            $todaysDate = strtotime('today '.$triggers['day']['hour'].':'.$triggers['day']['minutes']);
-            if ($time < $todaysDate) {
-                $nextExecutionDate[] = $todaysDate;
+            $dayBasedOnCMSTimezone = acym_date('now', 'Y-m-d');
+
+            $dayBasedOnCMSTimezoneAtSpecifiedHour = acym_getTimeFromCMSDate($dayBasedOnCMSTimezone.' '.$triggers['day']['hour'].':'.$triggers['day']['minutes']);
+
+            if ($time < $dayBasedOnCMSTimezoneAtSpecifiedHour) {
+                $nextExecutionDate[] = $dayBasedOnCMSTimezoneAtSpecifiedHour;
             } else {
-                $nextExecutionDate[] = strtotime('tomorrow '.$triggers['day']['hour'].':'.$triggers['day']['minutes']);
+                $nextExecutionDate[] = $dayBasedOnCMSTimezoneAtSpecifiedHour + 86400;
 
                 if (empty($step->last_execution)) $execute = true;
             }
@@ -179,26 +174,46 @@ class plgAcymTime extends acymPlugin
 
         if (!empty($triggers['weeks_on'])) {
             foreach ($triggers['weeks_on']['day'] as $day) {
-                if ($day == strtolower(date('l'))) {
-                    $todaysDate = strtotime('today '.$dailyHour.':'.$dailyMinute);
-                    if ($time < $todaysDate) {
-                        $nextExecutionDate[] = $todaysDate;
-                    } elseif (empty($step->last_execution)) {
-                        $execute = true;
+                $dayBasedOnCMSTimezone = acym_date('now', 'Y-m-d');
+
+                $dayBasedOnCMSTimezoneAtSpecifiedHour = acym_getTimeFromCMSDate($dayBasedOnCMSTimezone.' '.$dailyHour.':'.$dailyMinute);
+
+                if ($day == strtolower(acym_date('now', 'l'))) {
+                    if ($time < $dayBasedOnCMSTimezoneAtSpecifiedHour) {
+                        $nextExecutionDate[] = $dayBasedOnCMSTimezoneAtSpecifiedHour;
+                    } else {
+                        $nextExecutionDate[] = $dayBasedOnCMSTimezoneAtSpecifiedHour + 604800;
+
+                        if (empty($step->last_execution) || acym_date($step->last_execution, 'Y-m-d') !== $dayBasedOnCMSTimezone) $execute = true;
                     }
                 } else {
-                    $nextExecutionDate[] = strtotime('next '.$day.' '.$dailyHour.':'.$dailyMinute);
+                    $days = [
+                        'monday',
+                        'tuesday',
+                        'wednesday',
+                        'thursday',
+                        'friday',
+                        'saturday',
+                        'sunday',
+                    ];
+                    $currentDayOfWeek = acym_date('now', 'N') - 1;
+                    $wantedDayOfWeek = array_search($day, $days);
+
+                    $shift = $wantedDayOfWeek - $currentDayOfWeek;
+                    if ($shift < 0) $shift += 7;
+
+                    $nextExecutionDate[] = $dayBasedOnCMSTimezoneAtSpecifiedHour + 86400 * $shift;
                 }
             }
         }
 
         if (!empty($triggers['on_day_month'])) {
-            $today = strtotime('today '.$dailyHour.':'.$dailyMinute);
+            $today = acym_getTime('today '.$dailyHour.':'.$dailyMinute);
 
-            $execution = strtotime($triggers['on_day_month']['number'].' '.$triggers['on_day_month']['day'].' of this month '.$dailyHour.':'.$dailyMinute);
+            $execution = acym_getTime($triggers['on_day_month']['number'].' '.$triggers['on_day_month']['day'].' of this month '.$dailyHour.':'.$dailyMinute);
 
             if ($execution < $today) {
-                $execution = strtotime($triggers['on_day_month']['number'].' '.$triggers['on_day_month']['day'].' of next month '.$dailyHour.':'.$dailyMinute);
+                $execution = acym_getTime($triggers['on_day_month']['number'].' '.$triggers['on_day_month']['day'].' of next month '.$dailyHour.':'.$dailyMinute);
             }
 
             if ($execution > $time) {

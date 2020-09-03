@@ -1,12 +1,4 @@
 <?php
-/**
- * @package	AcyMailing for Joomla
- * @version	6.2.2
- * @author	acyba.com
- * @copyright	(C) 2009-2019 ACYBA S.A.R.L. All rights reserved.
- * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
- */
-
 defined('_JEXEC') or die('Restricted access');
 ?><?php
 
@@ -72,7 +64,7 @@ class acymqueryClass extends acymClass
         acym_query('UPDATE #__acym_user SET automation = REPLACE(automation, "a'.intval($id).'a", "") WHERE automation LIKE "%a'.intval($id).'a%"');
     }
 
-    function convertQuery($table, $column, $operator, $value, $type = '')
+    public function convertQuery($table, $column, $operator, $value, $type = '')
     {
         $operator = str_replace(['&lt;', '&gt;'], ['<', '>'], $operator);
 
@@ -101,18 +93,7 @@ class acymqueryClass extends acymClass
             $value = strftime('%Y-%m-%d %H:%M:%S', $value);
         }
 
-        $replace = ['{year}', '{month}', '{weekday}', '{day}'];
-        $replaceBy = [date('Y'), date('m'), date('N'), date('d')];
-        $value = str_replace($replace, $replaceBy, $value);
-
-        if (preg_match_all('#{(year|month|weekday|day)\|(add|remove):([^}]*)}#Uis', $value, $results)) {
-
-            foreach ($results[0] as $i => $oneMatch) {
-                $format = str_replace(['year', 'month', 'weekday', 'day'], ['Y', 'm', 'N', 'd'], $results[1][$i]);
-                $delay = str_replace(['add', 'remove'], ['+', '-'], $results[2][$i]).intval($results[3][$i]).' '.str_replace('weekday', 'day', $results[1][$i]);
-                $value = str_replace($oneMatch, date($format, strtotime($delay)), $value);
-            }
-        }
+        $value = acym_replaceDateTags($value);
 
         if (!is_numeric($value) || in_array($operator, ['REGEXP', 'NOT REGEXP', 'NOT LIKE', 'LIKE', '=', '!='])) {
             $value = acym_escapeDB($value);

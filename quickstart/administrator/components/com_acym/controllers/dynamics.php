@@ -1,12 +1,4 @@
 <?php
-/**
- * @package	AcyMailing for Joomla
- * @version	6.2.2
- * @author	acyba.com
- * @copyright	(C) 2009-2019 ACYBA S.A.R.L. All rights reserved.
- * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
- */
-
 defined('_JEXEC') or die('Restricted access');
 ?><?php
 
@@ -63,6 +55,7 @@ class DynamicsController extends acymController
             $email->reply_to_name = '';
             $email->reply_to_email = '';
             $email->bcc = '';
+            $email->links_language = '';
         }
 
         $email->creation_date = acym_date('now', 'Y-m-d H:i:s', false);
@@ -76,10 +69,9 @@ class DynamicsController extends acymController
         $email->stylesheet = '';
         $email->attachments = '';
 
-        $email->body = acym_getVar('string', 'code', '');
+        $email->body = acym_getVar('string', 'code', '', '', ACYM_ALLOWHTML);
 
-
-        acym_trigger('replaceContent', [&$email]);
+        @acym_trigger('replaceContent', [&$email]);
 
         $userClass = acym_get('class.user');
         $userEmail = acym_currentUserEmail();
@@ -91,27 +83,38 @@ class DynamicsController extends acymController
             $user->name = acym_currentUserName();
             $user->cms_id = acym_currentUserId();
             $user->confirmed = 0;
-            $user->source = ACYM_CMS;
+            $user->source = 'Back-end';
 
             $userClass->checkVisitor = false;
             $user->id = $userClass->save($user);
         }
 
-        acym_trigger('replaceUserInformation', [&$email, &$user, false]);
+        @acym_trigger('replaceUserInformation', [&$email, &$user, false]);
 
-        echo $email->body;
+        echo json_encode(['content' => $email->body]);
         exit;
     }
 
-    function trigger()
+    public function trigger()
     {
         $plugin = acym_getVar('cmd', 'plugin', '');
         $trigger = acym_getVar('cmd', 'trigger', '');
-        if (empty($plugin) || empty($trigger)) {
-            exit;
+        if (empty($plugin) || empty($trigger)) exit;
+        $shortcode = acym_getVar('string', 'shortcode', '');
+
+        $defaultValues = new stdClass();
+
+        $shortcode = trim($shortcode, '{}');
+        $separatorPosition = strpos($shortcode, ':');
+        if (false !== $separatorPosition) {
+            $pluginSubType = substr($shortcode, 0, $separatorPosition);
+            $shortcode = substr($shortcode, $separatorPosition + 1);
+            $pluginHelper = acym_get('helper.plugin');
+            $defaultValues = $pluginHelper->extractTag($shortcode);
+            $defaultValues->defaultPluginTab = $pluginSubType;
         }
 
-        acym_trigger($trigger, [], $plugin);
+        acym_trigger($trigger, [$defaultValues], $plugin);
 
         exit;
     }

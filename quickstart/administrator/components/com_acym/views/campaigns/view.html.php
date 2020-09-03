@@ -1,12 +1,4 @@
 <?php
-/**
- * @package	AcyMailing for Joomla
- * @version	6.2.2
- * @author	acyba.com
- * @copyright	(C) 2009-2019 ACYBA S.A.R.L. All rights reserved.
- * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
- */
-
 defined('_JEXEC') or die('Restricted access');
 ?><?php
 
@@ -24,6 +16,14 @@ class CampaignsViewCampaigns extends acymView
             'tests' => 'ACYM_TEST',
             'summary' => 'ACYM_SUMMARY',
         ];
+
+        $this->tabs = [
+            'campaigns' => 'ACYM_CAMPAIGNS',
+        ];
+
+
+        $this->tabs['welcome'] = 'ACYM_WELCOME_EMAILS';
+        $this->tabs['unsubscribe'] = 'ACYM_UNSUBSCRIBE_EMAILS';
     }
 }
 

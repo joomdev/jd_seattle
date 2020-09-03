@@ -1,13 +1,12 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE install PUBLIC "-//Joomla! 2.5//DTD template 1.0//EN" "https://www.joomla.org/xml/dtd/1.6/template-install.dtd">
+<?xml version="1.0" encoding="UTF-8" ?>
 <extension version="3.1" type="library" method="upgrade">
    <name>Astroid Framework</name>
    <libraryname>astroid</libraryname>
    <author>JoomDev</author>
-   <creationDate>July 2019</creationDate>
-   <version>2.2.3</version>
+   <creationDate>Aug 2020</creationDate>
+   <version>2.4.1</version>
    <url>https://www.astroidframework.com</url>
-   <copyright>Copyright (C) 2019 Joomdev, Inc. All rights reserved.</copyright>
+   <copyright>Copyright (C) 2020 Joomdev, Inc. All rights reserved.</copyright>
    <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
    <authorEmail>info@joomdev.com</authorEmail>
    <authorUrl>https://www.joomdev.com</authorUrl>
@@ -26,7 +25,4 @@
       <language tag="en-GB">en-GB.astroid.ini</language>
       <language tag="en-GB">en-GB.astroid.sys.ini</language>
    </languages>
-   <updateservers>
-      <server type="extension" priority="1" name="Astroid Framework">https://cdn.joomdev.com/updates/astroid_framework.xml</server>
-   </updateservers>
 </extension>

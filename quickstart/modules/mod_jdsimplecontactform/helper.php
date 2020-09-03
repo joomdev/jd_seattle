@@ -3,7 +3,7 @@
 /**
  * @package   JD Simple Contact Form
  * @author    JoomDev https://www.joomdev.com
- * @copyright Copyright (C) 2009 - 2019 JoomDev.
+ * @copyright Copyright (C) 2009 - 2020 JoomDev.
  * @license http://www.gnu.org/licenses/gpl-2.0.html GNU/GPLv2 or Later
  */
 // no direct access
@@ -24,7 +24,7 @@ class ModJDSimpleContactFormHelper {
       $field_layout = self::getFieldLayout($field->type);
       $input = new JLayoutFile('fields.' . $field_layout, JPATH_SITE . '/modules/mod_jdsimplecontactform/layouts');
       $layout = new JLayoutFile('field', JPATH_SITE . '/modules/mod_jdsimplecontactform/layouts');
-      if ($field->type == 'checkbox') {
+      if ($field->type == 'checkbox' || $field->type == 'hidden') {
          $field->show_label = 0;
       }
       echo $layout->render(['field' => $field, 'label' => $label->render(['field' => $field]), 'input' => $input->render(['field' => $field, 'label' => self::getLabelText($field), 'module' => $module, 'params' => $params]), 'module' => $module]);
@@ -76,11 +76,20 @@ class ModJDSimpleContactFormHelper {
       $params = self::getModuleParams();
 
       if ($params->get('captcha', 0)) {
-         JPluginHelper::importPlugin('captcha');
+
+         $captchaType = $params->get('captchaPlugins') == "" ? JFactory::getConfig()->get('captcha') : $params->get('captchaPlugins');
+         JPluginHelper::importPlugin('captcha', $captchaType);
          $dispatcher = JEventDispatcher::getInstance();
-         $check_captcha = $dispatcher->trigger('onCheckAnswer', $jinput->get('recaptcha_response_field'));
-         if (!$check_captcha[0]) {
-            throw new \Exception(JText::_('Invalid Captcha'), 0);
+
+         if ( $captchaType == "recaptcha" ) {
+            $check_captcha = $dispatcher->trigger('onCheckAnswer', $jinput->get('recaptcha_response_field'));
+            if (!$check_captcha[0]) {
+               throw new \Exception(JText::_('Invalid Captcha'), 0);
+            }
+         } elseif ( $captchaType == "recaptcha_invisible" ) {
+            $check_captcha = $dispatcher->trigger('onCheckAnswer', $jinput->get('g-recaptcha-response'));
+         } elseif (!empty($captchaType)) {
+            $check_captcha = $dispatcher->trigger('onCheckAnswer');
          }
       }
 
@@ -93,17 +102,29 @@ class ModJDSimpleContactFormHelper {
       $values = [];
       foreach ($jdscf as $name => $value) {
          if(is_array($value)) {
+
+            // Type email values
             if(isset($value['email'])) {
                $values[$name] = $value['email'];
-               //multiple cc
-               if(isset($value['cc']) && $value['cc'] == 1) {
-                  $cc_emails[] = $value['email'];
-               }
+               
                //single cc
                if(isset($value['single_cc']) && $value['single_cc'] == 1) {
                   $cc_emails[] = $value['email'];
                }
             }
+			
+            // Type text values
+            ( isset($value['text'] ) ? $values[$name] = $value['text'] : '');
+            
+            // Type number values
+            ( isset($value['number'] ) ? $values[$name] = $value['number'] : '');
+
+            // Type url values
+            ( isset($value['url'] ) ? $values[$name] = $value['url'] : '');
+
+            // Type Hidden Value
+            ( isset($value['hidden'] ) ? $values[$name] = $value['hidden'] : '');
+
          } else {
             $values[$name] = $value;
          }
@@ -112,20 +133,27 @@ class ModJDSimpleContactFormHelper {
       $contents = [];
       $attachments = [];
       $errors = [];
+      // Get all error messages and add them to $errors variable
+      $messages = $app->getMessageQueue();
+      if (!empty($messages)) {
+         for ($i=0; $i < count($messages); $i++) { 
+            $errors[] = $messages[$i]["message"];
+         }
+      }
       foreach ($labels as $name => $fld) {
          $value = isset($values[$name]) ? $values[$name] : '';
-         
+
          if ($fld['type'] == 'checkboxes') {
-             
-            $value = $_POST['jdscf'][$name]['cbs'];
+            if ( isset ($_POST['jdscf'][$name]['cbs'] ) ) {
+               $value = $_POST['jdscf'][$name]['cbs'];
+            }
             
             if (is_array($value)) {
                $value = implode(', ', $value);
             } else {
                $value = $value;
             }
-         }
-        
+         }        
          if ($fld['type'] == 'checkbox') {
             if (isset($_POST['jdscf'][$name]['cb'])){
                $value = $_POST['jdscf'][$name]['cb'];
@@ -165,9 +193,34 @@ class ModJDSimpleContactFormHelper {
              "name" => $name,
          ];
       }
+
+      // Fetches IP Address of Client
+      if ( $params->get('ip_info' ) ) {
+         if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+            $ipAddress = $_SERVER['HTTP_CLIENT_IP'];
+         }
+         elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+            $ipAddress = $_SERVER['HTTP_X_FORWARDED_FOR'];
+         }
+         else {
+            $ipAddress = $_SERVER['REMOTE_ADDR'];
+         }
+
+         $contents[] = array( 
+            "value" => "<a href='http://whois.domaintools.com/$ipAddress'>$ipAddress</a>",  
+            "label" => "IP Address", 
+            "name" => "ip"
+         );
+      }
+
       if ($params->get('email_template', '') == 'custom') {
          $html = $params->get('email_custom', '');
-         $html = self::renderVariables($contents, $html);
+         if ( empty( $html ) ) {
+            $layout = new JLayoutFile('emails.default', JPATH_SITE . '/modules/mod_jdsimplecontactform/layouts');
+            $html = $layout->render(['contents' => $contents]);
+         } else {
+            $html = self::renderVariables($contents, $html);  
+         }
       } else {
          $layout = new JLayoutFile('emails.default', JPATH_SITE . '/modules/mod_jdsimplecontactform/layouts');
          $html = $layout->render(['contents' => $contents]);
@@ -241,7 +294,7 @@ class ModJDSimpleContactFormHelper {
       }
       // BCC
       $bcc = !empty($params->get('email_bcc', '')) ? $params->get('email_bcc') : '';
-      $bcc = explode(',', $bcc);
+      $bcc = empty($bcc) ? [] : explode(',', $bcc);
       if (!empty($bcc)) {
          $mailer->addBcc($bcc);
       }
@@ -254,7 +307,7 @@ class ModJDSimpleContactFormHelper {
       if(!empty($errors)) {
          $app = JFactory::getApplication();
          $send = false;
-         //showing all the validation errors
+         // showing all the validation errors
          foreach ($errors as $error) {
             $app->enqueueMessage(\JText::_($error), 'error');
          }
@@ -376,18 +429,6 @@ class ModJDSimpleContactFormHelper {
       $singlesendcopy_email = $params->get('single_sendcopy_email', 0);
       $singlesendcopyemail_field = $params->get('singleSendCopyEmail_field', '');      
       if($singlesendcopy_email && !empty($singlesendcopyemail_field)){
-         return true;
-      } else {
-         return false;
-      }
-   }
-
-   //for multiple email fields
-   public static function isCCMail($field, $params) {
-      $sendcopy_email = $params->get('sendcopy_email', 0);
-      $sendcopyemail_field = $params->get('sendcopyemail_field', '');
-      $sendcopyemail_fields = explode(",", $sendcopyemail_field);
-      if($sendcopy_email && !empty($sendcopyemail_fields) && in_array($field->name, $sendcopyemail_fields)){
          return true;
       } else {
          return false;

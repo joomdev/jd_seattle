@@ -31,8 +31,12 @@ class SpsimpleportfolioViewItems extends JViewLegacy {
 			$this->params->merge($menu->params);
 		}
 
-		$this->layout_type = str_replace('_', '-', $this->params->get('layout_type', 'default'));
+		foreach ($this->items as $this->item) {
+			// if thumb uploaded for listing
+			$this->item->thumb = ( isset($this->item->thumbnail) && $this->item->thumbnail ) ? $this->item->thumbnail : $this->item->thumb;
+		}
 
+		$this->layout_type = str_replace('_', '-', $this->params->get('layout_type', 'default'));
 		// Check for errors.
 		if (count($errors = $this->get('Errors'))) {
 			JLog::add(implode('<br />', $errors), JLog::WARNING, 'jerror');

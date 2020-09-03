@@ -5,7 +5,6 @@
 .chronoforms {
     .ui.form {
         .ui.segment {
-            font-family: $font-family-sans-serif;
             box-shadow: none;
             @extend .border-0;
         }
@@ -41,7 +40,6 @@
                 &[type="tel"],
                 &[type="color"],
                 &[type="file"] {
-                    font-family: $font-family-sans-serif;
                     @extend .form-control;
                     @extend .form-control-lg;
                 }
@@ -50,14 +48,13 @@
         textarea {
             @extend .form-control;
             @extend .form-control-lg;
-            font-family: $font-family-sans-serif;
         }
         .ui.button,
         button,
         input {
             &[type="submit"],
             &[type="button"] {
-                font-family: $font-family-sans-serif;
+                // font-family: $font-family-sans-serif;
                 @extend .btn;
                 @extend .btn-lg;
                 @extend .btn-dark;

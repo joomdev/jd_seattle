@@ -1,12 +1,4 @@
 <?php
-/**
- * @package	AcyMailing for Joomla
- * @version	6.2.2
- * @author	acyba.com
- * @copyright	(C) 2009-2019 ACYBA S.A.R.L. All rights reserved.
- * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
- */
-
 defined('_JEXEC') or die('Restricted access');
 ?><form id="acym_form" action="<?php echo acym_completeLink(acym_getVar('cmd', 'ctrl')); ?>" method="post" name="acyForm" data-abide novalidate>
 	<input type="hidden" name="id" value="<?php echo empty($data['id']) ? '' : intval($data['id']); ?>">
@@ -35,7 +27,7 @@ defined('_JEXEC') or die('Restricted access');
 	<div class="acym__content grid-x cell" id="acym__automation__actions">
         <?php
         $workflow = acym_get('helper.workflow');
-        echo $workflow->display($this->steps, 'action', $this->edition);
+        echo $workflow->display($this->steps, 'action');
         ?>
 		<div id="acym__automation__example" style="display: none">
 			<div class="acym__automation__actions__one__action cell grid-x">

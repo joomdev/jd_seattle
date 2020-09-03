@@ -1,18 +1,10 @@
 <?php
-/**
- * @package	AcyMailing for Joomla
- * @version	6.2.2
- * @author	acyba.com
- * @copyright	(C) 2009-2019 ACYBA S.A.R.L. All rights reserved.
- * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
- */
-
 defined('_JEXEC') or die('Restricted access');
 ?><?php
 
-class fileTreeType extends acymClass
+class fileTreeType extends acymObject
 {
-    function display($folders, $currentFolder, $nameInput)
+    public function display($folders, $currentFolder, $nameInput)
     {
         $tree = [];
         foreach ($folders as $root => $children) {
@@ -64,7 +56,7 @@ class fileTreeType extends acymClass
             }
 
             $extraClass = 'tree-closed';
-            $icon = 'fa fa-folder';
+            $icon = 'acymicon-folder';
 
             if (strpos($pathValue, $currentPath) !== false) {
                 $extraClass = $pathValue == $currentPath ? 'tree-current' : '';

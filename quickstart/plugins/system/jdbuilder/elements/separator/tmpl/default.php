@@ -1,21 +1,22 @@
 <?php
+
 /**
  * @package    JD Builder
  * @author     Team Joomdev <info@joomdev.com>
- * @copyright  2019 www.joomdev.com
+ * @copyright  2020 www.joomdev.com
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 defined('_JEXEC') or die;
 extract($displayData);
 $element->addClass('jdb-divider');
 ?>
-<hr />
+<div class="jdb-divider-main"></div>
 <?php
-$style = new JDPageBuilder\Element\ElementStyle('> hr');
+$style = new JDPageBuilder\Element\ElementStyle('.jdb-divider-main');
 $element->addChildStyle($style);
 
-$style->addCss("border-style", $element->params->get('separatorType', 'solid'));
-$style->addCss("border-color", $element->params->get('separatorColor', ''));
+$style->addCss("border-top-style", $element->params->get('separatorType', 'solid'));
+$style->addCss("border-top-color", $element->params->get('separatorColor', ''));
 
 $weight = $element->params->get('separatorWeight', null);
 if (!empty($weight)) {
@@ -63,6 +64,19 @@ if (!empty($alignment)) {
                $style->addCss('margin-left', 'auto', $device);
                $style->addCss('margin-right', 'auto', $device);
                break;
+         }
+      }
+   }
+}
+
+$borderRadius = $element->params->get('separatorRadius', null);
+if (!empty($borderRadius)) {
+   foreach (\JDPageBuilder\Helper::$devices as $deviceKey => $device) {
+      if (isset($borderRadius->{$deviceKey}) && !empty($borderRadius->{$deviceKey})) {
+
+         $css = \JDPageBuilder\Helper::spacingValue($borderRadius->{$deviceKey}, "radius");
+         if (!empty($css)) {
+            $style->addStyle($css, $device);
          }
       }
    }

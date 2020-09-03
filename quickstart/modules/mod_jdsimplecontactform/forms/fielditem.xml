@@ -28,8 +28,22 @@
          <option value="number">MOD_JDSCF_TYPE_NUMBER_LBL</option>
          <option value="url">MOD_JDSCF_TYPE_URL_LBL</option>
          <option value="file">MOD_JDSCF_TYPE_FILE_LBL</option>
+         <option value="hidden">MOD_JDSCF_TYPE_HIDDEN_LBL</option>
       </field>
       <field
+         showon="type!:hidden"
+         name="show_label"
+         type="radio"
+         label="MOD_JDSCF_SHOW_LABEL_LBL"
+         description="MOD_JDSCF_SHOW_LABEL_DESC"
+         class="btn-group btn-group-yesno"
+         default="1"
+      >
+         <option value="1">JYES</option>
+         <option value="0">JNO</option>
+      </field>
+      <field
+         showon="show_label:1"
          name="label"
          type="text"
          filter="RAW"
@@ -37,6 +51,15 @@
          description="MOD_JDSCF_LABEL_DESC"
       />
       <field
+         showon="type:hidden"
+         name="value"
+         type="text"
+         filter="RAW"
+         label="MOD_JDSCF_VALUE_LBL"
+         description="MOD_JDSCF_VALUE_DESC"
+      />
+      <field
+         showon="type!:hidden"
          name="required"
          type="radio"
          label="MOD_JDSCF_REQUIRED_LBL"
@@ -55,17 +78,6 @@
          description="MOD_JDSCF_CUSTOM_ERROR_DESC"
       />
       <field
-         name="show_label"
-         type="radio"
-         label="MOD_JDSCF_SHOW_LABEL_LBL"
-         description="MOD_JDSCF_SHOW_LABEL_DESC"
-         class="btn-group btn-group-yesno"
-         default="1"
-      >
-         <option value="1">JYES</option>
-         <option value="0">JNO</option>
-      </field>
-      <field
          showon="type:list[OR]type:radio[OR]type:checkboxes"
          name="options"
          type="textarea"
@@ -73,11 +85,14 @@
          description="MOD_JDSCF_OPTIONS_DESC"
       />
       <field
+         showon="type!:hidden"
          name="width"
          type="list"
+         default="12"
          label="MOD_JDSCF_WIDTH_LBL"
          description="MOD_JDSCF_WIDTH_DESC"
       >
+         <option value="auto">JGLOBAL_AUTO</option>
          <option value="12">12</option>
          <option value="10">10</option>
          <option value="9">9</option>

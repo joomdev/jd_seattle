@@ -1,18 +1,10 @@
 <?php
-/**
- * @package	AcyMailing for Joomla
- * @version	6.2.2
- * @author	acyba.com
- * @copyright	(C) 2009-2019 ACYBA S.A.R.L. All rights reserved.
- * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
- */
-
 defined('_JEXEC') or die('Restricted access');
 ?><?php
 
-class acymuserHelper
+class acymuserHelper extends acymObject
 {
-    function exportdata($id)
+    public function exportdata($id)
     {
         if (empty($id)) {
             die('No user found');
@@ -24,7 +16,7 @@ class acymuserHelper
             die('No user found');
         }
 
-        acym_enqueueNotification('error', 'error', '5000');
+        acym_enqueueMessage(acym_translation('ACYM_ERROR'), 'error');
 
         $dateFields = ['creation_date', 'userstats_open_date', 'userstats_send_date', 'urlclick_date_click'];
         $excludedFields = ['id', 'cms_id', 'key', 'source'];
@@ -35,7 +27,7 @@ class acymuserHelper
         $userNode = $xml->addChild('user');
 
         $fields = acym_loadObjectList('SELECT name, field.option as options, type, value FROM #__acym_field as field', 'name');
-        $uploadFolder = trim(acym_cleanPath(html_entity_decode(acym_getFilesFolder())), DS.' ').DS;
+        $uploadFolder = trim(acym_cleanPath(html_entity_decode(acym_getFilesFolder(true))), DS.' ').DS;
 
 
         foreach ($user as $column => $value) {
@@ -184,6 +176,5 @@ class acymuserHelper
         unlink($tempFolder.'export_data_user_'.$id.'.zip');
         exit;
     }
-
 }
 

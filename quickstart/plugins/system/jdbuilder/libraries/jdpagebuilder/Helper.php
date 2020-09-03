@@ -3,7 +3,7 @@
 /**
  * @package    JD Builder
  * @author     Team Joomdev <info@joomdev.com>
- * @copyright  2019 www.joomdev.com
+ * @copyright  2020 www.joomdev.com
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
@@ -11,8 +11,22 @@ namespace JDPageBuilder;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
+use JDPageBuilder\Element\ElementStyle;
+use JDPageBuilder\Element\Layout;
 use Leafo\ScssPhp\Compiler;
-use MatthiasMullie\Minify\Minify;
+use Mustache_Autoloader;
+use Mustache_Engine;
+use Symfony\Component\HttpClient\CurlHttpClient;
+use Sabberworm\CSS\Parser;
+use Sabberworm\CSS\OutputFormat;
+
+Mustache_Autoloader::register();
+\JLoader::register('ContentHelperRoute', JPATH_SITE . '/components/com_content/helpers/route.php');
+\JModelLegacy::addIncludePath(JPATH_SITE . '/components/com_content/models', 'ContentModel');
+
+// No direct access
+defined('_JEXEC') or die('Restricted access');
+jimport('joomla.application.component.helper');
 
 class Helper
 {
@@ -24,6 +38,36 @@ class Helper
    public static function classify($word)
    {
       return str_replace([' ', '_', '-'], '', ucwords($word, ' _-'));
+   }
+
+   public static function linkify($text)
+   {
+      // The Regular Expression filter
+      $reg_exUrl = "/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/";
+      // Check if there is a url in the text
+      if (preg_match($reg_exUrl, $text, $url)) {
+
+         // make the urls hyper links
+         return preg_replace($reg_exUrl, "<a target='_blank' href='{$url[0]}'>{$url[0]}</a> ", $text);
+      } else {
+         // if no urls in the text just return the text
+         return $text;
+      }
+   }
+
+   public static function log($title = '', $txt = '')
+   {
+      $dir = JPATH_SITE . '/tmp/jdblogs';
+      if (!file_exists($dir)) {
+         mkdir($dir, 0777);
+      }
+      file_put_contents($dir . '/' . $title . '-' . date('d-M-Y-H-i-s') . '.txt', $txt);
+   }
+
+   public static function isBuilderDemo()
+   {
+      $config = \JFactory::getConfig();
+      return $config->get('jdbuilder_demo', 0);
    }
 
    public static function titlecase($word)
@@ -340,55 +384,38 @@ class Helper
       }
    }
 
-   public static function compileSass($scss, $folder = "")
+   public static function getMediaVersion()
    {
-      $variables = self::getGlobalVariables();
+      $jversion = new \JVersion;
+      return md5(JDB_MEDIA_VERSION . $jversion->getMediaVersion());
+   }
 
-      if (!self::$css_cache) {
-         $compiler = new Compiler();
-         $compiler->setVariables($variables);
-         $css = $compiler->compile($scss);
-         return $css;
-      }
-      $key = md5($scss);
+   public static function getJoomlaVersion()
+   {
+      $version = new \JVersion;
+      $version = $version->getShortVersion();
+      $version = substr($version, 0, 1);
+      return $version;
+   }
 
-      $folder = empty($folder) ? "" : "/" . $folder;
-
-      $cacheFolder = JPATH_SITE . '/cache/' . Constants::CSS_CACHE_DIR;
-      if (!file_exists($cacheFolder)) {
-         \mkdir($cacheFolder);
-      }
-
-      $cacheFolder = JPATH_SITE . '/cache/' . Constants::CSS_CACHE_DIR . $folder;
-      if (!file_exists($cacheFolder)) {
-         \mkdir($cacheFolder);
-      }
-
-      $cacheFile = $cacheFolder . '/' . $key . '.css';
-      if (file_exists($cacheFile)) {
-         Builder::log("getting css from `{$cacheFile}`");
-         $css = file_get_contents($cacheFile);
-      } else {
-         Builder::log("saving css to `{$cacheFile}`");
-         $compiler = new Compiler();
-         $compiler->setVariables($variables);
-         $css = $compiler->compile($scss);
-         file_put_contents($cacheFile, $css);
-      }
-      return $css;
+   public static function getACYVersion()
+   {
+      $db = \JFactory::getDbo();
+      $db->setQuery("SELECT `manifest_cache` FROM `#__extensions` WHERE `element`='com_acymailing' OR `element`='com_acym'");
+      $result = $db->loadResult();
+      if (empty($result)) return null;
+      $version = (int) \json_decode($result, true)['version'];
+      return $version;
    }
 
    public static function renderGlobalScss()
    {
       $document = \JFactory::getDocument();
       $variables = Helper::getGlobalVariables();
-      $name = serialize($variables);
-
-
-      $document->addStylesheet(\JURI::root() . 'media/jdbuilder/css/jdb-' . md5($name) . '.min.css', ['version' => $document->getMediaVersion()]);
+      $name = serialize(Builder::getSettings()->toString()) . JDB_MEDIA_VERSION;
 
       if (file_exists(JPATH_SITE . '/media/jdbuilder/css/jdb-' . md5($name) . '.min.css')) {
-         return;
+         goto css;
       }
 
       self::clearGlobalCSS();
@@ -399,36 +426,104 @@ class Helper
       $scss->setVariables($variables);
       $content = $scss->compile('@import "bootstrap.scss";');
       file_put_contents(JPATH_SITE . '/media/jdbuilder/css/jdb-' . md5($name) . '.min.css', $content);
+
+      css: $document->addStylesheet(\JURI::root() . 'media/jdbuilder/css/jdb-' . md5($name) . '.min.css', ['version' => self::getMediaVersion()]);
+   }
+
+   public static function renderGlobalTypography()
+   {
+      $params = Builder::getSettings();
+      foreach (['Text', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6'] as $type) {
+         if ($type === 'Text') {
+            $typeStyle = new ElementStyle('.jdbuilder');
+            $linkStyle = new ElementStyle('.jdbuilder a');
+            $linkHoverStyle = new ElementStyle('.jdbuilder a:hover');
+         } else {
+            $typeStyle = new ElementStyle('.jdbuilder ' . strtolower($type));
+            $linkStyle = new ElementStyle('.jdbuilder ' . strtolower($type) . ' a');
+            $linkHoverStyle = new ElementStyle('.jdbuilder '  . strtolower($type) . ' a:hover');
+         }
+
+         $color = $params->get('global' . $type . 'Color', '');
+         if ($color !== '') {
+            $typeStyle->addCss('color', $color);
+         }
+
+         $linkColor = $params->get('global' . $type . 'LinkColor', '');
+         if ($linkColor !== '') {
+            $linkStyle->addCss('color', $linkColor);
+         }
+
+         $linkHoverColor = $params->get('global' . $type . 'LinkHoverColor', '');
+         if ($linkHoverColor !== '') {
+            $linkHoverStyle->addCss('color', $linkHoverColor);
+         }
+
+         $typography = $params->get('global' . $type . 'Typography', null);
+         if (!empty($typography)) {
+            foreach (self::$devices as $deviceKey => $device) {
+               if (isset($typography->{$deviceKey}) && !empty($typography->{$deviceKey})) {
+                  $typeStyle->addStyle(self::typographyValue($typography->{$deviceKey}), $device);
+               }
+            }
+         }
+
+         $typeStyle->render();
+         $linkStyle->render();
+         $linkHoverStyle->render();
+      }
    }
 
    public static function getGlobalVariables()
    {
-      $pluginParams = self::getPluginParams();
+      $globalSettings = Builder::getSettings();
       $variables = [];
-      $variables['primary'] = $pluginParams->get('global_primary', '#007bff');
-      $variables['secondary'] = $pluginParams->get('global_secondary', '#6c757d');
-      $variables['success'] = $pluginParams->get('global_success', '#28a745');
-      $variables['info'] = $pluginParams->get('global_info', '#17a2b8');
-      $variables['warning'] = $pluginParams->get('global_warning', '#ffc107');
-      $variables['danger'] = $pluginParams->get('global_danger', '#dc3545');
 
-      //fontFamilyValue
-
-      $global_font = $pluginParams->get('global_font', '');
-
-      $fontfamily = [];
-
-      if (!empty($global_font)) {
-         $fontfamily[] = self::fontFamilyValue($global_font);
+      foreach (['primary', 'secondary', 'success', 'info', 'warning', 'danger'] as $color) {
+         $value = $globalSettings->get('global' . \ucfirst($color), '');
+         if (!empty($value)) {
+            $variables[$color] = $value;
+         }
       }
 
-      $global_alt_font = $pluginParams->get('global_alt_font', '');
-      if (!empty($global_alt_font)) {
-         $fontfamily[] = self::fontFamilyValue($global_alt_font);
+      $lightboxTextColor = $globalSettings->get('lightboxTextColor', '');
+      if (!empty($lightboxTextColor)) {
+         $variables['lightbox-text'] = $lightboxTextColor;
       }
 
-      if (!empty($fontfamily)) {
-         $variables['font-family-sans-serif'] = implode(", ", $fontfamily);
+      $lightboxBackgroundColor = $globalSettings->get('lightboxBackgroundColor', '');
+      if (!empty($lightboxBackgroundColor)) {
+         $variables['lightbox-background'] = $lightboxBackgroundColor;
+      }
+
+      $lightboxIconColor = $globalSettings->get('lightboxIconColor', '');
+      if (!empty($lightboxIconColor)) {
+         $variables['lightbox-icon-color'] = $lightboxIconColor;
+      }
+
+      $lightboxIconHoverColor = $globalSettings->get('lightboxIconHoverColor', '');
+      if (!empty($lightboxIconHoverColor)) {
+         $variables['lightbox-icon-hover-color'] = $lightboxIconHoverColor;
+      }
+
+      $lightboxFullscreen = $globalSettings->get('lightboxFullscreen', true);
+      $variables['lightbox-fullscreen-display'] = filter_var($lightboxFullscreen, FILTER_VALIDATE_BOOLEAN) ? 'flex' : 'none';
+
+      $lightboxCounter = $globalSettings->get('lightboxCounter', true);
+      $variables['lightbox-counter-display'] = filter_var($lightboxCounter, FILTER_VALIDATE_BOOLEAN) ? 'flex' : 'none';
+
+      $lightboxIconSize = $globalSettings->get('lightboxIconSize', null);
+      foreach (\JDPageBuilder\Helper::$devices as $deviceKey => $device) {
+         if (isset($lightboxIconSize->{$deviceKey}) && Helper::checkSliderValue($lightboxIconSize->{$deviceKey})) {
+            $variables['lightbox-icon-size-' . $deviceKey] = $lightboxIconSize->{$deviceKey}->value . 'px';
+         }
+      }
+
+      $lightboxNavigationIconSize = $globalSettings->get('lightboxNavigationIconSize', null);
+      foreach (\JDPageBuilder\Helper::$devices as $deviceKey => $device) {
+         if (isset($lightboxNavigationIconSize->{$deviceKey}) && Helper::checkSliderValue($lightboxNavigationIconSize->{$deviceKey})) {
+            $variables['lightbox-navigation-size-' . $deviceKey] = $lightboxNavigationIconSize->{$deviceKey}->value . 'px';
+         }
       }
       return $variables;
    }
@@ -465,6 +560,30 @@ class Helper
       return $return;
    }
 
+   public static function videoValue($value)
+   {
+      $params = new \JRegistry();
+      $type = substr($value, 0, 3);
+      switch ($type) {
+         case 'yt:':
+            $link = substr($value, 3);
+            return self::getYoutubeVideoByLink($params, $link, true, false, false, true);
+            break;
+         case 'vm:':
+            $link = substr($value, 3);
+            return self::getVimeoVideoByLink($params, $link, true, false, false, true);
+            break;
+         case 'lk:':
+            $link = substr($value, 3);
+            return self::getVideoByLink($params, $link, true, false, false, true);
+            break;
+         default:
+            $link = \JURI::root() . 'images/' . $value;
+            return self::getVideoByLink($params, $link, true, false, false, true);
+            break;
+      }
+   }
+
    public static function fontFamilyValue($value)
    {
       $type = substr($value, 0, 2);
@@ -473,8 +592,23 @@ class Helper
          case 'g~':
             $value = substr($value, 2);
             $font = explode(":", $value);
-            Builder::addStylesheet("https://fonts.googleapis.com/css?family=" . $font[0]);
-            $return = str_replace('+', ' ', $font[0]);
+            Builder::addStylesheet("https://fonts.googleapis.com/css?family=" . $font[0] . ':' . $font[1]);
+            $font = $font[0];
+            if (preg_match('~[0-9]+~', $font)) {
+               $font = "'{$font}'";
+            }
+            $return = str_replace('+', ' ', $font);
+            break;
+         case 'c~':
+            $value = substr($value, 2);
+            $customFonts = \json_decode(file_get_contents(JPATH_PLUGINS . '/system/jdbuilder/fonts/fonts.json'), true);
+            $value = $customFonts[$value];
+            $urls = [];
+            foreach ($value['files'] as $file) {
+               $urls[] = 'url(' . $file . ')';
+            }
+            Builder::addCustomStyle('@font-face {font-family: ' . $value['name'] . ';src: ' . implode(', ', $urls) . ';}');
+            $return = $value['name'];
             break;
          default:
             $return = substr($value, 2);
@@ -690,9 +824,40 @@ class Helper
       return $body;
    }
 
-   public static function renderHTML($html)
+   public static function renderHTML($html, $indexMode = false)
    {
       $html = self::joomlaVariables($html);
+      if (!$indexMode) {
+         $html = self::renderModules($html);
+      }
+      return $html;
+   }
+
+   public static function renderModules($html)
+   {
+      preg_match_all('#\[jmodule (.*?)\]#', $html, $matches);
+      foreach ($matches[1] as $index => $string) {
+         $shortcode = $matches[0][$index];
+
+         preg_match('#position=\"(.*?)\"#', $string, $positionMatch);
+         preg_match('#id=\"(.*?)\"#', $string, $idMatch);
+         // preg_match('#name=\"(.*?)\"#', $string, $nameMatch);
+         preg_match('#style=\"(.*?)\"#', $string, $styleMatch);
+
+         $style = 'none';
+         if (!empty($styleMatch)) {
+            $style = $styleMatch[1];
+         }
+
+         if (!empty($idMatch)) {
+            $html = str_replace($shortcode, Builder::renderModuleByID($idMatch[1], $style), $html);
+         } else if (!empty($positionMatch)) {
+            $html = str_replace($shortcode, Builder::renderModulePosition($positionMatch[1], $style), $html);
+         }
+         /* else if (!empty($nameMatch)) {
+            $html = str_replace($shortcode, self::loadModuleByName($nameMatch[1], $style), $html);
+         } */
+      }
       return $html;
    }
 
@@ -711,7 +876,7 @@ class Helper
    public static function getPageItemIdByLink($link)
    {
       $db = \JFactory::getDbo();
-      $query = "SELECT `id` FROM `#__menu` WHERE `link`='{$link}'";
+      $query = "SELECT `id` FROM `#__menu` WHERE `link`='{$link}' AND `published`=1";
       $db->setQuery($query);
       $result = $db->loadObject();
       if (empty($result)) {
@@ -731,7 +896,15 @@ class Helper
             if ($extension !== null && $pathinfo['extension'] == $extension) {
                $include_path = str_replace(JPATH_THEMES, '', $path);
                $component_name = str_replace('.min', '', $pathinfo['filename']);
-               $results[$component_name] = ['component_name' => $component_name, 'name' => $pathinfo['basename'], 'path' => $include_path, 'basepath' => $path];
+
+               $pdir = pathinfo($path)['dirname'];
+               $prefix = [];
+               while (basename($pdir) != 'partials') {
+                  $prefix[] = basename($pdir);
+                  $pdir = pathinfo($pdir)['dirname'];
+               }
+               $prefix[] = $component_name;
+               $results[implode('-', $prefix)] = ['component_name' => implode('-', $prefix), 'name' => $pathinfo['basename'], 'path' => $include_path, 'basepath' => $path];
             } elseif ($extension === null) {
                $include_path = str_replace(JPATH_THEMES, '', $path);
                $results[] = ['name' => $pathinfo['basename'], 'path' => $include_path];
@@ -744,7 +917,22 @@ class Helper
       return $results;
    }
 
-   public static function loadBuilderLanguage()
+   public static function getElementPartials($dir)
+   {
+      if (!file_exists($dir . '/tmpl/partials')) {
+         return '';
+      }
+      $element = basename($dir);
+      $partials = self::getDir($dir . '/tmpl/partials', 'html');
+
+      $return = '';
+      foreach ($partials as $partial) {
+         $return .= '<script type="x-tmpl-mustache" id="' . $element . '-' . $partial['component_name'] . '">' . trim(file_get_contents($partial['path'])) . '</script>';
+      }
+      return $return;
+   }
+
+   public static function loadBuilderLanguage($return = false)
    {
       $lang = \JFactory::getLanguage();
       $tag = $lang->getTag();
@@ -759,8 +947,13 @@ class Helper
          }
       }
 
-      $document = \JFactory::getDocument();
-      $document->addScriptDeclaration('_JDB.LANG = ' . \json_encode($strings) . ';');
+      $script = '_JDB.LANG = ' . \json_encode($strings) . ';';
+      if ($return) {
+         return $script;
+      } else {
+         $document = \JFactory::getDocument();
+         $document->addScriptDeclaration($script);
+      }
    }
 
    public static function parseIniFile($fileName, $debug = false)
@@ -831,7 +1024,11 @@ class Helper
       }
 
       // Build route.
-      $uri = self::$_router[$client]->build($url);
+      if (JDB_JOOMLA_VERSION == 3) {
+         $uri = self::$_router[$client]->build($url);
+      } else {
+         $uri = \JURI::getInstance(\JURI::root() . $url);
+      }
       $scheme = array('path', 'query', 'fragment');
 
       /*
@@ -866,5 +1063,1002 @@ class Helper
       }
 
       return $url;
+   }
+
+   public static function applyBackgroundValue($elementStyle, $params, $key = '')
+   {
+      if (empty($key)) {
+         return;
+      }
+      $background = $params->get($key . 'Type', 'none');
+      switch ($background) {
+         case "color":
+            $backgroundColor = $params->get($key . 'Color', '');
+            if ($backgroundColor != '') {
+               $elementStyle->addCss('background-color', $backgroundColor);
+            }
+            break;
+         case "image":
+            $backgroundColor = $params->get($key . 'Color', '');
+            if ($backgroundColor != '') {
+               $elementStyle->addCss('background-color', $backgroundColor);
+            }
+            $backgroundImage = $params->get($key . 'Image', '');
+            if ($backgroundImage != '') {
+               $elementStyle->addCss('background-image', 'url(' . Helper::mediaValue($backgroundImage) . ')');
+               $backgroundRepeat = $params->get($key . 'Repeat', '');
+               if ($backgroundRepeat != '') {
+                  $elementStyle->addCss('background-repeat', $backgroundRepeat);
+               }
+               $backgroundSize = $params->get($key . 'Size', '');
+               if ($backgroundSize != '') {
+                  $elementStyle->addCss('background-size', $backgroundSize);
+               }
+               $backgroundAttachment = $params->get($key . 'Attachment', '');
+               if ($backgroundAttachment != '') {
+                  $elementStyle->addCss('background-attachment', $backgroundAttachment);
+               }
+               $backgroundPosition = $params->get($key . 'Position', '');
+               if ($backgroundPosition != '') {
+                  $elementStyle->addCss('background-position', $backgroundPosition);
+               }
+            }
+            break;
+         case 'gradient':
+            $backgroundGradient = $params->get($key . 'Gradient', '');
+            if ($backgroundGradient != '') {
+               $elementStyle->addCss('background-image', $backgroundGradient);
+            }
+            break;
+      }
+   }
+
+   public static function applyBorderValue($elementStyle, $params, $key = '')
+   {
+      if (empty($key)) {
+         return;
+      }
+      $elementBorderStyle = $params->get($key . 'Style', '');
+      if (!empty($elementBorderStyle)) {
+         $elementStyle->addCss('border-style', $elementBorderStyle);
+         $elementBorderWidth = $params->get($key . 'Width', null);
+         if (!empty($elementBorderWidth) && $elementBorderStyle != 'none') {
+
+            foreach (\JDPageBuilder\Helper::$devices as $deviceKey => $device) {
+               if (isset($elementBorderWidth->{$deviceKey}) && !empty($elementBorderWidth->{$deviceKey})) {
+
+                  $css = \JDPageBuilder\Helper::spacingValue($elementBorderWidth->{$deviceKey}, "border");
+                  if (!empty($css)) {
+                     $elementStyle->addStyle($css, $device);
+                  }
+               }
+            }
+
+            $elementBorderColor = $params->get($key . 'Color', '');
+            if (!empty($elementBorderColor)) {
+               $elementStyle->addCss('border-color', $elementBorderColor);
+            }
+         }
+      }
+      $elementBorderRadius = $params->get($key . 'Radius', null);
+      if (!empty($elementBorderRadius)) {
+         foreach (\JDPageBuilder\Helper::$devices as $deviceKey => $device) {
+            if (isset($elementBorderRadius->{$deviceKey}) && !empty($elementBorderRadius->{$deviceKey})) {
+
+               $css = \JDPageBuilder\Helper::spacingValue($elementBorderRadius->{$deviceKey}, "radius");
+               if (!empty($css)) {
+                  $elementStyle->addStyle($css, $device);
+               }
+            }
+         }
+      }
+      $elementBoxShadow = $params->get($key . 'Shadow', '');
+      if (!empty($elementBoxShadow)) {
+         foreach (\JDPageBuilder\Helper::$devices as $deviceKey => $device) {
+            if (isset($elementBoxShadow->{$deviceKey}) && !empty($elementBoxShadow->{$deviceKey})) {
+               $elementStyle->addCss('box-shadow', $elementBoxShadow->{$deviceKey}, $device);
+            }
+         }
+      }
+   }
+
+   public static function firstWord($html)
+   {
+      $string = strip_tags($html);
+      return explode(" ", $string)[0];
+   }
+   public static function firstLetter($str)
+   {
+      return substr($str, 0, 1);
+   }
+
+   public static function customCSS($css, $parent, $device)
+   {
+      $parsed = self::parseCss($css);
+      foreach ($parsed as $selector => $rules) {
+         if ($selector === 'self' && $parent !== null) {
+            $parent->addStyle($rules, $device);
+         } else {
+            $child = new ElementStyle($selector);
+            if ($parent != null) {
+               $parent->addChildStyle($child);
+            }
+            $child->addStyle($rules, $device);
+            if ($parent == null) {
+               $child->render();
+            }
+         }
+      }
+   }
+
+   public static function parseCss($css)
+   {
+      if (empty($css) || !is_string($css)) {
+         return [];
+      }
+      $results = array();
+
+      $oCssParser = new Parser($css);
+      $oCssDocument = $oCssParser->parse();
+      foreach ($oCssDocument->getAllDeclarationBlocks() as $oBlock) {
+         $selectors = [];
+         foreach ($oBlock->getSelectors() as $oSelector) {
+            $selectors[] = $oSelector->getSelector();
+         }
+         $css = [];
+         foreach ($oBlock->getRulesAssoc() as $rule) {
+            $oFormat = OutputFormat::create()->indentWithSpaces(4)->setSpaceBetweenRules("\n");
+            $css[] = $rule->render($oFormat);
+         }
+         $results[implode(', ', $selectors)] = implode('', $css);
+      }
+      return $results;
+   }
+
+   public static function jdApiRequest($method, $hook, $data)
+   {
+      $method = strtoupper($method);
+      $url = "https://api.joomdev.com/api/" . $hook;
+      $client = new CurlHttpClient();
+      $dataType = $method == 'POST' ? 'body' : 'query';
+      $response = $client->request($method, $url, [
+         'verify_peer' => false,
+         'verify_host' => false,
+         'headers' => [
+            'Accept' => '*/*',
+            'Cache-Control' => 'no-cache',
+         ],
+         $dataType => $data
+      ]);
+      $respond = $response->getContent();
+      $output = \json_decode($respond, true);
+      if ($output['status'] == 'error') {
+         throw new \Exception($output['message'], $output['code']);
+      }
+
+      $return = ['data' => null, 'messages' => []];
+      if (is_object($output)) {
+         $output = (array) $output;
+      }
+      if (isset($output['data'])) {
+         $return['data'] = $output['data'];
+      }
+      if (isset($output['messages'])) {
+         $return['messages'] = $output['messages'];
+      }
+      return $return;
+   }
+
+   public static function chopString($string, $limit = 100)
+   {
+      $string = strip_tags($string);
+      $subtring = substr($string, 0, $limit);
+      if (\strlen($subtring) != \strlen($string)) {
+         $subtring .= '...';
+      }
+      return $subtring;
+   }
+
+   public static function renderMustacheTemplate($template, $data = [])
+   {
+      $m = new Mustache_Engine();
+      return $m->render($template, $data);
+   }
+
+   public static function renderMustacheTemplateByFile($file, $data = [])
+   {
+      if (!file_exists($file)) {
+         return '';
+      }
+      $m = new Mustache_Engine();
+      return $m->render(file_get_contents($file), $data);
+   }
+
+   public static function getElementByAjaxID($ajaxID)
+   {
+      $object = new \stdClass();
+      $object->id = null;
+      $object->type = '';
+      $object->params = new \JRegistry();
+      try {
+         @list($id, $type, $eid) = explode('$', $ajaxID);
+
+         if (empty($id) || empty($type) || empty($eid)) {
+            throw new \Exception('Element data not found.');
+         }
+
+         if (!in_array($type, ['page', 'article', 'module'])) {
+            throw new \Exception('Element data not found.');
+         }
+
+         $db = \JFactory::getDbo();
+         switch ($type) {
+            case 'page':
+               $query = "SELECT * FROM `#__jdbuilder_layouts` JOIN `#__jdbuilder_pages` ON `#__jdbuilder_pages`.`layout_id`=`#__jdbuilder_layouts`.`id` WHERE `#__jdbuilder_pages`.`id`='{$id}' AND `#__jdbuilder_layouts`.`layout` LIKE '%{$eid}%'";
+               break;
+            case 'article':
+               $db->setQuery("SELECT * FROM `#__content` WHERE `id`='{$id}'");
+               $article = $db->loadObject();
+               if (empty($article)) {
+                  throw new \Exception('Element data not found.');
+               }
+               $attribs = new \JRegistry();
+               $attribs->loadString($article->attribs);
+               $lid = $attribs->get('jdbuilder_layout_id', 0);
+               if (empty($lid)) {
+                  throw new \Exception('Element data not found.');
+               }
+               $query = "SELECT * FROM `#__jdbuilder_layouts` WHERE `id`='{$lid}' AND `layout` LIKE '%{$eid}%'";
+               break;
+            case 'module':
+               $db->setQuery("SELECT * FROM `#__modules` WHERE `module`='mod_jdbuilder' AND `id`='{$id}'");
+               $module = $db->loadObject();
+               if (empty($module)) {
+                  throw new \Exception('Element data not found.');
+               }
+               $attribs = new \JRegistry();
+               $attribs->loadString($module->params);
+               $lid = $attribs->get('jdbuilder_layout', 0);
+               if (empty($lid)) {
+                  throw new \Exception('Element data not found.');
+               }
+               $query = "SELECT * FROM `#__jdbuilder_layouts` WHERE `id`='{$lid}' AND `layout` LIKE '%{$eid}%'";
+               break;
+         }
+         $db->setQuery($query);
+         $result = $db->loadObject();
+
+         if (empty($result)) {
+            throw new \Exception('Element data not found.');
+         }
+
+         $layout = new Layout($result);
+         foreach ($layout->sections as $section) {
+            foreach ($section->rows as $row) {
+               foreach ($row->columns as $column) {
+                  foreach ($column->elements as $element) {
+                     if ($element->id === $eid) {
+                        $object->params = $element->params;
+                        $object->type = $element->type;
+                        $object->id = $element->id;
+                        break 4;
+                     }
+                     if ($element->type == 'inner-row') {
+                        foreach ($element->columns as $icolumn) {
+                           foreach ($icolumn->elements as $ielement) {
+                              if ($ielement->id === $eid) {
+                                 $object->params = $ielement->params;
+                                 $object->type = $ielement->type;
+                                 $object->id = $ielement->id;
+                                 break 6;
+                              }
+                           }
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      } catch (\Exception $e) {
+      }
+      return $object;
+   }
+
+   public static function sendMail($from = '', $to = [], $subject = '', $body = '', $attachments = [], $fromName = '', $replyTo = '', $cc = [], $bcc = [], $html = true)
+   {
+      $mailer = \JFactory::getMailer();
+      $config = \JFactory::getConfig();
+
+      $sender = [];
+      $sender[] = !empty($from) ? $from : $config->get('mailfrom');
+      $sender[] = !empty($fromName) ? $fromName : $config->get('fromname');
+      $mailer->setSender($sender);
+
+      $user = \JFactory::getUser();
+      $recipient = !empty($to) ? $to : $user->email;
+      $mailer->addRecipient($recipient);
+
+      if (!empty($replyTo)) {
+         $mailer->addReplyTo($replyTo);
+      }
+
+      if (!empty($cc)) {
+         $mailer->addCc($cc);
+      }
+
+      if (!empty($bcc)) {
+         $mailer->addBcc($bcc);
+      }
+
+      $mailer->setSubject($subject);
+      if ($html) {
+         $mailer->isHtml(true);
+         $mailer->Encoding = 'base64';
+      }
+      $mailer->setBody($body);
+
+      foreach ($attachments as $attachment) {
+         $mailer->addAttachment($attachment);
+      }
+
+      $send = $mailer->Send();
+      self::log('mail', \json_encode($mailer));
+      if ($send !== true) {
+         return false;
+      } else {
+         return true;
+      }
+   }
+
+   public static function renderButtonValue($key, $element, $text = '', $classes = [], $type = "link", $link = '#', $targetBlank = false, $nofollow = false)
+   {
+      $params = $element->params;
+      $html = [];
+      $size = $params->get($key . 'Size', '');
+      $animation = $params->get($key . 'Animation', '');
+
+      $class = [];
+      $class[] = 'jdb-button';
+      $class[] = 'jdb-button-' . $params->get($key . 'Type', 'primary');
+      if (!empty($size)) {
+         $class[] = 'jdb-button-' . $size;
+      }
+      $class[] = 'jdb-button-' . $key;
+      foreach ($classes as $c) {
+         if (!empty($c)) {
+            $class[] = str_replace('*', $key, $c);
+         }
+      }
+
+      $iconHTML = '';
+      $buttonIcon = $params->get($key . 'Icon', '');
+      $iconPosition = $params->get($key . 'IconPosition', 'right');
+      if (!empty($buttonIcon)) {
+         $iconAnimation = $params->get($key . 'IconAnimation', '');
+         if (!empty($iconAnimation)) {
+            $class[] = 'jdb-hover-' . $iconAnimation;
+         }
+         \JDPageBuilder\Builder::loadFontLibraryByIcon($buttonIcon);
+         $iconHTML = '<span class="jdb-button-icon jdb-hover-icon ' . $buttonIcon . ' jdb-button-icon-' . $iconPosition . '"></span>';
+      }
+
+      $html[] = '<div class="jdb-button-container jdb-button-container-' . $key . '">';
+      $html[] = '<div class="jdb-button-wrapper">';
+      $html[] = '<div class="' . implode(' ', $class) . '">';
+      if ($type == 'link') {
+         $html[] = '<a title="' . $text . '" href="' . $link . '" class="jdb-button-link' . (!empty($animation) ? ' jdb-hover-' . $animation : '') . '"' . ($targetBlank ? ' target="_blank"' : '') . ($nofollow ? ' rel="nofollow"' : '') . '>';
+      } else {
+         $html[] = '<button type="' . $type . '" title="' . $text . '" class="jdb-button-link' . (!empty($animation) ? ' jdb-hover-' . $animation : '') . '">';
+      }
+
+      if ($iconPosition == 'left') {
+         $html[] = $iconHTML;
+      }
+      $html[] = $text;
+      if ($iconPosition == 'right') {
+         $html[] = $iconHTML;
+      }
+
+      if ($type == 'link') {
+         $html[] = '</a>';
+      } else {
+         $html[] = '</button>';
+      }
+      $html[] = '</div>';
+      $html[] = '</div>';
+      $html[] = '</div>';
+      self::applyButtonValue($key, $element);
+      return implode('', $html);
+   }
+
+   public static function applyButtonValue($btnKey, $element)
+   {
+      $buttonWrapperStyle = new ElementStyle(".jdb-button-container-" . $btnKey . " .jdb-button-wrapper");
+      $buttonStyle = new ElementStyle(".jdb-button-" . $btnKey . " >  .jdb-button-link");
+      $buttonHoverStyle = new ElementStyle(".jdb-button-" . $btnKey . " >  .jdb-button-link:hover");
+
+      $element->addChildrenStyle([$buttonWrapperStyle, $buttonStyle, $buttonHoverStyle]);
+
+      // button alignment
+      $alignment = $element->params->get($btnKey . 'Alignment', null);
+      if (!empty($alignment)) {
+         foreach (self::$devices as $deviceKey => $device) {
+            if (isset($alignment->{$deviceKey}) && !empty($alignment->{$deviceKey})) {
+               $align = $alignment->{$deviceKey};
+               if ($align != 'block') {
+                  $buttonWrapperStyle->addCss('flex', '0 0 auto', $device);
+                  $buttonWrapperStyle->addCss('-ms-flex', '0 0 auto', $device);
+                  $buttonWrapperStyle->addCss('width', 'auto', $device);
+                  if ($align == 'center') {
+                     $buttonWrapperStyle->addCss('margin-right', 'auto', $device);
+                     $buttonWrapperStyle->addCss('margin-left', 'auto', $device);
+                  } else if ($align == 'right') {
+                     $buttonWrapperStyle->addCss('margin-right', 'initial', $device);
+                     $buttonWrapperStyle->addCss('margin-left', 'auto', $device);
+                  } else {
+                     $buttonWrapperStyle->addCss('margin-right', 'auto', $device);
+                     $buttonWrapperStyle->addCss('margin-left', 'initial', $device);
+                  }
+               } else {
+                  $buttonWrapperStyle->addCss('flex', '0 0 100%', $device);
+                  $buttonWrapperStyle->addCss('-ms-flex', '0 0 100%', $device);
+                  $buttonWrapperStyle->addCss('width', '100%', $device);
+                  $buttonWrapperStyle->addCss('margin-right', 'initial', $device);
+                  $buttonWrapperStyle->addCss('margin-left', 'initial', $device);
+               }
+            }
+         }
+      }
+
+      // Background
+      $buttonStyle->addCss("background-color", $element->params->get($btnKey . 'Background', ''));
+      $buttonHoverStyle->addCss("background-color", $element->params->get($btnKey . 'BackgroundHover', ''));
+
+      // Text Color
+      $buttonStyle->addCss("color", $element->params->get($btnKey . 'Foreground', ''));
+      $buttonHoverStyle->addCss("color", $element->params->get($btnKey . 'ForegroundHover', ''));
+
+
+      // Border Color
+      $buttonStyle->addCss("border-color", $element->params->get($btnKey . 'BorderColor', ''));
+      $buttonHoverStyle->addCss("border-color", $element->params->get($btnKey . 'BorderColorHover', ''));
+
+      // Gradient
+      $buttonStyle->addCss("background-image", $element->params->get($btnKey . 'Gradient', ''));
+      $buttonHoverStyle->addCss("background-image", $element->params->get($btnKey . 'GradientHover', ''));
+      if (!empty($element->params->get($btnKey . 'Gradient', '')) && empty($element->params->get($btnKey . 'GradientHover', ''))) {
+         $buttonHoverStyle->addCss("background-image", 'none');
+      }
+
+      // Typography
+      $typography = $element->params->get($btnKey . 'Typography', null);
+      if (!empty($typography)) {
+         foreach (self::$devices as $deviceKey => $device) {
+            if (isset($typography->{$deviceKey}) && !empty($typography->{$deviceKey})) {
+               $buttonStyle->addStyle(self::typographyValue($typography->{$deviceKey}), $device);
+            }
+         }
+      }
+
+      // Padding
+      $padding = $element->params->get($btnKey . 'Padding', null);
+      if (!empty($padding)) {
+         foreach (self::$devices as $deviceKey => $device) {
+            if (isset($padding->{$deviceKey}) && !empty($padding->{$deviceKey})) {
+               $buttonStyle->addStyle(self::spacingValue($padding->{$deviceKey}, "padding"), $device);
+            }
+         }
+      }
+
+      // Border
+      $borderType = $element->params->get($btnKey . 'BorderStyle', 'solid');
+      $buttonStyle->addCss("border-style", $borderType);
+      if ($borderType != 'none') {
+         $borderWidth = $element->params->get($btnKey . 'BorderWidth', null);
+         if ($borderWidth != null) {
+            foreach (self::$devices as $deviceKey => $device) {
+               if (isset($borderWidth->{$deviceKey}) && !empty($borderWidth->{$deviceKey})) {
+                  $css = self::spacingValue($borderWidth->{$deviceKey}, "border");
+                  $buttonStyle->addStyle($css, $device);
+               }
+            }
+         }
+      }
+
+      // Radius
+      $borderRadius = $element->params->get($btnKey . 'BorderRadius', null);
+      if (!empty($borderRadius)) {
+         foreach (self::$devices as $deviceKey => $device) {
+            if (isset($borderRadius->{$deviceKey}) && !empty($borderRadius->{$deviceKey})) {
+               $css = self::spacingValue($borderRadius->{$deviceKey}, "radius");
+               $buttonStyle->addStyle($css, $device);
+            }
+         }
+      }
+
+      // shadow
+      $buttonStyle->addCss("box-shadow", $element->params->get($btnKey . 'BoxShadow', ''));
+
+      // Icon
+      $buttonIcon = $element->params->get($btnKey . 'Icon', '');
+      $iconPosition = $element->params->get($btnKey . 'IconPosition', 'right');
+      if (!empty($buttonIcon)) {
+         $iconStyle = new ElementStyle(".jdb-button-" . $btnKey . " >  .jdb-button-link > .jdb-button-icon");
+         $element->addChildStyle($iconStyle);
+         $iconColor = $element->params->get($btnKey . 'IconColor', '');
+         $iconStyle->addCss("color", $iconColor);
+         $iconSpacing = $element->params->get($btnKey . 'IconSpacing', null);
+         if (self::checkSliderValue($iconSpacing)) {
+            if ($iconPosition == "right") {
+               $iconStyle->addCss("margin-left", $iconSpacing->value . "px");
+            } else {
+               $iconStyle->addCss("margin-right", $iconSpacing->value . "px");
+            }
+         }
+      }
+   }
+
+   public static function getMenuLinkByItemId($itemId)
+   {
+      if (empty($itemId)) {
+         return '';
+      }
+
+      $app = \JFactory::getApplication();
+      $menu = $app->getMenu();
+      $menu_item = $menu->getItem($itemId);
+      if ($menu_item->type == 'url') {
+         return $menu_item->link;
+      }
+      return \JRoute::_('index.php?Itemid=' . $itemId);
+   }
+
+   public static function refreshObjectID(&$object, $type = '', $layoutID = 0, $sectionIndex = null, $rowIndex = null, $columnIndex = null, $elementIndex = null)
+   {
+
+      $object['params'] = self::fixResonsiveFields($object['params']);
+
+      if (!isset($object['id']) || $object['id'] == null || $object['id'] === 0) {
+         if ($object['type'] === 'inner-row') {
+            $type = 'inner-row';
+         }
+         switch ($type) {
+            case 'section':
+               $object['id'] = self::generateID($type, $layoutID, $sectionIndex);
+               break;
+            case 'row':
+               $object['id'] = self::generateID($type, $layoutID, $sectionIndex, $rowIndex);
+               break;
+            case 'inner-row':
+               $object['id'] = self::generateID($type, $layoutID, $sectionIndex, $rowIndex, $columnIndex, $elementIndex);
+               break;
+            case 'inner-column':
+               $object['id'] = self::generateID($type, $layoutID, $sectionIndex, $rowIndex, $columnIndex, $elementIndex);
+               break;
+            case 'column':
+               $object['id'] = self::generateID($type, $layoutID, $sectionIndex, $rowIndex, $columnIndex);
+               break;
+            case 'element':
+               $object['id'] = self::generateID($type, $layoutID, $sectionIndex, $rowIndex, $columnIndex, $elementIndex);
+               break;
+         }
+      }
+      switch ($type) {
+         case 'layout':
+            foreach ($object['sections'] as $sIndex => &$section) {
+               self::refreshID($section, 'section', $layoutID, $sIndex);
+            }
+            break;
+         case 'section':
+            foreach ($object['rows'] as $rIndex => &$row) {
+               self::refreshID($row, 'row', $layoutID, $sectionIndex, $rIndex);
+            }
+            break;
+         case 'row':
+            foreach ($object['cols'] as $cIndex => &$col) {
+               self::refreshID($col, 'column', $layoutID, $sectionIndex, $rowIndex, $cIndex);
+            }
+            break;
+         case 'inner-row':
+            foreach ($object['cols'] as $icIndex => &$col) {
+               self::refreshID($col, 'inner-column', $layoutID, $sectionIndex, $rowIndex, $columnIndex, $icIndex);
+            }
+            break;
+         case 'inner-column':
+            $innerColumnIndex = $elementIndex;
+            foreach ($object['elements'] as $eIndex => &$element) {
+               self::refreshID($element, 'element', $sectionIndex, $rowIndex, $columnIndex, $innerColumnIndex, $eIndex);
+            }
+            break;
+         case 'column':
+            foreach ($object['elements'] as $eIndex => &$element) {
+               self::refreshID($element, 'element', $layoutID, $sectionIndex, $rowIndex, $columnIndex, $eIndex);
+            }
+            break;
+      }
+      return $object;
+   }
+
+   public static function fixResonsiveFields($params)
+   {
+      foreach ($params as $prop => $value) {
+         if ($value !== null && is_array($value)) {
+            if (isset($value['md'])) {
+               if (isset($value['sm']) && is_array($value['sm']) && isset($value['sm']['md'])) {
+                  $value['sm'] = $value['sm']['md'];
+               }
+
+               if (isset($value['xs']) && is_array($value['xs']) && isset($value['xs']['md'])) {
+                  $value['xs'] = $value['xs']['md'];
+               }
+            }
+         }
+      }
+      return $params;
+   }
+
+   public static function generateID($type = null, $layoutID = 0, $sectionIndex = null, $rowIndex = null, $columnIndex = null, $elementIndex = null)
+   {
+      $id = [];
+      if ($type !== null) {
+         $id[] = 'jd';
+         if ($type == 'inner-row' || $type == 'inner-column') {
+            if ($type == 'inner-row') {
+               $id[] = 'ir-';
+            } else {
+               $id[] = 'ic-';
+            }
+         } else {
+            $id[] = substr($type, 0, 1) . '-';
+         }
+         $id[] = self::random(2, 2);
+      }
+
+      if ($layoutID !== null) {
+         if (!is_numeric($layoutID)) {
+            $layoutIDSplit = explode('-', $layoutID);
+            if (count($layoutIDSplit) > 1) {
+               $id[] = $layoutIDSplit[1];
+            } else {
+               $id[] = $layoutID;
+            }
+         } else {
+            $id[] = $layoutID;
+         }
+      }
+
+      if ($sectionIndex !== null) {
+         $id[] = $sectionIndex;
+      }
+
+      if ($rowIndex !== null) {
+         $id[] = $rowIndex;
+      }
+
+      if ($columnIndex !== null) {
+         $id[] = $columnIndex;
+      }
+
+      if ($elementIndex !== null) {
+         $id[] = $elementIndex;
+      }
+
+      $id[] = substr(time(), 3);
+      $id[] = self::random(3, 2);
+      return implode('', $id);
+   }
+
+   public static function refreshID(&$object, $type = null, $layoutID = 0, $sectionIndex = null, $rowIndex = null, $columnIndex = null, $elementIndex = null)
+   {
+      $object['params'] = self::fixResonsiveFields($object['params']);
+
+      if (!isset($object['id']) || $object['id'] == null || $object['id'] === 0) {
+         if ($object['type'] === 'inner-row') {
+            $type = 'inner-row';
+         }
+         switch ($type) {
+            case 'section':
+               $object['id'] = self::generateID($type, $layoutID, $sectionIndex);
+               break;
+            case 'row':
+               $object['id'] = self::generateID($type, $layoutID, $sectionIndex, $rowIndex);
+               break;
+            case 'inner-row':
+               $object['id'] = self::generateID($type, $layoutID, $sectionIndex, $rowIndex, $columnIndex, $elementIndex);
+               break;
+            case 'inner-column':
+               $object['id'] = self::generateID($type, $layoutID, $sectionIndex, $rowIndex, $columnIndex, $elementIndex);
+               break;
+            case 'column':
+               $object['id'] = self::generateID($type, $layoutID, $sectionIndex, $rowIndex, $columnIndex);
+               break;
+            case 'element':
+               $object['id'] = self::generateID($type, $layoutID, $sectionIndex, $rowIndex, $columnIndex, $elementIndex);
+               break;
+         }
+      }
+      switch ($type) {
+         case 'layout':
+            foreach ($object['sections'] as $sIndex => &$section) {
+               self::refreshID($section, 'section', $layoutID, $sIndex);
+            };
+            break;
+         case 'section':
+            foreach ($object['rows'] as $rIndex => &$row) {
+               self::refreshID($row, 'row', $layoutID, $sectionIndex, $rIndex);
+            }
+            break;
+         case 'row':
+            foreach ($object['cols'] as $cIndex => &$col) {
+               self::refreshID($col, 'column', $layoutID, $sectionIndex, $rowIndex, $cIndex);
+            };
+            break;
+         case 'inner-row':
+            foreach ($object['cols'] as $icIndex => &$col) {
+               self::refreshID($col, 'inner-column', $layoutID, $sectionIndex, $rowIndex, $columnIndex, $icIndex);
+            };
+            break;
+         case 'inner-column':
+            $innerColumnIndex = $elementIndex;
+            foreach ($object['elements'] as $eIndex => &$element) {
+               self::refreshID($element, 'element', $sectionIndex, $rowIndex, $columnIndex, $innerColumnIndex, $eIndex);
+            };
+            break;
+         case 'column':
+            foreach ($object['elements'] as $eIndex => &$element) {
+               self::refreshID($element, 'element', $layoutID, $sectionIndex, $rowIndex, $columnIndex, $eIndex);
+            };
+            break;
+      }
+      return $object;
+   }
+
+   public static function random($start, $length)
+   {
+      return substr(base_convert(rand(), 10, 36), $start, $length);
+   }
+
+   public static function removeID(&$object)
+   {
+      if (isset($object['id'])) {
+         unset($object['id']);
+      }
+      switch ($object['type']) {
+         case 'layout':
+            foreach ($object['sections'] as &$section) {
+               self::removeID($section);
+            }
+            break;
+         case 'section':
+            foreach ($object['rows'] as &$row) {
+               self::removeID($row);
+            }
+            break;
+         case 'row':
+            foreach ($object['cols'] as &$col) {
+               self::removeID($col);
+            }
+            break;
+         case 'column':
+            foreach ($object['elements'] as &$element) {
+               self::removeID($element);
+            };
+            break;
+         case 'inner-row':
+            foreach ($object['cols'] as &$col) {
+               self::removeID($col);
+            };
+            break;
+      }
+   }
+
+   public static function getSmartTags()
+   {
+      $smartTags = Constants::SMART_TAGS;
+      $return = [];
+      foreach ($smartTags as $group_title => $group) {
+         $_group = ['title' => $group_title, 'items' => []];
+         foreach ($group as $subgroup_title => $items) {
+            $_subgroup = ['title' => $subgroup_title, 'items' => []];
+            foreach ($items as $item_title => $item_tag) {
+               $_subgroup['items'][] = ['title' => $item_title, 'tag' => $item_tag];
+            }
+            $_group['items'][] = $_subgroup;
+         }
+         $return[] = $_group;
+      }
+      return $return;
+   }
+
+   public static function getClientIp()
+   {
+      $ipaddress = '';
+      if (getenv('HTTP_CLIENT_IP'))
+         $ipaddress = getenv('HTTP_CLIENT_IP');
+      else if (getenv('HTTP_X_FORWARDED_FOR'))
+         $ipaddress = getenv('HTTP_X_FORWARDED_FOR');
+      else if (getenv('HTTP_X_FORWARDED'))
+         $ipaddress = getenv('HTTP_X_FORWARDED');
+      else if (getenv('HTTP_FORWARDED_FOR'))
+         $ipaddress = getenv('HTTP_FORWARDED_FOR');
+      else if (getenv('HTTP_FORWARDED'))
+         $ipaddress = getenv('HTTP_FORWARDED');
+      else if (getenv('REMOTE_ADDR'))
+         $ipaddress = getenv('REMOTE_ADDR');
+      else
+         $ipaddress = 'UNKNOWN';
+      return $ipaddress;
+   }
+
+   public static function uploadFile($name, $src, $size, $allowedExtensions = [], $maxFileSize = 0)
+   {
+      jimport('joomla.filesystem.file');
+      jimport('joomla.application.component.helper');
+
+      $fullFileName = \JFile::stripExt($name);
+      $filetype = \JFile::getExt($name);
+      $filename = \JFile::makeSafe($fullFileName . "_" . mt_rand(10000000, 99999999) . "." . $filetype);
+
+      $params = \JComponentHelper::getParams('com_media');
+      $allowable = array_map('trim', explode(',', $params->get('upload_extensions')));
+
+      if (!empty($allowedExtensions)) {
+         $allowable = $allowedExtensions;
+      }
+
+      if (!empty($maxFileSize) && is_numeric($maxFileSize)) {
+         $maxFileSize = $maxFileSize * 1000 * 1000; // MB to Bytes
+         if ($size > $maxFileSize) {
+            throw new \Exception(\JText::sprintf('JDB_ERROR_LARGE_FILE_SIZE', self::formatSizeUnits($maxFileSize)));
+         }
+      }
+
+      if ($filetype == '' || $filetype == false || (!in_array($filetype, $allowable))) {
+         throw new \Exception(\JText::sprintf('JDB_ERROR_INVALID_EXTENSION', implode(', ', $allowable)));
+      } else {
+         $tmppath = JPATH_SITE . '/tmp';
+         if (!file_exists($tmppath . '/_jdbuploads')) {
+            mkdir($tmppath . '/_jdbuploads', 0777);
+         }
+         $folder = md5(time() . '-' . $filename . rand(0, 99999));
+         if (!file_exists($tmppath . '/_jdbuploads/' . $folder)) {
+            mkdir($tmppath . '/_jdbuploads/' . $folder, 0777);
+         }
+         $dest = $tmppath . '/_jdbuploads/' . $folder . '/' . $filename;
+
+         $return = null;
+         if (\JFile::upload($src, $dest)) {
+            $return = $dest;
+         }
+         return $return;
+      }
+   }
+
+   public static function curlRequest($url = '', $method = '', $data = [], $contentType = 'text/json')
+   {
+      $dataType = $method == 'POST' ? 'body' : 'query';
+      $contentType = $method == 'POST' ? 'application/x-www-form-urlencoded' : $contentType;
+
+      $client = new CurlHttpClient();
+      $response = $client->request($method, $url, [
+         'verify_peer' => false,
+         'verify_host' => false,
+         'headers' => [
+            'Content-Type' => $contentType,
+            'User-Agent' => 'JD Builder',
+         ],
+         $dataType => $data
+      ]);
+      return $response->getContent();
+   }
+
+   public static function icon($icon = '', $extra = [])
+   {
+      return '<span class="' . $icon . (empty($extra) ? '' : ' ' . implode(' ', $extra)) . '"></span>';
+   }
+
+   public static function formatSizeUnits($bytes)
+   {
+      if ($bytes >= 1000000000) {
+         $bytes = number_format($bytes / 1000000000, 2) . ' GB';
+      } elseif ($bytes >= 1000000) {
+         $bytes = number_format($bytes / 1000000, 2) . ' MB';
+      } elseif ($bytes >= 1000) {
+         $bytes = number_format($bytes / 1000, 2) . ' KB';
+      } elseif ($bytes > 1) {
+         $bytes = $bytes . ' bytes';
+      } elseif ($bytes == 1) {
+         $bytes = $bytes . ' byte';
+      } else {
+         $bytes = '0 bytes';
+      }
+      return $bytes;
+   }
+
+   public static function emailExplode($string)
+   {
+      return preg_split("/(,|;)/", $string);
+   }
+
+   public static function str_lreplace($search, $replace, $subject)
+   {
+      $pos = strrpos($subject, $search);
+
+      if ($pos !== false) {
+         $subject = substr_replace($subject, $replace, $pos, strlen($search));
+      }
+
+      return $subject;
+   }
+
+   public static function globalSettings()
+   {
+      $db = \JFactory::getDbo();
+      $query = "SELECT * FROM `#__jdbuilder_configs` WHERE `type`='global'";
+      $db->setQuery($query);
+      $result = $db->loadObject();
+
+      if (empty($result)) {
+         $globalConfig = '{}';
+      } else {
+         $globalConfig = $result->config;
+      }
+      $params = new \JRegistry();
+      $params->loadString($globalConfig);
+      return $params;
+   }
+
+   public static function animationsList()
+   {
+      $allAnimations = Constants::ANIMATIONS;
+      $options = [];
+      foreach ($allAnimations as $animationGroup => $animations) {
+         $group = [];
+         $group['label'] = \JText::_($animationGroup);
+         $group['options'] = [];
+         foreach ($animations as $value => $animation) {
+            $item = [];
+            $item['label'] = \JText::_($animation);
+            $item['value'] = $value;
+            $group['options'][] = $item;
+         }
+         $options[] = $group;
+      }
+      return ['options' => [['label' => \JText::_('JDB_NONE'), 'value' => '']], 'groups' => $options];
+   }
+
+   public static function getLightboxContent($source, $title, $caption, $altText)
+   {
+      $key = 'lightbox' . ucfirst($source) . 'Source';
+      $settings = Builder::getSettings();
+      $contentSource = $settings->get($key);
+      switch ($contentSource) {
+         case 'title':
+            return empty($title) ? '' : $title;
+         case 'caption':
+            return empty($caption) ? '' : $caption;
+         case 'alt':
+            return empty($altText) ? '' : $altText;
+      }
+   }
+
+   public static function linkValue($text, $params, $class = [], $attributes = [])
+   {
+      $link = $params->get('link', '');
+      if ($link === '') {
+         return $text;
+      }
+      $linkTargetBlank = $params->get('linkTargetBlank', false);
+      $linkTarget = $linkTargetBlank ? ' target="_blank"' : "";
+
+      $linkNoFollow = $params->get('linkNoFollow', false);
+      $linkRel = $linkNoFollow ? ' rel="nofollow"' : "";
+
+      return '<a href="' . $link . '" title="' . $text . '"' . $linkTarget . $linkRel . '>' . $text . '</a>';
+   }
+
+   public static function getXml($url)
+   {
+      return simplexml_load_file($url, 'SimpleXMLElement');
    }
 }

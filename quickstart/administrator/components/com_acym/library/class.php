@@ -1,16 +1,8 @@
 <?php
-/**
- * @package	AcyMailing for Joomla
- * @version	6.2.2
- * @author	acyba.com
- * @copyright	(C) 2009-2019 ACYBA S.A.R.L. All rights reserved.
- * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
- */
-
 defined('_JEXEC') or die('Restricted access');
 ?><?php
 
-class acymClass
+class acymClass extends acymObject
 {
     var $table = '';
 
@@ -20,24 +12,61 @@ class acymClass
 
     var $errors = [];
 
-    public function __construct()
+    var $messages = [];
+
+    public function getMatchingElements($settings = [])
     {
-        global $acymCmsUserVars;
-        $this->cmsUserVars = $acymCmsUserVars;
+        if (!empty($this->table) && !empty($this->pkey)) {
+            $query = 'SELECT * FROM #__acym_'.acym_secureDBColumn($this->table);
+            $queryCount = 'SELECT COUNT(*) FROM #__acym_'.acym_secureDBColumn($this->table);
+
+            if (empty($settings['ordering'])) $settings['ordering'] = $this->pkey;
+            $query .= ' ORDER BY `'.acym_secureDBColumn($settings['ordering']).'`';
+            if (!empty($settings['ordering_sort_order'])) $query .= ' '.acym_secureDBColumn(strtoupper($settings['ordering_sort_order']));
+
+            $elements = acym_loadObjectList($query);
+            $total = acym_loadResult($queryCount);
+        } else {
+            $elements = [];
+            $total = '0';
+        }
+
+        return [
+            'elements' => $elements,
+            'total' => $total,
+        ];
     }
 
-    function save($element)
+    public function getOneById($id)
     {
-        foreach ($element as $column => $value) {
+        return acym_loadObject('SELECT * FROM #__acym_'.acym_secureDBColumn($this->table).' WHERE `'.acym_secureDBColumn($this->pkey).'` = '.intval($id));
+    }
+
+    public function getAll($key = null)
+    {
+        if (empty($key)) $key = $this->pkey;
+
+        return acym_loadObjectList('SELECT * FROM #__acym_'.acym_secureDBColumn($this->table), $key);
+    }
+
+    public function save($element)
+    {
+        $tableColumns = acym_getColumns($this->table);
+        $cloneElement = clone $element;
+        foreach ($cloneElement as $column => $value) {
+            if (!in_array($column, $tableColumns)) {
+                unset($cloneElement->$column);
+                continue;
+            }
             acym_secureDBColumn($column);
         }
 
         $pkey = $this->pkey;
 
-        if (empty($element->$pkey)) {
-            $status = acym_insertObject('#__acym_'.$this->table, $element);
+        if (empty($cloneElement->$pkey)) {
+            $status = acym_insertObject('#__acym_'.$this->table, $cloneElement);
         } else {
-            $status = acym_updateObject('#__acym_'.$this->table, $element, $pkey);
+            $status = acym_updateObject('#__acym_'.$this->table, $cloneElement, $pkey);
         }
 
         if (!$status) {
@@ -50,37 +79,35 @@ class acymClass
             return false;
         }
 
-        return empty($element->$pkey) ? $status : $element->$pkey;
+        return empty($cloneElement->$pkey) ? $status : $cloneElement->$pkey;
     }
 
-    function delete($elements)
+    public function delete($elements)
     {
-        if (!is_array($elements)) {
-            $elements = [$elements];
-        }
-
-        if (empty($elements)) {
-            return 0;
-        }
+        if (!is_array($elements)) $elements = [$elements];
+        if (empty($elements)) return 0;
 
         $column = is_numeric(reset($elements)) ? $this->pkey : $this->namekey;
 
+        $escapedElements = [];
         foreach ($elements as $key => $val) {
-            $elements[$key] = acym_escapeDB($val);
+            $escapedElements[$key] = acym_escapeDB($val);
         }
 
-        if (empty($column) || empty($this->pkey) || empty($this->table) || empty($elements)) {
+        if (empty($column) || empty($this->pkey) || empty($this->table) || empty($escapedElements)) {
             return false;
         }
 
-        $query = 'DELETE FROM #__acym_'.$this->table.' WHERE '.acym_secureDBColumn($column).' IN ('.implode(',', $elements).')';
+        acym_trigger('onAcymBefore'.ucfirst($this->table).'Delete', [&$elements]);
+
+        $query = 'DELETE FROM #__acym_'.acym_secureDBColumn($this->table).' WHERE '.acym_secureDBColumn($column).' IN ('.implode(',', $escapedElements).')';
         $result = acym_query($query);
 
         if (!$result) {
             return false;
         }
 
-        acym_trigger('onAcymAfter'.$this->table.'Delete', [&$elements]);
+        acym_trigger('onAcymAfter'.ucfirst($this->table).'Delete', [&$elements]);
 
         return $result;
     }
@@ -96,7 +123,7 @@ class acymClass
         }
 
         acym_arrayToInteger($elements);
-        acym_query('UPDATE '.acym_secureDBColumn('#__acym_'.$this->table).' SET active = 1 WHERE id IN ('.implode(',', $elements).')');
+        acym_query('UPDATE '.acym_secureDBColumn('#__acym_'.$this->table).' SET active = 1 WHERE `'.acym_secureDBColumn($this->pkey).'` IN ('.implode(',', $elements).')');
     }
 
     public function setInactive($elements)
@@ -110,7 +137,7 @@ class acymClass
         }
 
         acym_arrayToInteger($elements);
-        acym_query('UPDATE '.acym_secureDBColumn('#__acym_'.$this->table).' SET active = 0 WHERE id IN ('.implode(',', $elements).')');
+        acym_query('UPDATE '.acym_secureDBColumn('#__acym_'.$this->table).' SET active = 0 WHERE `'.acym_secureDBColumn($this->pkey).'` IN ('.implode(',', $elements).')');
     }
 }
 

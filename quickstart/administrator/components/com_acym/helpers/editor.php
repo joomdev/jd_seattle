@@ -1,18 +1,10 @@
 <?php
-/**
- * @package	AcyMailing for Joomla
- * @version	6.2.2
- * @author	acyba.com
- * @copyright	(C) 2009-2019 ACYBA S.A.R.L. All rights reserved.
- * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
- */
-
 defined('_JEXEC') or die('Restricted access');
 ?><?php
 
-use Joomla\CMS\Editor\Editor AS Editor;
+use Joomla\CMS\Editor\Editor as Editor;
 
-class acymeditorHelper
+class acymeditorHelper extends acymObject
 {
     var $width = '95%';
     var $height = '600';
@@ -31,17 +23,35 @@ class acymeditorHelper
     var $mailId = 0;
     var $automation = false;
     var $walkThrough = false;
+    var $emailsTest;
+
+    var $data = [];
+    var $defaultTemplate = '';
 
     public function display()
     {
-
         if ($this->isDragAndDrop()) {
+            ob_start();
+            include ACYM_PARTIAL.'editor'.DS.'default_template.php';
+            $this->defaultTemplate = ob_get_clean();
+
+            acym_disableCmsEditor();
+            $currentEmail = acym_currentUserEmail();
+            $this->emailsTest = [$currentEmail => $currentEmail];
             acym_addScript(false, ACYM_JS.'tinymce/tinymce.min.js?v='.filemtime(ACYM_MEDIA.'js'.DS.'tinymce/tinymce.min.js'));
-            include(ACYM_VIEW.'mails'.DS.'tmpl'.DS.'editor_wysid.php');
+
+            $data = $this->data;
+            include ACYM_VIEW.'mails'.DS.'tmpl'.DS.'editor_wysid.php';
         } else {
-            echo 'joomla' === ACYM_CMS ? '</div></div><div class="acym_no_foundation"><div>' : '</div><div class="acym_no_foundation"><div>';
+
+            if (acym_isLeftMenuNecessary()) echo '</div>';
+
+            echo '</div><div class="acym_no_foundation">';
+
             $method = 'displayJoomla';
             $this->$method();
+
+            if (acym_isLeftMenuNecessary()) echo '<div>';
         }
     }
 
@@ -106,6 +116,7 @@ class acymeditorHelper
 
         $mail = $mailClass->getOneById($this->mailId);
         $stylesheet = empty($mail) ? '' : trim(preg_replace('/\s\s+/', ' ', $mailClass->buildCSS($mail->stylesheet)));
+        $stylesheet = str_replace('"', '\"', $stylesheet);
 
         $options = [
             'editor_css' => '<style type="text/css">
@@ -127,21 +138,20 @@ class acymeditorHelper
 
     private function getWYSIDSettings()
     {
-        if ($this->settings != 'editor_settings') return $this->settings;
-
-        $id = acym_getVar('int', 'id');
-
-        if (empty($id)) return null;
-
         $ctrl = acym_getVar('string', 'ctrl');
-        if ($ctrl == 'mails') {
-            $query = 'SELECT settings FROM #__acym_mail WHERE id = '.intval($id);
-        } elseif ($ctrl == 'campaigns') {
-            $query = 'SELECT settings FROM #__acym_mail AS mail JOIN #__acym_campaign AS campaign ON mail.id = campaign.mail_id WHERE campaign.id = '.intval($id);
-        } else {
-            return '{}';
+        if ($this->isResetCampaign() || !in_array($ctrl, ['mails', 'campaigns', 'frontmails', 'frontcampaigns'])) return '{}';
+
+        $id = acym_getVar('int', 'from', 0);
+        if ($this->settings != 'editor_settings' && empty($id)) return $this->settings;
+
+        if (empty($id)) {
+            $id = acym_getVar('int', 'id');
+            if (!empty($id) && $ctrl == 'campaigns') $id = acym_loadResult('SELECT mail_id FROM #__acym_campaign WHERE id = '.intval($id));
         }
 
+        if (empty($id)) return '{}';
+
+        $query = 'SELECT settings FROM #__acym_mail WHERE id = '.intval($id);
         $settings = acym_loadResult($query);
 
         return empty($settings) ? '{}' : $settings;
@@ -149,31 +159,45 @@ class acymeditorHelper
 
     private function getWYSIDStylesheet()
     {
-        if ($this->stylesheet != 'editor_stylesheet') return $this->stylesheet;
-
-        $id = acym_getVar('int', 'id');
-        $notification = acym_getVar('string', 'notification');
         $ctrl = acym_getVar('string', 'ctrl');
+        if ($this->isResetCampaign() || !in_array($ctrl, ['mails', 'campaigns', 'frontmails', 'frontcampaigns'])) return '';
 
-        if (!in_array($ctrl, ['mails', 'campaigns'])) return null;
+        $id = acym_getVar('int', 'from', 0);
+        if ($this->stylesheet != 'editor_stylesheet' && !empty($id)) return $this->stylesheet;
+
+        $notification = acym_getVar('string', 'notification');
+
+        if (empty($id)) {
+            $id = acym_getVar('int', 'id');
+            if (!empty($id) && $ctrl == 'campaigns') $id = acym_loadResult('SELECT mail_id FROM #__acym_campaign WHERE id = '.intval($id));
+        }
+
 
         if (!empty($id)) {
-            if ($ctrl == 'mails') {
-                $query = 'SELECT stylesheet FROM #__acym_mail WHERE id = '.intval($id);
-            } elseif ($ctrl == 'campaigns') {
-                $query = 'SELECT stylesheet FROM #__acym_mail AS mail JOIN #__acym_campaign AS campaign ON mail.id = campaign.mail_id WHERE campaign.id = '.intval($id);
+            if (in_array($ctrl, ['mails', 'campaigns', 'frontmails', 'frontcampaigns'])) {
+                $stylesheet = acym_loadResult('SELECT stylesheet FROM #__acym_mail WHERE id = '.intval($id));
             }
-
-            $stylesheet = acym_loadResult($query);
 
             return empty($stylesheet) ? '' : $stylesheet;
         } elseif (!empty($notification)) {
-            $stylesheet = acym_loadResult('SELECT stylesheet FROM #__acym_mail WHERE `type` = "notification" AND `name` = '.acym_escapeDB($notification));
+            $stylesheet = acym_loadResult(
+                'SELECT stylesheet 
+                FROM #__acym_mail 
+                WHERE `type` = "notification" 
+                    AND `name` = '.acym_escapeDB($notification)
+            );
 
             return empty($stylesheet) ? '' : $stylesheet;
         }
 
         return null;
+    }
+
+    private function isResetCampaign()
+    {
+        $fromId = acym_getVar('int', 'from', 0);
+
+        return -1 == $fromId;
     }
 
     private function getWYSIDThumbnail()
@@ -233,6 +257,22 @@ class acymeditorHelper
         $this->addButtonAtPosition($buttons, 'backcolor', 'forecolor');
 
         return $buttons;
+    }
+
+    public function getSettingsStyle($settings)
+    {
+        if (empty($settings) || !is_array($settings)) return '';
+
+        $styles = '';
+        foreach ($settings as $element => $rules) {
+            $styles .= '#acym__wysid__template '.$element.':not(.acym__wysid__content-no-settings-style){';
+            foreach ($rules as $ruleName => $value) {
+                $styles .= $ruleName.': '.$value.';';
+            }
+            $styles .= '}';
+        }
+
+        return $styles;
     }
 }
 

@@ -1,12 +1,4 @@
 <?php
-/**
- * @package	AcyMailing for Joomla
- * @version	6.2.2
- * @author	acyba.com
- * @copyright	(C) 2009-2019 ACYBA S.A.R.L. All rights reserved.
- * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
- */
-
 defined('_JEXEC') or die('Restricted access');
 ?><?php
 
@@ -15,26 +7,24 @@ class acymmailClass extends acymClass
     var $table = 'mail';
     var $pkey = 'id';
     var $templateNames = [];
-    var $checkAreas = true;
 
     const FIELDS_ENCODING = ['name', 'subject', 'body', 'autosave', 'preheader'];
 
-    public function getMatchingMails($settings)
+    public function getMatchingElements($settings = [])
     {
         $query = 'SELECT mail.* FROM #__acym_mail AS mail';
         $queryCount = 'SELECT COUNT(mail.id) FROM #__acym_mail AS mail';
-        $queryStatus = 'SELECT COUNT(mail.type) AS number, mail.type FROM #__acym_mail AS mail';
 
         $filters = [];
+        $tagJoin = '';
 
         if (!empty($settings['tag'])) {
-            $tagJoin = ' JOIN #__acym_tag AS tag ON mail.id = tag.id_element';
-            $query .= $tagJoin;
-            $queryCount .= $tagJoin;
-            $queryStatus .= $tagJoin;
+            $tagJoin = ' JOIN #__acym_tag AS tag ON mail.id = tag.id_element ';
             $filters[] = 'tag.name = '.acym_escapeDB($settings['tag']);
             $filters[] = 'tag.type = "mail"';
         }
+        $query .= $tagJoin;
+        $queryCount .= $tagJoin;
 
         if (!empty($settings['search'])) {
             $filters[] = 'mail.name LIKE '.acym_escapeDB('%'.$settings['search'].'%');
@@ -48,45 +38,49 @@ class acymmailClass extends acymClass
             }
         }
 
-        if (empty($settings['automation']) || !$settings['automation']) {
-
-            if (!empty($settings['editor'])) {
-                if ($settings['editor'] == 'html') {
-                    $filters[] .= 'mail.drag_editor = 0';
-                } else {
-                    $filters[] .= 'mail.drag_editor = 1';
-                }
-            }
-
-            if (empty($settings['onlyStandard'])) {
-                $filters[] = 'mail.type != \'notification\'';
+        if (!empty($settings['editor'])) {
+            if ($settings['editor'] == 'html') {
+                $filters[] .= 'mail.drag_editor = 0';
             } else {
-                $filters[] = 'mail.type = \'standard\'';
+                $filters[] .= 'mail.drag_editor = 1';
             }
+        }
 
+        if (!empty($settings['automation']) || empty($settings['onlyStandard'])) {
+            $filters[] = 'mail.type != "notification"';
+        } else {
+            $filters[] = 'mail.type = "standard"';
+        }
+
+        $filters[] = 'mail.parent_id IS NULL';
+
+        if (empty($settings['automation'])) {
             $filters[] = 'mail.template = 1';
         }
 
+        if (!empty($settings['creator_id'])) {
+            $userGroups = acym_getGroupsByUser($settings['creator_id']);
+            $groupCondition = '(mail.access LIKE "%,'.implode(',%" OR mail.access LIKE "%,', $userGroups).',%")';
+            $filter = 'mail.creator_id = '.intval($settings['creator_id']).' OR (mail.template = 1 AND '.$groupCondition.')';
+            if (!acym_isAdmin() && !empty($settings['element_tab'])) {
+                $listGroup = $groupCondition = '(list.access LIKE "%,'.implode(',%" OR list.access LIKE "%,', $userGroups).',%")';
+                $listFilter = 'list.cms_user_id = '.intval($settings['creator_id']).' OR '.$listGroup;
+                $filter = '(mail.creator_id = '.intval($settings['creator_id']).' OR (mail.template = 1 AND '.$groupCondition.')) OR '.$listFilter;
+            }
 
-        if (!empty($filters)) {
-            $queryStatus .= ' WHERE ('.implode(') AND (', $filters).')';
+            $filters['list'] = '('.$filter.')';
         }
 
-        if (!empty($settings['status'])) {
-            $allowedStatus = [
-                'standard',
-                'welcome',
-                'unsubscribe',
-            ];
-
-            if (!in_array($settings['status'], $allowedStatus)) {
-                die('Injection denied');
-            }
-            $filters[] = 'mail.type = '.acym_escapeDB($settings['status']);
+        if (!empty($settings['element_tab'])) {
+            $statJoin = ' LEFT JOIN #__acym_mail_stat AS mail_stat ON mail.id = mail_stat.mail_id ';
+            $listJoin = acym_isAdmin() ? '' : ' LEFT JOIN #__acym_list AS list ON list.'.acym_escape($settings['element_tab']).'_id = mail.id';
+            $query = 'SELECT DISTINCT mail.*, mail_stat.sent as subscribers, mail_stat.open_unique FROM #__acym_mail AS mail'.$statJoin.$tagJoin.$listJoin;
+            $filters[] = 'mail.type = '.acym_escapeDB($settings['element_tab']);
         }
 
         if (!empty($filters)) {
             $query .= ' WHERE ('.implode(') AND (', $filters).')';
+            if (!acym_isAdmin()) unset($filters['list']);
             $queryCount .= ' WHERE ('.implode(') AND (', $filters).')';
         }
 
@@ -94,28 +88,57 @@ class acymmailClass extends acymClass
             $query .= ' ORDER BY mail.'.acym_secureDBColumn($settings['ordering']).' '.acym_secureDBColumn(strtoupper($settings['ordering_sort_order']));
         }
 
-        $results['mails'] = $this->decode(acym_loadObjectList($query, '', $settings['offset'], $settings['mailsPerPage']));
-        $results['total'] = acym_loadResult($queryCount);
-
-        $mailsPerStatus = acym_loadObjectList($queryStatus.' GROUP BY type', 'type');
-        $nbAllMail = 0;
-        foreach ($mailsPerStatus as $oneMailType) {
-            $nbAllMail += $oneMailType->number;
+        if (empty($settings['offset']) || $settings['offset'] < 0) {
+            $settings['offset'] = 0;
         }
 
-        $results['status'] = [
-            'all' => $nbAllMail,
-            'standard' => !empty($mailsPerStatus['standard']->number) ? $mailsPerStatus['standard']->number : 0,
-            'welcome' => !empty($mailsPerStatus['welcome']->number) ? $mailsPerStatus['welcome']->number : 0,
-            'unsubscribe' => !empty($mailsPerStatus['unsubscribe']->number) ? $mailsPerStatus['unsubscribe']->number : 0,
-        ];
+        if (empty($settings['elementsPerPage']) || $settings['elementsPerPage'] < 1) {
+            $pagination = acym_get('helper.pagination');
+            $settings['elementsPerPage'] = $pagination->getListLimit();
+        }
+
+        $results['elements'] = $this->decode(acym_loadObjectList($query, '', $settings['offset'], $settings['elementsPerPage']));
+        $results['total'] = acym_loadResult($queryCount);
+
+        if (!empty($settings['element_tab'])) {
+            $this->getAllListIdsForWelcomeUnsub($results['elements'], $settings['element_tab']);
+        }
+
+        $results['status'] = [];
+
+        if (!empty($settings['element_tab'])) {
+            $urlClickClass = acym_get('class.urlclick');
+            for ($i = 0 ; $i < count($results['elements']) ; $i++) {
+                $results['elements'][$i]->open = 0;
+                if (!empty($results['elements'][$i]->subscribers)) {
+                    $results['elements'][$i]->open = number_format($results['elements'][$i]->open_unique / $results['elements'][$i]->subscribers * 100, 2);
+
+                    $clicksNb = $urlClickClass->getNumberUsersClicked($results['elements'][$i]->id);
+                    $results['elements'][$i]->click = number_format($clicksNb / $results['elements'][$i]->subscribers * 100, 2);
+                }
+            }
+        }
 
         return $results;
     }
 
-    public function getAll()
+    private function getAllListIdsForWelcomeUnsub(&$elements, $type)
     {
-        return $this->decode(acym_loadObjectList('SELECT * FROM #__acym_mail'));
+        if (empty($elements)) return true;
+        $column = $type == 'welcome' ? 'welcome_id' : 'unsubscribe_id';
+
+        foreach ($elements as $key => $element) {
+            $elements[$key]->lists = acym_loadObjectList('SELECT color, name FROM #__acym_list WHERE '.$column.' = '.intval($element->id));
+        }
+
+        return true;
+    }
+
+    public function getAll($key = null)
+    {
+        $allMails = parent::getAll($key);
+
+        return $this->decode($allMails);
     }
 
     public function getOneById($id)
@@ -127,12 +150,17 @@ class acymmailClass extends acymClass
             $mail->tags = $tagsClass->getAllTagsByElementId('mail', $id);
         }
 
+        if (isset($mail->access) && !is_array($mail->access)) $mail->access = explode(',', $mail->access);
+
         return $mail;
     }
 
-    public function getOneByName($name)
+    public function getOneByName($name, $library = false)
     {
-        $mail = $this->decode(acym_loadObject('SELECT * FROM #__acym_mail WHERE `name` = '.acym_escapeDB($name)));
+        $query = 'SELECT * FROM #__acym_mail WHERE `parent_id` IS NULL AND `name` = '.acym_escapeDB($name);
+        if ($library) $query .= ' AND `library` = 1';
+
+        $mail = $this->decode(acym_loadObject($query));
 
         if (!empty($mail)) {
             $tagsClass = acym_get('class.tag');
@@ -190,14 +218,15 @@ class acymmailClass extends acymClass
                         AND userLists.status = 1
                         AND acyuser.active = 1 ';
 
-        $config = acym_config();
-        if ($config->get('require_confirmation', 1) == 1) {
+        if ($this->config->get('require_confirmation', 1) == 1) {
             $query .= ' AND acyuser.confirmed = 1 ';
         }
 
         $query .= 'ON list.id = userLists.list_id    
-                    WHERE mailLists.mail_id IN ('.implode(",", $ids).')
+                    WHERE mailLists.mail_id IN ('.implode(',', $ids).')
                     GROUP BY mailLists.list_id, mailLists.mail_id';
+
+        acym_query('SET SQL_BIG_SELECTS=1');
 
         return acym_loadObjectList($query);
     }
@@ -221,8 +250,21 @@ class acymmailClass extends acymClass
         return acym_loadObjectList($query, 'id');
     }
 
-    public function save($mail)
+    public function getAllListsByMailIdAndUserId($mailId, $userId)
     {
+        if (empty($mailId) || empty($userId)) return [];
+
+        $query = 'SELECT list.* FROM #__acym_list AS list';
+        $query .= ' JOIN #__acym_user_has_list AS userlist ON list.id = userlist.list_id AND userlist.user_id = '.intval($userId);
+        $query .= ' JOIN #__acym_mail_has_list AS maillist ON maillist.list_id = list.id AND maillist.mail_id = '.intval($mailId);
+
+        return acym_loadObjectList($query);
+    }
+
+    public function save($mailToSave)
+    {
+        $mail = clone $mailToSave;
+
         if (isset($mail->tags)) {
             $tags = $mail->tags;
             unset($mail->tags);
@@ -237,9 +279,15 @@ class acymmailClass extends acymClass
 
         $mail->autosave = null;
 
+        if (empty($mail->thumbnail) || strpos($mail->thumbnail, 'data:image/png;base64') !== false) unset($mail->thumbnail);
+        if (!isset($mail->access)) $mail->access = '';
+
         foreach ($mail as $oneAttribute => $value) {
             if (empty($value) || in_array($oneAttribute, ['thumbnail', 'settings'])) {
                 continue;
+            }
+            if ($oneAttribute === 'access' && is_array($mail->$oneAttribute)) {
+                $mail->$oneAttribute = ','.trim(implode(',', $mail->$oneAttribute), ',').',';
             }
 
             if (in_array($oneAttribute, ['body', 'headers'])) {
@@ -261,11 +309,25 @@ class acymmailClass extends acymClass
         return $mailID;
     }
 
-    public function autoSave($mail)
+    public function autoSave($mail, $language = 'main')
     {
         if (empty($mail->id)) return false;
-
         $mail->autosave = str_replace(' contenteditable="true"', '', $mail->autosave);
+
+        if (acym_isMultilingual() && $language !== 'main') {
+            $translationId = $this->getTranslationId($mail->id, $language);
+            if (empty($translationId)) {
+                $parentCopy = $this->getOneById($mail->id);
+                if (empty($parentCopy)) return false;
+
+                unset($parentCopy->id);
+                $parentCopy->parent_id = $mail->id;
+                $parentCopy->language = $language;
+                $translationId = $this->save($parentCopy);
+            }
+            $mail->id = $translationId;
+        }
+
         $mail = $this->encode($mail);
 
         return parent::save($mail);
@@ -281,14 +343,14 @@ class acymmailClass extends acymClass
         acym_arrayToInteger($elements);
 
         $allThumbnailToDelete = acym_loadResultArray('SELECT thumbnail FROM #__acym_mail WHERE id IN ('.implode(',', $elements).')');
-
-        $link = 'wordpress' === ACYM_CMS ? WP_CONTENT_DIR.DS.'uploads'.DS.'acymailing'.DS : ACYM_MEDIA.'images';
-
         foreach ($allThumbnailToDelete as $one) {
-            if (!empty($one) && file_exists($link.$one)) {
-                unlink($link.$one);
+            if (!empty($one) && file_exists(ACYM_UPLOAD_FOLDER_THUMBNAIL.$one)) {
+                unlink(ACYM_UPLOAD_FOLDER_THUMBNAIL.$one);
             }
         }
+
+        $translations = acym_loadResultArray('SELECT id FROM #__acym_mail WHERE parent_id IN ('.implode(',', $elements).')');
+        $elements = array_merge($elements, $translations);
 
         acym_query('UPDATE #__acym_list SET welcome_id = null WHERE welcome_id IN ('.implode(',', $elements).')');
         acym_query('UPDATE #__acym_list SET unsubscribe_id = null WHERE unsubscribe_id IN ('.implode(',', $elements).')');
@@ -329,7 +391,13 @@ class acymmailClass extends acymClass
         }
         $decodedAttach = json_decode($attachments, true);
         unset($decodedAttach[$idAttachment]);
-        $attachdb = json_encode($decodedAttach);
+        $newAttachments = [];
+        if (!empty($decodedAttach)) {
+            foreach ($decodedAttach as $oneAttach) {
+                $newAttachments[] = $oneAttach;
+            }
+        }
+        $attachdb = json_encode($newAttachments);
 
         return acym_query('UPDATE #__acym_mail SET attachments = '.acym_escapeDB($attachdb).' WHERE id = '.intval($mailid).' LIMIT 1');
     }
@@ -356,7 +424,7 @@ class acymmailClass extends acymClass
         if (acym_writeFile($cssfile, $css)) {
             return $cssfile;
         } else {
-            acym_enqueueNotification('Could not create the file '.$cssfile, 'error');
+            acym_enqueueMessage('Could not create the file '.$cssfile, 'error');
 
             return '';
         }
@@ -378,24 +446,7 @@ class acymmailClass extends acymClass
         return $inline;
     }
 
-    public function getAllTemplatesForSelect()
-    {
-        $query = 'SELECT `id`, `subject`, `name` FROM #__acym_mail WHERE `template` IN(0, 2) AND `name` != "acy_report"';
-
-        $mails = $this->decode(acym_loadObjectList($query, 'id'));
-
-        $return = [];
-        $return[] = acym_translation('ACYM_SELECT_A_MAIL');
-        $return[-1] = acym_translation('ACYM_ALL_MAILS');
-
-        foreach ($mails as $id => $mail) {
-            $return[$id] = empty($mail->subject) ? $mail->name : $mail->subject;
-        }
-
-        return $return;
-    }
-
-    function doupload()
+    public function doupload()
     {
         $importFile = acym_getVar('none', 'uploadedfile', '', 'files');
 
@@ -403,29 +454,29 @@ class acymmailClass extends acymClass
         if ($fileError > 0) {
             switch ($fileError) {
                 case 1:
-                    acym_enqueueNotification(acym_translation_sprintf('ACYM_FILE_UPLOAD_ERROR_1'), 'error');
+                    acym_enqueueMessage(acym_translation('ACYM_FILE_UPLOAD_ERROR_1'), 'error');
 
                     return false;
                 case 2:
-                    acym_enqueueNotification(acym_translation_sprintf('ACYM_FILE_UPLOAD_ERROR_2'), 'error');
+                    acym_enqueueMessage(acym_translation('ACYM_FILE_UPLOAD_ERROR_2'), 'error');
 
                     return false;
                 case 3:
-                    acym_enqueueNotification(acym_translation_sprintf('ACYM_FILE_UPLOAD_ERROR_3'), 'error');
+                    acym_enqueueMessage(acym_translation('ACYM_FILE_UPLOAD_ERROR_3'), 'error');
 
                     return false;
                 case 4:
-                    acym_enqueueNotification(acym_translation_sprintf('ACYM_FILE_UPLOAD_ERROR_4'), 'error');
+                    acym_enqueueMessage(acym_translation('ACYM_FILE_UPLOAD_ERROR_4'), 'error');
 
                     return false;
                 default:
-                    acym_enqueueNotification(acym_translation_sprintf('ACYM_FILE_UPLOAD_ERROR_5', $fileError), 'error');
+                    acym_enqueueMessage(acym_translation_sprintf('ACYM_FILE_UPLOAD_ERROR_5', $fileError), 'error');
 
                     return false;
             }
         }
         if (empty($importFile['name'])) {
-            acym_enqueueNotification(acym_translation('ACYM_BROWSE_FILE'), 'error');
+            acym_enqueueMessage(acym_translation('ACYM_BROWSE_FILE'), 'error');
 
             return false;
         }
@@ -435,12 +486,12 @@ class acymmailClass extends acymClass
         if (!is_writable($uploadPath)) {
             @chmod($uploadPath, '0755');
             if (!is_writable($uploadPath)) {
-                acym_enqueueNotification(acym_translation_sprintf('ACYM_WRITABLE_FOLDER', $uploadPath), 'warning');
+                acym_enqueueMessage(acym_translation_sprintf('ACYM_WRITABLE_FOLDER', $uploadPath), 'warning');
             }
         }
 
         if (!(bool)ini_get('file_uploads')) {
-            acym_enqueueNotification(acym_translation_sprintf('ACYM_FILE_UPLOAD_ERROR_6'), 'error');
+            acym_enqueueMessage(acym_translation_sprintf('ACYM_FILE_UPLOAD_ERROR_6'), 'error');
 
             return false;
         }
@@ -455,7 +506,7 @@ class acymmailClass extends acymClass
         $extension = strtolower(substr($filename, strrpos($filename, '.') + 1));
 
         if (!in_array($extension, ['zip', 'tar.gz'])) {
-            acym_enqueueNotification(acym_translation_sprintf('ACYM_ACCEPTED_TYPE', $extension, 'zip,tar.gz'), 'error');
+            acym_enqueueMessage(acym_translation_sprintf('ACYM_ACCEPTED_TYPE', $extension, 'zip,tar.gz'), 'error');
 
             return false;
         }
@@ -466,7 +517,7 @@ class acymmailClass extends acymClass
 
         $uploaded = acym_uploadFile($tmp_src, $tmp_dest);
         if (!$uploaded) {
-            acym_enqueueNotification(acym_translation_sprintf('ACYM_FILE_UPLOAD_ERROR_7', $tmp_src, $tmp_dest), 'error');
+            acym_enqueueMessage(acym_translation_sprintf('ACYM_FILE_UPLOAD_ERROR_7', $tmp_src, $tmp_dest), 'error');
 
             return false;
         }
@@ -484,12 +535,12 @@ class acymmailClass extends acymClass
                 continue;
             }
             if (acym_deleteFile($oneFile)) {
-                acym_enqueueNotification(acym_translation_sprintf('ACYM_FILE_UPLOAD_ERROR_8', $oneFile), 'warning');
+                acym_enqueueMessage(acym_translation_sprintf('ACYM_FILE_UPLOAD_ERROR_8', $oneFile), 'warning');
             }
         }
 
         if (!$result) {
-            acym_enqueueNotification(acym_translation_sprintf('ACYM_FILE_UPLOAD_ERROR_9', $tmp_dest, $extractdir), 'error');
+            acym_enqueueMessage(acym_translation_sprintf('ACYM_FILE_UPLOAD_ERROR_9', $tmp_dest, $extractdir), 'error');
 
             return false;
         }
@@ -498,25 +549,25 @@ class acymmailClass extends acymClass
 
             $messages = $this->templateNames;
             array_unshift($messages, acym_translation_sprintf('ACYM_TEMPLATES_INSTALL', count($this->templateNames)));
-            acym_enqueueNotification($messages, 'success');
+            acym_enqueueMessage($messages, 'success');
             if (is_dir($extractdir)) acym_deleteFolder($extractdir);
 
             return true;
         }
 
-        acym_enqueueNotification(acym_translation_sprintf('ACYM_FILE_UPLOAD_ERROR_10'), 'error');
+        acym_enqueueMessage(acym_translation_sprintf('ACYM_FILE_UPLOAD_ERROR_10'), 'error');
         if (is_dir($extractdir)) acym_deleteFolder($extractdir);
 
         return false;
     }
 
-    function detecttemplates($folder)
+    public function detecttemplates($folder)
     {
         $allFiles = acym_getFiles($folder);
         if (!empty($allFiles)) {
             foreach ($allFiles as $oneFile) {
                 if (preg_match('#^.*(html|htm)$#i', $oneFile)) {
-                    if ($this->installtemplate($folder.DS.$oneFile)) return true;
+                    if ($this->_installtemplate($folder.DS.$oneFile)) return true;
                 }
             }
         }
@@ -532,7 +583,7 @@ class acymmailClass extends acymClass
         return $status;
     }
 
-    function installtemplate($filepath)
+    private function _installtemplate($filepath)
     {
         $fileContent = acym_fileGetContent($filepath);
 
@@ -540,11 +591,12 @@ class acymmailClass extends acymClass
         $newTemplate->name = trim(preg_replace('#[^a-z0-9]#i', ' ', substr(dirname($filepath), strpos($filepath, '_template'))));
         if (preg_match('#< *title[^>]*>(.*)< */ *title *>#Uis', $fileContent, $results) && !empty($results[1])) $newTemplate->name = $results[1];
 
-        if (preg_match('#< *meta *name="description" *content="([^"]*)"#Uis', $fileContent, $results) && !empty($results[1])) $newTemplate->description = $results[1];
         if (preg_match('#< *meta *name="fromname" *content="([^"]*)"#Uis', $fileContent, $results) && !empty($results[1])) $newTemplate->fromname = $results[1];
         if (preg_match('#< *meta *name="fromemail" *content="([^"]*)"#Uis', $fileContent, $results) && !empty($results[1])) $newTemplate->fromemail = $results[1];
         if (preg_match('#< *meta *name="replyname" *content="([^"]*)"#Uis', $fileContent, $results) && !empty($results[1])) $newTemplate->replyname = $results[1];
         if (preg_match('#< *meta *name="replyemail" *content="([^"]*)"#Uis', $fileContent, $results) && !empty($results[1])) $newTemplate->replyemail = $results[1];
+        if (preg_match('#< *meta *name="subject" *content="([^"]*)"#Uis', $fileContent, $results) && !empty($results[1])) $newTemplate->subject = $results[1];
+        if (preg_match('#< *meta *name="settings" *content="([^"]*)"#Uis', $fileContent, $results) && !empty($results[1])) $newTemplate->settings = htmlspecialchars_decode($results[1]);
 
         $newFolder = preg_replace('#[^a-z0-9]#i', '_', strtolower($newTemplate->name));
         $newTemplateFolder = $newFolder;
@@ -630,9 +682,8 @@ class acymmailClass extends acymClass
 
         $uploadsFolder = ACYM_UPLOAD_FOLDER_THUMBNAIL;
 
-        $config = acym_config();
         $newConfig = new stdClass();
-        $thumbNb = intval($config->get('numberThumbnail', 2));
+        $thumbNb = intval($this->config->get('numberThumbnail', 2));
 
         foreach ($allPictures as $folder => $pictfolders) {
             foreach ($pictfolders as $onePict) {
@@ -647,7 +698,7 @@ class acymmailClass extends acymClass
         }
 
         $newConfig->numberThumbnail = $thumbNb;
-        $config->save($newConfig);
+        $this->config->save($newConfig);
 
         $newTemplate->drag_editor = 0;
         $newTemplate->type = "standard";
@@ -665,7 +716,6 @@ class acymmailClass extends acymClass
 
     public function sendAutomation($mailId, $userIds, $sendingDate, $automationAdmin = [])
     {
-
         if (empty($mailId)) return acym_translation_sprintf('ACYM_EMAILS_ADDED_QUEUE', 0);
         if (empty($sendingDate)) return acym_translation('ACYM_WRONG_DATE');
         if (empty($userIds)) return acym_translation('ACYM_USER_NOT_FOUND');
@@ -753,6 +803,11 @@ class acymmailClass extends acymClass
 
         $return = array_map([$this, 'utf8Decode'], $mails);
 
+        foreach ($return as $i => $oneMail) {
+            if (!isset($oneMail->access) || is_array($oneMail->access)) continue;
+            $return[$i]->access = empty($oneMail->access) ? '' : explode(',', $oneMail->access);
+        }
+
         return $isArray ? $return : $return[0];
     }
 
@@ -794,6 +849,55 @@ class acymmailClass extends acymClass
         }
 
         return $mail;
+    }
+
+    public function getTranslationId($parentId, $langCode)
+    {
+        return acym_loadResult(
+            'SELECT `id` 
+            FROM #__acym_mail 
+            WHERE `parent_id` = '.intval($parentId).' 
+                AND `language` = '.acym_escapeDB($langCode)
+        );
+    }
+
+    public function getTranslationsById($mailId, $full = false, $includeParent = false)
+    {
+        $data = $full ? '*' : '`language`, `subject`, `preheader`, `body`, `autosave`';
+        $where = $includeParent ? ' OR `id` = '.intval($mailId) : '';
+
+        return $this->decode(
+            acym_loadObjectList(
+                'SELECT '.$data.' 
+                FROM #__acym_mail 
+                WHERE `parent_id` = '.intval($mailId).$where,
+                'language'
+            )
+        );
+    }
+
+    public function deleteByTranslationLang($languageCodes)
+    {
+        if (!is_array($languageCodes)) $languageCodes = [$languageCodes];
+        if (empty($languageCodes)) return;
+
+        foreach ($languageCodes as $key => $oneLangCode) {
+            $languageCodes[$key] = acym_escapeDB($oneLangCode);
+        }
+
+        $this->delete(
+            acym_loadResultArray(
+                'SELECT `id` 
+                FROM #__acym_mail 
+                WHERE `parent_id` IS NOT NULL 
+                    AND `language` IN ('.implode(', ', $languageCodes).')'
+            )
+        );
+    }
+
+    public function getMultilingualMails($parentId)
+    {
+        return $this->decode(acym_loadObjectList('SELECT * FROM #__acym_mail WHERE parent_id = '.intval($parentId).' OR id = '.intval($parentId), 'language'));
     }
 }
 

@@ -1,29 +1,28 @@
 <?php
-/**
- * @package	AcyMailing for Joomla
- * @version	6.2.2
- * @author	acyba.com
- * @copyright	(C) 2009-2019 ACYBA S.A.R.L. All rights reserved.
- * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
- */
-
 defined('_JEXEC') or die('Restricted access');
 ?><div class="acym__content acym__stats" id="acym_stats_detailed">
     <?php if (!empty($data['emptyDetailed']) && $data['emptyDetailed'] == 'campaigns') { ?>
-		<h1 class="acym__listing__empty__title text-center cell"><?php echo acym_translation('ACYM_DONT_HAVE_STATS_CAMPAIGN'); ?>. <a href="<?php echo acym_completeLink('campaigns&task=edit&step=chooseTemplate'); ?>"><?php echo acym_translation('ACYM_CREATE_ONE'); ?>!</a></h1>
+		<h1 class="acym__listing__empty__title text-center cell"><?php echo acym_translation('ACYM_DONT_HAVE_STATS_CAMPAIGN'); ?> <a href="<?php echo acym_completeLink('campaigns&task=edit&step=chooseTemplate'); ?>"><?php echo acym_translation('ACYM_CREATE_ONE'); ?></a></h1>
     <?php } elseif (!empty($data['emptyDetailed']) && $data['emptyDetailed'] == 'stats') { ?>
 		<h1 class="acym__listing__empty__title text-center cell"><?php echo acym_translation('ACYM_DONT_HAVE_STATS_THIS_CAMPAIGN'); ?></a></h1>
+    <?php } elseif (empty($data['detailed_stats'])) { ?>
+		<h1 class="acym__listing__empty__title text-center cell"><?php echo acym_translation('ACYM_NO_DETAILED_STATS'); ?></a></h1>
     <?php } else { ?>
 		<div class="cell grid-x">
-			<div class="cell grid-x auto">
-				<div class="large-3 medium-4 small-12 cell acym_stats_detailed_search">
-                    <?php echo acym_filterSearch($data["search"], 'detailed_stats_search', 'ACYM_SEARCH_A_CAMPAIGN_NAME_OR_EMAIL'); ?>
+			<div class="cell grid-x">
+				<div class="cell grid-x auto">
+					<div class="medium-5 small-12 cell acym_stats_detailed_search">
+                        <?php echo acym_filterSearch($data['search'], 'detailed_stats_search', 'ACYM_SEARCH'); ?>
+					</div>
+					<div class="medium-4 small-12 cell acym__stats__campaign-choose">
+					</div>
 				</div>
-				<div class="large-3 medium-4 small-12 cell acym__stats__campaign-choose">
+				<div class="cell auto align-right grid-x">
+					<button type="button" class="cell shrink button primary acy_button_submit acym__stats__export__button " data-task="exportDetailed"><?php echo acym_translation('ACYM_EXPORT'); ?></button>
 				</div>
 			</div>
-			<div class="grid-x cell auto">
-				<div class="cell acym_listing_sorty-by">
+			<div class="grid-x cell align-right">
+				<div class="cell acym_listing_sort-by">
                     <?php echo acym_sortBy(
                         [
                             'send_date' => acym_translation('ACYM_SEND_DATE'),
@@ -47,8 +46,11 @@ defined('_JEXEC') or die('Restricted access');
 					<div class="large-2 medium-3 small-3 cell acym__listing__header__title">
                         <?php echo acym_translation('ACYM_NAME'); ?>
 					</div>
-					<div class="large-3 medium-4 small-4 cell acym__listing__header__title">
+					<div class="large-2 medium-3 small-4 cell acym__listing__header__title">
                         <?php echo acym_translation('ACYM_USER'); ?>
+					</div>
+					<div class="large-1 medium-1 small-1 cell acym__listing__header__title text-center">
+                        <?php echo acym_translation('ACYM_TOTAL_CLICK'); ?>
 					</div>
 					<div class="large-1 medium-1 small-1 cell acym__listing__header__title text-center">
                         <?php echo acym_translation('ACYM_OPENED'); ?>
@@ -76,7 +78,13 @@ defined('_JEXEC') or die('Restricted access');
 						<div class="large-2 medium-3 small-3 cell acym__listing__detailed__stats__content">
                             <?php
                             if (!empty($detailed_stat->campaign_id)) {
-                                $name = '<a href="'.acym_completeLink('campaigns&task=edit&step=editEmail&id='.$detailed_stat->campaign_id).'" class="word-break acym__color__blue">'.$detailed_stat->name.'</a>';
+                                if (empty($detailed_stat->parent_id)) {
+                                    $link = acym_completeLink('campaigns&task=edit&step=editEmail&id='.$detailed_stat->campaign_id);
+                                } else {
+                                    $link = acym_completeLink('campaigns&task=summaryGenerated&id='.$detailed_stat->campaign_id);
+                                }
+
+                                $name = '<a href="'.$link.'" class="word-break acym__color__blue">'.$detailed_stat->name.'</a>';
                             } else {
                                 $name = $detailed_stat->name;
                             }
@@ -84,8 +92,11 @@ defined('_JEXEC') or die('Restricted access');
 
                             ?>
 						</div>
-						<div class="large-3 medium-4 small-4 cell acym__listing__detailed__stats__content">
+						<div class="large-2 medium-3 small-4 cell acym__listing__detailed__stats__content">
 							<a href="<?php echo acym_completeLink('users&task=edit&id='.$detailed_stat->user_id); ?>" class="acym__color__blue word-break"><?php echo $detailed_stat->email; ?></a>
+						</div>
+						<div class="large-1 medium-1 small-1 cell acym__listing__detailed__stats__content text-center">
+							<p class="hide-for-medium-only hide-for-small-only"><?php echo empty($detailed_stat->total_click) ? 0 : $detailed_stat->total_click; ?></p>
 						</div>
 						<div class="large-1 medium-1 small-1 cell acym__listing__detailed__stats__content text-center">
 							<p class="hide-for-medium-only hide-for-small-only"><?php echo $detailed_stat->open; ?></p>
@@ -101,8 +112,8 @@ defined('_JEXEC') or die('Restricted access');
 						</div>
 						<div class="large-1 medium-1  small-1 cell acym__listing__detailed__stats__content text-center cursor-default">
                             <?php
-                            $targetSuccess = '<i class="acymicon-check_circle acym__listing__detailed_stats_sent__success" ></i>';
-                            $targetFail = '<i class="acymicon-error acym__listing__detailed_stats_sent__fail" ></i>';
+                            $targetSuccess = '<i class="acymicon-check acym__listing__detailed_stats_sent__success" ></i>';
+                            $targetFail = '<i class="acymicon-times acym__listing__detailed_stats_sent__fail" ></i>';
                             echo acym_tooltip(empty($detailed_stat->fail) ? $targetSuccess : $targetFail, acym_translation('ACYM_SENT').' : '.$detailed_stat->sent.' '.acym_translation('ACYM_FAIL').' : '.$detailed_stat->fail);
                             ?>
 						</div>
@@ -116,5 +127,6 @@ defined('_JEXEC') or die('Restricted access');
         echo $data['pagination']->display('detailed_stats');
     } ?>
 </div>
-<?php acym_formOptions(); ?>
+<?php
+acym_formOptions();
 

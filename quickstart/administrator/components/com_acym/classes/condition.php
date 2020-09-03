@@ -1,12 +1,4 @@
 <?php
-/**
- * @package	AcyMailing for Joomla
- * @version	6.2.2
- * @author	acyba.com
- * @copyright	(C) 2009-2019 ACYBA S.A.R.L. All rights reserved.
- * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
- */
-
 defined('_JEXEC') or die('Restricted access');
 ?><?php
 
@@ -17,7 +9,7 @@ class acymconditionClass extends acymClass
 
     public function getOneByStepId($stepId)
     {
-        $query = "SELECT * FROM #__acym_condition WHERE step_id = ".intval($stepId);
+        $query = 'SELECT * FROM #__acym_condition WHERE step_id = '.intval($stepId);
 
         return acym_loadObject($query);
     }
@@ -33,7 +25,9 @@ class acymconditionClass extends acymClass
             return 0;
         }
 
-        acym_query('DELETE FROM #__acym_action WHERE condition_id IN ('.implode(',', $elements).')');
+        $actionClass = acym_get('class.action');
+        $actionsIds = $actionClass->getAllActionsIdByConditionsId($elements);
+        if (!empty($actionsIds)) $actionClass->delete($actionsIds);
 
         return parent::delete($elements);
     }
@@ -60,11 +54,6 @@ class acymconditionClass extends acymClass
         $query = 'SELECT acycondition.* FROM #__acym_condition as acycondition LEFT JOIN #__acym_step AS step ON step.id = acycondition.step_id WHERE step.id = '.intval($id);
 
         return acym_loadObjectList($query);
-    }
-
-    public function getAll()
-    {
-        return acym_loadObjectList('SELECT * FROM #__acym_condition');
     }
 }
 
